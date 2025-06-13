@@ -3,10 +3,6 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
-
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-!v)6(7@u983fg+8gdo1o)dr^59vvp3^ol*apr%c+$0n$#swz-1'
 
@@ -16,7 +12,6 @@ DEBUG = True
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'cmvp-api-v1.onrender.com']
 
 
-# lumina_care/settings.py
 INSTALLED_APPS = [
     'corsheaders',
     'django_tenants',
@@ -108,7 +103,8 @@ SOCIALACCOUNT_PROVIDERS = {
 # Update CORS for OAuth redirects
 CORS_ALLOWED_ORIGINS = [
     'http://app.mydomain.com',
-    'http://localhost:3000',
+    'https://crm-frontend-react.vercel.app/',
+    'https://crm-frontend-react.vercel.app',
     'http://localhost:5173',
     'https://accounts.google.com',
     'https://appleid.apple.com',

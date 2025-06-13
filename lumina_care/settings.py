@@ -13,7 +13,7 @@ SECRET_KEY = 'django-insecure-!v)6(7@u983fg+8gdo1o)dr^59vvp3^ol*apr%c+$0n$#swz-1
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '*.lumina-care.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'cmvp-api-v1.onrender.com']
 
 
 # lumina_care/settings.py

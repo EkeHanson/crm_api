@@ -1,4 +1,3 @@
-# apps/talent_engine/views.py
 from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
@@ -7,9 +6,11 @@ from .serializers import JobRequisitionSerializer
 from .permissions import IsSubscribedAndAuthorized
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter
+from django_tenants.utils import tenant_context
+from django.db import connection
 import logging
-
 logger = logging.getLogger('talent_engine')
+
 
 class JobRequisitionListCreateView(generics.ListCreateAPIView):
     serializer_class = JobRequisitionSerializer
@@ -18,14 +19,26 @@ class JobRequisitionListCreateView(generics.ListCreateAPIView):
     filterset_fields = ['status', 'role']
     search_fields = ['title', 'status', 'requested_by__email', 'role']
 
+
     def get_queryset(self):
-        print(self.request.tenant.schema_name)
-        logger.debug(f"User: {self.request.user}, Tenant: {self.request.tenant.schema_name}")
-        return JobRequisition.objects.filter(tenant=self.request.tenant)
+        tenant = self.request.tenant
+        logger.debug(f"User: {self.request.user}, Tenant: {tenant.schema_name}")
+        logger.debug(f"Schema before set: {connection.schema_name}")
+        connection.set_schema(tenant.schema_name)
+        logger.debug(f"Schema after set: {connection.schema_name}")
+        with connection.cursor() as cursor:
+            cursor.execute("SHOW search_path;")
+            search_path = cursor.fetchone()[0]
+            logger.debug(f"Database search_path: {search_path}")
+        queryset = JobRequisition.objects.filter(tenant=tenant)
+        logger.debug(f"Query: {queryset.query}")
+        return queryset
 
     def perform_create(self, serializer):
-        serializer.save(tenant=self.request.tenant)
-        logger.info(f"Job requisition created: {serializer.validated_data['title']} for tenant {self.request.tenant.schema_name}")
+        tenant = self.request.tenant
+        connection.set_schema(tenant.schema_name)
+        serializer.save(tenant=tenant)
+        logger.info(f"Job requisition created: {serializer.validated_data['title']} for tenant {tenant.schema_name}")
 
 class JobRequisitionDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = JobRequisitionSerializer
@@ -33,15 +46,21 @@ class JobRequisitionDetailView(generics.RetrieveUpdateDestroyAPIView):
     lookup_field = 'id'
 
     def get_queryset(self):
-        return JobRequisition.objects.filter(tenant=self.request.tenant)
+        tenant = self.request.tenant
+        with tenant_context(tenant):
+            return JobRequisition.objects.filter(tenant=tenant)
 
     def perform_update(self, serializer):
-        serializer.save()
-        logger.info(f"Job requisition updated: {serializer.instance.title} for tenant {self.request.tenant.schema_name}")
+        tenant = self.request.tenant
+        with tenant_context(tenant):
+            serializer.save()
+        logger.info(f"Job requisition updated: {serializer.instance.title} for tenant {tenant.schema_name}")
 
     def perform_destroy(self, instance):
-        logger.info(f"Job requisition deleted: {instance.title} for tenant {self.request.tenant.schema_name}")
-        instance.delete()
+        tenant = self.request.tenant
+        with tenant_context(tenant):
+            instance.delete()
+        logger.info(f"Job requisition deleted: {instance.title} for tenant {tenant.schema_name}")
 
 class JobRequisitionBulkDeleteView(generics.GenericAPIView):
     permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized]
@@ -53,14 +72,16 @@ class JobRequisitionBulkDeleteView(generics.GenericAPIView):
             return Response({"detail": "No IDs provided."}, status=status.HTTP_400_BAD_REQUEST)
 
         try:
-            requisitions = JobRequisition.objects.filter(tenant=request.tenant, id__in=ids)
-            count = requisitions.count()
-            if count == 0:
-                logger.warning("No requisitions found for provided IDs")
-                return Response({"detail": "No requisitions found."}, status=status.HTTP_404_NOT_FOUND)
+            tenant = request.tenant
+            with tenant_context(tenant):
+                requisitions = JobRequisition.objects.filter(tenant=tenant, id__in=ids)
+                count = requisitions.count()
+                if count == 0:
+                    logger.warning("No requisitions found for provided IDs")
+                    return Response({"detail": "No requisitions found."}, status=status.HTTP_404_NOT_FOUND)
 
-            requisitions.delete()
-            logger.info(f"Bulk deleted {count} job requisitions for tenant {request.tenant.schema_name}")
+                requisitions.delete()
+            logger.info(f"Bulk deleted {count} job requisitions for tenant {tenant.schema_name}")
             return Response({"detail": f"Deleted {count} requisition(s)."}, status=status.HTTP_204_NO_CONTENT)
         except Exception as e:
             logger.error(f"Bulk delete failed: {str(e)}")

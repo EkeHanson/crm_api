@@ -3,15 +3,15 @@ from django_tenants.middleware import TenantMainMiddleware
 from django_tenants.utils import get_public_schema_name
 from core.models import Domain, Tenant
 from django.http import Http404
+from django.db import connection
 import logging
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
 logger = logging.getLogger(__name__)
 
-
-# lumina_care/middleware.py
 class CustomTenantMiddleware(TenantMainMiddleware):
     def process_request(self, request):
+        logger.debug(f"Processing request: {request.path}, Host: {request.get_host()}")
         public_paths = [
             '/api/tenants/', '/api/docs/', '/api/schema/',
             '/api/token/', '/accounts/', '/api/social/callback/', '/api/admin/create/'
@@ -20,7 +20,10 @@ class CustomTenantMiddleware(TenantMainMiddleware):
             try:
                 public_tenant = Tenant.objects.get(schema_name=get_public_schema_name())
                 request.tenant = public_tenant
-                logger.info("Using public tenant for public endpoint")
+                logger.info(f"Using public tenant for public endpoint: {public_tenant.schema_name}")
+                with connection.cursor() as cursor:
+                    cursor.execute("SHOW search_path;")
+                    logger.debug(f"Search_path: {cursor.fetchone()[0]}")
                 return
             except Tenant.DoesNotExist:
                 logger.error("Public tenant does not exist")
@@ -36,6 +39,9 @@ class CustomTenantMiddleware(TenantMainMiddleware):
                     tenant = Tenant.objects.get(id=tenant_id)
                     request.tenant = tenant
                     logger.info(f"Tenant set from JWT: {tenant.schema_name}")
+                    with connection.cursor() as cursor:
+                        cursor.execute("SHOW search_path;")
+                        logger.debug(f"Search_path: {cursor.fetchone()[0]}")
                     return
                 else:
                     logger.warning("No tenant_id in JWT token")
@@ -48,6 +54,9 @@ class CustomTenantMiddleware(TenantMainMiddleware):
         if domain:
             request.tenant = domain.tenant
             logger.info(f"Tenant set from domain: {domain.tenant.schema_name}")
+            with connection.cursor() as cursor:
+                cursor.execute("SHOW search_path;")
+                logger.debug(f"Search_path: {cursor.fetchone()[0]}")
             return
 
         # Development fallback
@@ -56,6 +65,9 @@ class CustomTenantMiddleware(TenantMainMiddleware):
                 tenant = Tenant.objects.get(schema_name='abraham_ekene_onwon')
                 request.tenant = tenant
                 logger.info(f"Using tenant {tenant.schema_name} for local development")
+                with connection.cursor() as cursor:
+                    cursor.execute("SHOW search_path;")
+                    logger.debug(f"Search_path: {cursor.fetchone()[0]}")
                 return
             except Tenant.DoesNotExist:
                 logger.error("Development tenant abraham_ekene_onwon does not exist")

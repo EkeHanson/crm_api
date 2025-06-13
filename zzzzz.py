@@ -43,7 +43,7 @@ Subscription.objects.create(tenant=tenant, module='recruitment', is_active=True)
 
 from core.models import Tenant
 from subscriptions.models import Subscription
-tenant = Tenant.objects.get(schema_name='abraham_ekene_onwon')
+tenant = Tenant.objects.get(schema_name='prolianceltd')
 Subscription.objects.create(tenant=tenant, module='talent_engine', is_active=True)
 
 
@@ -61,4 +61,4 @@ with schema_context(schema_name):
             AND table_name = 'talent_engine_job_requisition';
         """, [schema_name])
         tables = cursor.fetchall()
-        print(tables)  # Should return [('talent_engine_job_requisition',)] if exists
+        print(tables)  

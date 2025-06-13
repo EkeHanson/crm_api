@@ -149,16 +149,16 @@ WSGI_APPLICATION = 'lumina_care.wsgi.application'
 #     }
 # }
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django_tenants.postgresql_backend',
-        'NAME': 'lumina_care_db',
-        'USER': 'postgres',
-        'PASSWORD': 'qwerty',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django_tenants.postgresql_backend',
+#         'NAME': 'lumina_care_db',
+#         'USER': 'postgres',
+#         'PASSWORD': 'qwerty',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
 
 
 # DATABASES = {
@@ -176,6 +176,19 @@ DATABASES = {
 #         }
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django_tenants.postgresql_backend',
+        'NAME': 'free_crm_db',
+        'USER': 'free_crm_db_user',
+        'PASSWORD': 'bYJ7EVs2icOwSEq4vD8CYK0prkxzlJaa',
+        'HOST': 'dpg-d1617gvdiees73ek2n7g-a.oregon-postgres.render.com',
+        'PORT': '5432',
+    }
+}
+
+
 
 DATABASE_ROUTERS = ['django_tenants.routers.TenantSyncRouter']
 TENANT_MODEL = "core.Tenant"

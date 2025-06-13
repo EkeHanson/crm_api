@@ -66,6 +66,9 @@ class UserViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         tenant = self.request.user.tenant
+        print("tenant")
+        print(tenant)
+        print("tenant")
         with tenant_context(tenant):
             return CustomUser.objects.filter(tenant=tenant)
 

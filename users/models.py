@@ -1,6 +1,5 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -25,8 +24,8 @@ class CustomUser(AbstractUser):
     role = models.CharField(max_length=20, choices=ROLES, default='carer')
     tenant = models.ForeignKey('core.Tenant', on_delete=models.CASCADE, null=True)
 
-    USERNAME_FIELD = 'email'  # Used for login
-    REQUIRED_FIELDS = []      # Removes `username` from required fields
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []      
 
     def __str__(self):
         return self.email

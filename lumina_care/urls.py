@@ -19,10 +19,16 @@ def root_view(request):
 
 urlpatterns = [
     path('', root_view, name='root'),
+
     path('api/tenant/', include('core.urls')),
     path('api/user/', include('users.urls')),
+
+    path('api/talent-engine/', include('talent_engine.urls')),  # Updated
+    path('api/subscriptions/', include('subscriptions.urls')),  # Added
+    
     path('api/token/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+    path('accounts/', include('allauth.urls')),  # OAuth endpoints
 ]

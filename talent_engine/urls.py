@@ -1,11 +1,9 @@
 # apps/talent_engine/urls.py
-from django.urls import path, include
-from rest_framework.routers import DefaultRouter
-from .views import JobPostingViewSet
-
-router = DefaultRouter()
-router.register(r'job-postings', JobPostingViewSet)
+from django.urls import path
+from .views import JobRequisitionListCreateView, JobRequisitionDetailView, JobRequisitionBulkDeleteView
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path('requisitions/', JobRequisitionListCreateView.as_view(), name='requisition-list-create'),
+    path('requisitions/<uuid:id>/', JobRequisitionDetailView.as_view(), name='requisition-detail'),
+    path('requisitions/bulk-delete/', JobRequisitionBulkDeleteView.as_view(), name='requisition-bulk-delete'),
 ]

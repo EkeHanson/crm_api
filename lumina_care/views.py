@@ -1,6 +1,7 @@
 # lumina_care/views.py
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework import serializers
 from django_tenants.utils import tenant_context
 from core.models import Domain, Tenant
@@ -17,15 +18,17 @@ class CustomTokenSerializer(TokenObtainPairSerializer):
         if not email:
             raise serializers.ValidationError("Email is required.")
 
-        # Extract domain from email (e.g., user@testtenant.com -> testtenant.com)
+        # Extract domain from email
         try:
             email_domain = email.split('@')[1]
+            logger.debug(f"Email domain extracted: {email_domain}")
         except IndexError:
             raise serializers.ValidationError("Invalid email format.")
 
         # Find tenant by domain
         domain = Domain.objects.filter(domain=email_domain).first()
         if not domain:
+            logger.error(f"No domain found for: {email_domain}")
             raise serializers.ValidationError("No tenant found for this email domain.")
 
         tenant = domain.tenant
@@ -35,14 +38,24 @@ class CustomTokenSerializer(TokenObtainPairSerializer):
         with tenant_context(tenant):
             user = CustomUser.objects.filter(email=email).first()
             if not user or not user.check_password(password):
+                logger.error(f"Invalid credentials for user: {email}")
                 raise serializers.ValidationError("Invalid credentials.")
 
             if not user.is_active:
+                logger.error(f"Inactive user: {email}")
                 raise serializers.ValidationError("User account is inactive.")
 
+            # Generate tokens manually to include tenant_id
             data = super().validate(attrs)
-            data['tenant_id'] = tenant.id
+            refresh = RefreshToken.for_user(user)
+            refresh['tenant_id'] = str(tenant.id)
+            refresh['tenant_schema'] = tenant.schema_name
+
+            data['refresh'] = str(refresh)
+            data['access'] = str(refresh.access_token)
+            data['tenant_id'] = str(tenant.id)
             data['tenant_schema'] = tenant.schema_name
+            logger.debug(f"Token data: {data}")
             return data
 
 class CustomTokenObtainPairView(TokenObtainPairView):

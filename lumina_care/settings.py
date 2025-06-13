@@ -16,7 +16,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '*.lumina-care.com']
 
 
-# Application definition
+# lumina_care/settings.py
 INSTALLED_APPS = [
     'corsheaders',
     'django_tenants',
@@ -26,6 +26,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',  # Required for allauth
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.apple',
+    'allauth.socialaccount.providers.microsoft',
+    'django_filters',
     'rest_framework',
     'rest_framework_simplejwt',
     'drf_spectacular',
@@ -40,8 +48,8 @@ INSTALLED_APPS = [
     'workforce',
     'analytics',
     'integrations',
+    'subscriptions',
 ]
-
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -53,13 +61,60 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware', 
 ]
-# Allow requests from your ReactJS frontend
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
+SITE_ID = 1  # Required for django.contrib.sites
+
+# allauth settings
+ACCOUNT_LOGIN_METHODS = {'email': True}
+ACCOUNT_SIGNUP_FIELDS = ['email*', 'password1*', 'password2*']
+ACCOUNT_EMAIL_VERIFICATION = 'optional'
+SOCIALACCOUNT_AUTO_SIGNUP = True
+SOCIALACCOUNT_EMAIL_AUTHENTICATION = True
+SOCIALACCOUNT_EMAIL_AUTHENTICATION_AUTO_CONNECT = True
+
+# Social providers configuration (example, configure later)
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': ['profile', 'email'],
+        'AUTH_PARAMS': {'access_type': 'online'},
+    },
+    'apple': {
+        'APP': {
+            'client_id': 'your.apple.client.id',
+            'secret': 'your.apple.key.id',
+            'key': 'your.apple.team.id',
+            'certificate_key': '''-----BEGIN PRIVATE KEY-----
+            YOUR_PRIVATE_KEY
+            -----END PRIVATE KEY-----'''
+        }
+    },
+    'microsoft': {
+        'APP': {
+            'client_id': 'your.microsoft.client.id',
+            'secret': 'your.microsoft.client.secret',
+            'tenant': 'common',  # For multi-tenant Azure AD
+        },
+        'SCOPE': ['User.Read', 'email'],
+    }
+}
+
+# Update CORS for OAuth redirects
 CORS_ALLOWED_ORIGINS = [
     'http://app.mydomain.com',
-    'http://localhost:3000',  # For development
-    'http://localhost:5173',  # For development
+    'http://localhost:3000',
+    'http://localhost:5173',
+    'https://accounts.google.com',
+    'https://appleid.apple.com',
+    'https://login.microsoftonline.com',
 ]
+CORS_ALLOW_CREDENTIALS = True
 
 # Allow credentials (e.g., cookies, Authorization headers)
 CORS_ALLOW_CREDENTIALS = True
@@ -131,8 +186,10 @@ SHARED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django.contrib.sites',
     'core',
     'users',  # Ensure 'users' is in SHARED_APPS
+    'subscriptions',
 ]
 TENANT_APPS = [
     'django.contrib.admin',
@@ -194,23 +251,27 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # lumina_care/settings.py
+# Update REST_FRAMEWORK for allauth
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'allauth.account.auth_backends.AuthenticationBackend',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
     ),
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
-REST_FRAMEWORK['DEFAULT_SCHEMA_CLASS'] = 'drf_spectacular.openapi.AutoSchema'
 
 from datetime import timedelta
+SOCIALACCOUNT_ADAPTER = 'users.adapters.CustomSocialAccountAdapter'
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
     'AUTH_HEADER_TYPES': ('Bearer',),
+    'TOKEN_OBTAIN_SERIALIZER': 'lumina_care.views.CustomTokenSerializer',
 }
 
 # Add Logging: Add logging to track migration issues:
@@ -224,6 +285,8 @@ LOGGING = {
     'loggers': {
         'core': {'handlers': ['console'], 'level': 'INFO'},
         'users': {'handlers': ['console'], 'level': 'INFO'},
+        'talent_engine': {'handlers': ['console'], 'level': 'INFO'},  # Added
+        'subscriptions': {'handlers': ['console'], 'level': 'INFO'},  # Added
         'django.db.migrations': {'handlers': ['console'], 'level': 'DEBUG'},
     },
 }

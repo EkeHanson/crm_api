@@ -1,8 +1,8 @@
 # apps/talent_engine/models.py
 from django.db import models
+from django.db.models import Max
 from users.models import CustomUser
 from core.models import Tenant
-import uuid
 
 class JobRequisition(models.Model):
     STATUS_CHOICES = [
@@ -16,7 +16,7 @@ class JobRequisition(models.Model):
         ('admin', 'Admin'),
     ]
 
-    # id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.CharField(primary_key=True, max_length=10, editable=False, unique=True)
     tenant = models.ForeignKey(Tenant, on_delete=models.CASCADE, related_name='talent_requisitions')
     title = models.CharField(max_length=255)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
@@ -35,3 +35,20 @@ class JobRequisition(models.Model):
 
     def __str__(self):
         return f"{self.title} ({self.tenant.schema_name})"
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            prefix = self.tenant.name[:3].upper()
+            latest = JobRequisition.objects.filter(id__startswith=prefix).aggregate(Max('id'))['id__max']
+            
+            if latest:
+                try:
+                    number = int(latest.split('-')[1]) + 1
+                except (IndexError, ValueError):
+                    number = 1
+            else:
+                number = 1
+
+            self.id = f"{prefix}-{number:04d}"
+        
+        super().save(*args, **kwargs)

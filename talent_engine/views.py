@@ -40,6 +40,7 @@ class JobRequisitionListCreateView(generics.ListCreateAPIView):
         serializer.save(tenant=tenant)
         logger.info(f"Job requisition created: {serializer.validated_data['title']} for tenant {tenant.schema_name}")
 
+
 class JobRequisitionDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = JobRequisitionSerializer
     permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized]
@@ -47,8 +48,17 @@ class JobRequisitionDetailView(generics.RetrieveUpdateDestroyAPIView):
 
     def get_queryset(self):
         tenant = self.request.tenant
-        with tenant_context(tenant):
-            return JobRequisition.objects.filter(tenant=tenant)
+        logger.debug(f"User: {self.request.user}, Tenant: {tenant.schema_name}")
+        logger.debug(f"Schema before set: {connection.schema_name}")
+        connection.set_schema(tenant.schema_name)
+        logger.debug(f"Schema after set: {connection.schema_name}")
+        with connection.cursor() as cursor:
+            cursor.execute("SHOW search_path;")
+            search_path = cursor.fetchone()[0]
+            logger.debug(f"Database search_path: {search_path}")
+        queryset = JobRequisition.objects.filter(tenant=tenant)
+        logger.debug(f"Query: {queryset.query}")
+        return queryset
 
     def perform_update(self, serializer):
         tenant = self.request.tenant

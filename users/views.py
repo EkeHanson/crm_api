@@ -79,8 +79,6 @@ class UserViewSet(viewsets.ModelViewSet):
         with tenant_context(tenant):
             serializer.save()
 
-
-
 class SocialLoginCallbackView(APIView):
     def get(self, request):
         user = request.user

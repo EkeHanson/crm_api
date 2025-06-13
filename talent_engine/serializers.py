@@ -9,6 +9,7 @@ class JobRequisitionSerializer(serializers.ModelSerializer):
         queryset=CustomUser.objects.all(),
         required=False
     )
+    
     tenant = serializers.SlugRelatedField(
         slug_field='schema_name',
         read_only=True  # No queryset needed for read-only fields

@@ -8,6 +8,13 @@ from rest_framework import serializers
 from .models import CustomUser
 from core.models import Tenant, Domain
 
+
+class CustomUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ['id', 'email', 'first_name', 'last_name', 'role', 'tenant']  # Add other fields as needed
+
+
 class AdminUserCreateSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, style={'input_type': 'password'})
 

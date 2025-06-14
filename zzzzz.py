@@ -43,7 +43,7 @@ Subscription.objects.create(tenant=tenant, module='recruitment', is_active=True)
 
 from core.models import Tenant
 from subscriptions.models import Subscription
-tenant = Tenant.objects.get(schema_name='prolianceltd')
+tenant = Tenant.objects.get(schema_name='arts')
 Subscription.objects.create(tenant=tenant, module='talent_engine', is_active=True)
 
 

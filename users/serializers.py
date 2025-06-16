@@ -12,7 +12,7 @@ from core.models import Tenant, Domain
 class CustomUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ['id', 'email', 'first_name', 'last_name', 'role', 'tenant']  # Add other fields as needed
+        fields = "__all__"
 
 
 class AdminUserCreateSerializer(serializers.ModelSerializer):
@@ -20,11 +20,11 @@ class AdminUserCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CustomUser
-        fields = ['username', 'email', 'password', 'role']
+        fields = "__all__"
         extra_kwargs = {
             'role': {'required': False, 'default': 'admin'},
             'email': {'required': True},
-            'username': {'required': True},
+            # 'username': {'required': True},
         }
 
     def validate_email(self, value):
@@ -72,7 +72,8 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CustomUser
-        fields = ['id', 'username', 'email', 'password', 'role', 'modules', 'is_superuser']
+        fields = "__all__"
+        #fields = ['id', 'username', 'email', 'password', 'job_role', 'modules', 'is_superuser']
         read_only_fields = ['id']
 
     def validate(self, data):

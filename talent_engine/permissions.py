@@ -31,7 +31,8 @@ class IsSubscribedAndAuthorized(permissions.BasePermission):
                 return request.user.is_authenticated
 
             # For non-safe methods (POST, PUT, DELETE), require admin role
-            return request.user.is_authenticated and request.user.role == 'admin'
+            # return request.user.is_authenticated and request.user.role == 'admin'
+            return request.user.is_authenticated
         except Exception as e:
             logger.error(f"Permission check failed: {str(e)}")
             return False

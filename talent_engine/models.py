@@ -30,9 +30,10 @@ class JobRequisition(models.Model):
     id = models.CharField(primary_key=True, max_length=10, editable=False, unique=True)
     tenant = models.ForeignKey(Tenant, on_delete=models.CASCADE, related_name='talent_requisitions')
     title = models.CharField(max_length=255)
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='rejected')
     requested_by = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, related_name='talent_requisitions')
     role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='staff')
+    
     company_name = models.CharField(max_length=255, blank=True, null=True)
     job_type = models.CharField(max_length=20, choices=JOB_TYPE_CHOICES, default='full_time')
     location_type = models.CharField(max_length=20, choices=LOCATION_TYPE_CHOICES, default='on_site')

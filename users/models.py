@@ -22,6 +22,7 @@ class CustomUser(AbstractUser):
     email = models.EmailField(_('email address'), unique=True)  # Required and unique
 
     role = models.CharField(max_length=20, choices=ROLES, default='carer')
+    job_role = models.CharField(max_length=255, blank=True, null=True, default='staff')
     tenant = models.ForeignKey('core.Tenant', on_delete=models.CASCADE, null=True)
 
     USERNAME_FIELD = 'email'

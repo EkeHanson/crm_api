@@ -34,19 +34,15 @@ from talent_engine.models import Subscription
 tenant = Tenant.objects.get(schema_name='proliance')
 Subscription.objects.create(tenant=tenant, module='recruitment', is_active=True)
 
-
 # python manage.py showmigrations talent_engine
 # python manage.py makemigrations talent_engine
 # python manage.py migrate_schemas --shared
 # python manage.py migrate_schemas
 
-
 from core.models import Tenant
 from subscriptions.models import Subscription
-tenant = Tenant.objects.get(schema_name='arts')
+tenant = Tenant.objects.get(schema_name='abraham_ekene_onwon')
 Subscription.objects.create(tenant=tenant, module='talent_engine', is_active=True)
-
-
 
 from django.db import connection
 from django_tenants.utils import schema_context

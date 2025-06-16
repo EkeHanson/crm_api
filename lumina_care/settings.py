@@ -155,9 +155,6 @@ WSGI_APPLICATION = 'lumina_care.wsgi.application'
 #     }
 # }
 
-
-
-
 DATABASES = {
     'default': {
         'ENGINE': 'django_tenants.postgresql_backend',
@@ -168,7 +165,6 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-
 
 
 DATABASE_ROUTERS = ['django_tenants.routers.TenantSyncRouter']

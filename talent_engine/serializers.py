@@ -28,6 +28,7 @@ class JobRequisitionSerializer(serializers.ModelSerializer):
                 'email': obj.requested_by.email,
                 'first_name': obj.requested_by.first_name or '',
                 'last_name': obj.requested_by.last_name or '',
+                'job_role': obj.requested_by.job_role or '',
             }
         return None
 

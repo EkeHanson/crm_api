@@ -8,19 +8,20 @@ class JobRequisitionSerializer(serializers.ModelSerializer):
         slug_field='schema_name',
         read_only=True
     )
+    tenant_domain = serializers.SerializerMethodField()  # New field for tenant's primary domain
 
     class Meta:
         model = JobRequisition
         fields = [
-            'id', 'tenant', 'title', 'status', 'requested_by', 'role', 'company_name',
+            'id', 'tenant', 'tenant_domain', 'title', 'unique_link', 'status', 'requested_by', 'role', 'company_name',
             'job_type', 'location_type', 'company_address', 'salary_range',
             'job_description', 'number_of_candidates', 'qualification_requirement',
             'experience_requirement', 'knowledge_requirement', 'reason',
             'deadline_date', 'start_date', 'responsibilities', 'documents_required',
             'compliance_checklist', 'advert_banner', 'requested_date', 'publish_status',
-            'created_at', 'updated_at'
+            'created_at', 'updated_at', 'num_of_applications'
         ]
-        read_only_fields = ['id', 'tenant', 'requested_date', 'created_at', 'updated_at']
+        read_only_fields = ['id', 'tenant', 'unique_link', 'requested_date', 'created_at', 'updated_at','num_of_applications']
 
     def get_requested_by(self, obj):
         if obj.requested_by:
@@ -31,6 +32,11 @@ class JobRequisitionSerializer(serializers.ModelSerializer):
                 'job_role': obj.requested_by.job_role or '',
             }
         return None
+
+    def get_tenant_domain(self, obj):
+        # Get the primary domain for the tenant
+        primary_domain = obj.tenant.domain_set.filter(is_primary=True).first()
+        return primary_domain.domain if primary_domain else None
 
     def validate(self, data):
         request = self.context.get('request')

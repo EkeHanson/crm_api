@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'core',
     'users',
     'talent_engine',
+    'job_application',
     'compliance',
     'training',
     'care_coordination',
@@ -137,12 +138,6 @@ WSGI_APPLICATION = 'lumina_care.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
 
 # DATABASES = {
 #     'default': {
@@ -157,11 +152,11 @@ WSGI_APPLICATION = 'lumina_care.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django_tenants.postgresql_backend',
-        'NAME': 'free_crm_db',
-        'USER': 'free_crm_db_user',
-        'PASSWORD': 'bYJ7EVs2icOwSEq4vD8CYK0prkxzlJaa',
-        'HOST': 'dpg-d1617gvdiees73ek2n7g-a.oregon-postgres.render.com',
+        'ENGINE': 'django_tenants.postgresql_backend',  # or 'django.db.backends.postgresql' if not using multi-tenancy
+        'NAME': 'crm_db_q6tk',
+        'USER': 'crm_db_q6tk_user',
+        'PASSWORD': 'QQ4Rf20Ar8FtfCEGmuwar57DJ2FoeBkS',
+        'HOST': 'dpg-d1aqneer433s73ac15j0-a.oregon-postgres.render.com',
         'PORT': '5432',
     }
 }
@@ -189,6 +184,7 @@ TENANT_APPS = [
     'viewflow.fsm',
     'auditlog',
     'talent_engine',
+    'job_application',
     'compliance',
     'training',
     'care_coordination',
@@ -253,6 +249,11 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ),
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    'DEFAULT_PARSER_CLASSES': [
+        'rest_framework.parsers.MultiPartParser',
+        'rest_framework.parsers.FormParser',
+        'rest_framework.parsers.JSONParser',
+    ],
 }
 
 
@@ -260,7 +261,7 @@ from datetime import timedelta
 SOCIALACCOUNT_ADAPTER = 'users.adapters.CustomSocialAccountAdapter'
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=120),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
     'AUTH_HEADER_TYPES': ('Bearer',),
     'TOKEN_OBTAIN_SERIALIZER': 'lumina_care.views.CustomTokenSerializer',
@@ -278,6 +279,7 @@ LOGGING = {
         'core': {'handlers': ['console'], 'level': 'INFO'},
         'users': {'handlers': ['console'], 'level': 'INFO'},
         'talent_engine': {'handlers': ['console'], 'level': 'INFO'},  # Added
+        'job_application': {'handlers': ['console'], 'level': 'INFO'},  # Added
         'subscriptions': {'handlers': ['console'], 'level': 'INFO'},  # Added
         'django.db.migrations': {'handlers': ['console'], 'level': 'DEBUG'},
     },

@@ -35,7 +35,7 @@ with tenant_context(tenant):
 
 from core.models import Tenant
 from subscriptions.models import Subscription
-tenant = Tenant.objects.get(schema_name='art')
+tenant = Tenant.objects.get(schema_name='arts')
 Subscription.objects.create(tenant=tenant, module='talent_engine', is_active=True)
 
 from django.db import connection

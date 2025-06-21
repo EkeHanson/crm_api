@@ -21,7 +21,7 @@ class JobRequisitionSerializer(serializers.ModelSerializer):
             'compliance_checklist', 'advert_banner', 'requested_date', 'publish_status',
             'created_at', 'updated_at', 'num_of_applications'
         ]
-        read_only_fields = ['id', 'tenant', 'unique_link', 'requested_date', 'created_at', 'updated_at','num_of_applications']
+        read_only_fields = ['id', 'tenant', 'unique_link', 'requested_date', 'created_at', 'updated_at']
 
     def get_requested_by(self, obj):
         if obj.requested_by:

@@ -41,6 +41,9 @@ class AdminUserCreateView(APIView):
                     'data': {
                         'username': user.username,
                         'email': user.email,
+                        'first_name': user.first_name,
+                        'last_name': user.last_name,
+                        'job_role': user.job_role,
                         'tenant_id': user.tenant.id,
                         'tenant_schema': user.tenant.schema_name,
                         'refresh': str(refresh),

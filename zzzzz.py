@@ -15,17 +15,15 @@ if not Tenant.objects.filter(schema_name='public').exists():
 from core.models import Tenant
 from users.models import CustomUser
 from django_tenants.utils import tenant_context
-tenant = Tenant.objects.get(schema_name='public')
+tenant = Tenant.objects.get(schema_name='arts')
 with tenant_context(tenant):
     CustomUser.objects.create_superuser(
         username='admin',
-        email='admin@127.0.0.1',
+        email='admin@artstraining.co.uk.com',
         password='qwerty',
         role='admin',
         tenant=tenant
     )
-
-
 
 
 # python manage.py showmigrations talent_engine
@@ -35,7 +33,7 @@ with tenant_context(tenant):
 
 from core.models import Tenant
 from subscriptions.models import Subscription
-tenant = Tenant.objects.get(schema_name='arts')
+tenant = Tenant.objects.get(schema_name='proliance')
 Subscription.objects.create(tenant=tenant, module='talent_engine', is_active=True)
 
 from django.db import connection

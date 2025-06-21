@@ -13,6 +13,36 @@ from rest_framework_simplejwt.views import TokenRefreshView
 logger = logging.getLogger(__name__)
 from users.serializers import CustomUserSerializer  # Import this
 
+# lumina_care/views.py
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework import status
+
+class TokenValidateView(APIView):
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
+
+    def get(self, request):
+        try:
+            user = request.user
+            tenant = request.tenant  # Provided by django-tenants
+            with tenant_context(tenant):
+                user_data = CustomUserSerializer(user).data
+                return Response({
+                    'status': 'success',
+                    'user': user_data,
+                    'tenant_id': str(tenant.id),
+                    'tenant_schema': tenant.schema_name
+                }, status=status.HTTP_200_OK)
+        except Exception as e:
+            logger.error(f"Token validation failed: {str(e)}")
+            return Response({
+                'status': 'error',
+                'message': 'Invalid or expired token.'
+            }, status=status.HTTP_401_UNAUTHORIZED)
+        
 
 class CustomTokenSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):

@@ -111,7 +111,23 @@ CORS_ALLOWED_ORIGINS = [
     'https://login.microsoftonline.com',
 ]
 CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+]
 
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'authorization',
+    'content-type',
+    'origin',
+    'x-csrftoken',
+    'x-requested-with',
+]
 # Allow credentials (e.g., cookies, Authorization headers)
 CORS_ALLOW_CREDENTIALS = True
 

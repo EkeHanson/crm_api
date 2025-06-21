@@ -89,6 +89,79 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+
+# job_application/views.py
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from django_tenants.utils import tenant_context
+from .models import JobApplication
+from .utils import parse_resume, screen_resume
+from talent_engine.models import JobRequisition
+import logging
+
+logger = logging.getLogger('job_applications')
+
+class ResumeScreeningView(APIView):
+    permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized]
+    parser_classes = [MultiPartParser, FormParser]
+
+    def post(self, request, job_requisition_id):
+        try:
+            tenant = request.tenant
+            with tenant_context(tenant):
+                try:
+                    job_requisition = JobRequisition.objects.get(id=job_requisition_id, tenant=tenant)
+                except JobRequisition.DoesNotExist:
+                    logger.error(f"JobRequisition {job_requisition_id} not found for tenant {tenant.schema_name}")
+                    return Response({"detail": "Job requisition not found."}, status=status.HTTP_404_NOT_FOUND)
+
+                applications = JobApplication.objects.filter(
+                    tenant=tenant,
+                    job_requisition=job_requisition,
+                    resume_status=True
+                )
+
+                if not applications.exists():
+                    return Response({"detail": "No applications with resumes found."}, status=status.HTTP_400_BAD_REQUEST)
+
+                results = []
+                for app in applications:
+                    cv_doc = next((doc for doc in app.documents if doc['document_type'].lower() in ['cv', 'resume']), None)
+                    if not cv_doc:
+                        app.screening_status = 'failed'
+                        app.screening_score = 0.0
+                        app.save()
+                        continue
+
+                    resume_text = parse_resume(cv_doc['file_path'])
+                    if not resume_text:
+                        app.screening_status = 'failed'
+                        app.screening_score = 0.0
+                        app.save()
+                        continue
+
+                    score = screen_resume(resume_text, job_requisition.job_description)
+                    app.screening_status = 'processed'
+                    app.screening_score = score
+                    app.save()
+
+                    results.append({
+                        "application_id": app.id,
+                        "full_name": app.full_name,
+                        "email": app.email,
+                        "score": score,
+                        "screening_status": app.screening_status,
+                    })
+
+                results.sort(key=lambda x: x['score'], reverse=True)
+                logger.info(f"Screened {len(results)} resumes for JobRequisition {job_requisition_id}")
+                return Response({"results": results}, status=status.HTTP_200_OK)
+
+        except Exception as e:
+            logger.exception(f"Error screening resumes for JobRequisition {job_requisition_id}: {str(e)}")
+            return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 class JobApplicationListCreateView(generics.GenericAPIView):
     parser_classes = (MultiPartParser, FormParser)
     serializer_class = JobApplicationSerializer

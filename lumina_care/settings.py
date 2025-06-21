@@ -256,6 +256,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # lumina_care/settings.py
 # Update REST_FRAMEWORK for allauth
+# lumina_care/settings.py
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -271,7 +272,6 @@ REST_FRAMEWORK = {
         'rest_framework.parsers.JSONParser',
     ],
 }
-
 
 from datetime import timedelta
 SOCIALACCOUNT_ADAPTER = 'users.adapters.CustomSocialAccountAdapter'

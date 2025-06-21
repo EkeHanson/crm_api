@@ -59,7 +59,7 @@ class JobApplicationSerializer(serializers.ModelSerializer):
         model = JobApplication
         fields = [
             'id', 'tenant', 'tenant_schema', 'job_requisition', 'job_requisition_id',
-            'full_name', 'email', 'phone', 'qualification', 'experience',
+            'full_name', 'email', 'phone', 'qualification', 'experience','screening_status', 'screening_score',
             'knowledge_skill', 'cover_letter', 'resume_status', 'status', 'source',
             'documents', 'applied_at', 'created_at', 'updated_at'
         ]

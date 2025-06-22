@@ -2,6 +2,7 @@ from rest_framework import serializers
 from .models import JobApplication
 from talent_engine.models import JobRequisition
 import logging
+from django.conf import settings
 from django.utils import timezone
 import os
 import uuid
@@ -16,7 +17,10 @@ class DocumentSerializer(serializers.Serializer):
     uploaded_at = serializers.DateTimeField(read_only=True, default=timezone.now)
 
     def get_file_url(self, obj):
-        return obj.get('file_path', None)
+        file_path = obj.get('file_path', None)
+        if file_path:
+            return f"{settings.MEDIA_URL}{file_path}"
+        return None
 
     def validate_file(self, value):
         # Allow PDF and Word documents
@@ -103,12 +107,21 @@ class JobApplicationSerializer(serializers.ModelSerializer):
             folder_path = f"application_documents/{timezone.now().strftime('%Y/%m/%d')}"
             os.makedirs(folder_path, exist_ok=True)  # ✅ Create directories if not exist
 
-            upload_path = os.path.join(folder_path, f"{uuid.uuid4()}{os.path.splitext(file.name)[1]}")
+            upload_path = os.path.join(
+                folder_path, f"{uuid.uuid4()}{os.path.splitext(file.name)[1]}"
+            ).replace("\\", "/")  # Normalize to forward slashes
 
             # Save file to storage
-            with open(upload_path, 'wb+') as destination:
-                for chunk in file.chunks():
-                    destination.write(chunk)
+            # with open(upload_path, 'wb+') as destination:
+            #     for chunk in file.chunks():
+            #         destination.write(chunk)
+            try:
+                with open(upload_path, 'wb+') as destination:
+                    for chunk in file.chunks():
+                        destination.write(chunk)
+            except Exception as e:
+                logger.error(f"Failed to save file {upload_path}: {str(e)}")
+                raise serializers.ValidationError(f"Failed to save file: {str(e)}")
 
                     
             documents.append({

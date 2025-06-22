@@ -40,6 +40,8 @@
 #         logger.exception(f"Error screening resume: {str(e)}")
 #         return 0.0
 # job_application/utils.py
+
+
 import logging
 import os
 from pdfminer.high_level import extract_text
@@ -63,6 +65,7 @@ def get_sentence_transformer_model():
             logger.exception(f"Failed to load SentenceTransformer model: {str(e)}")
             raise RuntimeError("Unable to initialize sentence transformer model")
     return _model
+
 
 def parse_resume(file_path):
     """Extract text from PDF or DOCX files."""

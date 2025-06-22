@@ -38,3 +38,4 @@ urlpatterns = [
     path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
     path('accounts/', include('allauth.urls')),  # OAuth endpoints
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

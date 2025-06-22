@@ -1,37 +1,21 @@
 from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated,AllowAny
-from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework.filters import SearchFilter
 from django_tenants.utils import tenant_context
 from django.db import connection
-from .models import JobApplication
 from .serializers import JobApplicationSerializer
 from talent_engine.models import JobRequisition
-from core.models import Tenant
-from rest_framework import serializers
 from .permissions import IsSubscribedAndAuthorized
 import logging
 logger = logging.getLogger('job_applications')
 from .tenant_utils import resolve_tenant_from_unique_link
 from rest_framework.parsers import MultiPartParser, FormParser
-from rest_framework import generics, status
-from rest_framework.response import Response
-from rest_framework.parsers import MultiPartParser, FormParser
-from collections import defaultdict
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
-from rest_framework.parsers import MultiPartParser, FormParser
 from django.db import transaction
-logger = logging.getLogger('job_applications')
-from django_tenants.utils import tenant_context
-from django.db import connection
-from django.db.models import Count
-from talent_engine.models import JobRequisition
-from talent_engine.serializers import JobRequisitionSerializer
-logger = logging.getLogger('job_applications')
-
+import os
+from django.conf import  settings
+from rest_framework.views import APIView
+from .models import JobApplication
+from .utils import parse_resume, screen_resume
 
 
 class JobApplicationsByRequisitionView(generics.ListAPIView):
@@ -78,29 +62,7 @@ class JobApplicationsByRequisitionView(generics.ListAPIView):
         except Exception as e:
             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         
-from rest_framework import generics, status
-from rest_framework.parsers import MultiPartParser, FormParser
-from rest_framework.permissions import IsAuthenticated, AllowAny
-from rest_framework.response import Response
-from django.db import connection
-from django_tenants.utils import tenant_context
-from django.db import transaction
-import logging
 
-logger = logging.getLogger(__name__)
-
-
-# job_application/views.py
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
-from django_tenants.utils import tenant_context
-from .models import JobApplication
-from .utils import parse_resume, screen_resume
-from talent_engine.models import JobRequisition
-import logging
-
-logger = logging.getLogger('job_applications')
 
 class ResumeScreeningView(APIView):
     permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized]
@@ -110,12 +72,17 @@ class ResumeScreeningView(APIView):
         try:
             tenant = request.tenant
             with tenant_context(tenant):
+                # Verify job requisition exists
                 try:
                     job_requisition = JobRequisition.objects.get(id=job_requisition_id, tenant=tenant)
                 except JobRequisition.DoesNotExist:
                     logger.error(f"JobRequisition {job_requisition_id} not found for tenant {tenant.schema_name}")
                     return Response({"detail": "Job requisition not found."}, status=status.HTTP_404_NOT_FOUND)
 
+                # Get number of candidates needed
+                num_candidates = job_requisition.number_of_candidates or 5  # Default to 5 if not set
+
+                # Get applications with resumes
                 applications = JobApplication.objects.filter(
                     tenant=tenant,
                     job_requisition=job_requisition,
@@ -126,42 +93,61 @@ class ResumeScreeningView(APIView):
                     return Response({"detail": "No applications with resumes found."}, status=status.HTTP_400_BAD_REQUEST)
 
                 results = []
-                for app in applications:
-                    cv_doc = next((doc for doc in app.documents if doc['document_type'].lower() in ['cv', 'resume']), None)
-                    if not cv_doc:
-                        app.screening_status = 'failed'
-                        app.screening_score = 0.0
+                with transaction.atomic():
+                    for app in applications:
+                        cv_doc = next((doc for doc in app.documents if doc['document_type'].lower() in ['cv', 'resume']), None)
+                        if not cv_doc:
+                            app.screening_status = 'failed'
+                            app.screening_score = 0.0
+                            app.save()
+                            continue
+
+                        # resume_text = parse_resume(cv_doc['file_path'])
+                        resume_text = parse_resume(os.path.join(settings.MEDIA_ROOT, cv_doc['file_path']))
+                        if not resume_text:
+                            app.screening_status = 'failed'
+                            app.screening_score = 0.0
+                            app.save()
+                            continue
+
+                        score = screen_resume(resume_text, job_requisition.job_description)
+                        app.screening_status = 'processed'
+                        app.screening_score = score
                         app.save()
-                        continue
 
-                    resume_text = parse_resume(cv_doc['file_path'])
-                    if not resume_text:
-                        app.screening_status = 'failed'
-                        app.screening_score = 0.0
+                        results.append({
+                            "application_id": app.id,
+                            "full_name": app.full_name,
+                            "email": app.email,
+                            "score": score,
+                            "screening_status": app.screening_status,
+                        })
+
+                    # Sort by score and select top N candidates
+                    results.sort(key=lambda x: x['score'], reverse=True)
+                    shortlisted = results[:num_candidates]
+                    shortlisted_ids = {item['application_id'] for item in shortlisted}
+
+                    # Update statuses
+                    for app in applications:
+                        if app.id in shortlisted_ids:
+                            app.status = 'shortlisted'
+                        else:
+                            app.status = 'rejected'
                         app.save()
-                        continue
 
-                    score = screen_resume(resume_text, job_requisition.job_description)
-                    app.screening_status = 'processed'
-                    app.screening_score = score
-                    app.save()
-
-                    results.append({
-                        "application_id": app.id,
-                        "full_name": app.full_name,
-                        "email": app.email,
-                        "score": score,
-                        "screening_status": app.screening_status,
-                    })
-
-                results.sort(key=lambda x: x['score'], reverse=True)
-                logger.info(f"Screened {len(results)} resumes for JobRequisition {job_requisition_id}")
-                return Response({"results": results}, status=status.HTTP_200_OK)
+                logger.info(f"Screened {len(results)} resumes, shortlisted {len(shortlisted)} for JobRequisition {job_requisition_id}")
+                return Response({
+                    "detail": f"Screened {len(results)} applications, shortlisted {len(shortlisted)} candidates.",
+                    "shortlisted_candidates": shortlisted,
+                    "number_of_candidates": num_candidates
+                }, status=status.HTTP_200_OK)
 
         except Exception as e:
             logger.exception(f"Error screening resumes for JobRequisition {job_requisition_id}: {str(e)}")
             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
+        
+        
 class JobApplicationListCreateView(generics.GenericAPIView):
     parser_classes = (MultiPartParser, FormParser)
     serializer_class = JobApplicationSerializer

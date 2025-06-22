@@ -9,7 +9,7 @@ from .permissions import IsSubscribedAndAuthorized
 import logging
 logger = logging.getLogger('job_applications')
 from .tenant_utils import resolve_tenant_from_unique_link
-from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.parsers import JSONParser, MultiPartParser, FormParser
 from django.db import transaction
 import os
 from django.conf import  settings
@@ -61,16 +61,17 @@ class JobApplicationsByRequisitionView(generics.ListAPIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-        
 
 
 class ResumeScreeningView(APIView):
     permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized]
-    parser_classes = [MultiPartParser, FormParser]
+    parser_classes = [JSONParser, MultiPartParser, FormParser]
 
     def post(self, request, job_requisition_id):
         try:
             tenant = request.tenant
+            document_type = request.data.get('document_type')
+            
             with tenant_context(tenant):
                 # Verify job requisition exists
                 try:
@@ -78,6 +79,35 @@ class ResumeScreeningView(APIView):
                 except JobRequisition.DoesNotExist:
                     logger.error(f"JobRequisition {job_requisition_id} not found for tenant {tenant.schema_name}")
                     return Response({"detail": "Job requisition not found."}, status=status.HTTP_404_NOT_FOUND)
+
+                # Validate document_type
+                if not document_type:
+                    logger.error(f"Missing document_type for JobRequisition {job_requisition_id}")
+                    return Response({"detail": "Document type is required."}, status=status.HTTP_400_BAD_REQUEST)
+                
+                documents_required = job_requisition.documents_required or []
+                if not documents_required:
+                    logger.error(f"No documents required for JobRequisition {job_requisition_id}")
+                    return Response(
+                        {"detail": "No documents are required for this job requisition."},
+                        status=status.HTTP_400_BAD_REQUEST
+                    )
+
+                # Case-insensitive comparison
+                document_type_lower = document_type.lower()
+                documents_required_lower = [doc.lower() for doc in documents_required]
+                if document_type_lower not in documents_required_lower:
+                    logger.error(f"Invalid document_type '{document_type}' for JobRequisition {job_requisition_id}. Expected one of {documents_required}")
+                    return Response(
+                        {"detail": f"Invalid document type: {document_type}. Must be one of {documents_required}."},
+                        status=status.HTTP_400_BAD_REQUEST
+                    )
+
+                # Find the original case-sensitive document_type for processing
+                document_type = next(
+                    (doc for doc in documents_required if doc.lower() == document_type_lower),
+                    document_type
+                )
 
                 # Get number of candidates needed
                 num_candidates = job_requisition.number_of_candidates or 5  # Default to 5 if not set
@@ -90,27 +120,55 @@ class ResumeScreeningView(APIView):
                 )
 
                 if not applications.exists():
+                    logger.warning(f"No applications with resumes found for JobRequisition {job_requisition_id}")
                     return Response({"detail": "No applications with resumes found."}, status=status.HTTP_400_BAD_REQUEST)
 
                 results = []
                 with transaction.atomic():
                     for app in applications:
-                        cv_doc = next((doc for doc in app.documents if doc['document_type'].lower() in ['cv', 'resume']), None)
+                        # Find document matching the selected document_type (case-insensitive)
+                        cv_doc = next(
+                            (doc for doc in app.documents if doc['document_type'].lower() == document_type_lower),
+                            None
+                        )
                         if not cv_doc:
                             app.screening_status = 'failed'
                             app.screening_score = 0.0
                             app.save()
+                            results.append({
+                                "application_id": app.id,
+                                "full_name": app.full_name,
+                                "email": app.email,
+                                "score": 0.0,
+                                "screening_status": app.screening_status,
+                            })
+                            logger.debug(f"No matching document for application {app.id} with document_type {document_type}")
                             continue
 
-                        # resume_text = parse_resume(cv_doc['file_path'])
                         resume_text = parse_resume(os.path.join(settings.MEDIA_ROOT, cv_doc['file_path']))
                         if not resume_text:
                             app.screening_status = 'failed'
                             app.screening_score = 0.0
                             app.save()
+                            results.append({
+                                "application_id": app.id,
+                                "full_name": app.full_name,
+                                "email": app.email,
+                                "score": 0.0,
+                                "screening_status": app.screening_status,
+                            })
+                            logger.debug(f"Failed to parse resume for application {app.id}")
                             continue
 
-                        score = screen_resume(resume_text, job_requisition.job_description)
+                        # Combine job requirements for screening
+                        job_requirements = (
+                            (job_requisition.job_description or '') + ' ' +
+                            (job_requisition.qualification_requirement or '') + ' ' +
+                            (job_requisition.experience_requirement or '') + ' ' +
+                            (job_requisition.knowledge_requirement or '')
+                        ).strip()
+                        
+                        score = screen_resume(resume_text, job_requirements)
                         app.screening_status = 'processed'
                         app.screening_score = score
                         app.save()
@@ -136,18 +194,19 @@ class ResumeScreeningView(APIView):
                             app.status = 'rejected'
                         app.save()
 
-                logger.info(f"Screened {len(results)} resumes, shortlisted {len(shortlisted)} for JobRequisition {job_requisition_id}")
+                logger.info(f"Screened {len(results)} resumes using document type '{document_type}', shortlisted {len(shortlisted)} for JobRequisition {job_requisition_id}")
                 return Response({
-                    "detail": f"Screened {len(results)} applications, shortlisted {len(shortlisted)} candidates.",
+                    "detail": f"Screened {len(results)} applications using '{document_type}', shortlisted {len(shortlisted)} candidates.",
                     "shortlisted_candidates": shortlisted,
-                    "number_of_candidates": num_candidates
+                    "number_of_candidates": num_candidates,
+                    "document_type": document_type
                 }, status=status.HTTP_200_OK)
 
         except Exception as e:
             logger.exception(f"Error screening resumes for JobRequisition {job_requisition_id}: {str(e)}")
             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-        
-        
+
+
 class JobApplicationListCreateView(generics.GenericAPIView):
     parser_classes = (MultiPartParser, FormParser)
     serializer_class = JobApplicationSerializer

@@ -11,7 +11,6 @@ if not Tenant.objects.filter(schema_name='public').exists():
     Domain.objects.create(tenant=tenant, domain='localhost', is_primary=False)
 
     
-    
 
 
 #CREATE TENANT ADMIN USER 

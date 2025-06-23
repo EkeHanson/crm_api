@@ -113,7 +113,7 @@ CORS_ALLOWED_ORIGINS = [
     'https://appleid.apple.com',
     'https://login.microsoftonline.com',
 ]
-# CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_METHODS = [
     'DELETE',
     'GET',
@@ -154,10 +154,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'lumina_care.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
-
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django_tenants.postgresql_backend',
@@ -169,6 +165,7 @@ WSGI_APPLICATION = 'lumina_care.wsgi.application'
 #     }
 # }
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django_tenants.postgresql_backend',  # or 'django.db.backends.postgresql' if not using multi-tenancy
@@ -179,7 +176,6 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-
 
 DATABASE_ROUTERS = ['django_tenants.routers.TenantSyncRouter']
 TENANT_MODEL = "core.Tenant"
@@ -195,6 +191,7 @@ SHARED_APPS = [
     'users',  # Ensure 'users' is in SHARED_APPS
     'subscriptions',
 ]
+
 TENANT_APPS = [
     'django.contrib.admin',
     'rest_framework',
@@ -212,8 +209,6 @@ TENANT_APPS = [
     'integrations',
 ]
 AUTH_USER_MODEL = 'users.CustomUser'
-
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {

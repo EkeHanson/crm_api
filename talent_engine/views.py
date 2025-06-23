@@ -118,7 +118,7 @@ class JobRequisitionByLinkView(generics.RetrieveAPIView):
             return Response({"detail": "Job not found or not published"}, status=status.HTTP_404_NOT_FOUND)
         except Exception as e:
             logger.error(f"Error retrieving job requisition: {str(e)}")
-            print(serializer.errors())
+            # print(serializer.errors())
             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 

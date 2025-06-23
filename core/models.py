@@ -9,6 +9,12 @@ class Tenant(TenantMixin):
     name = models.CharField(max_length=100)
     schema_name = models.CharField(max_length=63, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    email_host = models.CharField(max_length=255, null=True, blank=True)
+    email_port = models.IntegerField(null=True, blank=True)
+    email_use_ssl = models.BooleanField(default=True)
+    email_host_user = models.EmailField(null=True, blank=True)
+    email_host_password = models.CharField(max_length=255, null=True, blank=True)
+    default_from_email = models.EmailField(null=True, blank=True)
     auto_create_schema = True
 
     def save(self, *args, **kwargs):

@@ -12,11 +12,12 @@ logger = logging.getLogger('job_applications')
 from .tenant_utils import resolve_tenant_from_unique_link
 from rest_framework.parsers import JSONParser, MultiPartParser, FormParser
 from django.db import transaction
-import os
 from django.core.files.storage import default_storage
 from rest_framework.views import APIView
-from .models import JobApplication
 from .utils import parse_resume, screen_resume, extract_resume_fields
+from .models import Schedule, JobApplication
+from .serializers import ScheduleSerializer
+
 
 
 class ResumeParseView(APIView):
@@ -475,55 +476,29 @@ class JobApplicationBulkDeleteView(generics.GenericAPIView):
             logger.error(f"Bulk delete failed: {str(e)}")
             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-from rest_framework import generics, status
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
-from django_tenants.utils import tenant_context
-from django.db import connection
-from .models import Schedule, JobApplication
-from .serializers import ScheduleSerializer
-from .permissions import IsSubscribedAndAuthorized
-import logging
 
-logger = logging.getLogger('job_applications')
 
-class ScheduleCreateView(generics.CreateAPIView):
-    queryset = Schedule.objects.all()
+class ScheduleListCreateView(generics.GenericAPIView):
     serializer_class = ScheduleSerializer
-    permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized]
 
-    def perform_create(self, serializer):
-        tenant = self.request.tenant
+    def get_permissions(self):
+        """
+        Override to apply different permissions based on the request method.
+        - GET requires authentication and subscription authorization.
+        - POST requires authentication only.
+        """
+        if self.request.method == 'GET':
+            return [IsAuthenticated(), IsSubscribedAndAuthorized()]
+        return [IsAuthenticated()]
+
+    def get(self, request, *args, **kwargs):
         try:
-            logger.debug(f"Creating schedule for tenant: {tenant.schema_name}")
-            logger.debug(f"Schema before set: {connection.schema_name}")
-            connection.set_schema(tenant.schema_name)
-            logger.debug(f"Schema after set: {connection.schema_name}")
-            with connection.cursor() as cursor:
-                cursor.execute("SHOW search_path;")
-                search_path = cursor.fetchone()[0]
-                logger.debug(f"Database search_path: {search_path}")
+            tenant = request.tenant
+            if not tenant:
+                logger.error("No tenant associated with the request")
+                return Response({"detail": "Tenant not found."}, status=status.HTTP_400_BAD_REQUEST)
 
-            with tenant_context(tenant):
-                job_application_id = serializer.validated_data.get('job_application').id
-                job_application = JobApplication.objects.get(id=job_application_id, tenant=tenant)
-                serializer.save(tenant=tenant, job_application=job_application)
-            logger.info(f"Schedule created for job application {job_application_id} in tenant {tenant.schema_name}")
-        except JobApplication.DoesNotExist:
-            logger.error(f"JobApplication {job_application_id} not found for tenant {tenant.schema_name}")
-            return Response({"detail": "Job application not found."}, status=status.HTTP_404_NOT_FOUND)
-        except Exception as e:
-            logger.exception(f"Error creating schedule for tenant {tenant.schema_name}: {str(e)}")
-            return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-class ScheduleListView(generics.ListAPIView):
-    serializer_class = ScheduleSerializer
-    permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized]
-
-    def get_queryset(self):
-        tenant = self.request.tenant
-        try:
-            logger.debug(f"Listing schedules for tenant: {tenant.schema_name}")
+            logger.debug(f"User: {request.user}, Tenant: {tenant.schema_name}")
             logger.debug(f"Schema before set: {connection.schema_name}")
             connection.set_schema(tenant.schema_name)
             logger.debug(f"Schema after set: {connection.schema_name}")
@@ -534,24 +509,58 @@ class ScheduleListView(generics.ListAPIView):
 
             with tenant_context(tenant):
                 queryset = Schedule.objects.filter(tenant=tenant).select_related('job_application')
-                status = self.request.query_params.get('status', None)
-                if status:
-                    queryset = queryset.filter(status=status)
+                status_param = request.query_params.get('status', None)
+                if status_param:
+                    queryset = queryset.filter(status=status_param)
                 logger.debug(f"Query: {queryset.query}")
+                serializer = self.get_serializer(queryset.order_by('-created_at'), many=True)
                 logger.info(f"Retrieved {queryset.count()} schedules for tenant {tenant.schema_name}")
-                return queryset.order_by('-created_at')
-        except Exception as e:
-            logger.exception(f"Error retrieving schedules for tenant {tenant.schema_name}: {str(e)}")
-            raise
+                return Response(serializer.data, status=status.HTTP_200_OK)
 
-    def list(self, request, *args, **kwargs):
-        try:
-            queryset = self.get_queryset()
-            serializer = self.get_serializer(queryset, many=True)
-            return Response(serializer.data, status=status.HTTP_200_OK)
         except Exception as e:
-            logger.exception(f"Error listing schedules for tenant {request.tenant.schema_name}: {str(e)}")
+            logger.exception(f"Error retrieving schedules for tenant {tenant.schema_name if tenant else 'unknown'}: {str(e)}")
             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    def post(self, request, *args, **kwargs):
+        try:
+            tenant = request.tenant
+            if not tenant:
+                logger.error("No tenant associated with the request")
+                return Response({"detail": "Tenant not found."}, status=status.HTTP_400_BAD_REQUEST)
+
+            logger.debug(f"User: {request.user}, Tenant: {tenant.schema_name}")
+            logger.debug(f"Schema before set: {connection.schema_name}")
+            connection.set_schema(tenant.schema_name)
+            logger.debug(f"Schema after set: {connection.schema_name}")
+            with connection.cursor() as cursor:
+                cursor.execute("SHOW search_path;")
+                search_path = cursor.fetchone()[0]
+                logger.debug(f"Database search_path: {search_path}")
+
+            serializer = self.get_serializer(data=request.data, context={'request': request})
+            if not serializer.is_valid():
+                logger.error(f"Validation failed: {serializer.errors}")
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+            with tenant_context(tenant):
+                job_application_id = serializer.validated_data.get('job_application').id
+                try:
+                    job_application = JobApplication.objects.get(id=job_application_id, tenant=tenant)
+                except JobApplication.DoesNotExist:
+                    logger.error(f"JobApplication {job_application_id} not found for tenant {tenant.schema_name}")
+                    return Response({"detail": "Job application not found."}, status=status.HTTP_404_NOT_FOUND)
+
+                schedule = serializer.save(tenant=tenant, job_application=job_application)
+                logger.info(f"Schedule created: {schedule.id} for job application {job_application_id} in tenant {tenant.schema_name}")
+                return Response({
+                    "detail": "Schedule created successfully.",
+                    "schedule_id": schedule.id
+                }, status=status.HTTP_201_CREATED)
+
+        except Exception as e:
+            logger.exception(f"Error creating schedule for tenant {tenant.schema_name if tenant else 'unknown'}: {str(e)}")
+            return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 
 class ScheduleDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ScheduleSerializer
@@ -559,9 +568,13 @@ class ScheduleDetailView(generics.RetrieveUpdateDestroyAPIView):
     lookup_field = 'tenant_unique_id'
 
     def get_queryset(self):
-        tenant = self.request.tenant
         try:
-            logger.debug(f"Accessing schedule for tenant: {tenant.schema_name}")
+            tenant = self.request.tenant
+            if not tenant:
+                logger.error("No tenant associated with the request")
+                raise Exception("Tenant not found.")
+
+            logger.debug(f"User: {self.request.user}, Tenant: {tenant.schema_name}")
             logger.debug(f"Schema before set: {connection.schema_name}")
             connection.set_schema(tenant.schema_name)
             logger.debug(f"Schema after set: {connection.schema_name}")
@@ -574,105 +587,123 @@ class ScheduleDetailView(generics.RetrieveUpdateDestroyAPIView):
                 queryset = Schedule.objects.filter(tenant=tenant).select_related('job_application')
                 logger.debug(f"Query: {queryset.query}")
                 return queryset
+
         except Exception as e:
-            logger.exception(f"Error accessing schedule for tenant {tenant.schema_name}: {str(e)}")
+            logger.exception(f"Error accessing schedule for tenant {tenant.schema_name if tenant else 'unknown'}: {str(e)}")
             raise
 
-    def perform_update(self, serializer):
-        tenant = self.request.tenant
+    def retrieve(self, request, *args, **kwargs):
         try:
+            instance = self.get_object()
+            serializer = self.get_serializer(instance)
+            logger.info(f"Retrieved schedule {instance.tenant_unique_id} for tenant {request.tenant.schema_name}")
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except Exception as e:
+            logger.exception(f"Error retrieving schedule {kwargs.get('tenant_unique_id')} for tenant {request.tenant.schema_name}: {str(e)}")
+            return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    def update(self, request, *args, **kwargs):
+        try:
+            tenant = request.tenant
+            if not tenant:
+                logger.error("No tenant associated with the request")
+                return Response({"detail": "Tenant not found."}, status=status.HTTP_400_BAD_REQUEST)
+
+            logger.debug(f"User: {request.user}, Tenant: {tenant.schema_name}")
+            logger.debug(f"Schema before set: {connection.schema_name}")
+            connection.set_schema(tenant.schema_name)
+            logger.debug(f"Schema after set: {connection.schema_name}")
+            with connection.cursor() as cursor:
+                cursor.execute("SHOW search_path;")
+                search_path = cursor.fetchone()[0]
+                logger.debug(f"Database search_path: {search_path}")
+
+            instance = self.get_object()
+            serializer = self.get_serializer(instance, data=request.data, partial=True)
+            if not serializer.is_valid():
+                logger.error(f"Validation failed for schedule {instance.tenant_unique_id}: {serializer.errors}")
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
             with tenant_context(tenant):
-                serializer.save()
-            logger.info(f"Schedule updated: {serializer.instance.tenant_unique_id} for tenant {tenant.schema_name}")
-        except Exception as e:
-            logger.exception(f"Error updating schedule {self.get_object().tenant_unique_id} for tenant {tenant.schema_name}: {str(e)}")
-            raise
+                # Handle status updates (complete or cancel)
+                status_value = serializer.validated_data.get('status')
+                if status_value == 'completed' and instance.status == 'scheduled':
+                    serializer.validated_data['cancellation_reason'] = None
+                elif status_value == 'cancelled' and instance.status == 'scheduled':
+                    cancellation_reason = request.data.get('cancellation_reason')
+                    if not cancellation_reason:
+                        logger.error(f"Attempt to cancel schedule {instance.tenant_unique_id} without reason for tenant {tenant.schema_name}")
+                        return Response(
+                            {"detail": "Cancellation reason is required."},
+                            status=status.HTTP_400_BAD_REQUEST
+                        )
+                    serializer.validated_data['cancellation_reason'] = cancellation_reason
+                elif status_value and status_value not in ['completed', 'cancelled']:
+                    logger.error(f"Invalid status update {status_value} for schedule {instance.tenant_unique_id}")
+                    return Response(
+                        {"detail": "Invalid status update. Status must be 'completed' or 'cancelled'."},
+                        status=status.HTTP_400_BAD_REQUEST
+                    )
 
-    def perform_destroy(self, instance):
-        tenant = self.request.tenant
+                serializer.save()
+                logger.info(f"Schedule {instance.tenant_unique_id} updated for tenant {tenant.schema_name}")
+                return Response({
+                    "detail": "Schedule updated successfully.",
+                    "data": serializer.data
+                }, status=status.HTTP_200_OK)
+
+        except Exception as e:
+            logger.exception(f"Error updating schedule {kwargs.get('tenant_unique_id')} for tenant {tenant.schema_name if tenant else 'unknown'}: {str(e)}")
+            return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    def destroy(self, request, *args, **kwargs):
         try:
+            tenant = request.tenant
+            if not tenant:
+                logger.error("No tenant associated with the request")
+                return Response({"detail": "Tenant not found."}, status=status.HTTP_400_BAD_REQUEST)
+
+            logger.debug(f"User: {request.user}, Tenant: {tenant.schema_name}")
+            logger.debug(f"Schema before set: {connection.schema_name}")
+            connection.set_schema(tenant.schema_name)
+            logger.debug(f"Schema after set: {connection.schema_name}")
+            with connection.cursor() as cursor:
+                cursor.execute("SHOW search_path;")
+                search_path = cursor.fetchone()[0]
+                logger.debug(f"Database search_path: {search_path}")
+
+            instance = self.get_object()
             with tenant_context(tenant):
                 instance.delete()
-            logger.info(f"Schedule deleted: {instance.tenant_unique_id} for tenant {tenant.schema_name}")
-        except Exception as e:
-            logger.exception(f"Error deleting schedule {instance.tenant_unique_id} for tenant {tenant.schema_name}: {str(e)}")
-            raise
+                logger.info(f"Schedule deleted: {instance.tenant_unique_id} for tenant {tenant.schema_name}")
+                return Response({"detail": "Schedule deleted successfully."}, status=status.HTTP_204_NO_CONTENT)
 
-class ScheduleCompleteView(generics.UpdateAPIView):
-    queryset = Schedule.objects.all()
-    serializer_class = ScheduleSerializer
+        except Exception as e:
+            logger.exception(f"Error deleting schedule {kwargs.get('tenant_unique_id')} for tenant {tenant.schema_name if tenant else 'unknown'}: {str(e)}")
+            return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+class ScheduleBulkDeleteView(generics.GenericAPIView):
     permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized]
-    lookup_field = 'tenant_unique_id'
 
-    def get_queryset(self):
-        tenant = self.request.tenant
+    def post(self, request, *args, **kwargs):
         try:
-            logger.debug(f"Accessing schedules for completion in tenant: {tenant.schema_name}")
-            logger.debug(f"Schema before set: {connection.schema_name}")
+            tenant = request.tenant
+            if not tenant:
+                logger.error("No tenant associated with the request")
+                return Response({"detail": "Tenant not found."}, status=status.HTTP_400_BAD_REQUEST)
+
+            ids = request.data.get('ids', [])
+            if not ids:
+                logger.error("No schedule IDs provided for bulk deletion")
+                return Response({"detail": "No schedule IDs provided."}, status=status.HTTP_400_BAD_REQUEST)
+
+            logger.debug(f"User: {request.user}, Tenant: {tenant.schema_name}")
             connection.set_schema(tenant.schema_name)
-            logger.debug(f"Schema after set: {connection.schema_name}")
-            with connection.cursor() as cursor:
-                cursor.execute("SHOW search_path;")
-                search_path = cursor.fetchone()[0]
-                logger.debug(f"Database search_path: {search_path}")
-
             with tenant_context(tenant):
-                queryset = Schedule.objects.filter(tenant=tenant, status='scheduled').select_related('job_application')
-                logger.debug(f"Query: {queryset.query}")
-                return queryset
+                deleted_count = Schedule.objects.filter(tenant_unique_id__in=ids, tenant=tenant).delete()[0]
+                logger.info(f"Deleted {deleted_count} schedules for tenant {tenant.schema_name}")
+                return Response({"detail": f"Successfully deleted {deleted_count} schedules."}, status=status.HTTP_200_OK)
+
         except Exception as e:
-            logger.exception(f"Error accessing schedules for completion in tenant {tenant.schema_name}: {str(e)}")
-            raise
-
-    def perform_update(self, serializer):
-        tenant = self.request.tenant
-        try:
-            with tenant_context(tenant):
-                serializer.save(status='completed', cancellation_reason=None)
-            logger.info(f"Schedule marked as completed: {self.get_object().tenant_unique_id} for tenant {tenant.schema_name}")
-        except Exception as e:
-            logger.exception(f"Error marking schedule {self.get_object().tenant_unique_id} as completed for tenant {tenant.schema_name}: {str(e)}")
-            raise
-
-class ScheduleCancelView(generics.UpdateAPIView):
-    queryset = Schedule.objects.all()
-    serializer_class = ScheduleSerializer
-    permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized]
-    lookup_field = 'tenant_unique_id'
-
-    def get_queryset(self):
-        tenant = self.request.tenant
-        try:
-            logger.debug(f"Accessing schedules for cancellation in tenant: {tenant.schema_name}")
-            logger.debug(f"Schema before set: {connection.schema_name}")
-            connection.set_schema(tenant.schema_name)
-            logger.debug(f"Schema after set: {connection.schema_name}")
-            with connection.cursor() as cursor:
-                cursor.execute("SHOW search_path;")
-                search_path = cursor.fetchone()[0]
-                logger.debug(f"Database search_path: {search_path}")
-
-            with tenant_context(tenant):
-                queryset = Schedule.objects.filter(tenant=tenant, status='scheduled').select_related('job_application')
-                logger.debug(f"Query: {queryset.query}")
-                return queryset
-        except Exception as e:
-            logger.exception(f"Error accessing schedules for cancellation in tenant {tenant.schema_name}: {str(e)}")
-            raise
-
-    def perform_update(self, serializer):
-        tenant = self.request.tenant
-        cancellation_reason = self.request.data.get('cancellation_reason', '')
-        if not cancellation_reason:
-            logger.error(f"Attempt to cancel schedule {self.get_object().tenant_unique_id} without reason for tenant {tenant.schema_name}")
-            return Response(
-                {"detail": "Cancellation reason is required."},
-                status=status.HTTP_400_BAD_REQUEST
-            )
-        try:
-            with tenant_context(tenant):
-                serializer.save(status='cancelled', cancellation_reason=cancellation_reason)
-            logger.info(f"Schedule cancelled: {self.get_object().tenant_unique_id} with reason: {cancellation_reason} for tenant {tenant.schema_name}")
-        except Exception as e:
-            logger.exception(f"Error cancelling schedule {self.get_object().tenant_unique_id} for tenant {tenant.schema_name}: {str(e)}")
-            raise
+            logger.exception(f"Error deleting schedules for tenant {tenant.schema_name if tenant else 'unknown'}: {str(e)}")
+            return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

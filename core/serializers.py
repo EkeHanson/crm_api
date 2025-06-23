@@ -17,7 +17,8 @@ class TenantSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Tenant
-        fields = ['id', 'name', 'schema_name', 'created_at', 'domain', 'domains']
+        fields = "__all__"
+        #fields = ['id', 'name', 'schema_name', 'created_at', 'domain', 'domains']
         read_only_fields = ['id', 'schema_name', 'created_at', 'domains']
 
     def validate_name(self, value):

@@ -1,5 +1,7 @@
 from pathlib import Path
 import os
+import logging
+from logging.handlers import RotatingFileHandler
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -103,15 +105,15 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 # Update CORS for OAuth redirects
-# CORS_ALLOWED_ORIGINS = [
-#     'http://app.mydomain.com',
-#     'https://crm-frontend-react.vercel.app',
-#     'http://localhost:5173',
-#     'https://accounts.google.com',
-#     'https://appleid.apple.com',
-#     'https://login.microsoftonline.com',
-# ]
-CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOWED_ORIGINS = [
+    'http://app.mydomain.com',
+    'https://crm-frontend-react.vercel.app',
+    'http://localhost:5173',
+    'https://accounts.google.com',
+    'https://appleid.apple.com',
+    'https://login.microsoftonline.com',
+]
+# CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_METHODS = [
     'DELETE',
     'GET',
@@ -212,8 +214,6 @@ TENANT_APPS = [
 AUTH_USER_MODEL = 'users.CustomUser'
 
 
-# Password validation
-# https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -231,9 +231,6 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# Internationalization
-# https://docs.djangoproject.com/en/5.2/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -243,8 +240,6 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
 
@@ -252,14 +247,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# lumina_care/settings.py
-# Update REST_FRAMEWORK for allauth
-# lumina_care/settings.py
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -288,18 +278,74 @@ SIMPLE_JWT = {
 
 # Add Logging: Add logging to track migration issues:
 # lumina_care/settings.py
+
+LOG_DIR = os.path.join(BASE_DIR, 'logs')
+os.makedirs(LOG_DIR, exist_ok=True)  # Ensure the logs directory exists
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+
+    'formatters': {
+        'verbose': {
+            'format': '{asctime} [{levelname}] {name}: {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '[{levelname}] {message}',
+            'style': '{',
+        },
+    },
+
     'handlers': {
-        'console': {'class': 'logging.StreamHandler'},
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(LOG_DIR, 'lumina_care.log'),
+            'maxBytes': 1024 * 1024 * 5,  # 5 MB
+            'backupCount': 5,
+            'formatter': 'verbose',
+        },
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+        },
     },
+
     'loggers': {
-        'core': {'handlers': ['console'], 'level': 'INFO'},
-        'users': {'handlers': ['console'], 'level': 'INFO'},
-        'talent_engine': {'handlers': ['console'], 'level': 'INFO'},  # Added
-        'job_application': {'handlers': ['console'], 'level': 'INFO'},  # Added
-        'subscriptions': {'handlers': ['console'], 'level': 'INFO'},  # Added
-        'django.db.migrations': {'handlers': ['console'], 'level': 'DEBUG'},
-    },
+        'django': {
+            'handlers': ['file', 'console'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'django.db.backends': {
+            'handlers': ['file'],
+            'level': 'ERROR',
+        },
+        'core': {
+            'handlers': ['file'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'users': {
+            'handlers': ['file'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'talent_engine': {
+            'handlers': ['file'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'job_application': {
+            'handlers': ['file'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'subscriptions': {
+            'handlers': ['file'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+    }
 }

@@ -154,3 +154,40 @@ class JobApplication(models.Model):
         if is_new:
             self.job_requisition.num_of_applications += 1
             self.job_requisition.save()
+
+
+
+class Schedule(models.Model):
+    STATUS_CHOICES = [
+        ('scheduled', 'Scheduled'),
+        ('completed', 'Completed'),
+        ('cancelled', 'Cancelled'),
+    ]
+
+    id = models.CharField(max_length=10, primary_key=True, editable=False)
+    tenant = models.ForeignKey(Tenant, on_delete=models.CASCADE, related_name='schedules')
+    job_application = models.ForeignKey(JobApplication, on_delete=models.CASCADE, related_name='schedules')
+    interview_date_time = models.DateTimeField()
+    meeting_mode = models.CharField(max_length=20, choices=[('Virtual', 'Virtual'), ('Physical', 'Physical')])
+    meeting_link = models.URLField(max_length=255, blank=True, null=True)
+    interview_address = models.TextField(max_length=255, blank=True, null=True)
+    message = models.TextField(blank=True, null=True)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='scheduled')
+    cancellation_reason = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'job_applications_schedule'
+        unique_together = ('tenant', 'job_application', 'interview_date_time')  # Prevent duplicate schedules for same applicant at same time
+
+    def __str__(self):
+        return f"Schedule for {self.job_application.full_name} - {self.job_application.job_requisition.title} ({self.interview_date_time})"
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            prefix = self.tenant.name[:3].upper()
+            latest = Schedule.objects.filter(id__startswith=prefix).aggregate(models.Max('id'))['id__max']
+            number = int(latest.split('-')[1]) + 1 if latest else 1
+            self.id = f"{prefix}-{number:04d}"
+        super().save(*args, **kwargs)

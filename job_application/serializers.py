@@ -1,12 +1,13 @@
 # job_applications/serializers.py
 from rest_framework import serializers
-from .models import JobApplication
+from .models import JobApplication, Schedule
 from talent_engine.models import JobRequisition
 import logging
 from django.conf import settings
 from django.utils import timezone
 import os
 import uuid
+from django.core.validators import URLValidator
 
 logger = logging.getLogger('job_applications')
 
@@ -19,7 +20,9 @@ class DocumentSerializer(serializers.Serializer):
     def get_file_url(self, obj):
         file_path = obj.get('file_path', None)
         if file_path:
-            return f"{settings.MEDIA_URL}{file_path.lstrip('/')}"
+            # print(f"{settings.MEDIA_URL}{file_path.lstrip('/')}")
+            # print(file_path)
+            return file_path
         return None
 
     def validate_file(self, value):
@@ -129,3 +132,60 @@ class JobApplicationSerializer(serializers.ModelSerializer):
         if 'documents' in fields:
             fields['documents'].child.context.update({'job_requisition': self.context.get('job_requisition')})
         return fields
+    
+
+
+class ScheduleSerializer(serializers.ModelSerializer):
+    job_application_id = serializers.CharField(source='job_application.id', read_only=True)
+    tenant_schema = serializers.CharField(source='tenant.schema_name', read_only=True)
+    candidate_name = serializers.CharField(source='job_application.full_name', read_only=True)
+    job_requisition_title = serializers.CharField(source='job_application.job_requisition.title', read_only=True)
+
+    class Meta:
+        model = Schedule
+        fields = [
+            'id', 'tenant', 'tenant_schema', 'job_application', 'job_application_id',
+            'candidate_name', 'job_requisition_title', 'interview_date_time',
+            'meeting_mode', 'meeting_link', 'interview_address', 'message',
+            'status', 'cancellation_reason', 'created_at', 'updated_at'
+        ]
+        read_only_fields = ['id', 'tenant', 'tenant_schema', 'job_application_id', 'candidate_name', 'job_requisition_title', 'created_at', 'updated_at']
+
+    def validate(self, data):
+        logger.debug(f"Validating schedule data: {data}")
+        job_application = data.get('job_application')
+        if not job_application:
+            raise serializers.ValidationError("Job application is required.")
+        if job_application.status != 'shortlisted':
+            raise serializers.ValidationError("Schedules can only be created for shortlisted applicants.")
+        if data.get('meeting_mode') == 'Virtual' and not data.get('meeting_link'):
+            raise serializers.ValidationError("Meeting link is required for virtual interviews.")
+        if data.get('meeting_mode') == 'Virtual' and data.get('meeting_link'):
+            validate_url = URLValidator()
+            try:
+                validate_url(data['meeting_link'])
+            except serializers.ValidationError:
+                raise serializers.ValidationError("Invalid meeting link URL.")
+        if data.get('meeting_mode') == 'Physical' and not data.get('interview_address'):
+            raise serializers.ValidationError("Interview address is required for physical interviews.")
+        if data.get('status') == 'cancelled' and not data.get('cancellation_reason'):
+            raise serializers.ValidationError("Cancellation reason is required for cancelled schedules.")
+        if data.get('interview_date_time') <= timezone.now():
+            raise serializers.ValidationError("Interview date and time must be in the future.")
+        return data
+
+    def create(self, validated_data):
+        tenant = self.context['request'].tenant
+        validated_data['tenant'] = tenant
+        logger.debug(f"Creating schedule for tenant: {tenant.schema_name}, application: {validated_data['job_application'].id}")
+        schedule = Schedule.objects.create(**validated_data)
+        logger.info(f"Schedule created: {schedule.id} for {schedule.job_application.full_name}")
+        return schedule
+
+    def update(self, instance, validated_data):
+        logger.debug(f"Updating schedule {instance.id} with data: {validated_data}")
+        if validated_data.get('status') == 'cancelled' and instance.status != 'cancelled' and not validated_data.get('cancellation_reason'):
+            raise serializers.ValidationError("Cancellation reason is required when cancelling a schedule.")
+        if validated_data.get('status') != 'cancelled':
+            validated_data['cancellation_reason'] = None  # Clear cancellation reason if not cancelled
+        return super().update(instance, validated_data)

@@ -1641,3 +1641,4 @@
 2025-06-24 15:23:39,192 [INFO] talent_engine: Job requisition accessed via link: DevOps Engineer for tenant proliance
 2025-06-24 15:23:39,204 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-devops-engineer-b99ceaae/ HTTP/1.1" 200 4080
 2025-06-24 15:26:44,025 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\lumina_care\settings.py changed, reloading.
+2025-06-24 15:26:46,464 [INFO] django.utils.autoreload: Watching for file changes with StatReloader

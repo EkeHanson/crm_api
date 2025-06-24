@@ -1692,3 +1692,37 @@
 2025-06-24 15:34:16,874 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-devops-engineer-b99ceaae/ HTTP/1.1" 200 4080
 2025-06-24 15:41:54,157 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\lumina_care\settings.py changed, reloading.
 2025-06-24 15:41:55,874 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-24 15:46:11,251 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 507
+2025-06-24 15:46:15,931 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 507
+2025-06-24 15:46:20,698 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 507
+2025-06-24 15:46:23,757 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\lumina_care\settings.py changed, reloading.
+2025-06-24 15:46:30,429 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-24 15:46:42,303 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 1086
+2025-06-24 15:46:42,405 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 15:46:42,477 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 15:46:46,629 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 15:46:46,772 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 15:46:53,072 [INFO] core: Retrieving tenant: 3 for tenant proliance
+2025-06-24 15:46:53,079 [INFO] django.server: "GET /api/tenant/tenants/3/ HTTP/1.1" 200 352
+2025-06-24 15:46:53,142 [INFO] core: Retrieving tenant: 3 for tenant proliance
+2025-06-24 15:46:53,147 [INFO] django.server: "GET /api/tenant/tenants/3/ HTTP/1.1" 200 352
+2025-06-24 18:16:30,085 [INFO] django.server: "OPTIONS /api/token/validate/ HTTP/1.1" 200 0
+2025-06-24 18:16:30,095 [INFO] django.server: "OPTIONS /api/token/validate/ HTTP/1.1" 200 0
+2025-06-24 18:16:30,388 [WARNING] django.request: Unauthorized: /api/token/validate/
+2025-06-24 18:16:30,394 [WARNING] django.server: "GET /api/token/validate/ HTTP/1.1" 401 172
+2025-06-24 18:16:30,717 [WARNING] django.request: Unauthorized: /api/token/validate/
+2025-06-24 18:16:30,730 [WARNING] django.server: "GET /api/token/validate/ HTTP/1.1" 401 172
+2025-06-24 18:23:21,535 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\lumina_care\settings.py changed, reloading.
+2025-06-24 18:23:36,348 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-24 18:23:45,943 [INFO] django.server: "OPTIONS /api/token/ HTTP/1.1" 200 0
+2025-06-24 18:23:48,326 [INFO] django.server: "OPTIONS /api/token/ HTTP/1.1" 200 0
+2025-06-24 18:24:12,913 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\lumina_care\settings.py changed, reloading.
+2025-06-24 18:24:18,035 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-24 18:24:28,887 [INFO] django.server: "OPTIONS /api/token/ HTTP/1.1" 200 0
+2025-06-24 18:24:43,398 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 1058
+2025-06-24 18:24:49,231 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 474
+2025-06-24 18:24:51,936 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/ HTTP/1.1" 200 0
+2025-06-24 18:24:51,941 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/ HTTP/1.1" 200 0
+2025-06-24 18:24:54,870 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 474
+2025-06-24 18:25:06,411 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\lumina_care\settings.py changed, reloading.
+2025-06-24 18:25:10,405 [INFO] django.utils.autoreload: Watching for file changes with StatReloader

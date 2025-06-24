@@ -105,14 +105,14 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 # Update CORS for OAuth redirects
-# CORS_ALLOWED_ORIGINS = [
-#     'http://app.mydomain.com',
-#     'https://crm-frontend-react.vercel.app',
-#     'http://localhost:5173',
-#     'https://accounts.google.com',
-#     'https://appleid.apple.com',
-#     'https://login.microsoftonline.com',
-# ]
+CORS_ALLOWED_ORIGINS = [
+    'http://app.mydomain.com',
+    'https://crm-frontend-react.vercel.app',
+    'http://localhost:5173',
+    'https://accounts.google.com',
+    'https://appleid.apple.com',
+    'https://login.microsoftonline.com',
+]
 
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_METHODS = [
@@ -155,28 +155,28 @@ TEMPLATES = [
 WSGI_APPLICATION = 'lumina_care.wsgi.application'
 
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django_tenants.postgresql_backend',
-#         'NAME': 'lumina_care_db',
-#         'USER': 'postgres',
-#         'PASSWORD': 'qwerty',
-#         'HOST': 'localhost',
-#         'PORT': '5432',
-#     }
-# }
-
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django_tenants.postgresql_backend',  # or 'django.db.backends.postgresql' if not using multi-tenancy
-        'NAME': 'crm_db_q6tk',
-        'USER': 'crm_db_q6tk_user',
-        'PASSWORD': 'QQ4Rf20Ar8FtfCEGmuwar57DJ2FoeBkS',
-        'HOST': 'dpg-d1aqneer433s73ac15j0-a.oregon-postgres.render.com',
+        'ENGINE': 'django_tenants.postgresql_backend',
+        'NAME': 'lumina_care_db',
+        'USER': 'postgres',
+        'PASSWORD': 'qwerty',
+        'HOST': 'localhost',
         'PORT': '5432',
     }
 }
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django_tenants.postgresql_backend',  # or 'django.db.backends.postgresql' if not using multi-tenancy
+#         'NAME': 'crm_db_q6tk',
+#         'USER': 'crm_db_q6tk_user',
+#         'PASSWORD': 'QQ4Rf20Ar8FtfCEGmuwar57DJ2FoeBkS',
+#         'HOST': 'dpg-d1aqneer433s73ac15j0-a.oregon-postgres.render.com',
+#         'PORT': '5432',
+#     }
+# }
 
 
 DATABASE_ROUTERS = ['django_tenants.routers.TenantSyncRouter']

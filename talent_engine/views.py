@@ -91,6 +91,7 @@ class JobRequisitionByLinkView(generics.RetrieveAPIView):
             logger.debug(f"Schema before set: {connection.schema_name}")
             connection.set_schema(tenant.schema_name)
             logger.debug(f"Schema after set: {connection.schema_name}")
+            #print(f"Schema after set: {connection.schema_name}")
             with connection.cursor() as cursor:
                 cursor.execute("SHOW search_path;")
                 search_path = cursor.fetchone()[0]

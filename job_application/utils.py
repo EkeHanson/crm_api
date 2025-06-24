@@ -25,7 +25,6 @@ def get_sentence_transformer_model():
     return _model
 
 
-
 def parse_resume(file_path):
     """Extract text from PDF or DOCX files."""
     try:

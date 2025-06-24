@@ -326,3 +326,1271 @@
 2025-06-23 15:58:44,474 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\lumina_care\settings.py changed, reloading.
 2025-06-23 15:58:47,498 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
 2025-06-23 15:58:55,617 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\lumina_care\settings.py changed, reloading.
+2025-06-24 02:14:56,723 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-24 02:15:42,639 [INFO] django.server: "OPTIONS /api/token/ HTTP/1.1" 200 0
+2025-06-24 02:15:51,213 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 1058
+2025-06-24 02:15:51,263 [INFO] django.server: "OPTIONS /api/token/validate/ HTTP/1.1" 200 0
+2025-06-24 02:15:51,267 [INFO] django.server: "OPTIONS /api/token/validate/ HTTP/1.1" 200 0
+2025-06-24 02:15:55,834 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 474
+2025-06-24 02:15:58,823 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/ HTTP/1.1" 200 0
+2025-06-24 02:15:58,824 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/ HTTP/1.1" 200 0
+2025-06-24 02:16:00,227 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 474
+2025-06-24 02:16:13,127 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 5577
+2025-06-24 02:16:23,672 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\lumina_care\settings.py changed, reloading.
+2025-06-24 02:16:25,433 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-24 02:16:34,227 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-24 02:19:07,911 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 506
+2025-06-24 02:19:08,014 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 506
+2025-06-24 02:19:08,133 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 11941
+2025-06-24 02:19:08,244 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 11941
+2025-06-24 02:19:58,140 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 11941
+2025-06-24 02:20:48,281 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 11941
+2025-06-24 02:21:13,072 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 1086
+2025-06-24 02:21:13,176 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 02:21:13,250 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 02:21:19,996 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18157
+2025-06-24 02:21:20,118 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18157
+2025-06-24 02:22:01,870 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\lumina_care\settings.py changed, reloading.
+2025-06-24 02:22:04,342 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-24 02:22:21,789 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-24 02:22:51,106 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 1058
+2025-06-24 02:25:38,293 [INFO] users: Admin user created: onyinye@artstraining.co.uk for tenant arts
+2025-06-24 02:25:38,294 [INFO] django.server: "POST /api/user/admin/create/ HTTP/1.1" 201 750
+2025-06-24 02:26:05,028 [INFO] users: Admin user created: frank@artstraining.co.uk for tenant arts
+2025-06-24 02:26:05,030 [INFO] django.server: "POST /api/user/admin/create/ HTTP/1.1" 201 744
+2025-06-24 02:28:08,597 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/schedules/ HTTP/1.1" 200 0
+2025-06-24 02:28:13,850 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 483
+2025-06-24 02:28:16,317 [INFO] django.server: "GET /api/talent-engine-job-applications/schedules/ HTTP/1.1" 200 2
+2025-06-24 02:28:38,426 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-24 02:28:42,850 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\lumina_care\settings.py changed, reloading.
+2025-06-24 02:28:45,067 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-24 02:28:45,991 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 513
+2025-06-24 02:28:46,089 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 513
+2025-06-24 02:28:46,169 [INFO] django.server: "GET /api/talent-engine-job-applications/schedules/ HTTP/1.1" 200 7037
+2025-06-24 02:28:46,269 [INFO] django.server: "GET /api/talent-engine-job-applications/schedules/ HTTP/1.1" 200 7037
+2025-06-24 02:29:04,536 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 513
+2025-06-24 02:29:04,601 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 0
+2025-06-24 02:29:04,601 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 0
+2025-06-24 02:29:04,652 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 513
+2025-06-24 02:29:04,802 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 35064
+2025-06-24 02:29:04,969 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 35064
+2025-06-24 02:29:08,157 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18157
+2025-06-24 02:29:08,260 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18157
+2025-06-24 02:29:10,271 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18157
+2025-06-24 02:29:10,411 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18157
+2025-06-24 02:29:15,682 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 35064
+2025-06-24 02:29:15,840 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 35064
+2025-06-24 02:29:19,033 [INFO] django.server: "GET /api/talent-engine-job-applications/schedules/ HTTP/1.1" 200 7037
+2025-06-24 02:29:19,151 [INFO] django.server: "GET /api/talent-engine-job-applications/schedules/ HTTP/1.1" 200 7037
+2025-06-24 02:30:07,716 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 513
+2025-06-24 02:30:07,855 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 513
+2025-06-24 02:30:07,962 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 35064
+2025-06-24 02:30:08,100 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 35064
+2025-06-24 02:35:37,918 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 35064
+2025-06-24 02:35:38,047 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 35064
+2025-06-24 02:35:39,597 [INFO] django.server: "GET /api/talent-engine-job-applications/schedules/ HTTP/1.1" 200 7037
+2025-06-24 02:35:39,706 [INFO] django.server: "GET /api/talent-engine-job-applications/schedules/ HTTP/1.1" 200 7037
+2025-06-24 02:35:53,731 [INFO] django.server: "GET /api/talent-engine-job-applications/schedules/ HTTP/1.1" 200 7037
+2025-06-24 02:36:08,495 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18157
+2025-06-24 02:36:08,712 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18157
+2025-06-24 02:36:12,244 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/applications/job-requisitions/PRO-0004/applications/ HTTP/1.1" 200 0
+2025-06-24 02:36:12,247 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/applications/job-requisitions/PRO-0004/applications/ HTTP/1.1" 200 0
+2025-06-24 02:36:12,329 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0004/applications/ HTTP/1.1" 200 1316
+2025-06-24 02:36:12,422 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0004/applications/ HTTP/1.1" 200 1316
+2025-06-24 02:36:15,861 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 513
+2025-06-24 02:36:15,954 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 513
+2025-06-24 02:36:23,650 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18157
+2025-06-24 02:36:23,754 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18157
+2025-06-24 02:37:13,790 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18157
+2025-06-24 02:37:51,523 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18157
+2025-06-24 02:37:51,637 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18157
+2025-06-24 02:37:54,611 [INFO] talent_engine: Job requisition accessed via link: Data Scientist - NLP & Machine Learning for tenant proliance
+2025-06-24 02:37:54,620 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-data-scientist-nlp-machine-learning-5e9af7dc/ HTTP/1.1" 200 4404
+2025-06-24 02:37:54,809 [INFO] talent_engine: Job requisition accessed via link: Data Scientist - NLP & Machine Learning for tenant proliance
+2025-06-24 02:37:54,820 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-data-scientist-nlp-machine-learning-5e9af7dc/ HTTP/1.1" 200 4404
+2025-06-24 02:38:41,800 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18157
+2025-06-24 02:39:31,690 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18157
+2025-06-24 02:40:21,714 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18157
+2025-06-24 02:41:11,708 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18157
+2025-06-24 02:42:01,709 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18157
+2025-06-24 02:42:51,685 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18157
+2025-06-24 02:43:42,686 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18157
+2025-06-24 02:44:43,705 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18157
+2025-06-24 02:45:44,681 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18157
+2025-06-24 02:46:16,349 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18157
+2025-06-24 02:47:01,539 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18157
+2025-06-24 02:47:51,836 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18157
+2025-06-24 02:48:46,731 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18157
+2025-06-24 02:49:46,693 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18157
+2025-06-24 02:50:46,685 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18157
+2025-06-24 02:51:46,693 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18157
+2025-06-24 02:52:46,727 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18157
+2025-06-24 02:53:46,695 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18157
+2025-06-24 02:54:46,820 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18157
+2025-06-24 02:55:46,733 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18157
+2025-06-24 02:56:46,736 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18157
+2025-06-24 02:57:46,732 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18157
+2025-06-24 02:58:46,740 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18157
+2025-06-24 02:59:31,723 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18157
+2025-06-24 02:59:46,734 [INFO] talent_engine: Job requisition accessed via link: Data Scientist - NLP & Machine Learning for tenant proliance
+2025-06-24 02:59:46,747 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-data-scientist-nlp-machine-learning-5e9af7dc/ HTTP/1.1" 200 4404
+2025-06-24 03:00:46,702 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18157
+2025-06-24 03:01:08,763 [INFO] talent_engine: Job requisition accessed via link: Data Scientist - NLP & Machine Learning for tenant proliance
+2025-06-24 03:01:08,777 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-data-scientist-nlp-machine-learning-5e9af7dc/ HTTP/1.1" 200 4404
+2025-06-24 03:01:08,936 [INFO] talent_engine: Job requisition accessed via link: Data Scientist - NLP & Machine Learning for tenant proliance
+2025-06-24 03:01:08,949 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-data-scientist-nlp-machine-learning-5e9af7dc/ HTTP/1.1" 200 4404
+2025-06-24 03:01:41,714 [INFO] talent_engine: Job requisition accessed via link: Data Scientist - NLP & Machine Learning for tenant proliance
+2025-06-24 03:01:41,726 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-data-scientist-nlp-machine-learning-5e9af7dc/ HTTP/1.1" 200 4404
+2025-06-24 03:01:46,701 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18157
+2025-06-24 03:02:05,783 [INFO] talent_engine: Job requisition accessed via link: Data Scientist - NLP & Machine Learning for tenant proliance
+2025-06-24 03:02:05,798 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-data-scientist-nlp-machine-learning-5e9af7dc/ HTTP/1.1" 200 4404
+2025-06-24 03:02:46,703 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18157
+2025-06-24 03:03:46,721 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18157
+2025-06-24 03:04:02,901 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 35064
+2025-06-24 03:04:03,047 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 35064
+2025-06-24 03:04:04,226 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18157
+2025-06-24 03:04:04,351 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18157
+2025-06-24 03:04:10,960 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/applications/job-requisitions/PRO-0001/applications/ HTTP/1.1" 200 0
+2025-06-24 03:04:10,960 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/applications/job-requisitions/PRO-0001/applications/ HTTP/1.1" 200 0
+2025-06-24 03:04:11,041 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0001/applications/ HTTP/1.1" 200 2570
+2025-06-24 03:04:11,140 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0001/applications/ HTTP/1.1" 200 2570
+2025-06-24 03:20:15,705 [INFO] talent_engine: Job requisition accessed via link: Data Scientist - NLP & Machine Learning for tenant proliance
+2025-06-24 03:20:15,714 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-data-scientist-nlp-machine-learning-5e9af7dc/ HTTP/1.1" 200 4404
+2025-06-24 03:21:05,072 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18157
+2025-06-24 03:21:05,184 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18157
+2025-06-24 03:21:08,374 [INFO] talent_engine: Job requisition accessed via link: qwertyu for tenant proliance
+2025-06-24 03:21:08,381 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-qwertyu-a8d7e018/ HTTP/1.1" 200 1426
+2025-06-24 03:21:08,461 [INFO] talent_engine: Job requisition accessed via link: qwertyu for tenant proliance
+2025-06-24 03:21:08,467 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-qwertyu-a8d7e018/ HTTP/1.1" 200 1426
+2025-06-24 03:21:16,541 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 513
+2025-06-24 03:21:16,633 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 513
+2025-06-24 03:21:16,689 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18157
+2025-06-24 03:21:16,797 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18157
+2025-06-24 03:21:19,264 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18157
+2025-06-24 03:21:19,358 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18157
+2025-06-24 03:21:21,940 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/PRO-0006/ HTTP/1.1" 200 0
+2025-06-24 03:21:21,940 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/PRO-0006/ HTTP/1.1" 200 0
+2025-06-24 03:21:22,044 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0006/ HTTP/1.1" 200 1426
+2025-06-24 03:21:22,151 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0006/ HTTP/1.1" 200 1426
+2025-06-24 03:21:22,298 [INFO] django.server: "GET /media/advert_banners/DevOps_Engineer_dHo1QU2.png HTTP/1.1" 200 11861
+2025-06-24 03:22:04,722 [INFO] talent_engine: Job requisition updated: qwertyu for tenant proliance
+2025-06-24 03:22:04,727 [INFO] django.server: "PATCH /api/talent-engine/requisitions/PRO-0006/ HTTP/1.1" 200 2174
+2025-06-24 03:22:05,937 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 03:22:06,040 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 03:22:08,619 [INFO] talent_engine: Job requisition accessed via link: qwertyu for tenant proliance
+2025-06-24 03:22:08,624 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-qwertyu-a8d7e018/ HTTP/1.1" 200 2174
+2025-06-24 03:22:08,679 [INFO] talent_engine: Job requisition accessed via link: qwertyu for tenant proliance
+2025-06-24 03:22:08,684 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-qwertyu-a8d7e018/ HTTP/1.1" 200 2174
+2025-06-24 03:23:35,700 [INFO] talent_engine: Job requisition accessed via link: qwertyu for tenant proliance
+2025-06-24 03:23:35,704 [INFO] talent_engine: Job requisition accessed via link: Data Scientist - NLP & Machine Learning for tenant proliance
+2025-06-24 03:23:35,709 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-qwertyu-a8d7e018/ HTTP/1.1" 200 2174
+2025-06-24 03:23:35,715 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-data-scientist-nlp-machine-learning-5e9af7dc/ HTTP/1.1" 200 4404
+2025-06-24 03:23:48,404 [INFO] talent_engine: Job requisition accessed via link: Data Scientist - NLP & Machine Learning for tenant proliance
+2025-06-24 03:23:48,415 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-data-scientist-nlp-machine-learning-5e9af7dc/ HTTP/1.1" 200 4404
+2025-06-24 03:23:48,537 [INFO] talent_engine: Job requisition accessed via link: Data Scientist - NLP & Machine Learning for tenant proliance
+2025-06-24 03:23:48,551 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-data-scientist-nlp-machine-learning-5e9af7dc/ HTTP/1.1" 200 4404
+2025-06-24 03:23:48,712 [INFO] talent_engine: Job requisition accessed via link: qwertyu for tenant proliance
+2025-06-24 03:23:48,718 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-qwertyu-a8d7e018/ HTTP/1.1" 200 2174
+2025-06-24 03:23:48,794 [INFO] talent_engine: Job requisition accessed via link: qwertyu for tenant proliance
+2025-06-24 03:23:48,800 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-qwertyu-a8d7e018/ HTTP/1.1" 200 2174
+2025-06-24 03:25:19,672 [INFO] talent_engine: Job requisition accessed via link: qwertyu for tenant proliance
+2025-06-24 03:25:19,675 [INFO] talent_engine: Job requisition accessed via link: Data Scientist - NLP & Machine Learning for tenant proliance
+2025-06-24 03:25:19,680 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-qwertyu-a8d7e018/ HTTP/1.1" 200 2174
+2025-06-24 03:25:19,684 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-data-scientist-nlp-machine-learning-5e9af7dc/ HTTP/1.1" 200 4404
+2025-06-24 03:25:27,346 [INFO] talent_engine: Job requisition accessed via link: Data Scientist - NLP & Machine Learning for tenant proliance
+2025-06-24 03:25:27,352 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-data-scientist-nlp-machine-learning-5e9af7dc/ HTTP/1.1" 200 4404
+2025-06-24 03:25:27,451 [INFO] talent_engine: Job requisition accessed via link: Data Scientist - NLP & Machine Learning for tenant proliance
+2025-06-24 03:25:27,458 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-data-scientist-nlp-machine-learning-5e9af7dc/ HTTP/1.1" 200 4404
+2025-06-24 03:25:55,492 [INFO] django.server: "POST /api/talent-engine-job-applications/applications/ HTTP/1.1" 201 76
+2025-06-24 03:25:59,580 [INFO] talent_engine: Job requisition accessed via link: Data Scientist - NLP & Machine Learning for tenant proliance
+2025-06-24 03:25:59,590 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-data-scientist-nlp-machine-learning-5e9af7dc/ HTTP/1.1" 200 4404
+2025-06-24 03:25:59,691 [INFO] talent_engine: Job requisition accessed via link: Data Scientist - NLP & Machine Learning for tenant proliance
+2025-06-24 03:25:59,698 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-data-scientist-nlp-machine-learning-5e9af7dc/ HTTP/1.1" 200 4404
+2025-06-24 03:26:09,312 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 513
+2025-06-24 03:26:09,402 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 513
+2025-06-24 03:26:09,514 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 03:26:09,646 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 03:26:14,882 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 03:26:15,001 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 03:26:19,008 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 03:26:19,116 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 03:26:21,640 [INFO] talent_engine: Job requisition accessed via link: DevOps Engineer for tenant proliance
+2025-06-24 03:26:21,646 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-devops-engineer-b99ceaae/ HTTP/1.1" 200 4080
+2025-06-24 03:26:21,708 [INFO] talent_engine: Job requisition accessed via link: DevOps Engineer for tenant proliance
+2025-06-24 03:26:21,713 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-devops-engineer-b99ceaae/ HTTP/1.1" 200 4080
+2025-06-24 03:26:24,102 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 513
+2025-06-24 03:26:24,205 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 513
+2025-06-24 03:26:24,261 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 03:26:24,380 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 03:26:25,815 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 03:26:25,906 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 03:26:31,980 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 0
+2025-06-24 03:26:31,982 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 0
+2025-06-24 03:26:32,095 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23940
+2025-06-24 03:26:32,314 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23940
+2025-06-24 03:26:39,642 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 513
+2025-06-24 03:26:39,724 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 513
+2025-06-24 03:26:48,081 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 35812
+2025-06-24 03:26:48,253 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 35812
+2025-06-24 03:26:59,588 [INFO] django.server: "GET /api/talent-engine-job-applications/schedules/ HTTP/1.1" 200 7037
+2025-06-24 03:26:59,688 [INFO] django.server: "GET /api/talent-engine-job-applications/schedules/ HTTP/1.1" 200 7037
+2025-06-24 03:27:06,883 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 35812
+2025-06-24 03:27:07,038 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 35812
+2025-06-24 03:27:33,675 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 513
+2025-06-24 03:27:33,756 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 35812
+2025-06-24 03:27:55,631 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 513
+2025-06-24 03:27:55,745 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 513
+2025-06-24 03:27:56,018 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 35812
+2025-06-24 03:27:56,150 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 35812
+2025-06-24 03:28:01,461 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 03:28:01,567 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 03:28:29,116 [WARNING] django.request: Bad Request: /api/token/
+2025-06-24 03:28:29,116 [WARNING] django.server: "POST /api/token/ HTTP/1.1" 400 45
+2025-06-24 03:28:30,547 [WARNING] django.request: Bad Request: /api/token/
+2025-06-24 03:28:30,547 [WARNING] django.server: "POST /api/token/ HTTP/1.1" 400 45
+2025-06-24 03:28:40,171 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 1086
+2025-06-24 03:28:40,280 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 03:28:40,359 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 03:28:48,521 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 03:28:48,632 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 03:28:57,794 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 03:28:57,900 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 03:29:00,725 [INFO] talent_engine: Job requisition accessed via link: DevOps Engineer for tenant proliance
+2025-06-24 03:29:00,731 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-devops-engineer-b99ceaae/ HTTP/1.1" 200 4080
+2025-06-24 03:29:00,797 [INFO] talent_engine: Job requisition accessed via link: DevOps Engineer for tenant proliance
+2025-06-24 03:29:00,803 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-devops-engineer-b99ceaae/ HTTP/1.1" 200 4080
+2025-06-24 03:29:02,484 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 03:29:02,681 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 03:29:02,731 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 03:29:02,846 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 03:29:03,777 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 03:29:03,873 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 03:29:06,030 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 35812
+2025-06-24 03:29:06,166 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 35812
+2025-06-24 03:29:08,568 [INFO] django.server: "GET /api/talent-engine-job-applications/schedules/ HTTP/1.1" 200 7037
+2025-06-24 03:29:08,675 [INFO] django.server: "GET /api/talent-engine-job-applications/schedules/ HTTP/1.1" 200 7037
+2025-06-24 03:29:10,716 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 35812
+2025-06-24 03:29:10,840 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 35812
+2025-06-24 03:33:07,479 [ERROR] talent_engine: Error retrieving job requisition: No JobRequisition matches the given query.
+2025-06-24 03:33:07,479 [ERROR] django.request: Internal Server Error: /api/talent-engine/requisitions/by-link/proliance-devops-engineer-28420403/
+2025-06-24 03:33:07,480 [ERROR] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-devops-engineer-28420403/ HTTP/1.1" 500 55
+2025-06-24 03:33:07,538 [ERROR] talent_engine: Error retrieving job requisition: No JobRequisition matches the given query.
+2025-06-24 03:33:07,539 [ERROR] django.request: Internal Server Error: /api/talent-engine/requisitions/by-link/proliance-devops-engineer-28420403/
+2025-06-24 03:33:07,539 [ERROR] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-devops-engineer-28420403/ HTTP/1.1" 500 55
+2025-06-24 03:34:38,913 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\lumina_care\settings.py changed, reloading.
+2025-06-24 03:34:41,024 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-24 03:34:46,474 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-24 03:35:03,611 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 1058
+2025-06-24 03:35:07,841 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 474
+2025-06-24 03:35:12,179 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 474
+2025-06-24 03:35:24,452 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 5577
+2025-06-24 03:35:28,288 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/PRO-0001/ HTTP/1.1" 200 0
+2025-06-24 03:35:28,289 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/PRO-0001/ HTTP/1.1" 200 0
+2025-06-24 03:35:35,906 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0001/ HTTP/1.1" 200 2218
+2025-06-24 03:35:37,331 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 5577
+2025-06-24 03:35:39,380 [INFO] django.server: "GET /media/advert_banners/insulator.png HTTP/1.1" 200 796907
+2025-06-24 03:35:44,029 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0001/ HTTP/1.1" 200 2218
+2025-06-24 03:35:54,160 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 5577
+2025-06-24 03:36:07,072 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 5577
+2025-06-24 03:36:17,746 [INFO] django.server: - Broken pipe from ('127.0.0.1', 55693)
+2025-06-24 03:36:17,778 [INFO] django.server: - Broken pipe from ('127.0.0.1', 55671)
+2025-06-24 03:36:17,836 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 474
+2025-06-24 03:36:22,188 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 474
+2025-06-24 03:36:31,757 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 5577
+2025-06-24 03:36:45,084 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 5577
+2025-06-24 03:36:47,594 [INFO] talent_engine: Job requisition accessed via link: DevOps Engineer for tenant proliance
+2025-06-24 03:36:48,838 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-devops-engineer-28420403/ HTTP/1.1" 200 2218
+2025-06-24 03:36:54,359 [INFO] talent_engine: Job requisition accessed via link: DevOps Engineer for tenant proliance
+2025-06-24 03:36:55,523 [INFO] django.server: - Broken pipe from ('127.0.0.1', 55813)
+2025-06-24 03:37:08,458 [INFO] talent_engine: Job requisition accessed via link: aa for tenant proliance
+2025-06-24 03:37:09,583 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-aa-d03365f1/ HTTP/1.1" 200 922
+2025-06-24 03:37:15,636 [INFO] talent_engine: Job requisition accessed via link: aa for tenant proliance
+2025-06-24 03:37:16,963 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-aa-d03365f1/ HTTP/1.1" 200 922
+2025-06-24 03:37:22,508 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 5577
+2025-06-24 03:37:43,272 [INFO] talent_engine: Job requisition accessed via link: aa for tenant proliance
+2025-06-24 03:37:44,439 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-aa-d03365f1/ HTTP/1.1" 200 922
+2025-06-24 03:37:50,522 [INFO] talent_engine: Job requisition accessed via link: aa for tenant proliance
+2025-06-24 03:37:52,127 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 474
+2025-06-24 03:37:52,608 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-aa-d03365f1/ HTTP/1.1" 200 922
+2025-06-24 03:37:57,157 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 474
+2025-06-24 03:38:06,037 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 5577
+2025-06-24 03:38:19,970 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 5577
+2025-06-24 03:38:55,854 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 5577
+2025-06-24 03:39:47,074 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 5577
+2025-06-24 03:40:36,917 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 5577
+2025-06-24 03:41:25,439 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 5577
+2025-06-24 03:42:15,836 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 5577
+2025-06-24 03:42:26,620 [INFO] talent_engine: Job requisition accessed via link: aa for tenant proliance
+2025-06-24 03:42:27,744 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-aa-d03365f1/ HTTP/1.1" 200 922
+2025-06-24 03:42:32,889 [INFO] talent_engine: Job requisition accessed via link: aa for tenant proliance
+2025-06-24 03:42:33,936 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-aa-d03365f1/ HTTP/1.1" 200 922
+2025-06-24 03:42:34,525 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 474
+2025-06-24 03:42:38,965 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 474
+2025-06-24 03:42:47,047 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 5577
+2025-06-24 03:42:55,985 [INFO] talent_engine: Job requisition accessed via link: DevOps Engineer for tenant proliance
+2025-06-24 03:42:57,131 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-devops-engineer-28420403/ HTTP/1.1" 200 2218
+2025-06-24 03:42:59,822 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 5577
+2025-06-24 03:43:02,281 [INFO] talent_engine: Job requisition accessed via link: DevOps Engineer for tenant proliance
+2025-06-24 03:43:03,366 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-devops-engineer-28420403/ HTTP/1.1" 200 2218
+2025-06-24 03:49:02,170 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\talent_engine\views.py changed, reloading.
+2025-06-24 03:49:04,018 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-24 03:49:23,514 [INFO] talent_engine: Job requisition accessed via link: DevOps Engineer for tenant proliance
+2025-06-24 03:49:24,569 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-devops-engineer-28420403/ HTTP/1.1" 200 2218
+2025-06-24 03:49:29,681 [INFO] talent_engine: Job requisition accessed via link: DevOps Engineer for tenant proliance
+2025-06-24 03:49:30,751 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-devops-engineer-28420403/ HTTP/1.1" 200 2218
+2025-06-24 03:50:01,938 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\talent_engine\views.py changed, reloading.
+2025-06-24 03:50:03,754 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-24 03:50:48,045 [INFO] talent_engine: Job requisition accessed via link: DevOps Engineer for tenant proliance
+2025-06-24 03:50:49,205 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-devops-engineer-28420403/ HTTP/1.1" 200 2218
+2025-06-24 03:51:05,719 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\talent_engine\views.py changed, reloading.
+2025-06-24 03:51:07,405 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-24 03:51:21,672 [INFO] talent_engine: Job requisition accessed via link: DevOps Engineer for tenant proliance
+2025-06-24 03:51:23,337 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-devops-engineer-28420403/ HTTP/1.1" 200 2218
+2025-06-24 03:51:32,371 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\talent_engine\views.py changed, reloading.
+2025-06-24 03:51:34,151 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-24 03:51:58,642 [WARNING] django.request: Unauthorized: /api/tenant/tenants/
+2025-06-24 03:51:58,643 [WARNING] django.server: "GET /api/tenant/tenants/ HTTP/1.1" 401 172
+2025-06-24 03:52:10,043 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 1058
+2025-06-24 03:52:30,084 [INFO] core: Listing tenants: [1, 2, 3]
+2025-06-24 03:52:30,088 [INFO] django.server: "GET /api/tenant/tenants/ HTTP/1.1" 200 927
+2025-06-24 03:53:52,560 [INFO] core: Creating tenant with name: render, schema_name: render, domain: cmvp-api-v1.onrender.com
+2025-06-24 03:53:52,560 [INFO] core: Saving tenant with schema_name: render
+2025-06-24 03:56:42,658 [INFO] core: Tenant created: 4, schema_name: render
+2025-06-24 03:56:45,056 [INFO] core: Domain created: cmvp-api-v1.onrender.com for tenant 4
+2025-06-24 03:56:49,898 [INFO] core: Modules and config created for tenant 4
+2025-06-24 03:56:50,435 [INFO] core: Domains for tenant 4: ['cmvp-api-v1.onrender.com']
+2025-06-24 03:56:50,435 [INFO] core: Tenant created: render (schema: render)
+2025-06-24 03:56:51,309 [INFO] django.server: "POST /api/tenant/tenants/ HTTP/1.1" 201 298
+2025-06-24 03:58:25,229 [INFO] core: Listing tenants: [1, 2, 3, 4]
+2025-06-24 03:58:25,231 [INFO] django.server: "GET /api/tenant/tenants/ HTTP/1.1" 200 1226
+2025-06-24 03:59:57,189 [INFO] talent_engine: Job requisition accessed via link: DevOps Engineer for tenant proliance
+2025-06-24 03:59:58,710 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-devops-engineer-28420403/ HTTP/1.1" 200 2218
+2025-06-24 04:00:04,790 [INFO] talent_engine: Job requisition accessed via link: DevOps Engineer for tenant proliance
+2025-06-24 04:00:06,031 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-devops-engineer-28420403/ HTTP/1.1" 200 2218
+2025-06-24 07:34:09,054 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-24 07:37:12,898 [INFO] django.server: "OPTIONS /api/token/validate/ HTTP/1.1" 200 0
+2025-06-24 07:37:12,912 [INFO] django.server: "OPTIONS /api/token/validate/ HTTP/1.1" 200 0
+2025-06-24 07:37:16,206 [WARNING] django.request: Unauthorized: /api/token/validate/
+2025-06-24 07:37:16,208 [WARNING] django.server: "GET /api/token/validate/ HTTP/1.1" 401 172
+2025-06-24 07:37:19,447 [WARNING] django.request: Unauthorized: /api/token/validate/
+2025-06-24 07:37:19,450 [WARNING] django.server: "GET /api/token/validate/ HTTP/1.1" 401 172
+2025-06-24 07:37:28,469 [INFO] django.server: "OPTIONS /api/token/ HTTP/1.1" 200 0
+2025-06-24 07:37:43,730 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 1058
+2025-06-24 07:37:48,407 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 474
+2025-06-24 07:37:53,442 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 474
+2025-06-24 07:38:30,190 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/ HTTP/1.1" 200 0
+2025-06-24 07:38:30,197 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/ HTTP/1.1" 200 0
+2025-06-24 07:38:45,095 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 6253
+2025-06-24 07:38:49,755 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\lumina_care\settings.py changed, reloading.
+2025-06-24 07:39:01,825 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-24 07:39:03,599 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 506
+2025-06-24 07:39:03,790 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 506
+2025-06-24 07:39:21,100 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 1086
+2025-06-24 07:39:21,416 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 07:39:21,736 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 07:39:26,956 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 07:39:27,203 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 07:39:36,584 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 07:39:36,830 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 07:39:38,189 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/applications/job-requisitions/PRO-0004/applications/ HTTP/1.1" 200 0
+2025-06-24 07:39:38,193 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/applications/job-requisitions/PRO-0004/applications/ HTTP/1.1" 200 0
+2025-06-24 07:39:38,374 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0004/applications/ HTTP/1.1" 200 1316
+2025-06-24 07:39:38,667 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0004/applications/ HTTP/1.1" 200 1316
+2025-06-24 07:39:43,510 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 07:39:43,662 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 07:40:14,653 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 07:40:14,822 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 07:40:52,175 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 07:40:52,422 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 07:41:00,900 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0004/applications/ HTTP/1.1" 200 1316
+2025-06-24 07:41:01,095 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0004/applications/ HTTP/1.1" 200 1316
+2025-06-24 07:43:49,470 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0004/applications/ HTTP/1.1" 200 1316
+2025-06-24 07:44:29,803 [WARNING] django.request: Not Found: /media/application_documents/2025/06/21/f12ca322-84db-4341-a6a1-94191b45a538.pdf
+2025-06-24 07:44:29,806 [WARNING] django.server: "GET /media/application_documents/2025/06/21/f12ca322-84db-4341-a6a1-94191b45a538.pdf HTTP/1.1" 404 4926
+2025-06-24 07:44:30,564 [WARNING] django.request: Not Found: /favicon.ico
+2025-06-24 07:44:30,566 [WARNING] django.server: "GET /favicon.ico HTTP/1.1" 404 4417
+2025-06-24 07:45:31,128 [INFO] django.server: "GET /media/application_documents/2025/06/23/56262d9d-3e79-4bac-b413-520f53190c1a.pdf HTTP/1.1" 304 0
+2025-06-24 07:45:32,147 [INFO] django.server: "GET /media/application_documents/2025/06/23/56262d9d-3e79-4bac-b413-520f53190c1a.pdf HTTP/1.1" 304 0
+2025-06-24 07:54:13,594 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0004/applications/ HTTP/1.1" 200 1316
+2025-06-24 07:54:18,545 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0004/applications/ HTTP/1.1" 200 1316
+2025-06-24 07:58:35,598 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0004/applications/ HTTP/1.1" 200 1316
+2025-06-24 07:58:55,071 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 07:58:55,359 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 07:58:57,971 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 07:58:58,182 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 07:58:59,772 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0004/applications/ HTTP/1.1" 200 1316
+2025-06-24 07:58:59,965 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0004/applications/ HTTP/1.1" 200 1316
+2025-06-24 08:00:40,585 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0004/applications/ HTTP/1.1" 200 1316
+2025-06-24 08:00:40,873 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0004/applications/ HTTP/1.1" 200 1316
+2025-06-24 08:04:25,542 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0004/applications/ HTTP/1.1" 200 1316
+2025-06-24 08:04:25,714 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0004/applications/ HTTP/1.1" 200 1316
+2025-06-24 08:04:31,338 [WARNING] django.request: Not Found: /media/application_documents/2025/06/21/f12ca322-84db-4341-a6a1-94191b45a538.pdf
+2025-06-24 08:04:31,339 [WARNING] django.server: "GET /media/application_documents/2025/06/21/f12ca322-84db-4341-a6a1-94191b45a538.pdf HTTP/1.1" 404 4926
+2025-06-24 08:04:32,053 [WARNING] django.request: Not Found: /favicon.ico
+2025-06-24 08:04:32,054 [WARNING] django.server: "GET /favicon.ico HTTP/1.1" 404 4417
+2025-06-24 08:04:51,420 [WARNING] django.request: Not Found: /media/application_documents/2025/06/21/f12ca322-84db-4341-a6a1-94191b45a538.pdf
+2025-06-24 08:04:51,422 [WARNING] django.server: "GET /media/application_documents/2025/06/21/f12ca322-84db-4341-a6a1-94191b45a538.pdf HTTP/1.1" 404 4926
+2025-06-24 08:05:03,283 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 08:05:03,503 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 08:05:06,298 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 0
+2025-06-24 08:05:06,302 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 0
+2025-06-24 08:05:06,689 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23940
+2025-06-24 08:05:06,945 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23940
+2025-06-24 08:05:08,768 [INFO] django.server: "GET / HTTP/1.1" 200 188
+2025-06-24 08:05:14,321 [INFO] django.server: "GET / HTTP/1.1" 200 188
+2025-06-24 08:11:03,520 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 08:11:03,697 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 08:11:03,811 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23940
+2025-06-24 08:11:04,052 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23940
+2025-06-24 08:11:15,787 [INFO] django.server: "GET / HTTP/1.1" 200 188
+2025-06-24 08:12:19,545 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 08:12:19,783 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 08:12:19,947 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23940
+2025-06-24 08:12:20,159 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23940
+2025-06-24 08:12:24,515 [INFO] django.server: "GET / HTTP/1.1" 200 188
+2025-06-24 08:12:28,975 [INFO] django.server: "GET / HTTP/1.1" 200 188
+2025-06-24 08:14:54,644 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0004/applications/ HTTP/1.1" 200 1316
+2025-06-24 08:14:54,784 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23940
+2025-06-24 08:15:02,616 [INFO] django.server: "GET / HTTP/1.1" 200 188
+2025-06-24 08:15:13,526 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 08:15:13,839 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 08:15:15,423 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0004/applications/ HTTP/1.1" 200 1316
+2025-06-24 08:15:15,654 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0004/applications/ HTTP/1.1" 200 1316
+2025-06-24 08:15:17,791 [WARNING] django.request: Not Found: /media/application_documents/2025/06/21/f12ca322-84db-4341-a6a1-94191b45a538.pdf
+2025-06-24 08:15:17,792 [WARNING] django.server: "GET /media/application_documents/2025/06/21/f12ca322-84db-4341-a6a1-94191b45a538.pdf HTTP/1.1" 404 4926
+2025-06-24 08:15:31,060 [WARNING] django.request: Not Found: /media/application_documents/2025/06/21/f12ca322-84db-4341-a6a1-94191b45a538.pdf
+2025-06-24 08:15:31,062 [WARNING] django.server: "GET /media/application_documents/2025/06/21/f12ca322-84db-4341-a6a1-94191b45a538.pdf HTTP/1.1" 404 4926
+2025-06-24 08:15:53,380 [WARNING] django.request: Not Found: /media/application_documents/2025/06/21/f12ca322-84db-4341-a6a1-94191b45a538.pdf
+2025-06-24 08:15:53,383 [WARNING] django.server: "GET /media/application_documents/2025/06/21/f12ca322-84db-4341-a6a1-94191b45a538.pdf HTTP/1.1" 404 4926
+2025-06-24 08:17:51,262 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 08:17:51,497 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 08:17:54,204 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23940
+2025-06-24 08:17:54,536 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23940
+2025-06-24 08:17:56,944 [INFO] django.server: "GET / HTTP/1.1" 200 188
+2025-06-24 08:19:17,573 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23940
+2025-06-24 08:19:25,512 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23940
+2025-06-24 08:19:39,036 [INFO] django.server: "GET / HTTP/1.1" 200 188
+2025-06-24 08:19:56,581 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23940
+2025-06-24 08:20:03,945 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 08:20:04,162 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 08:20:04,461 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23940
+2025-06-24 08:20:04,754 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23940
+2025-06-24 08:20:19,692 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23940
+2025-06-24 08:20:27,672 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23940
+2025-06-24 08:20:32,317 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 08:20:32,545 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 08:20:32,760 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23940
+2025-06-24 08:20:33,030 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23940
+2025-06-24 08:21:56,567 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23940
+2025-06-24 08:22:02,221 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 08:22:02,472 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 08:22:02,711 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23940
+2025-06-24 08:22:03,083 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23940
+2025-06-24 08:22:05,945 [INFO] django.server: "GET /media/application_documents/2025/06/22/b2124724-a7d6-48fc-9161-cb6697a1e4df.pdf HTTP/1.1" 200 74975
+2025-06-24 08:22:06,908 [INFO] django.server: "GET /media/application_documents/2025/06/22/b2124724-a7d6-48fc-9161-cb6697a1e4df.pdf HTTP/1.1" 200 74975
+2025-06-24 08:22:48,582 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 08:22:48,827 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 08:22:57,378 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 08:22:57,615 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 08:22:58,915 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 08:22:59,142 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 08:23:00,249 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 0
+2025-06-24 08:23:00,254 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 0
+2025-06-24 08:23:00,580 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 35812
+2025-06-24 08:23:00,871 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 35812
+2025-06-24 08:23:04,649 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 08:23:04,996 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 08:23:06,336 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0004/applications/ HTTP/1.1" 200 1316
+2025-06-24 08:23:06,566 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0004/applications/ HTTP/1.1" 200 1316
+2025-06-24 08:23:09,805 [WARNING] django.request: Not Found: /media/application_documents/2025/06/21/f12ca322-84db-4341-a6a1-94191b45a538.pdf
+2025-06-24 08:23:09,806 [WARNING] django.server: "GET /media/application_documents/2025/06/21/f12ca322-84db-4341-a6a1-94191b45a538.pdf HTTP/1.1" 404 4926
+2025-06-24 08:23:24,266 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 35812
+2025-06-24 08:23:24,566 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 35812
+2025-06-24 09:20:29,671 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-24 09:22:04,350 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-24 09:22:14,276 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\lumina_care\settings.py changed, reloading.
+2025-06-24 09:22:16,252 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-24 09:23:54,533 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-24 09:24:01,244 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\lumina_care\settings.py changed, reloading.
+2025-06-24 09:24:03,858 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-24 09:25:03,024 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-24 09:25:38,279 [INFO] django.server: "OPTIONS /api/token/validate/ HTTP/1.1" 200 0
+2025-06-24 09:25:38,279 [INFO] django.server: "OPTIONS /api/token/validate/ HTTP/1.1" 200 0
+2025-06-24 09:25:38,407 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 09:25:38,527 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 09:25:42,368 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/ HTTP/1.1" 200 0
+2025-06-24 09:25:42,368 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/ HTTP/1.1" 200 0
+2025-06-24 09:25:42,498 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:25:42,648 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:25:57,966 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:25:58,078 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:25:59,998 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:26:00,095 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:26:03,456 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 0
+2025-06-24 09:26:03,459 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 0
+2025-06-24 09:26:03,568 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23940
+2025-06-24 09:26:03,680 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23940
+2025-06-24 09:26:15,147 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/requisitions/PRO-0002/screen-resumes/ HTTP/1.1" 200 0
+2025-06-24 09:27:13,269 [INFO] django.server: "POST /api/talent-engine-job-applications/requisitions/PRO-0002/screen-resumes/ HTTP/1.1" 200 1545
+2025-06-24 09:27:13,426 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23948
+2025-06-24 09:28:17,707 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:28:17,827 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:29:07,647 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:29:57,768 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:30:48,339 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:31:39,334 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:32:30,196 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:32:59,512 [INFO] django.server: "OPTIONS /api/token/ HTTP/1.1" 200 0
+2025-06-24 09:33:01,307 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 1086
+2025-06-24 09:33:01,533 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 09:33:01,626 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 09:33:34,747 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:33:34,895 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:34:24,762 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:35:14,796 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:36:12,405 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 1086
+2025-06-24 09:36:12,576 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 09:36:12,710 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 09:36:22,723 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:36:22,899 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:36:49,268 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 09:36:49,525 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 09:36:49,725 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 09:36:49,941 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 09:37:12,978 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 09:37:13,099 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 09:37:31,463 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:37:31,702 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:37:57,345 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/PRO-0006/ HTTP/1.1" 200 0
+2025-06-24 09:37:57,345 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/PRO-0006/ HTTP/1.1" 200 0
+2025-06-24 09:37:57,443 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0006/ HTTP/1.1" 200 2174
+2025-06-24 09:37:57,547 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0006/ HTTP/1.1" 200 2174
+2025-06-24 09:37:57,575 [INFO] django.server: "GET /media/advert_banners/DevOps_Engineer_dHo1QU2.png HTTP/1.1" 304 0
+2025-06-24 09:38:21,361 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:38:57,189 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0006/ HTTP/1.1" 200 2174
+2025-06-24 09:38:57,302 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0006/ HTTP/1.1" 200 2174
+2025-06-24 09:39:07,310 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:39:07,538 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:39:12,800 [INFO] talent_engine: Job requisition accessed via link: DevOps Engineer for tenant proliance
+2025-06-24 09:39:12,812 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-devops-engineer-b99ceaae/ HTTP/1.1" 200 4080
+2025-06-24 09:39:12,895 [INFO] talent_engine: Job requisition accessed via link: DevOps Engineer for tenant proliance
+2025-06-24 09:39:12,901 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-devops-engineer-b99ceaae/ HTTP/1.1" 200 4080
+2025-06-24 09:40:03,262 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 09:40:03,344 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 09:40:13,460 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 09:40:13,544 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 09:40:13,624 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 09:40:13,707 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 09:40:26,180 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 09:40:26,301 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 09:40:36,639 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:40:36,765 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:41:03,870 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0006/ HTTP/1.1" 200 2174
+2025-06-24 09:41:03,960 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0006/ HTTP/1.1" 200 2174
+2025-06-24 09:41:26,656 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:42:16,693 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:43:06,740 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:43:56,769 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:44:46,812 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:45:36,840 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:46:26,858 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:46:29,473 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0006/ HTTP/1.1" 200 2174
+2025-06-24 09:46:29,566 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0006/ HTTP/1.1" 200 2174
+2025-06-24 09:46:45,392 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/PRO-0005/ HTTP/1.1" 200 0
+2025-06-24 09:46:45,392 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/PRO-0005/ HTTP/1.1" 200 0
+2025-06-24 09:46:45,496 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0005/ HTTP/1.1" 200 2615
+2025-06-24 09:46:45,599 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0005/ HTTP/1.1" 200 2615
+2025-06-24 09:46:45,604 [INFO] django.server: "GET /media/advert_banners/Legal__Compliance_Office_FcvV3Au.jpg HTTP/1.1" 304 0
+2025-06-24 09:46:56,270 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/?status=open HTTP/1.1" 200 0
+2025-06-24 09:46:56,482 [INFO] django.server: "GET /api/talent-engine/requisitions/?status=open HTTP/1.1" 200 18905
+2025-06-24 09:47:03,369 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:47:03,462 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:47:13,751 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:47:13,858 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:47:22,029 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:47:22,133 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:47:25,110 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/applications/job-requisitions/PRO-0004/applications/ HTTP/1.1" 200 0
+2025-06-24 09:47:25,112 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/applications/job-requisitions/PRO-0004/applications/ HTTP/1.1" 200 0
+2025-06-24 09:47:25,197 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0004/applications/ HTTP/1.1" 200 1316
+2025-06-24 09:47:25,287 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0004/applications/ HTTP/1.1" 200 1316
+2025-06-24 09:47:27,872 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:47:27,987 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:47:30,155 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23948
+2025-06-24 09:47:30,269 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23948
+2025-06-24 09:47:43,206 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:47:43,319 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:47:48,150 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:47:48,265 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:47:49,606 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:47:49,728 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:47:55,980 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:47:56,084 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:47:59,518 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23948
+2025-06-24 09:47:59,642 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23948
+2025-06-24 09:48:13,061 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:48:13,180 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:48:14,246 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:48:14,348 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:48:34,075 [INFO] talent_engine: Job requisition accessed via link: Data Scientist - NLP & Machine Learning for tenant proliance
+2025-06-24 09:48:34,086 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-data-scientist-nlp-machine-learning-5e9af7dc/ HTTP/1.1" 200 4404
+2025-06-24 09:48:34,166 [INFO] talent_engine: Job requisition accessed via link: Data Scientist - NLP & Machine Learning for tenant proliance
+2025-06-24 09:48:34,175 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-data-scientist-nlp-machine-learning-5e9af7dc/ HTTP/1.1" 200 4404
+2025-06-24 09:48:44,742 [INFO] talent_engine: Job requisition accessed via link: Data Scientist - NLP & Machine Learning for tenant proliance
+2025-06-24 09:48:44,748 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-data-scientist-nlp-machine-learning-5e9af7dc/ HTTP/1.1" 200 4404
+2025-06-24 09:48:44,842 [INFO] talent_engine: Job requisition accessed via link: Data Scientist - NLP & Machine Learning for tenant proliance
+2025-06-24 09:48:44,848 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-data-scientist-nlp-machine-learning-5e9af7dc/ HTTP/1.1" 200 4404
+2025-06-24 09:49:04,290 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:49:12,057 [INFO] talent_engine: Job requisition accessed via link: Instrumentation Engineer Man for tenant proliance
+2025-06-24 09:49:12,067 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-instrumentation-engineer-man-9ea58c8c/ HTTP/1.1" 200 2615
+2025-06-24 09:49:12,176 [INFO] talent_engine: Job requisition accessed via link: Instrumentation Engineer Man for tenant proliance
+2025-06-24 09:49:12,185 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-instrumentation-engineer-man-9ea58c8c/ HTTP/1.1" 200 2615
+2025-06-24 09:49:55,199 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:50:45,213 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:51:35,301 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:52:25,188 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:53:15,179 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:54:26,193 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:55:03,429 [WARNING] django.request: Bad Request: /api/talent-engine-job-applications/applications/
+2025-06-24 09:55:03,429 [WARNING] django.server: "POST /api/talent-engine-job-applications/applications/ HTTP/1.1" 400 235
+2025-06-24 09:55:25,978 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:55:29,792 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:55:29,910 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:55:34,001 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0006/ HTTP/1.1" 200 2174
+2025-06-24 09:55:34,098 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0006/ HTTP/1.1" 200 2174
+2025-06-24 09:55:59,076 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/PRO-0002/ HTTP/1.1" 200 0
+2025-06-24 09:55:59,077 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/PRO-0002/ HTTP/1.1" 200 0
+2025-06-24 09:55:59,171 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0002/ HTTP/1.1" 200 4404
+2025-06-24 09:55:59,276 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0002/ HTTP/1.1" 200 4404
+2025-06-24 09:55:59,284 [INFO] django.server: "GET /media/advert_banners/Data_Scientist_-_NLP__Machine_Learning.jpg HTTP/1.1" 304 0
+2025-06-24 09:56:19,806 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:56:23,676 [INFO] talent_engine: Job requisition updated: Data Scientist - NLP & Machine Learning for tenant proliance
+2025-06-24 09:56:23,682 [INFO] django.server: "PATCH /api/talent-engine/requisitions/PRO-0002/ HTTP/1.1" 200 4404
+2025-06-24 09:56:24,905 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:56:24,997 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:56:46,347 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:56:46,461 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18905
+2025-06-24 09:56:50,050 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0005/ HTTP/1.1" 200 2615
+2025-06-24 09:56:50,153 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0005/ HTTP/1.1" 200 2615
+2025-06-24 09:57:10,814 [INFO] talent_engine: Job requisition updated: Instrumentation Engineer Man for tenant proliance
+2025-06-24 09:57:10,821 [INFO] django.server: "PATCH /api/talent-engine/requisitions/PRO-0005/ HTTP/1.1" 200 2619
+2025-06-24 09:57:12,018 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18909
+2025-06-24 09:57:12,123 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18909
+2025-06-24 09:57:27,385 [INFO] talent_engine: Job requisition accessed via link: Instrumentation Engineer Man for tenant proliance
+2025-06-24 09:57:27,394 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-instrumentation-engineer-man-9ea58c8c/ HTTP/1.1" 200 2619
+2025-06-24 09:57:27,507 [INFO] talent_engine: Job requisition accessed via link: Instrumentation Engineer Man for tenant proliance
+2025-06-24 09:57:27,512 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-instrumentation-engineer-man-9ea58c8c/ HTTP/1.1" 200 2619
+2025-06-24 09:57:48,470 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18909
+2025-06-24 09:57:48,605 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18909
+2025-06-24 09:57:54,123 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0005/ HTTP/1.1" 200 2619
+2025-06-24 09:57:54,204 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0005/ HTTP/1.1" 200 2619
+2025-06-24 09:58:38,513 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 18909
+2025-06-24 09:58:39,710 [INFO] talent_engine: Job requisition created: qwertyuytrqwertyuytrqwertyuytrqwertyuytrqwertyuytrqwertyuytrqwertyuytrqwertyuytrqwertyuytrqwertyuytr for tenant proliance
+2025-06-24 09:58:39,715 [INFO] django.server: "POST /api/talent-engine/requisitions/ HTTP/1.1" 201 3636
+2025-06-24 09:58:45,070 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 09:58:45,167 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 09:58:45,339 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 22546
+2025-06-24 09:58:45,504 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 22546
+2025-06-24 09:58:49,076 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 22546
+2025-06-24 09:58:49,183 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 22546
+2025-06-24 09:58:51,229 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 22546
+2025-06-24 09:58:51,336 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 22546
+2025-06-24 09:58:59,417 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/PRO-0007/ HTTP/1.1" 200 0
+2025-06-24 09:58:59,417 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/PRO-0007/ HTTP/1.1" 200 0
+2025-06-24 09:58:59,514 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0007/ HTTP/1.1" 200 3636
+2025-06-24 09:58:59,596 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0007/ HTTP/1.1" 200 3636
+2025-06-24 09:59:13,012 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 22546
+2025-06-24 09:59:13,146 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 22546
+2025-06-24 09:59:17,739 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 22546
+2025-06-24 09:59:17,862 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 22546
+2025-06-24 09:59:45,925 [INFO] talent_engine: Job requisition created: Care Coordinator for tenant proliance
+2025-06-24 09:59:45,929 [INFO] django.server: "POST /api/talent-engine/requisitions/ HTTP/1.1" 201 1868
+2025-06-24 09:59:49,689 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 09:59:49,887 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 09:59:49,905 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 24415
+2025-06-24 09:59:50,062 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 24415
+2025-06-24 09:59:53,576 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/PRO-0008/ HTTP/1.1" 200 0
+2025-06-24 09:59:53,576 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/PRO-0008/ HTTP/1.1" 200 0
+2025-06-24 09:59:53,663 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0008/ HTTP/1.1" 200 1868
+2025-06-24 09:59:53,747 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0008/ HTTP/1.1" 200 1868
+2025-06-24 10:00:02,280 [INFO] talent_engine: Job requisition updated: Care Coordinator for tenant proliance
+2025-06-24 10:00:02,286 [INFO] django.server: "PATCH /api/talent-engine/requisitions/PRO-0008/ HTTP/1.1" 200 1865
+2025-06-24 10:00:08,556 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0007/ HTTP/1.1" 200 3636
+2025-06-24 10:00:08,648 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0007/ HTTP/1.1" 200 3636
+2025-06-24 10:00:39,639 [INFO] talent_engine: Job requisition created: Child Crae Coordinator for tenant proliance
+2025-06-24 10:00:39,646 [INFO] django.server: "POST /api/talent-engine/requisitions/ HTTP/1.1" 201 1100
+2025-06-24 10:00:39,910 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25513
+2025-06-24 10:00:45,534 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 10:00:45,705 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 10:00:45,830 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25513
+2025-06-24 10:00:45,975 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25513
+2025-06-24 10:00:49,180 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/PRO-0009/ HTTP/1.1" 200 0
+2025-06-24 10:00:49,180 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/PRO-0009/ HTTP/1.1" 200 0
+2025-06-24 10:00:49,286 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0009/ HTTP/1.1" 200 1100
+2025-06-24 10:00:49,378 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0009/ HTTP/1.1" 200 1100
+2025-06-24 10:01:00,770 [INFO] talent_engine: Job requisition updated: Child Crae Coordinator for tenant proliance
+2025-06-24 10:01:00,778 [INFO] django.server: "PATCH /api/talent-engine/requisitions/PRO-0009/ HTTP/1.1" 200 1097
+2025-06-24 10:01:03,315 [INFO] talent_engine: Job requisition updated: Child Crae Coordinator for tenant proliance
+2025-06-24 10:01:03,320 [INFO] django.server: "PATCH /api/talent-engine/requisitions/PRO-0009/ HTTP/1.1" 200 1097
+2025-06-24 10:01:35,775 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25510
+2025-06-24 10:02:25,375 [INFO] talent_engine: Job requisition updated: Child Crae Coordinator for tenant proliance
+2025-06-24 10:02:25,383 [INFO] django.server: "PATCH /api/talent-engine/requisitions/PRO-0009/ HTTP/1.1" 200 1489
+2025-06-24 10:02:25,808 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:02:26,625 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:02:26,754 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:02:35,071 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 10:02:35,220 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 10:02:35,334 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:02:35,479 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:02:43,220 [INFO] talent_engine: Job requisition accessed via link: Child Crae Coordinator for tenant proliance
+2025-06-24 10:02:43,233 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-child-crae-coordinator-b39ae3de/ HTTP/1.1" 200 1489
+2025-06-24 10:02:43,367 [INFO] talent_engine: Job requisition accessed via link: Child Crae Coordinator for tenant proliance
+2025-06-24 10:02:43,388 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-child-crae-coordinator-b39ae3de/ HTTP/1.1" 200 1489
+2025-06-24 10:02:59,752 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:02:59,879 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:03:03,575 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/PRO-0001/ HTTP/1.1" 200 0
+2025-06-24 10:03:03,576 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/PRO-0001/ HTTP/1.1" 200 0
+2025-06-24 10:03:03,667 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0001/ HTTP/1.1" 200 4078
+2025-06-24 10:03:03,764 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0001/ HTTP/1.1" 200 4078
+2025-06-24 10:03:03,926 [INFO] django.server: "GET /media/advert_banners/Senior_Frontend_Engineer.png HTTP/1.1" 200 12564
+2025-06-24 10:03:29,365 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0009/ HTTP/1.1" 200 1489
+2025-06-24 10:03:29,484 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0009/ HTTP/1.1" 200 1489
+2025-06-24 10:03:29,507 [INFO] django.server: "GET /media/advert_banners/Senior_Frontend_Engineer_9afar6j.png HTTP/1.1" 200 12564
+2025-06-24 10:03:39,275 [INFO] talent_engine: Job requisition updated: Child Crae Coordinator for tenant proliance
+2025-06-24 10:03:39,280 [INFO] django.server: "PATCH /api/talent-engine/requisitions/PRO-0009/ HTTP/1.1" 200 1489
+2025-06-24 10:03:40,771 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:03:40,980 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:03:43,312 [INFO] talent_engine: Job requisition accessed via link: Child Crae Coordinator for tenant proliance
+2025-06-24 10:03:43,328 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-child-crae-coordinator-b39ae3de/ HTTP/1.1" 200 1489
+2025-06-24 10:03:43,453 [INFO] talent_engine: Job requisition accessed via link: Child Crae Coordinator for tenant proliance
+2025-06-24 10:03:43,465 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-child-crae-coordinator-b39ae3de/ HTTP/1.1" 200 1489
+2025-06-24 10:03:57,223 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:03:57,377 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:03:59,488 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:03:59,614 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:04:09,016 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:04:09,145 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:04:10,024 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:04:10,257 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:04:24,014 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:04:24,156 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:05:14,033 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:05:22,549 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:05:22,660 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:05:42,343 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:05:42,484 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:05:45,264 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:05:45,392 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:05:55,960 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:05:56,191 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:05:57,616 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:05:57,739 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:06:47,630 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:07:37,621 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:07:52,674 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:07:52,796 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:07:55,285 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:07:55,406 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:08:02,007 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:08:02,130 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:08:04,898 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:08:05,016 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:08:25,511 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:08:25,649 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:08:42,292 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:08:42,420 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:09:32,339 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:10:22,329 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:11:12,323 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:12:02,338 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:12:11,961 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:12:12,091 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:12:28,247 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:12:28,365 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:12:31,196 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:12:31,344 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:12:41,371 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/bulk-delete/ HTTP/1.1" 200 0
+2025-06-24 10:12:41,550 [WARNING] django.request: Method Not Allowed: /api/talent-engine/requisitions/bulk-delete/
+2025-06-24 10:12:41,551 [WARNING] django.server: "POST /api/talent-engine/requisitions/bulk-delete/ HTTP/1.1" 405 41
+2025-06-24 10:12:45,622 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 10:12:45,742 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 10:12:45,849 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:12:45,992 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:13:35,985 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:14:25,903 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:15:15,937 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:16:05,974 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:16:56,100 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:17:12,609 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:17:12,827 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:18:02,609 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:18:53,222 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:19:43,244 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:20:33,216 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:21:23,192 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:22:13,203 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:23:26,327 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:24:26,217 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:25:26,200 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:26:26,235 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:27:26,216 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:28:05,357 [INFO] talent_engine: Job requisition accessed via link: Data Scientist - NLP & Machine Learning for tenant proliance
+2025-06-24 10:28:05,366 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-data-scientist-nlp-machine-learning-5e9af7dc/ HTTP/1.1" 200 4404
+2025-06-24 10:28:05,466 [INFO] talent_engine: Job requisition accessed via link: Data Scientist - NLP & Machine Learning for tenant proliance
+2025-06-24 10:28:05,476 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-data-scientist-nlp-machine-learning-5e9af7dc/ HTTP/1.1" 200 4404
+2025-06-24 10:28:26,199 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:29:26,201 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:30:26,224 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:30:44,156 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 1086
+2025-06-24 10:31:02,557 [WARNING] django.request: Unauthorized: /api/talent-engine-job-applications/published-requisitions-with-shortlisted/
+2025-06-24 10:31:02,557 [WARNING] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 401 5652
+2025-06-24 10:31:02,619 [INFO] django.server: "GET /static/rest_framework/css/bootstrap.min.css HTTP/1.1" 304 0
+2025-06-24 10:31:02,619 [INFO] django.server: "GET /static/rest_framework/css/bootstrap-tweaks.css HTTP/1.1" 304 0
+2025-06-24 10:31:02,620 [INFO] django.server: "GET /static/rest_framework/css/prettify.css HTTP/1.1" 304 0
+2025-06-24 10:31:02,630 [INFO] django.server: "GET /static/rest_framework/css/default.css HTTP/1.1" 304 0
+2025-06-24 10:31:02,638 [INFO] django.server: "GET /static/rest_framework/js/csrf.js HTTP/1.1" 304 0
+2025-06-24 10:31:02,638 [INFO] django.server: "GET /static/rest_framework/js/ajax-form.js HTTP/1.1" 304 0
+2025-06-24 10:31:02,638 [INFO] django.server: "GET /static/rest_framework/js/jquery-3.7.1.min.js HTTP/1.1" 304 0
+2025-06-24 10:31:02,643 [INFO] django.server: "GET /static/rest_framework/js/load-ajax-form.js HTTP/1.1" 304 0
+2025-06-24 10:31:02,645 [INFO] django.server: "GET /static/rest_framework/js/prettify-min.js HTTP/1.1" 304 0
+2025-06-24 10:31:02,653 [INFO] django.server: "GET /static/rest_framework/js/default.js HTTP/1.1" 304 0
+2025-06-24 10:31:02,654 [INFO] django.server: "GET /static/rest_framework/js/bootstrap.min.js HTTP/1.1" 304 0
+2025-06-24 10:31:02,686 [INFO] django.server: "GET /static/rest_framework/img/grid.png HTTP/1.1" 304 0
+2025-06-24 10:31:03,046 [WARNING] django.request: Not Found: /favicon.ico
+2025-06-24 10:31:03,047 [WARNING] django.server: "GET /favicon.ico HTTP/1.1" 404 4417
+2025-06-24 10:31:11,916 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 1086
+2025-06-24 10:31:26,237 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:31:30,577 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 35816
+2025-06-24 10:32:26,209 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:33:03,200 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:33:53,201 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:34:42,628 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:35:33,210 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:36:23,188 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:37:12,622 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:38:19,692 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 10:38:19,728 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:38:27,682 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 10:38:27,811 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 10:38:27,889 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:38:28,011 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:38:31,621 [INFO] talent_engine: Job requisition accessed via link: Child Crae Coordinator for tenant proliance
+2025-06-24 10:38:31,629 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-child-crae-coordinator-b39ae3de/ HTTP/1.1" 200 1489
+2025-06-24 10:38:31,723 [INFO] talent_engine: Job requisition accessed via link: Child Crae Coordinator for tenant proliance
+2025-06-24 10:38:31,730 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-child-crae-coordinator-b39ae3de/ HTTP/1.1" 200 1489
+2025-06-24 10:38:41,810 [INFO] talent_engine: Job requisition accessed via link: qwertyu for tenant proliance
+2025-06-24 10:38:41,817 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-qwertyu-a8d7e018/ HTTP/1.1" 200 2174
+2025-06-24 10:38:41,890 [INFO] talent_engine: Job requisition accessed via link: qwertyu for tenant proliance
+2025-06-24 10:38:41,895 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-qwertyu-a8d7e018/ HTTP/1.1" 200 2174
+2025-06-24 10:39:18,208 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:40:08,222 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:40:58,263 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:41:48,257 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:42:38,334 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:43:28,301 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:43:46,878 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:43:46,997 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:43:49,116 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:43:49,231 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:44:00,321 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:44:00,439 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:44:13,016 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23948
+2025-06-24 10:44:13,149 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23948
+2025-06-24 10:44:31,184 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:44:31,302 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25902
+2025-06-24 10:44:36,211 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0002/ HTTP/1.1" 200 4404
+2025-06-24 10:44:36,311 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0002/ HTTP/1.1" 200 4404
+2025-06-24 10:44:46,099 [INFO] talent_engine: Job requisition updated: Data Scientist - NLP & Machine Learning for tenant proliance
+2025-06-24 10:44:46,106 [INFO] django.server: "PATCH /api/talent-engine/requisitions/PRO-0002/ HTTP/1.1" 200 4403
+2025-06-24 10:44:47,302 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 10:44:47,413 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 10:44:49,546 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 10:44:49,650 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 10:44:49,820 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 10:44:49,946 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 10:44:51,567 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 10:44:51,696 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 10:44:57,677 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23948
+2025-06-24 10:44:57,801 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23948
+2025-06-24 10:45:37,676 [INFO] django.server: "POST /api/talent-engine-job-applications/requisitions/PRO-0002/screen-resumes/ HTTP/1.1" 200 828
+2025-06-24 10:45:37,801 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23852
+2025-06-24 10:46:02,602 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 10:46:02,707 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 10:46:06,200 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23852
+2025-06-24 10:46:06,325 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23852
+2025-06-24 10:48:39,654 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 10:48:39,818 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 10:48:47,148 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0002/ HTTP/1.1" 200 4403
+2025-06-24 10:48:47,239 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0002/ HTTP/1.1" 200 4403
+2025-06-24 10:49:29,646 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 10:50:19,673 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 10:50:27,815 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23852
+2025-06-24 10:50:27,953 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23852
+2025-06-24 10:51:22,599 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 10:51:22,854 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 10:51:28,708 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 10:51:28,829 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 10:52:19,209 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 10:52:29,192 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 10:52:29,332 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 10:53:14,320 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 10:53:14,444 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 10:53:19,625 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 10:53:19,746 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 10:53:26,954 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0002/ HTTP/1.1" 200 4403
+2025-06-24 10:53:27,047 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0002/ HTTP/1.1" 200 4403
+2025-06-24 10:53:50,520 [INFO] talent_engine: Job requisition updated: Data Scientist - NLP & Machine Learning for tenant proliance
+2025-06-24 10:53:50,528 [INFO] django.server: "PATCH /api/talent-engine/requisitions/PRO-0002/ HTTP/1.1" 200 4403
+2025-06-24 10:53:51,716 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 10:53:51,966 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 10:53:53,647 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 10:53:53,778 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 10:53:57,571 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23852
+2025-06-24 10:53:57,705 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23852
+2025-06-24 10:54:00,031 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 10:54:00,155 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 10:54:00,217 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23852
+2025-06-24 10:54:00,462 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23852
+2025-06-24 10:54:14,063 [INFO] django.server: "POST /api/talent-engine-job-applications/requisitions/PRO-0002/screen-resumes/ HTTP/1.1" 200 851
+2025-06-24 10:54:14,174 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23933
+2025-06-24 10:54:52,762 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 10:54:52,894 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 10:54:52,961 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23933
+2025-06-24 10:54:53,101 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23933
+2025-06-24 11:01:54,550 [INFO] talent_engine: Job requisition accessed via link: Data Scientist - NLP & Machine Learning for tenant proliance
+2025-06-24 11:01:54,559 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-data-scientist-nlp-machine-learning-5e9af7dc/ HTTP/1.1" 200 4403
+2025-06-24 11:01:54,663 [INFO] talent_engine: Job requisition accessed via link: Data Scientist - NLP & Machine Learning for tenant proliance
+2025-06-24 11:01:54,670 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-data-scientist-nlp-machine-learning-5e9af7dc/ HTTP/1.1" 200 4403
+2025-06-24 11:03:26,948 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 11:03:27,056 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 11:03:27,107 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23933
+2025-06-24 11:03:27,289 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23933
+2025-06-24 11:03:31,527 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 0
+2025-06-24 11:03:31,529 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 0
+2025-06-24 11:03:31,691 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 29438
+2025-06-24 11:03:31,904 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 29438
+2025-06-24 11:03:34,134 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 11:03:34,248 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 11:04:27,409 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 11:04:27,495 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 11:07:28,059 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 1086
+2025-06-24 11:07:28,186 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 11:07:28,258 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 11:07:34,829 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 11:07:34,953 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 11:08:24,871 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 11:08:58,820 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 11:08:59,039 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 11:09:07,348 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 11:09:07,465 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 11:09:08,695 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 11:09:08,799 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 11:09:13,783 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 11:09:13,894 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 11:09:15,293 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 11:09:15,403 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 11:09:21,367 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 29438
+2025-06-24 11:09:21,503 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 29438
+2025-06-24 11:09:24,233 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 11:09:24,340 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 11:09:25,982 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 29438
+2025-06-24 11:09:26,113 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 29438
+2025-06-24 11:09:29,296 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 11:09:29,408 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 11:09:31,271 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0004/applications/ HTTP/1.1" 200 1316
+2025-06-24 11:09:31,355 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0004/applications/ HTTP/1.1" 200 1316
+2025-06-24 11:09:35,838 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 11:09:35,947 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 11:09:35,985 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0004/applications/ HTTP/1.1" 200 1316
+2025-06-24 11:09:36,080 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0004/applications/ HTTP/1.1" 200 1316
+2025-06-24 11:12:35,948 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 11:12:36,074 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 11:13:26,224 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 11:14:17,296 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 11:14:35,051 [INFO] django.server: "POST /api/talent-engine-job-applications/applications/ HTTP/1.1" 201 76
+2025-06-24 11:14:38,818 [INFO] talent_engine: Job requisition accessed via link: Child Crae Coordinator for tenant proliance
+2025-06-24 11:14:38,828 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-child-crae-coordinator-b39ae3de/ HTTP/1.1" 200 1489
+2025-06-24 11:14:38,915 [INFO] talent_engine: Job requisition accessed via link: Child Crae Coordinator for tenant proliance
+2025-06-24 11:14:38,925 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-child-crae-coordinator-b39ae3de/ HTTP/1.1" 200 1489
+2025-06-24 11:15:08,230 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 11:15:38,505 [WARNING] django.request: Bad Request: /api/talent-engine-job-applications/applications/
+2025-06-24 11:15:38,505 [WARNING] django.server: "POST /api/talent-engine-job-applications/applications/ HTTP/1.1" 400 235
+2025-06-24 11:15:59,209 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 11:16:49,256 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 11:17:00,271 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 11:17:00,395 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 11:17:45,099 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 31023
+2025-06-24 11:17:45,261 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 31023
+2025-06-24 11:31:11,720 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/ HTTP/1.1" 200 0
+2025-06-24 11:31:11,723 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/ HTTP/1.1" 200 0
+2025-06-24 11:31:11,848 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 11:31:11,958 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 11:31:18,285 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/PRO-0004/ HTTP/1.1" 200 0
+2025-06-24 11:31:18,285 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/PRO-0004/ HTTP/1.1" 200 0
+2025-06-24 11:31:18,380 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0004/ HTTP/1.1" 200 4080
+2025-06-24 11:31:18,479 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0004/ HTTP/1.1" 200 4080
+2025-06-24 11:31:18,485 [INFO] django.server: "GET /media/advert_banners/DevOps_Engineer.png HTTP/1.1" 304 0
+2025-06-24 11:32:01,914 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 11:32:51,936 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 11:33:41,971 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 11:34:32,037 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 11:35:22,071 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 11:36:12,082 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 11:37:02,137 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 11:37:52,180 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 11:38:02,567 [INFO] talent_engine: Job requisition accessed via link: Child Crae Coordinator for tenant proliance
+2025-06-24 11:38:02,576 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-child-crae-coordinator-b39ae3de/ HTTP/1.1" 200 1489
+2025-06-24 11:38:02,659 [INFO] talent_engine: Job requisition accessed via link: Child Crae Coordinator for tenant proliance
+2025-06-24 11:38:02,666 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-child-crae-coordinator-b39ae3de/ HTTP/1.1" 200 1489
+2025-06-24 11:38:42,216 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 11:39:32,301 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 11:41:06,522 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 11:41:06,655 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 11:46:23,979 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 11:46:24,133 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 11:47:14,053 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 11:49:50,224 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 11:49:50,372 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 11:50:40,229 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 11:51:30,254 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 25901
+2025-06-24 11:52:00,038 [INFO] talent_engine: Job requisition created: Branding Manager for tenant proliance
+2025-06-24 11:52:00,044 [INFO] django.server: "POST /api/talent-engine/requisitions/ HTTP/1.1" 201 924
+2025-06-24 11:52:20,263 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26826
+2025-06-24 11:52:51,468 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/PRO-0010/ HTTP/1.1" 200 0
+2025-06-24 11:52:51,470 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/PRO-0010/ HTTP/1.1" 200 0
+2025-06-24 11:52:51,575 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0010/ HTTP/1.1" 200 924
+2025-06-24 11:52:51,665 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0010/ HTTP/1.1" 200 924
+2025-06-24 11:52:55,587 [INFO] talent_engine: Job requisition updated: Branding Manager for tenant proliance
+2025-06-24 11:52:55,593 [INFO] django.server: "PATCH /api/talent-engine/requisitions/PRO-0010/ HTTP/1.1" 200 921
+2025-06-24 11:53:03,972 [INFO] django.server: "OPTIONS /api/token/validate/ HTTP/1.1" 200 0
+2025-06-24 11:53:03,976 [INFO] django.server: "OPTIONS /api/token/validate/ HTTP/1.1" 200 0
+2025-06-24 11:53:04,159 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 11:53:04,266 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 11:53:04,374 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 11:53:04,542 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 11:53:13,723 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 11:53:13,849 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 11:53:59,514 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 11:53:59,642 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 11:54:13,324 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 11:54:13,450 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 11:54:57,213 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 11:54:57,381 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 11:54:58,294 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 11:54:58,417 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 11:54:59,392 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 11:54:59,508 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 11:55:00,185 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 11:55:00,447 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 11:55:27,061 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 11:55:27,194 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 11:55:43,031 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 11:55:43,166 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 11:55:46,266 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 11:55:46,394 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 11:55:52,536 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 11:55:52,652 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 11:56:03,612 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 11:56:03,748 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 11:56:17,827 [INFO] talent_engine: Job requisition accessed via link: DevOps Engineer for tenant proliance
+2025-06-24 11:56:17,832 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-devops-engineer-b99ceaae/ HTTP/1.1" 200 4080
+2025-06-24 11:56:17,889 [INFO] talent_engine: Job requisition accessed via link: DevOps Engineer for tenant proliance
+2025-06-24 11:56:17,895 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-devops-engineer-b99ceaae/ HTTP/1.1" 200 4080
+2025-06-24 11:56:23,794 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 11:56:23,897 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 11:56:23,970 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 11:56:24,190 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 11:56:27,213 [INFO] talent_engine: Job requisition accessed via link: DevOps Engineer for tenant proliance
+2025-06-24 11:56:27,225 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-devops-engineer-b99ceaae/ HTTP/1.1" 200 4080
+2025-06-24 11:56:27,418 [INFO] talent_engine: Job requisition accessed via link: DevOps Engineer for tenant proliance
+2025-06-24 11:56:27,424 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-devops-engineer-b99ceaae/ HTTP/1.1" 200 4080
+2025-06-24 11:57:10,028 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 11:57:10,260 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 11:57:55,576 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 11:57:55,723 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 11:57:57,938 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 11:57:58,049 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 11:58:47,954 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 11:59:12,163 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 11:59:12,278 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 11:59:22,987 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 11:59:23,068 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 11:59:37,070 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 11:59:37,193 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 11:59:42,568 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 11:59:42,785 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 11:59:46,305 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 11:59:46,432 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 12:00:13,753 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 12:00:13,901 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 12:01:03,662 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 12:01:55,055 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 12:01:55,210 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 12:02:45,072 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 12:04:16,539 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 12:04:16,711 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 12:05:16,553 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 12:05:16,690 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 12:06:06,594 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 12:06:56,652 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 12:10:56,279 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 12:10:56,424 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 12:11:01,247 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0010/ HTTP/1.1" 200 921
+2025-06-24 12:11:01,445 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0010/ HTTP/1.1" 200 921
+2025-06-24 12:11:46,334 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 12:12:36,329 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 12:12:59,544 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 12:12:59,662 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 12:13:01,941 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 12:13:02,057 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 12:13:08,009 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 0
+2025-06-24 12:13:08,011 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 0
+2025-06-24 12:13:08,116 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23933
+2025-06-24 12:13:08,247 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23933
+2025-06-24 12:14:22,651 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 12:14:22,798 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 12:15:12,668 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 12:16:02,708 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 12:16:39,337 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0010/ HTTP/1.1" 200 921
+2025-06-24 12:16:39,429 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0010/ HTTP/1.1" 200 921
+2025-06-24 12:16:52,732 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 12:17:03,524 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0010/ HTTP/1.1" 200 921
+2025-06-24 12:17:03,606 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0010/ HTTP/1.1" 200 921
+2025-06-24 12:17:18,846 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/PRO-0009/ HTTP/1.1" 200 0
+2025-06-24 12:17:18,847 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/PRO-0009/ HTTP/1.1" 200 0
+2025-06-24 12:17:18,958 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0009/ HTTP/1.1" 200 1489
+2025-06-24 12:17:19,056 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0009/ HTTP/1.1" 200 1489
+2025-06-24 12:17:19,070 [INFO] django.server: "GET /media/advert_banners/Senior_Frontend_Engineer_9afar6j.png HTTP/1.1" 200 12564
+2025-06-24 12:17:42,751 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 12:18:49,634 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 12:18:49,722 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 12:18:52,212 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 12:18:52,357 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 12:19:00,135 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/bulk-delete/ HTTP/1.1" 200 0
+2025-06-24 12:19:00,203 [WARNING] django.request: Method Not Allowed: /api/talent-engine/requisitions/bulk-delete/
+2025-06-24 12:19:00,204 [WARNING] django.server: "POST /api/talent-engine/requisitions/bulk-delete/ HTTP/1.1" 405 41
+2025-06-24 12:19:03,047 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 12:19:03,162 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 12:19:03,248 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 12:19:03,370 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 12:19:47,782 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 12:19:47,888 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 12:22:29,603 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 12:22:29,749 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 12:22:32,009 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23933
+2025-06-24 12:22:32,171 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23933
+2025-06-24 12:22:44,598 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 31023
+2025-06-24 12:22:44,762 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 31023
+2025-06-24 12:23:30,880 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 12:23:31,017 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 12:23:35,707 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 12:23:35,833 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 12:24:25,739 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 12:25:15,752 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 12:26:05,744 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 12:26:55,747 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 12:27:45,737 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 12:28:35,773 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 14:02:48,505 [INFO] django.server: "OPTIONS /api/token/validate/ HTTP/1.1" 200 0
+2025-06-24 14:02:48,513 [INFO] django.server: "OPTIONS /api/token/validate/ HTTP/1.1" 200 0
+2025-06-24 14:02:48,601 [WARNING] django.request: Unauthorized: /api/token/validate/
+2025-06-24 14:02:48,602 [WARNING] django.server: "GET /api/token/validate/ HTTP/1.1" 401 172
+2025-06-24 14:02:48,689 [WARNING] django.request: Unauthorized: /api/token/validate/
+2025-06-24 14:02:48,690 [WARNING] django.server: "GET /api/token/validate/ HTTP/1.1" 401 172
+2025-06-24 14:08:24,301 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\core\urls.py changed, reloading.
+2025-06-24 14:08:29,471 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-24 14:09:07,282 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\core\urls.py changed, reloading.
+2025-06-24 14:09:08,893 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-24 14:10:53,398 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\core\urls.py changed, reloading.
+2025-06-24 14:10:55,226 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-24 14:14:23,749 [INFO] django.server: "OPTIONS /api/token/ HTTP/1.1" 200 0
+2025-06-24 14:14:26,243 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 1086
+2025-06-24 14:14:26,478 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 14:14:26,582 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 14:14:30,657 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/ HTTP/1.1" 200 0
+2025-06-24 14:14:30,657 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/ HTTP/1.1" 200 0
+2025-06-24 14:14:30,801 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 14:14:30,953 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 14:14:52,948 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 14:14:53,035 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 14:14:53,245 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 14:14:53,388 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 14:15:43,444 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 14:16:34,206 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 14:29:59,065 [INFO] django.server: "OPTIONS /api/tenant/tenants/ HTTP/1.1" 200 0
+2025-06-24 14:29:59,138 [WARNING] django.request: Unauthorized: /api/tenant/tenants/
+2025-06-24 14:29:59,138 [WARNING] django.server: "GET /api/tenant/tenants/ HTTP/1.1" 401 172
+2025-06-24 14:30:00,138 [WARNING] django.request: Unauthorized: /api/tenant/tenants/
+2025-06-24 14:30:00,139 [WARNING] django.server: "GET /api/tenant/tenants/ HTTP/1.1" 401 172
+2025-06-24 14:31:41,919 [WARNING] django.request: Unauthorized: /api/tenant/tenants/
+2025-06-24 14:31:41,920 [WARNING] django.server: "GET /api/tenant/tenants/ HTTP/1.1" 401 172
+2025-06-24 14:31:46,409 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 1086
+2025-06-24 14:32:10,724 [INFO] core: Listing tenants: [1, 2, 3]
+2025-06-24 14:32:10,725 [INFO] django.server: "GET /api/tenant/tenants/ HTTP/1.1" 200 927
+2025-06-24 14:32:14,921 [INFO] core: Retrieving tenant: 1
+2025-06-24 14:32:14,925 [INFO] django.server: "GET /api/tenant/tenants/1/ HTTP/1.1" 200 339
+2025-06-24 14:33:22,631 [INFO] core: Saving tenant with schema_name: public
+2025-06-24 14:33:22,643 [INFO] django.server: "PATCH /api/tenant/tenants/1/ HTTP/1.1" 200 392
+2025-06-24 14:33:29,160 [INFO] core: Retrieving tenant: 1
+2025-06-24 14:33:29,165 [INFO] django.server: "GET /api/tenant/tenants/1/ HTTP/1.1" 200 392
+2025-06-24 14:37:35,502 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 14:37:35,613 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 14:37:35,682 [WARNING] django.request: Unauthorized: /api/tenant/tenants/
+2025-06-24 14:37:35,682 [WARNING] django.server: "GET /api/tenant/tenants/ HTTP/1.1" 401 172
+2025-06-24 14:37:35,749 [WARNING] django.request: Unauthorized: /api/tenant/tenants/
+2025-06-24 14:37:35,749 [WARNING] django.server: "GET /api/tenant/tenants/ HTTP/1.1" 401 172
+2025-06-24 14:38:54,373 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\core\views.py changed, reloading.
+2025-06-24 14:38:56,139 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-24 14:39:03,406 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\core\views.py changed, reloading.
+2025-06-24 14:39:05,250 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-24 14:39:10,570 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-24 14:39:16,930 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 14:39:17,102 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 14:39:17,166 [WARNING] django.request: Unauthorized: /api/tenant/tenants/
+2025-06-24 14:39:17,166 [WARNING] django.server: "GET /api/tenant/tenants/ HTTP/1.1" 401 172
+2025-06-24 14:39:17,257 [WARNING] django.request: Unauthorized: /api/tenant/tenants/
+2025-06-24 14:39:17,259 [WARNING] django.server: "GET /api/tenant/tenants/ HTTP/1.1" 401 172
+2025-06-24 14:39:42,716 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 14:39:42,840 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 14:39:42,868 [WARNING] django.request: Unauthorized: /api/tenant/tenants/
+2025-06-24 14:39:42,868 [WARNING] django.server: "GET /api/tenant/tenants/ HTTP/1.1" 401 172
+2025-06-24 14:39:42,946 [WARNING] django.request: Unauthorized: /api/tenant/tenants/
+2025-06-24 14:39:42,946 [WARNING] django.server: "GET /api/tenant/tenants/ HTTP/1.1" 401 172
+2025-06-24 14:43:11,379 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\core\views.py changed, reloading.
+2025-06-24 14:43:13,453 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-24 14:43:41,198 [WARNING] django.request: Unauthorized: /api/tenant/tenants/
+2025-06-24 14:43:41,199 [WARNING] django.server: "GET /api/tenant/tenants/ HTTP/1.1" 401 172
+2025-06-24 14:43:41,365 [WARNING] django.request: Unauthorized: /api/tenant/tenants/
+2025-06-24 14:43:41,365 [WARNING] django.server: "GET /api/tenant/tenants/ HTTP/1.1" 401 172
+2025-06-24 14:43:49,162 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 14:43:49,316 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 14:43:49,420 [WARNING] django.request: Unauthorized: /api/tenant/tenants/
+2025-06-24 14:43:49,421 [WARNING] django.server: "GET /api/tenant/tenants/ HTTP/1.1" 401 172
+2025-06-24 14:43:49,560 [WARNING] django.request: Unauthorized: /api/tenant/tenants/
+2025-06-24 14:43:49,561 [WARNING] django.server: "GET /api/tenant/tenants/ HTTP/1.1" 401 172
+2025-06-24 14:49:19,214 [INFO] core: Listing tenants: [3] for tenant proliance
+2025-06-24 14:49:19,215 [INFO] django.server: "GET /api/tenant/tenants/ HTTP/1.1" 200 298
+2025-06-24 14:49:26,614 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 14:49:26,845 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 14:49:26,940 [INFO] core: Listing tenants: [3] for tenant proliance
+2025-06-24 14:49:26,941 [INFO] django.server: "GET /api/tenant/tenants/ HTTP/1.1" 200 298
+2025-06-24 14:49:27,069 [INFO] core: Listing tenants: [3] for tenant proliance
+2025-06-24 14:49:27,070 [INFO] django.server: "GET /api/tenant/tenants/ HTTP/1.1" 200 298
+2025-06-24 14:50:04,220 [INFO] core: Listing tenants: [3] for tenant proliance
+2025-06-24 14:50:04,221 [INFO] django.server: "GET /api/tenant/tenants/ HTTP/1.1" 200 298
+2025-06-24 14:50:06,184 [INFO] core: Listing tenants: [3] for tenant proliance
+2025-06-24 14:50:06,186 [INFO] django.server: "GET /api/tenant/tenants/ HTTP/1.1" 200 298
+2025-06-24 14:51:21,429 [INFO] django.server: "OPTIONS /api/tenant/tenants/3/ HTTP/1.1" 200 0
+2025-06-24 14:51:21,628 [INFO] core: Saving tenant with schema_name: proliance
+2025-06-24 14:51:21,634 [INFO] core: Tenant updated: proliance for tenant proliance
+2025-06-24 14:51:21,639 [INFO] django.server: "PATCH /api/tenant/tenants/3/ HTTP/1.1" 200 354
+2025-06-24 15:01:56,147 [INFO] core: Retrieving tenant: 3 for tenant proliance
+2025-06-24 15:01:56,152 [INFO] django.server: "GET /api/tenant/tenants/3/ HTTP/1.1" 200 354
+2025-06-24 15:02:48,402 [INFO] core: Saving tenant with schema_name: proliance
+2025-06-24 15:02:48,406 [INFO] core: Tenant updated: proliance for tenant proliance
+2025-06-24 15:02:48,410 [INFO] django.server: "PATCH /api/tenant/tenants/3/ HTTP/1.1" 200 354
+2025-06-24 15:05:47,348 [WARNING] django.request: Not Found: /api/tenant/tenants/1/
+2025-06-24 15:05:47,348 [WARNING] django.server: "GET /api/tenant/tenants/1/ HTTP/1.1" 404 47
+2025-06-24 15:05:49,840 [INFO] core: Listing tenants: [3] for tenant proliance
+2025-06-24 15:05:49,841 [INFO] django.server: "GET /api/tenant/tenants/ HTTP/1.1" 200 356
+2025-06-24 15:07:44,391 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\lumina_care\settings.py changed, reloading.
+2025-06-24 15:07:49,395 [INFO] django.utils.autoreload: Watching for file changes with StatReloader

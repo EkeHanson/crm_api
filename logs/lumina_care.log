@@ -1656,3 +1656,38 @@
 2025-06-24 15:30:10,154 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-devops-engineer-b99ceaae/ HTTP/1.1" 200 4080
 2025-06-24 15:31:00,030 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\lumina_care\settings.py changed, reloading.
 2025-06-24 15:31:02,802 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-24 15:31:35,494 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\lumina_care\settings.py changed, reloading.
+2025-06-24 15:31:37,272 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-24 15:31:59,355 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\lumina_care\settings.py changed, reloading.
+2025-06-24 15:32:01,242 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-24 15:32:25,255 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 15:32:25,319 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 15:32:33,622 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 15:32:33,905 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 15:32:33,982 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 15:32:34,164 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 15:32:38,158 [INFO] talent_engine: Job requisition accessed via link: DevOps Engineer for tenant proliance
+2025-06-24 15:32:38,164 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-devops-engineer-b99ceaae/ HTTP/1.1" 200 4080
+2025-06-24 15:32:38,235 [INFO] talent_engine: Job requisition accessed via link: DevOps Engineer for tenant proliance
+2025-06-24 15:32:38,241 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-devops-engineer-b99ceaae/ HTTP/1.1" 200 4080
+2025-06-24 15:33:35,418 [INFO] talent_engine: Job requisition accessed via link: DevOps Engineer for tenant proliance
+2025-06-24 15:33:35,424 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-devops-engineer-b99ceaae/ HTTP/1.1" 200 4080
+2025-06-24 15:33:35,605 [INFO] talent_engine: Job requisition accessed via link: DevOps Engineer for tenant proliance
+2025-06-24 15:33:35,613 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-devops-engineer-b99ceaae/ HTTP/1.1" 200 4080
+2025-06-24 15:33:47,080 [INFO] talent_engine: Job requisition accessed via link: DevOps Engineer for tenant proliance
+2025-06-24 15:33:47,085 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-devops-engineer-b99ceaae/ HTTP/1.1" 200 4080
+2025-06-24 15:33:47,161 [INFO] talent_engine: Job requisition accessed via link: DevOps Engineer for tenant proliance
+2025-06-24 15:33:47,167 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-devops-engineer-b99ceaae/ HTTP/1.1" 200 4080
+2025-06-24 15:33:50,632 [INFO] talent_engine: Job requisition accessed via link: DevOps Engineer for tenant proliance
+2025-06-24 15:33:50,638 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-devops-engineer-b99ceaae/ HTTP/1.1" 200 4080
+2025-06-24 15:33:50,816 [INFO] talent_engine: Job requisition accessed via link: DevOps Engineer for tenant proliance
+2025-06-24 15:33:50,823 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-devops-engineer-b99ceaae/ HTTP/1.1" 200 4080
+2025-06-24 15:34:13,224 [INFO] talent_engine: Job requisition accessed via link: DevOps Engineer for tenant proliance
+2025-06-24 15:34:13,230 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-devops-engineer-b99ceaae/ HTTP/1.1" 200 4080
+2025-06-24 15:34:13,298 [INFO] talent_engine: Job requisition accessed via link: DevOps Engineer for tenant proliance
+2025-06-24 15:34:13,305 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-devops-engineer-b99ceaae/ HTTP/1.1" 200 4080
+2025-06-24 15:34:16,780 [INFO] talent_engine: Job requisition accessed via link: DevOps Engineer for tenant proliance
+2025-06-24 15:34:16,786 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-devops-engineer-b99ceaae/ HTTP/1.1" 200 4080
+2025-06-24 15:34:16,865 [INFO] talent_engine: Job requisition accessed via link: DevOps Engineer for tenant proliance
+2025-06-24 15:34:16,874 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-devops-engineer-b99ceaae/ HTTP/1.1" 200 4080
+2025-06-24 15:41:54,157 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\lumina_care\settings.py changed, reloading.

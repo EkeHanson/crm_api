@@ -10,7 +10,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-!v)6(7@u983fg+8gdo1o)dr^59vvp3^ol*apr%c+$0n$#swz-1'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'cmvp-api-v1.onrender.com']
 
@@ -113,6 +113,10 @@ CORS_ALLOWED_ORIGINS = [
     'https://appleid.apple.com',
     'https://login.microsoftonline.com',
 ]
+CORS_ORIGIN_WHITELIST = [
+    'https://crm-frontend-react.vercel.app',
+]
+
 
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_METHODS = [
@@ -155,28 +159,28 @@ TEMPLATES = [
 WSGI_APPLICATION = 'lumina_care.wsgi.application'
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django_tenants.postgresql_backend',
-        'NAME': 'lumina_care_db',
-        'USER': 'postgres',
-        'PASSWORD': 'qwerty',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
-}
-
-
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django_tenants.postgresql_backend',  # or 'django.db.backends.postgresql' if not using multi-tenancy
-#         'NAME': 'crm_db_q6tk',
-#         'USER': 'crm_db_q6tk_user',
-#         'PASSWORD': 'QQ4Rf20Ar8FtfCEGmuwar57DJ2FoeBkS',
-#         'HOST': 'dpg-d1aqneer433s73ac15j0-a.oregon-postgres.render.com',
+#         'ENGINE': 'django_tenants.postgresql_backend',
+#         'NAME': 'lumina_care_db',
+#         'USER': 'postgres',
+#         'PASSWORD': 'qwerty',
+#         'HOST': 'localhost',
 #         'PORT': '5432',
 #     }
 # }
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django_tenants.postgresql_backend',  # or 'django.db.backends.postgresql' if not using multi-tenancy
+        'NAME': 'crm_db_q6tk',
+        'USER': 'crm_db_q6tk_user',
+        'PASSWORD': 'QQ4Rf20Ar8FtfCEGmuwar57DJ2FoeBkS',
+        'HOST': 'dpg-d1aqneer433s73ac15j0-a.oregon-postgres.render.com',
+        'PORT': '5432',
+    }
+}
 
 
 DATABASE_ROUTERS = ['django_tenants.routers.TenantSyncRouter']

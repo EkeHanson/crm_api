@@ -1726,3 +1726,67 @@
 2025-06-24 18:24:54,870 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 474
 2025-06-24 18:25:06,411 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\lumina_care\settings.py changed, reloading.
 2025-06-24 18:25:10,405 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-24 18:25:45,432 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 506
+2025-06-24 18:25:45,646 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 506
+2025-06-24 18:25:45,962 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 11941
+2025-06-24 18:25:46,261 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 11941
+2025-06-24 18:26:02,305 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 1086
+2025-06-24 18:26:02,593 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 18:26:02,815 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 18:26:07,735 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 18:26:08,035 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 18:26:58,356 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 18:31:57,664 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 18:31:57,884 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 18:32:11,755 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 1086
+2025-06-24 18:32:11,975 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 18:32:12,132 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 18:32:15,331 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 18:32:15,729 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 18:32:20,158 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 18:32:20,413 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 18:32:23,205 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 0
+2025-06-24 18:32:23,209 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 0
+2025-06-24 18:32:23,426 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23933
+2025-06-24 18:32:23,644 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23933
+2025-06-24 18:32:29,174 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 18:32:29,402 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26823
+2025-06-24 18:32:36,705 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/PRO-0002/ HTTP/1.1" 200 0
+2025-06-24 18:32:36,706 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/PRO-0002/ HTTP/1.1" 200 0
+2025-06-24 18:32:36,907 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0002/ HTTP/1.1" 200 4403
+2025-06-24 18:32:37,091 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0002/ HTTP/1.1" 200 4403
+2025-06-24 18:32:37,144 [INFO] django.server: "GET /media/advert_banners/Data_Scientist_-_NLP__Machine_Learning.jpg HTTP/1.1" 304 0
+2025-06-24 18:32:44,228 [INFO] talent_engine: Job requisition updated: Data Scientist - NLP & Machine Learning for tenant proliance
+2025-06-24 18:32:44,239 [INFO] django.server: "PATCH /api/talent-engine/requisitions/PRO-0002/ HTTP/1.1" 200 4404
+2025-06-24 18:32:45,645 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26824
+2025-06-24 18:32:45,856 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26824
+2025-06-24 18:32:48,745 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26824
+2025-06-24 18:32:49,088 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 26824
+2025-06-24 18:32:51,074 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23933
+2025-06-24 18:32:51,328 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23933
+2025-06-24 18:32:55,906 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/requisitions/PRO-0002/screen-resumes/ HTTP/1.1" 200 0
+2025-06-24 18:34:04,424 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23933
+2025-06-24 18:34:25,981 [INFO] django.server: "POST /api/talent-engine-job-applications/requisitions/PRO-0002/screen-resumes/ HTTP/1.1" 200 1545
+2025-06-24 18:34:26,186 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23948
+2025-06-24 18:34:45,441 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23948
+2025-06-24 18:35:01,313 [INFO] django.server: "POST /api/talent-engine-job-applications/requisitions/PRO-0002/screen-resumes/ HTTP/1.1" 200 1545
+2025-06-24 18:35:01,533 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23948
+2025-06-24 18:35:23,392 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23948
+2025-06-24 18:35:27,295 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23948
+2025-06-24 18:35:46,679 [INFO] django.server: "POST /api/talent-engine-job-applications/requisitions/PRO-0002/screen-resumes/ HTTP/1.1" 200 1545
+2025-06-24 18:35:46,904 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23948
+2025-06-24 18:36:28,415 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23948
+2025-06-24 18:36:34,300 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 18:36:34,588 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 502
+2025-06-24 18:36:34,772 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23948
+2025-06-24 18:36:35,001 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23948
+2025-06-24 18:36:53,008 [INFO] django.server: "POST /api/talent-engine-job-applications/requisitions/PRO-0002/screen-resumes/ HTTP/1.1" 200 1545
+2025-06-24 18:36:53,228 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23948
+2025-06-24 18:37:00,359 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0002/applications/ HTTP/1.1" 200 23948
+2025-06-24 18:37:19,224 [INFO] django.server: - Broken pipe from ('127.0.0.1', 58611)
+2025-06-24 18:49:39,854 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\lumina_care\settings.py changed, reloading.
+2025-06-24 18:49:43,982 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-24 18:51:39,855 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\lumina_care\settings.py changed, reloading.
+2025-06-24 18:51:44,651 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-24 18:52:52,850 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\lumina_care\settings.py changed, reloading.
+2025-06-24 18:52:55,976 [INFO] django.utils.autoreload: Watching for file changes with StatReloader

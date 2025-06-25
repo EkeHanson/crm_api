@@ -21,7 +21,7 @@ urlpatterns = [
 
 
 
-    path('requisitions/soft-deleted/', SoftDeletedJobRequisitionsView.as_view(), name='soft-deleted-requisitions'),
-    path('requisitions/recover/', RecoverSoftDeletedJobRequisitionsView.as_view(), name='recover-requisitions'),
-    path('requisitions/permanent-delete/', PermanentDeleteJobRequisitionsView.as_view(), name='permanent-delete-requisitions'),
+    path('requisitions/deleted/soft_deleted/', SoftDeletedJobRequisitionsView.as_view(), name='soft-deleted-requisitions'),
+    path('requisitions/recover/requisition/', RecoverSoftDeletedJobRequisitionsView.as_view(), name='recover-requisitions'),
+    path('requisitions/permanent-delete/requisition/', PermanentDeleteJobRequisitionsView.as_view(), name='permanent-delete-requisitions'),
 ]

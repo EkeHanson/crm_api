@@ -145,10 +145,13 @@ class JobRequisitionByLinkView(generics.RetrieveAPIView):
 
 class SoftDeletedJobRequisitionsView(generics.ListAPIView):
     serializer_class = JobRequisitionSerializer
-    permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized]
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         tenant = self.request.tenant
+        # print("tenant")
+        # print(tenant)
+        # print("tenant")
         if not tenant:
             logger.error("No tenant associated with the request")
             raise generics.ValidationError("Tenant not found.")

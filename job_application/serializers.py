@@ -1,4 +1,4 @@
-# job_applications/serializers.py
+
 from rest_framework import serializers
 from .models import JobApplication, Schedule
 from talent_engine.models import JobRequisition
@@ -20,8 +20,6 @@ class DocumentSerializer(serializers.Serializer):
     def get_file_url(self, obj):
         file_path = obj.get('file_path', None)
         if file_path:
-            # print(f"{settings.MEDIA_URL}{file_path.lstrip('/')}")
-            # print(file_path)
             return file_path
         return None
 
@@ -35,7 +33,7 @@ class DocumentSerializer(serializers.Serializer):
             raise serializers.ValidationError(
                 f"Invalid file type: {value.content_type}. Only PDF and Word (.doc, .docx) files are allowed."
             )
-        max_size = 50 * 1024 * 1024  # 50 MB
+        max_size = 50 * 1024 * 1024
         if value.size > max_size:
             raise serializers.ValidationError(f"File size exceeds 50 MB limit.")
         return value
@@ -64,9 +62,9 @@ class JobApplicationSerializer(serializers.ModelSerializer):
             'id', 'tenant', 'tenant_schema', 'job_requisition', 'job_requisition_id',
             'full_name', 'email', 'phone', 'qualification', 'experience', 'screening_status', 'screening_score',
             'knowledge_skill', 'cover_letter', 'resume_status', 'status', 'source',
-            'documents', 'applied_at', 'created_at', 'updated_at'
+            'documents', 'is_deleted', 'applied_at', 'created_at', 'updated_at'
         ]
-        read_only_fields = ['id', 'tenant', 'tenant_schema', 'job_requisition_id', 'applied_at', 'created_at', 'updated_at']
+        read_only_fields = ['id', 'tenant', 'tenant_schema', 'job_requisition_id', 'is_deleted', 'applied_at', 'created_at', 'updated_at']
 
     def validate(self, data):
         logger.debug(f"Validating data: {data}")
@@ -91,7 +89,7 @@ class JobApplicationSerializer(serializers.ModelSerializer):
         documents_data = validated_data.pop('documents', [])
         tenant = self.context['request'].tenant
         validated_data['tenant'] = tenant
-        logger.debug(f"Creating application for tenant: {tenant.schema_name}, job: {validated_data['job_requisition'].title}")
+        logger.debug(f"Creating application for tenant: {tenant.schema_name}, job_applications: {validated_data['job_requisition'].title}")
 
         documents = []
         for doc_data in documents_data:
@@ -132,8 +130,6 @@ class JobApplicationSerializer(serializers.ModelSerializer):
         if 'documents' in fields:
             fields['documents'].child.context.update({'job_requisition': self.context.get('job_requisition')})
         return fields
-    
-
 
 class ScheduleSerializer(serializers.ModelSerializer):
     job_application_id = serializers.CharField(source='job_application.id', read_only=True)
@@ -147,30 +143,37 @@ class ScheduleSerializer(serializers.ModelSerializer):
             'id', 'tenant', 'tenant_schema', 'job_application', 'job_application_id',
             'candidate_name', 'job_requisition_title', 'interview_date_time',
             'meeting_mode', 'meeting_link', 'interview_address', 'message',
-            'status', 'cancellation_reason', 'created_at', 'updated_at'
+            'status', 'cancellation_reason', 'is_deleted', 'created_at', 'updated_at'
         ]
-        read_only_fields = ['id', 'tenant', 'tenant_schema', 'job_application_id', 'candidate_name', 'job_requisition_title', 'created_at', 'updated_at']
+        read_only_fields = ['id', 'tenant', 'tenant_schema', 'job_application_id', 'candidate_name', 'job_requisition_title', 'is_deleted', 'created_at', 'updated_at']
 
     def validate(self, data):
-        logger.debug(f"Validating schedule data: {data}")
-        job_application = data.get('job_application')
+        logger.debug(f"Validating schedule data: {data}, instance: {self.instance}")
+        job_application = data.get('job_application', getattr(self.instance, 'job_application', None))
         if not job_application:
+            logger.error("Job application is required but not provided or found on instance")
             raise serializers.ValidationError("Job application is required.")
         if job_application.status != 'shortlisted':
+            logger.warning(f"Invalid job application status: {job_application.status} for job_application {job_application.id}")
             raise serializers.ValidationError("Schedules can only be created for shortlisted applicants.")
         if data.get('meeting_mode') == 'Virtual' and not data.get('meeting_link'):
+            logger.warning("Missing meeting link for virtual interview")
             raise serializers.ValidationError("Meeting link is required for virtual interviews.")
         if data.get('meeting_mode') == 'Virtual' and data.get('meeting_link'):
             validate_url = URLValidator()
             try:
                 validate_url(data['meeting_link'])
             except serializers.ValidationError:
+                logger.error(f"Invalid meeting link URL: {data['meeting_link']}")
                 raise serializers.ValidationError("Invalid meeting link URL.")
         if data.get('meeting_mode') == 'Physical' and not data.get('interview_address'):
+            logger.warning("Missing interview address for physical interview")
             raise serializers.ValidationError("Interview address is required for physical interviews.")
         if data.get('status') == 'cancelled' and not data.get('cancellation_reason'):
+            logger.warning("Missing cancellation reason for cancelled schedule")
             raise serializers.ValidationError("Cancellation reason is required for cancelled schedules.")
-        if data.get('interview_date_time') <= timezone.now():
+        if data.get('interview_date_time') and data['interview_date_time'] <= timezone.now():
+            logger.warning(f"Interview date in the past: {data['interview_date_time']}")
             raise serializers.ValidationError("Interview date and time must be in the future.")
         return data
 
@@ -185,7 +188,8 @@ class ScheduleSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         logger.debug(f"Updating schedule {instance.id} with data: {validated_data}")
         if validated_data.get('status') == 'cancelled' and instance.status != 'cancelled' and not validated_data.get('cancellation_reason'):
+            logger.warning(f"Missing cancellation reason for cancelling schedule {instance.id}")
             raise serializers.ValidationError("Cancellation reason is required when cancelling a schedule.")
         if validated_data.get('status') != 'cancelled':
-            validated_data['cancellation_reason'] = None  # Clear cancellation reason if not cancelled
+            validated_data['cancellation_reason'] = None
         return super().update(instance, validated_data)

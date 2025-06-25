@@ -1,107 +1,16 @@
 
-
-# from django.db import models
-# from django.utils.text import slugify
-# from core.models import Tenant
-# from talent_engine.models import JobRequisition
-# import uuid
-# from django.db.models import JSONField
-
-# class JobApplication(models.Model):
-#     STATUS_CHOICES = [
-#         ('new', 'New'),
-#         ('shortlisted', 'Shortlisted'),
-#         ('rejected', 'Rejected'),
-#         ('hired', 'Hired'),
-#     ]
-
-#     id = models.CharField(max_length=10, primary_key=True, editable=False)
-#     tenant = models.ForeignKey(Tenant, on_delete=models.CASCADE, related_name='job_applications')
-#     job_requisition = models.ForeignKey(JobRequisition, on_delete=models.CASCADE, related_name='applications')
-#     full_name = models.CharField(max_length=255)
-#     email = models.EmailField(max_length=255)
-#     phone = models.CharField(max_length=20)
-#     qualification = models.TextField(max_length=255)
-#     experience = models.TextField(max_length=255)
-#     knowledge_skill = models.TextField(blank=True, null=True)
-#     cover_letter = models.TextField(blank=True, null=True)
-#     resume_status = models.BooleanField(default=True)  # True if resume uploaded, False if "noresume"
-#     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='new')
-#     source = models.CharField(max_length=50, blank=True, null=True, default='Website')  # e.g., Website, LinkedIn, Referral
-#     documents = JSONField(default=list, blank=True)  # Stores list of documents: [{"document_type": str, "file_path": str, "uploaded_at": datetime}, ...]
-#     applied_at = models.DateTimeField(auto_now_add=True)
-#     created_at = models.DateTimeField(auto_now_add=True)
-#     updated_at = models.DateTimeField(auto_now=True)
-
-#     class Meta:
-#         db_table = 'job_applications_job_application'
-#         unique_together = ('tenant', 'job_requisition', 'email')  # Ensure one application per email per job
-
-#     def __str__(self):
-#         return f"{self.full_name} - {self.job_requisition.title} ({self.tenant.name})"
-
-#     # def save(self, *args, **kwargs):
-#     #     # Check if the status is changing to 'hired'
-#     #     is_hired = self.status == 'hired'
-#     #     was_hired = False
-#     #     if self.pk:  # If the instance already exists, check the previous status
-#     #         previous = JobApplication.objects.get(pk=self.pk)
-#     #         was_hired = previous.status == 'hired'
-
-#     #     # Existing ID generation logic
-#     #     if not self.id:
-#     #         prefix = self.tenant.name[:3].upper()
-#     #         latest = JobApplication.objects.filter(id__startswith=prefix).aggregate(models.Max('id'))['id__max']
-#     #         if latest:
-#     #             try:
-#     #                 number = int(latest.split('-')[1]) + 1
-#     #             except (IndexError, ValueError):
-#     #                 number = 1
-#     #         else:
-#     #             number = 1
-#     #         self.id = f"{prefix}-{number:04d}"
-
-#     #     super().save(*args, **kwargs)  # Save the application first
-
-#     #     # Update num_of_applications in JobRequisition
-#     #     if is_hired and not was_hired:
-#     #         # Increment if newly hired
-#     #         self.job_requisition.num_of_applications += 1
-#     #         self.job_requisition.save()
-#     #     elif was_hired and not is_hired:
-#     #         # Decrement if status changed from hired to something else
-#     #         self.job_requisition.num_of_applications = max(0, self.job_requisition.num_of_applications - 1)
-#     #         self.job_requisition.save()
-#     def save(self, *args, **kwargs):
-#         # Check if this is a new application
-#         is_new = not self.pk
-
-#         # Existing ID generation logic
-#         if not self.id:
-#             prefix = self.tenant.name[:3].upper()
-#             latest = JobApplication.objects.filter(id__startswith=prefix).aggregate(models.Max('id'))['id__max']
-#             if latest:
-#                 try:
-#                     number = int(latest.split('-')[1]) + 1
-#                 except (IndexError, ValueError):
-#                     number = 1
-#             else:
-#                 number = 1
-#             self.id = f"{prefix}-{number:04d}"
-
-#         super().save(*args, **kwargs)  # Save the application first
-
-#         # Update num_of_applications in JobRequisition for new applications
-#         if is_new:
-#             self.job_requisition.num_of_applications += 1
-#             self.job_requisition.save()
-
-# job_application/models.py
 from django.db import models
 from django.utils.text import slugify
 from core.models import Tenant
 from talent_engine.models import JobRequisition
 import uuid
+import logging
+
+logger = logging.getLogger('job_applications')
+
+class ActiveApplicationsManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(is_deleted=False)
 
 class JobApplication(models.Model):
     STATUS_CHOICES = [
@@ -126,15 +35,19 @@ class JobApplication(models.Model):
     experience = models.TextField(max_length=255)
     knowledge_skill = models.TextField(blank=True, null=True)
     cover_letter = models.TextField(blank=True, null=True)
-    resume_status = models.BooleanField(default=True)  # True if resume uploaded
+    resume_status = models.BooleanField(default=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='new')
     screening_status = models.CharField(max_length=20, choices=SCREENING_STATUS_CHOICES, default='pending')
-    screening_score = models.FloatField(null=True, blank=True)  # Store AI similarity score
+    screening_score = models.FloatField(null=True, blank=True)
     source = models.CharField(max_length=50, blank=True, null=True, default='Website')
-    documents = models.JSONField(default=list, blank=True)  # [{"document_type": str, "file_path": str, "uploaded_at": datetime}, ...]
+    documents = models.JSONField(default=list, blank=True)
+    is_deleted = models.BooleanField(default=False)
     applied_at = models.DateTimeField(auto_now_add=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    objects = models.Manager()
+    active_objects = ActiveApplicationsManager()
 
     class Meta:
         db_table = 'job_applications_job_application'
@@ -155,7 +68,15 @@ class JobApplication(models.Model):
             self.job_requisition.num_of_applications += 1
             self.job_requisition.save()
 
+    def soft_delete(self):
+        self.is_deleted = True
+        self.save()
+        logger.info(f"JobApplication {self.id} soft-deleted for tenant {self.tenant.schema_name}")
 
+    def restore(self):
+        self.is_deleted = False
+        self.save()
+        logger.info(f"JobApplication {self.id} restored for tenant {self.tenant.schema_name}")
 
 class Schedule(models.Model):
     STATUS_CHOICES = [
@@ -174,12 +95,22 @@ class Schedule(models.Model):
     message = models.TextField(blank=True, null=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='scheduled')
     cancellation_reason = models.TextField(blank=True, null=True)
+    is_deleted = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    objects = models.Manager()
+    active_objects = models.Manager()
+
+    class ActiveManager(models.Manager):
+        def get_queryset(self):
+            return super().get_queryset().filter(is_deleted=False)
+
+    active_objects = ActiveManager()
+
     class Meta:
         db_table = 'job_applications_schedule'
-        unique_together = ('tenant', 'job_application', 'interview_date_time')  # Prevent duplicate schedules for same applicant at same time
+        unique_together = ('tenant', 'job_application', 'interview_date_time')
 
     def __str__(self):
         return f"Schedule for {self.job_application.full_name} - {self.job_application.job_requisition.title} ({self.interview_date_time})"
@@ -191,3 +122,13 @@ class Schedule(models.Model):
             number = int(latest.split('-')[1]) + 1 if latest else 1
             self.id = f"{prefix}-{number:04d}"
         super().save(*args, **kwargs)
+
+    def soft_delete(self):
+        self.is_deleted = True
+        self.save()
+        logger.info(f"Schedule {self.id} soft-deleted for tenant {self.tenant.schema_name}")
+
+    def restore(self):
+        self.is_deleted = False
+        self.save()
+        logger.info(f"Schedule {self.id} restored for tenant {self.tenant.schema_name}")

@@ -4,6 +4,13 @@ from django.utils.text import slugify
 from users.models import CustomUser
 from core.models import Tenant
 import uuid
+import logging
+
+logger = logging.getLogger('talent_engine')
+
+class ActiveRequisitionsManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(is_deleted=False)
 
 class JobRequisition(models.Model):
     STATUS_CHOICES = [
@@ -56,8 +63,12 @@ class JobRequisition(models.Model):
     advert_banner = models.ImageField(upload_to='advert_banners/', blank=True, null=True)
     requested_date = models.DateField(auto_now_add=True)
     publish_status = models.BooleanField(default=False)
+    is_deleted = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    objects = models.Manager()
+    active_objects = ActiveRequisitionsManager()
 
     class Meta:
         db_table = 'talent_engine_job_requisition'
@@ -79,11 +90,9 @@ class JobRequisition(models.Model):
             self.id = f"{prefix}-{number:04d}"
 
         if not self.unique_link:
-            # Generate unique_link with tenant schema_name, job title, and UUID
             base_slug = slugify(f"{self.title}")
-            short_uuid = str(uuid.uuid4())[:8]  # Use first 8 chars of UUID for uniqueness
+            short_uuid = str(uuid.uuid4())[:8]
             slug = f"{self.tenant.schema_name}-{base_slug}-{short_uuid}"
-            # Ensure uniqueness (though UUID makes collisions unlikely)
             counter = 1
             original_slug = slug
             while JobRequisition.objects.filter(unique_link=slug).exists():
@@ -92,3 +101,13 @@ class JobRequisition(models.Model):
             self.unique_link = slug
 
         super().save(*args, **kwargs)
+
+    def soft_delete(self):
+        self.is_deleted = True
+        self.save()
+        logger.info(f"JobRequisition {self.id} soft-deleted for tenant {self.tenant.schema_name}")
+
+    def restore(self):
+        self.is_deleted = False
+        self.save()
+        logger.info(f"JobRequisition {self.id} restored for tenant {self.tenant.schema_name}")

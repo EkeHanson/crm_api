@@ -751,3 +751,21 @@ django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'ef6c-102-90-11
 2025-06-26 10:37:40,068 [WARNING] django.server: "POST //api/token/ HTTP/1.1" 400 63
 2025-06-26 10:39:49,494 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\lumina_care\settings.py changed, reloading.
 2025-06-26 10:39:52,901 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-26 10:45:26,191 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-26 10:45:36,433 [WARNING] django.request: Not Found: /api/token/
+2025-06-26 10:45:36,434 [WARNING] django.server: "POST /api/token/ HTTP/1.1" 404 179
+2025-06-26 10:45:46,691 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\lumina_care\settings.py changed, reloading.
+2025-06-26 10:45:48,480 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-26 10:45:50,886 [WARNING] django.request: Bad Request: /api/token/
+2025-06-26 10:45:50,887 [WARNING] django.server: "POST /api/token/ HTTP/1.1" 400 63
+2025-06-26 10:47:04,718 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-26 10:47:48,637 [INFO] core: Saving tenant with schema_name: proliance
+2025-06-26 10:47:50,353 [INFO] core: Saving tenant with schema_name: proliance
+2025-06-26 10:52:21,977 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-26 10:52:32,785 [WARNING] django.request: Bad Request: /api/token/
+2025-06-26 10:52:32,785 [WARNING] django.server: "POST /api/token/ HTTP/1.1" 400 45
+2025-06-26 10:53:34,280 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-26 10:53:41,319 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 1055
+2025-06-26 10:56:06,899 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-26 10:56:19,603 [INFO] core: Saving tenant with schema_name: public
+2025-06-26 10:56:20,991 [INFO] core: Saving tenant with schema_name: public

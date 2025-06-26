@@ -105,14 +105,14 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 # Update CORS for OAuth redirects
-CORS_ALLOWED_ORIGINS = [
-    'http://app.mydomain.com',
-    'https://crm-frontend-react.vercel.app',
-    'http://localhost:5173',
-    'https://accounts.google.com',
-    'https://appleid.apple.com',
-    'https://login.microsoftonline.com',
-]
+# CORS_ALLOWED_ORIGINS = [
+#     'http://app.mydomain.com',
+#     'https://crm-frontend-react.vercel.app',
+#     'http://localhost:5173',
+#     'https://accounts.google.com',
+#     'https://appleid.apple.com',
+#     'https://login.microsoftonline.com',
+# ]
 
 
 CORS_ORIGIN_WHITELIST = [
@@ -157,7 +157,6 @@ TEMPLATES = [
     },
 ]
 WSGI_APPLICATION = 'lumina_care.wsgi.application'
-
 
 # DATABASES = {
 #     'default': {

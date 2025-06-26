@@ -169,13 +169,14 @@ WSGI_APPLICATION = 'lumina_care.wsgi.application'
 #     }
 # }
 
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django_tenants.postgresql_backend',  # or 'django.db.backends.postgresql' if not using multi-tenancy
-        'NAME': 'crm_db_q6tk',
-        'USER': 'crm_db_q6tk_user',
-        'PASSWORD': 'QQ4Rf20Ar8FtfCEGmuwar57DJ2FoeBkS',
-        'HOST': 'dpg-d1aqneer433s73ac15j0-a.oregon-postgres.render.com',
+        'ENGINE': 'django_tenants.postgresql_backend',
+        'NAME': 'crm_db_glf7',
+        'USER': 'crm_db_glf7_user',
+        'PASSWORD': '82M4ACt6NgUww2qigTBmGp3Ezw47qk0t',
+        'HOST': 'dpg-d1egfk15pdvs73c1paog-a.oregon-postgres.render.com',
         'PORT': '5432',
     }
 }

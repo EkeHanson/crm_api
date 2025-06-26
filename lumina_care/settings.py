@@ -180,7 +180,6 @@ DATABASES = {
     }
 }
 
-
 DATABASE_ROUTERS = ['django_tenants.routers.TenantSyncRouter']
 TENANT_MODEL = "core.Tenant"
 TENANT_DOMAIN_MODEL = "core.Domain"

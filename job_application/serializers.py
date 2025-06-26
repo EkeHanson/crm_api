@@ -60,7 +60,7 @@ class JobApplicationSerializer(serializers.ModelSerializer):
     class Meta:
         model = JobApplication
         fields = [
-            'id', 'tenant', 'tenant_schema', 'job_requisition', 'job_requisition_id',
+            'id', 'tenant', 'tenant_schema', 'job_requisition', 'job_requisition_id','date_of_birth',
             'job_requisition_title',  # Added to fields list
             'full_name', 'email', 'phone', 'qualification', 'experience', 'screening_status', 'screening_score',
             'knowledge_skill', 'cover_letter', 'resume_status', 'status', 'source',

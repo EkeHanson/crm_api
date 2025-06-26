@@ -48,6 +48,7 @@ class JobRequisition(models.Model):
     job_type = models.CharField(max_length=20, choices=JOB_TYPE_CHOICES, default='full_time')
     location_type = models.CharField(max_length=20, choices=LOCATION_TYPE_CHOICES, default='on_site')
     company_address = models.TextField(blank=True, null=True)
+    job_location = models.TextField(blank=True, null=True)
     salary_range = models.CharField(max_length=100, blank=True, null=True)
     job_description = models.TextField(blank=True, null=True)
     number_of_candidates = models.IntegerField(blank=True, null=True)

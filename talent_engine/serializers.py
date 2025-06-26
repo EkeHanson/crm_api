@@ -19,7 +19,7 @@ class JobRequisitionSerializer(serializers.ModelSerializer):
             'experience_requirement', 'knowledge_requirement', 'reason',
             'deadline_date', 'start_date', 'responsibilities', 'documents_required',
             'compliance_checklist', 'advert_banner', 'requested_date', 'publish_status',
-            'is_deleted', 'created_at', 'updated_at', 'num_of_applications'
+            'is_deleted', 'created_at', 'updated_at', 'num_of_applications', 'job_location'
         ]
         read_only_fields = ['id', 'tenant', 'tenant_domain', 'unique_link', 'requested_date', 'is_deleted', 'created_at', 'updated_at']
 

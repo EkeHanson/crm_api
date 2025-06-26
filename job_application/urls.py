@@ -18,7 +18,11 @@ urlpatterns = [
     path('applications/recover/application/', RecoverSoftDeletedJobApplicationsView.as_view(), name='recover-applications'),
     path('applications/permanent-delete/application/', PermanentDeleteJobApplicationsView.as_view(), name='permanent-delete-applications'),
     path('applications/job-requisitions/<str:job_requisition_id>/applications/', JobApplicationsByRequisitionView.as_view(), name='job-applications-by-requisition'),
-    path('applications/parse-resume/', ResumeParseView.as_view(), name='resume-parse'),
+
+
+    path('applications/parse-resume/autofil/', ResumeParseView.as_view(), name='resume-parse'),
+
+    
     path('requisitions/<str:job_requisition_id>/screen-resumes/', ResumeScreeningView.as_view(), name='resume-screening'),
     path('published-requisitions-with-shortlisted/', PublishedJobRequisitionsWithShortlistedApplicationsView.as_view(), name='published-requisitions-with-shortlisted'),
 

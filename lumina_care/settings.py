@@ -119,7 +119,7 @@ CORS_ORIGIN_WHITELIST = [
     'https://crm-frontend-react.vercel.app',
 ]
 
-# CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_METHODS = [
     'DELETE',
     'GET',
@@ -180,6 +180,7 @@ DATABASES = {
         'PORT': '5432',
     }
 }
+
 
 DATABASE_ROUTERS = ['django_tenants.routers.TenantSyncRouter']
 TENANT_MODEL = "core.Tenant"

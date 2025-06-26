@@ -1,24 +1,18 @@
 #python manage.py shell
 from core.models import Tenant, Domain
-if not Tenant.objects.filter(schema_name='arts').exists():
+if not Tenant.objects.filter(schema_name='public').exists():
     tenant = Tenant.objects.create(
-        name='arts',
-        schema_name='arts'
+        name='public',
+        schema_name='public'
     )
     tenant.auto_create_schema = False  # Set attribute after creation
     tenant.save()
-    Domain.objects.create(tenant=tenant, domain='artstraining.co.uk', is_primary=True)
-
-
+    Domain.objects.create(tenant=tenant, domain='127.0.0.1', is_primary=True)
     Domain.objects.create(tenant=tenant, domain='localhost', is_primary=False)
-
-    
 
 
 #CREATE TENANT ADMIN USER 
 # python manage.py shell
-
-
 from core.models import Tenant
 from users.models import CustomUser
 from django_tenants.utils import tenant_context
@@ -26,10 +20,8 @@ tenant = Tenant.objects.get(schema_name='arts')
 with tenant_context(tenant):
     CustomUser.objects.create_superuser(
         username='admin',
-        email='onyinye@artstraining.co.uk',
+        email='admin@artstraining.co.uk.com',
         password='qwerty',
-        first_name='Onyinye',
-        last_name='Enterprise',
         role='admin',
         tenant=tenant
     )

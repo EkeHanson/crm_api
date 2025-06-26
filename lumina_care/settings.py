@@ -12,7 +12,7 @@ SECRET_KEY = 'django-insecure-!v)6(7@u983fg+8gdo1o)dr^59vvp3^ol*apr%c+$0n$#swz-1
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'cmvp-api-v1.onrender.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'cmvp-api-v1.onrender.com', 'ef6c-102-90-116-15.ngrok-free.app']
 
 
 INSTALLED_APPS = [
@@ -105,19 +105,19 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 # Update CORS for OAuth redirects
-# CORS_ALLOWED_ORIGINS = [
-#     'http://app.mydomain.com',
-#     'https://crm-frontend-react.vercel.app',
-#     'http://localhost:5173',
-#     'https://accounts.google.com',
-#     'https://appleid.apple.com',
-#     'https://login.microsoftonline.com',
-# ]
+CORS_ALLOWED_ORIGINS = [
+    'http://app.mydomain.com',
+    'https://crm-frontend-react.vercel.app',
+    'http://localhost:5173',
+    'https://accounts.google.com',
+    'https://appleid.apple.com',
+    'https://login.microsoftonline.com',
+]
+
 
 CORS_ORIGIN_WHITELIST = [
     'https://crm-frontend-react.vercel.app',
 ]
-
 
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_METHODS = [

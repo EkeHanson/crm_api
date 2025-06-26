@@ -666,3 +666,87 @@ django.db.utils.DataError: value too long for type character varying(10)
 2025-06-26 09:57:09,834 [INFO] core: Saving tenant with schema_name: proliance
 2025-06-26 09:57:34,035 [INFO] core: Saving tenant with schema_name: arts
 2025-06-26 10:00:12,602 [INFO] core: Saving tenant with schema_name: arts
+2025-06-26 10:29:23,709 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-26 10:29:55,911 [INFO] django.server: "OPTIONS /api/token/validate/ HTTP/1.1" 200 0
+2025-06-26 10:29:55,911 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/ HTTP/1.1" 200 0
+2025-06-26 10:29:56,008 [WARNING] django.request: Not Found: /api/token/validate/
+2025-06-26 10:29:56,009 [WARNING] django.server: "GET /api/token/validate/ HTTP/1.1" 404 179
+2025-06-26 10:29:56,019 [WARNING] django.request: Not Found: /api/talent-engine/requisitions/
+2025-06-26 10:29:56,020 [WARNING] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 404 179
+2025-06-26 10:30:40,513 [ERROR] django.security.DisallowedHost: Invalid HTTP_HOST header: 'ef6c-102-90-116-15.ngrok-free.app'. You may need to add 'ef6c-102-90-116-15.ngrok-free.app' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\venv\Lib\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\lumina_care\middleware.py", line 97, in process_request
+    logger.debug(f"Processing request: {request.path}, Host: {request.get_host()}")
+                                                              ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\venv\Lib\site-packages\django\http\request.py", line 191, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'ef6c-102-90-116-15.ngrok-free.app'. You may need to add 'ef6c-102-90-116-15.ngrok-free.app' to ALLOWED_HOSTS.
+2025-06-26 10:30:40,679 [WARNING] django.request: Bad Request: /
+2025-06-26 10:30:40,680 [WARNING] django.server: "GET / HTTP/1.1" 400 143
+2025-06-26 10:30:41,316 [ERROR] django.security.DisallowedHost: Invalid HTTP_HOST header: 'ef6c-102-90-116-15.ngrok-free.app'. You may need to add 'ef6c-102-90-116-15.ngrok-free.app' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\venv\Lib\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\lumina_care\middleware.py", line 97, in process_request
+    logger.debug(f"Processing request: {request.path}, Host: {request.get_host()}")
+                                                              ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\venv\Lib\site-packages\django\http\request.py", line 191, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'ef6c-102-90-116-15.ngrok-free.app'. You may need to add 'ef6c-102-90-116-15.ngrok-free.app' to ALLOWED_HOSTS.
+2025-06-26 10:30:41,324 [WARNING] django.request: Bad Request: /favicon.ico
+2025-06-26 10:30:41,327 [WARNING] django.server: "GET /favicon.ico HTTP/1.1" 400 143
+2025-06-26 10:31:42,924 [ERROR] django.security.DisallowedHost: Invalid HTTP_HOST header: 'ef6c-102-90-116-15.ngrok-free.app'. You may need to add 'ef6c-102-90-116-15.ngrok-free.app' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\venv\Lib\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\lumina_care\middleware.py", line 97, in process_request
+    logger.debug(f"Processing request: {request.path}, Host: {request.get_host()}")
+                                                              ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\venv\Lib\site-packages\django\http\request.py", line 191, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'ef6c-102-90-116-15.ngrok-free.app'. You may need to add 'ef6c-102-90-116-15.ngrok-free.app' to ALLOWED_HOSTS.
+2025-06-26 10:31:42,928 [WARNING] django.request: Bad Request: /
+2025-06-26 10:31:42,930 [WARNING] django.server: "GET / HTTP/1.1" 400 143
+2025-06-26 10:31:43,942 [ERROR] django.security.DisallowedHost: Invalid HTTP_HOST header: 'ef6c-102-90-116-15.ngrok-free.app'. You may need to add 'ef6c-102-90-116-15.ngrok-free.app' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\venv\Lib\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\lumina_care\middleware.py", line 97, in process_request
+    logger.debug(f"Processing request: {request.path}, Host: {request.get_host()}")
+                                                              ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\venv\Lib\site-packages\django\http\request.py", line 191, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'ef6c-102-90-116-15.ngrok-free.app'. You may need to add 'ef6c-102-90-116-15.ngrok-free.app' to ALLOWED_HOSTS.
+2025-06-26 10:31:43,954 [WARNING] django.request: Bad Request: /favicon.ico
+2025-06-26 10:31:43,957 [WARNING] django.server: "GET /favicon.ico HTTP/1.1" 400 143
+2025-06-26 10:32:50,284 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\lumina_care\settings.py changed, reloading.
+2025-06-26 10:32:53,965 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-26 10:33:35,711 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\lumina_care\settings.py changed, reloading.
+2025-06-26 10:33:39,042 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-26 10:33:45,486 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\lumina_care\settings.py changed, reloading.
+2025-06-26 10:33:51,537 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-26 10:34:24,826 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\lumina_care\settings.py changed, reloading.
+2025-06-26 10:34:28,683 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-26 10:34:44,251 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\lumina_care\settings.py changed, reloading.
+2025-06-26 10:34:47,851 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-26 10:34:55,339 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\lumina_care\settings.py changed, reloading.
+2025-06-26 10:34:59,066 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-26 10:35:12,803 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\lumina_care\settings.py changed, reloading.
+2025-06-26 10:35:16,063 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-26 10:37:01,204 [INFO] core: Saving tenant with schema_name: public
+2025-06-26 10:37:01,223 [INFO] core: Saving tenant with schema_name: public
+2025-06-26 10:37:14,733 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-26 10:37:39,556 [INFO] django.server: "OPTIONS //api/token/ HTTP/1.1" 200 0
+2025-06-26 10:37:40,066 [WARNING] django.request: Bad Request: /api/token/
+2025-06-26 10:37:40,068 [WARNING] django.server: "POST //api/token/ HTTP/1.1" 400 63
+2025-06-26 10:39:49,494 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\lumina_care\settings.py changed, reloading.

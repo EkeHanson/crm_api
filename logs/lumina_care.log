@@ -655,3 +655,4 @@ django.db.utils.DataError: value too long for type character varying(10)
 2025-06-26 09:25:06,019 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\lumina_care\settings.py changed, reloading.
 2025-06-26 09:25:07,660 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
 2025-06-26 09:25:46,050 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\lumina_care\settings.py changed, reloading.
+2025-06-26 09:25:48,472 [INFO] django.utils.autoreload: Watching for file changes with StatReloader

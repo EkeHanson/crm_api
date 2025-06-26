@@ -60,50 +60,52 @@ class JobApplication(models.Model):
     def __str__(self):
         return f"{self.full_name} - {self.job_requisition.title} ({self.tenant.name})"
 
-    # def save(self, *args, **kwargs):
-    #     is_new = not self.pk
-    #     if not self.id:
-    #         prefix = self.tenant.name[:3].upper()
-    #         latest = JobApplication.objects.filter(id__startswith=prefix).aggregate(models.Max('id'))['id__max']
-    #         number = int(latest.split('-')[1]) + 1 if latest else 1
-    #         self.id = f"{prefix}-{number:04d}"
-    #     super().save(*args, **kwargs)
-    #     if is_new:
-    #         self.job_requisition.num_of_applications += 1
-    #         self.job_requisition.save()
     def save(self, *args, **kwargs):
         is_new = not self.pk
         if not self.id:
-            # Get first 3 letters of tenant name
-            tenant_prefix = self.tenant.name[:3].upper()
-            # Get first 2 letters of model name ("Job Application" -> "JA")
-            model_prefix = "JA"
-            
-            # Find latest ID with this pattern
-            pattern = f"{tenant_prefix}-{model_prefix}-"
-            latest = JobApplication.objects.filter(id__startswith=pattern).order_by('-id').first()
-            
-            if latest:
-                # Extract the number part and increment
-                try:
-                    last_number = int(latest.id.split('-')[-1])
-                    number = last_number + 1
-                except (ValueError, IndexError):
-                    number = 1
-            else:
-                number = 1
-                
-            self.id = f"{pattern}{number:04d}"
-
-        # Validate date of birth is in the past
-        if self.date_of_birth and self.date_of_birth > date.today():
-            raise ValueError("_birthDate of birth cannot be in the future")
-            
+            prefix = self.tenant.name[:3].upper()
+            latest = JobApplication.objects.filter(id__startswith=prefix).aggregate(models.Max('id'))['id__max']
+            number = int(latest.split('-')[1]) + 1 if latest else 1
+            self.id = f"{prefix}-{number:04d}"
         super().save(*args, **kwargs)
-        
         if is_new:
             self.job_requisition.num_of_applications += 1
             self.job_requisition.save()
+
+
+    # def save(self, *args, **kwargs):
+    #     is_new = not self.pk
+    #     if not self.id:
+    #         # Get first 3 letters of tenant name
+    #         tenant_prefix = self.tenant.name[:3].upper()
+    #         # Get first 2 letters of model name ("Job Application" -> "JA")
+    #         model_prefix = "JA"
+            
+    #         # Find latest ID with this pattern
+    #         pattern = f"{tenant_prefix}-{model_prefix}-"
+    #         latest = JobApplication.objects.filter(id__startswith=pattern).order_by('-id').first()
+            
+    #         if latest:
+    #             # Extract the number part and increment
+    #             try:
+    #                 last_number = int(latest.id.split('-')[-1])
+    #                 number = last_number + 1
+    #             except (ValueError, IndexError):
+    #                 number = 1
+    #         else:
+    #             number = 1
+                
+    #         self.id = f"{pattern}{number:04d}"
+
+    #     # Validate date of birth is in the past
+    #     if self.date_of_birth and self.date_of_birth > date.today():
+    #         raise ValueError("_birthDate of birth cannot be in the future")
+            
+    #     super().save(*args, **kwargs)
+        
+    #     if is_new:
+    #         self.job_requisition.num_of_applications += 1
+    #         self.job_requisition.save()
 
     def soft_delete(self):
         self.is_deleted = True
@@ -158,37 +160,39 @@ class Schedule(models.Model):
     def __str__(self):
         return f"Schedule for {self.job_application.full_name} - {self.job_application.job_requisition.title} ({self.interview_date_time})"
 
-    # def save(self, *args, **kwargs):
-    #     if not self.id:
-    #         prefix = self.tenant.name[:3].upper()
-    #         latest = Schedule.objects.filter(id__startswith=prefix).aggregate(models.Max('id'))['id__max']
-    #         number = int(latest.split('-')[1]) + 1 if latest else 1
-    #         self.id = f"{prefix}-{number:04d}"
-    #     super().save(*args, **kwargs)
     def save(self, *args, **kwargs):
         if not self.id:
-            # Get first 3 letters of tenant name
-            tenant_prefix = self.tenant.name[:3].upper()
-            # Get first 2 letters of model name ("Schedule" -> "SC")
-            model_prefix = "SC"
-            
-            # Find latest ID with this pattern
-            pattern = f"{tenant_prefix}-{model_prefix}-"
-            latest = Schedule.objects.filter(id__startswith=pattern).order_by('-id').first()
-            
-            if latest:
-                # Extract the number part and increment
-                try:
-                    last_number = int(latest.id.split('-')[-1])
-                    number = last_number + 1
-                except (ValueError, IndexError):
-                    number = 1
-            else:
-                number = 1
-                
-            self.id = f"{pattern}{number:04d}"
-
+            prefix = self.tenant.name[:3].upper()
+            latest = Schedule.objects.filter(id__startswith=prefix).aggregate(models.Max('id'))['id__max']
+            number = int(latest.split('-')[1]) + 1 if latest else 1
+            self.id = f"{prefix}-{number:04d}"
         super().save(*args, **kwargs)
+
+
+    # def save(self, *args, **kwargs):
+    #     if not self.id:
+    #         # Get first 3 letters of tenant name
+    #         tenant_prefix = self.tenant.name[:3].upper()
+    #         # Get first 2 letters of model name ("Schedule" -> "SC")
+    #         model_prefix = "SC"
+            
+    #         # Find latest ID with this pattern
+    #         pattern = f"{tenant_prefix}-{model_prefix}-"
+    #         latest = Schedule.objects.filter(id__startswith=pattern).order_by('-id').first()
+            
+    #         if latest:
+    #             # Extract the number part and increment
+    #             try:
+    #                 last_number = int(latest.id.split('-')[-1])
+    #                 number = last_number + 1
+    #             except (ValueError, IndexError):
+    #                 number = 1
+    #         else:
+    #             number = 1
+                
+    #         self.id = f"{pattern}{number:04d}"
+
+    #     super().save(*args, **kwargs)
 
     def soft_delete(self):
         self.is_deleted = True

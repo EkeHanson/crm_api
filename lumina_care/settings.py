@@ -155,7 +155,6 @@ TEMPLATES = [
         },
     },
 ]
-
 WSGI_APPLICATION = 'lumina_care.wsgi.application'
 
 
@@ -169,7 +168,6 @@ WSGI_APPLICATION = 'lumina_care.wsgi.application'
 #         'PORT': '5432',
 #     }
 # }
-
 
 DATABASES = {
     'default': {
@@ -215,6 +213,7 @@ TENANT_APPS = [
     'integrations',
 ]
 AUTH_USER_MODEL = 'users.CustomUser'
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -334,6 +333,7 @@ LOGGING = {
         },
     },
 
+
     'loggers': {
         'django': {
             'handlers': ['file', 'console'],
@@ -371,3 +371,14 @@ LOGGING = {
         },
     }
 }
+
+
+#payment
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # Your SMTP server address
+EMAIL_PORT = 587  # Your SMTP server port (587 is the default for SMTP with TLS)
+EMAIL_USE_TLS = True  # Whether to use TLS (True by default)
+EMAIL_HOST_USER = 'ekenehanson@gmail.com'  # Your email address
+EMAIL_HOST_PASSWORD = 'pduw cpmw dgoq adrp'  # Your email password or app-specific password if using Gmail, etc.
+DEFAULT_FROM_EMAIL = 'ekenehanson@gmail.com'  # The default email address to use for sending emails
+EMAIL_DEBUG = True

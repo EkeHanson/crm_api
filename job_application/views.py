@@ -466,7 +466,7 @@ class SoftDeletedJobApplicationsView(generics.ListAPIView):
         connection.set_schema(tenant.schema_name)
         with tenant_context(tenant):
             queryset = JobApplication.objects.filter(tenant=tenant, is_deleted=True).select_related('job_requisition')
-            logger.debug(f"Query: {queryset.query}")
+           # logger.debug(f"Query: {queryset.query}")
             return queryset
 
     def list(self, request, *args, **kwargs):
@@ -481,6 +481,7 @@ class SoftDeletedJobApplicationsView(generics.ListAPIView):
         except Exception as e:
             logger.exception(f"Error listing soft-deleted job applications for tenant {request.tenant.schema_name}: {str(e)}")
             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 
 class RecoverSoftDeletedJobApplicationsView(generics.GenericAPIView):
     permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized]

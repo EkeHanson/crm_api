@@ -359,6 +359,7 @@ class JobApplicationListCreateView(generics.GenericAPIView):
                 "qualification": request.data.get("qualification"),
                 "experience": request.data.get("experience"),
                 "knowledge_skill": request.data.get("knowledge_skill"),
+                "date_of_birth": request.data.get("date_of_birth"),
                 "cover_letter": request.data.get("cover_letter", ""),
                 "resume_status": request.data.get("resume_status", False),
             }

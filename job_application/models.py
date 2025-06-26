@@ -48,6 +48,7 @@ class JobApplication(models.Model):
     applied_at = models.DateTimeField(auto_now_add=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    date_of_birth = models.DateField()
 
     objects = models.Manager()
     active_objects = ActiveApplicationsManager()
@@ -136,7 +137,8 @@ class Schedule(models.Model):
     is_deleted = models.BooleanField(default=False)
 
 
-    date_of_birth = models.DateField(null=True, blank=True)
+
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

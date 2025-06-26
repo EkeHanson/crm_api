@@ -36,7 +36,8 @@ class JobRequisition(models.Model):
         ('hybrid', 'Hybrid'),
     ]
 
-    id = models.CharField(primary_key=True, max_length=10, editable=False, unique=True)
+    id = models.CharField(primary_key=True, max_length=20, editable=False, unique=True)
+
     num_of_applications = models.IntegerField(default=0, help_text="Number of successful (hired) applications")
     tenant = models.ForeignKey(Tenant, on_delete=models.CASCADE, related_name='talent_requisitions')
     title = models.CharField(max_length=255)

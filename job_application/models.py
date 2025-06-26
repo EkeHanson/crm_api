@@ -27,7 +27,8 @@ class JobApplication(models.Model):
         ('failed', 'Failed'),
     ]
 
-    id = models.CharField(max_length=10, primary_key=True, editable=False)
+    id = models.CharField(primary_key=True, max_length=20, editable=False, unique=True)
+
     tenant = models.ForeignKey(Tenant, on_delete=models.CASCADE, related_name='job_applications')
     job_requisition = models.ForeignKey(JobRequisition, on_delete=models.CASCADE, related_name='applications')
     full_name = models.CharField(max_length=255)
@@ -121,7 +122,8 @@ class Schedule(models.Model):
         ('cancelled', 'Cancelled'),
     ]
 
-    id = models.CharField(max_length=10, primary_key=True, editable=False)
+    id = models.CharField(primary_key=True, max_length=20, editable=False, unique=True)
+
     tenant = models.ForeignKey(Tenant, on_delete=models.CASCADE, related_name='schedules')
     job_application = models.ForeignKey(JobApplication, on_delete=models.CASCADE, related_name='schedules')
     interview_date_time = models.DateTimeField()

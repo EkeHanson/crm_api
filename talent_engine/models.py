@@ -76,20 +76,33 @@ class JobRequisition(models.Model):
 
     def __str__(self):
         return f"{self.title} ({self.tenant.schema_name})"
-
     def save(self, *args, **kwargs):
+        is_new = not self.pk
+        
+        # Generate ID if new record
         if not self.id:
-            prefix = self.tenant.name[:3].upper()
-            latest = JobRequisition.objects.filter(id__startswith=prefix).aggregate(Max('id'))['id__max']
+            # Get first 3 letters of tenant name
+            tenant_prefix = self.tenant.name[:3].upper()
+            # Get first 2 letters of model name ("Job Requisition" -> "JR")
+            model_prefix = "JR"
+            
+            # Find latest ID with this pattern
+            pattern = f"{tenant_prefix}-{model_prefix}-"
+            latest = JobRequisition.objects.filter(id__startswith=pattern).order_by('-id').first()
+            
             if latest:
+                # Extract the number part and increment
                 try:
-                    number = int(latest.split('-')[1]) + 1
-                except (IndexError, ValueError):
+                    last_number = int(latest.id.split('-')[-1])
+                    number = last_number + 1
+                except (ValueError, IndexError):
                     number = 1
             else:
                 number = 1
-            self.id = f"{prefix}-{number:04d}"
+                
+            self.id = f"{pattern}{number:04d}"
 
+        # Generate unique link if not set
         if not self.unique_link:
             base_slug = slugify(f"{self.title}")
             short_uuid = str(uuid.uuid4())[:8]
@@ -102,6 +115,31 @@ class JobRequisition(models.Model):
             self.unique_link = slug
 
         super().save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     if not self.id:
+    #         prefix = self.tenant.name[:3].upper()
+    #         latest = JobRequisition.objects.filter(id__startswith=prefix).aggregate(Max('id'))['id__max']
+    #         if latest:
+    #             try:
+    #                 number = int(latest.split('-')[1]) + 1
+    #             except (IndexError, ValueError):
+    #                 number = 1
+    #         else:
+    #             number = 1
+    #         self.id = f"{prefix}-{number:04d}"
+
+    #     if not self.unique_link:
+    #         base_slug = slugify(f"{self.title}")
+    #         short_uuid = str(uuid.uuid4())[:8]
+    #         slug = f"{self.tenant.schema_name}-{base_slug}-{short_uuid}"
+    #         counter = 1
+    #         original_slug = slug
+    #         while JobRequisition.objects.filter(unique_link=slug).exists():
+    #             slug = f"{original_slug}-{counter}"
+    #             counter += 1
+    #         self.unique_link = slug
+
+    #     super().save(*args, **kwargs)
 
     def soft_delete(self):
         self.is_deleted = True

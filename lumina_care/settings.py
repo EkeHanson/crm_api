@@ -306,16 +306,25 @@ TEMPLATES = [
     },
 ]
 
-# Add Logging: Add logging to track migration issues:
 # lumina_care/settings.py
+import os
+import sys
+from pathlib import Path
 
-LOG_DIR = os.path.join(BASE_DIR, 'logs')
+BASE_DIR = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(BASE_DIR / 'talent_engine'))  # For fcntl mock on Windows
+
+# Determine log directory based on environment
+if os.getenv('RENDER'):  # Render sets this environment variable
+    LOG_DIR = '/tmp/logs'
+else:
+    LOG_DIR = os.path.join(BASE_DIR, 'logs')
+
 os.makedirs(LOG_DIR, exist_ok=True)  # Ensure the logs directory exists
 
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
-
     'formatters': {
         'verbose': {
             'format': '{asctime} [{levelname}] {name}: {message}',
@@ -326,7 +335,6 @@ LOGGING = {
             'style': '{',
         },
     },
-
     'handlers': {
         'file': {
             'level': 'INFO',
@@ -341,8 +349,6 @@ LOGGING = {
             'formatter': 'simple',
         },
     },
-
-
     'loggers': {
         'django': {
             'handlers': ['file', 'console'],
@@ -361,9 +367,7 @@ LOGGING = {
         'users': {
             'handlers': ['file'],
             'level': 'INFO',
-            'propagate': False,
-        },
-        'talent_engine': {
+            'propotalent_engine': {
             'handlers': ['file'],
             'level': 'INFO',
             'propagate': False,
@@ -379,19 +383,18 @@ LOGGING = {
             'propagate': False,
         },
     }
-}
-
-CRON_CLASSES = [
-    "talent_engine.cron.CloseExpiredRequisitionsCronJob",
-]
+}}
 
 
-CRONTAB_COMMAND_PREFIX = ''  # Optional
+# django-crontab configuration
+CRONTAB_COMMAND_PREFIX = ''
 CRONTAB_DJANGO_PROJECT_NAME = 'lumina_care'
 
 CRONJOBS = [
-    ('0 0 * * *', 'talent_engine.cron.close_expired_requisitions', '>> /app/logs/lumina_care.log 2>&1'),
+    ('0 11 * * *', 'talent_engine.cron.close_expired_requisitions', f'>> {os.path.join(LOG_DIR, "lumina_care.log")} 2>&1'),
 ]
+
+
 
 #payment
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

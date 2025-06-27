@@ -8,7 +8,7 @@ echo "Running migrations..."
 python manage.py migrate
 
 echo "Creating log directory..."
-mkdir -p /app/logs
+mkdir -p /tmp/logs
 
 echo "Adding cron jobs..."
 python manage.py crontab add

@@ -2630,3 +2630,5 @@ LINE 1: ..."talent_engine_job_requisition"."updated_at" FROM "talent_en...
 2025-06-27 10:34:49,556 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16004
 2025-06-27 10:34:55,073 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\lumina_care\settings.py changed, reloading.
 2025-06-27 10:34:57,653 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-27 10:35:09,571 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\lumina_care\settings.py changed, reloading.
+2025-06-27 10:35:11,681 [INFO] django.utils.autoreload: Watching for file changes with StatReloader

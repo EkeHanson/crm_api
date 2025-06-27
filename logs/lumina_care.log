@@ -2094,3 +2094,425 @@ django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'ef6c-102-90-11
 2025-06-26 16:22:08,352 [INFO] django.server: "POST /api/talent-engine-job-applications/applications/parse-resume/autofil/ HTTP/1.1" 200 267
 2025-06-26 16:22:42,624 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\lumina_care\settings.py changed, reloading.
 2025-06-26 16:22:44,437 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-26 16:23:00,822 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 4651
+2025-06-26 16:23:05,128 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\lumina_care\settings.py changed, reloading.
+2025-06-26 16:23:10,710 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-26 16:23:31,530 [INFO] talent_engine: Job requisition accessed via link: customer service for tenant proliance
+2025-06-26 16:23:31,540 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-customer-service-a7977379/ HTTP/1.1" 200 2381
+2025-06-26 16:23:31,614 [INFO] talent_engine: Job requisition accessed via link: customer service for tenant proliance
+2025-06-26 16:23:31,621 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-customer-service-a7977379/ HTTP/1.1" 200 2381
+2025-06-26 16:23:39,957 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-26 16:24:30,934 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-26 16:25:15,476 [INFO] django.server: "POST /api/talent-engine-job-applications/applications/parse-resume/autofil/ HTTP/1.1" 200 229
+2025-06-26 16:25:21,951 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-26 16:26:12,953 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-26 20:08:06,720 [INFO] talent_engine: Job requisition accessed via link: customer service for tenant proliance
+2025-06-26 20:08:06,729 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-customer-service-a7977379/ HTTP/1.1" 200 2381
+2025-06-26 20:08:06,798 [INFO] talent_engine: Job requisition accessed via link: customer service for tenant proliance
+2025-06-26 20:08:06,803 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-customer-service-a7977379/ HTTP/1.1" 200 2381
+2025-06-26 20:09:26,303 [INFO] django.server: "OPTIONS /api/token/ HTTP/1.1" 200 0
+2025-06-26 20:09:28,382 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 1055
+2025-06-26 20:09:28,396 [INFO] django.server: "OPTIONS /api/token/validate/ HTTP/1.1" 200 0
+2025-06-26 20:09:28,399 [INFO] django.server: "OPTIONS /api/token/validate/ HTTP/1.1" 200 0
+2025-06-26 20:09:28,487 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 471
+2025-06-26 20:09:28,687 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 471
+2025-06-26 20:09:47,045 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 471
+2025-06-26 20:09:47,233 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 471
+2025-06-26 20:09:51,874 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/ HTTP/1.1" 200 0
+2025-06-26 20:09:51,874 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/ HTTP/1.1" 200 0
+2025-06-26 20:09:51,986 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-26 20:09:52,098 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-26 20:09:59,814 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 471
+2025-06-26 20:09:59,889 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 471
+2025-06-26 20:10:05,602 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-26 20:10:05,718 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-26 20:10:11,756 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 0
+2025-06-26 20:10:11,756 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 0
+2025-06-26 20:10:11,868 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 14745
+2025-06-26 20:10:11,988 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 14745
+2025-06-26 20:10:13,046 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-26 20:10:13,152 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-26 20:10:17,402 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-26 20:10:17,521 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-26 20:10:23,042 [INFO] talent_engine: Job requisition accessed via link: Technical Support Engineer – Tier 2 (Remote, B2B SaaS Platform) for tenant proliance
+2025-06-26 20:10:23,048 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-technical-support-engineer-tier-2-remote-b2b-saas-platform-a09938bd/ HTTP/1.1" 200 3076
+2025-06-26 20:10:23,117 [INFO] talent_engine: Job requisition accessed via link: Technical Support Engineer – Tier 2 (Remote, B2B SaaS Platform) for tenant proliance
+2025-06-26 20:10:23,126 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-technical-support-engineer-tier-2-remote-b2b-saas-platform-a09938bd/ HTTP/1.1" 200 3076
+2025-06-26 20:10:29,120 [INFO] django.server: "POST /api/talent-engine-job-applications/applications/parse-resume/autofil/ HTTP/1.1" 200 267
+2025-06-26 20:10:42,007 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-26 20:11:07,992 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-26 20:11:32,999 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-26 20:11:57,987 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-26 20:12:24,011 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-26 20:12:47,984 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-26 20:13:15,013 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-26 20:13:37,983 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-26 20:14:06,017 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-26 20:14:28,008 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-26 20:14:57,003 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-26 20:15:17,991 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-26 20:15:47,985 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-26 20:16:39,014 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-26 20:16:52,993 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-26 20:17:30,144 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-26 20:17:53,014 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-26 20:18:20,994 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-26 20:18:53,024 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-26 20:19:11,997 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-26 20:19:53,085 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-26 20:20:02,987 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-26 20:20:53,001 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-26 20:20:53,999 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-26 20:21:45,117 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-26 20:21:52,994 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 07:17:26,583 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/ HTTP/1.1" 200 0
+2025-06-27 07:17:26,762 [WARNING] django.request: Unauthorized: /api/talent-engine/requisitions/
+2025-06-27 07:17:26,764 [WARNING] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 401 172
+2025-06-27 07:17:28,121 [INFO] django.server: "OPTIONS /api/token/refresh/ HTTP/1.1" 200 0
+2025-06-27 07:17:28,137 [WARNING] django.request: Unauthorized: /api/talent-engine/requisitions/
+2025-06-27 07:17:28,141 [WARNING] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 401 172
+2025-06-27 07:17:28,305 [INFO] django.server: "POST /api/token/refresh/ HTTP/1.1" 200 300
+2025-06-27 07:17:28,726 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 07:17:28,758 [INFO] django.server: "POST /api/token/refresh/ HTTP/1.1" 200 300
+2025-06-27 07:17:29,073 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 07:17:46,540 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 07:17:55,025 [INFO] talent_engine: Job requisition accessed via link: Technical Support Engineer – Tier 2 (Remote, B2B SaaS Platform) for tenant proliance
+2025-06-27 07:17:55,044 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-technical-support-engineer-tier-2-remote-b2b-saas-platform-a09938bd/ HTTP/1.1" 200 3076
+2025-06-27 07:17:55,227 [INFO] talent_engine: Job requisition accessed via link: Technical Support Engineer – Tier 2 (Remote, B2B SaaS Platform) for tenant proliance
+2025-06-27 07:17:55,238 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-technical-support-engineer-tier-2-remote-b2b-saas-platform-a09938bd/ HTTP/1.1" 200 3076
+2025-06-27 07:18:06,915 [INFO] django.server: "POST /api/talent-engine-job-applications/applications/parse-resume/autofil/ HTTP/1.1" 200 259
+2025-06-27 07:18:17,632 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 07:18:46,423 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 07:19:08,516 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 07:19:46,473 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 07:19:59,755 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 07:20:46,641 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 07:20:50,499 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 07:21:25,437 [INFO] django.server: "POST /api/talent-engine-job-applications/applications/ HTTP/1.1" 201 76
+2025-06-27 07:21:29,135 [INFO] talent_engine: Job requisition accessed via link: Technical Support Engineer – Tier 2 (Remote, B2B SaaS Platform) for tenant proliance
+2025-06-27 07:21:29,154 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-technical-support-engineer-tier-2-remote-b2b-saas-platform-a09938bd/ HTTP/1.1" 200 3076
+2025-06-27 07:21:29,365 [INFO] talent_engine: Job requisition accessed via link: Technical Support Engineer – Tier 2 (Remote, B2B SaaS Platform) for tenant proliance
+2025-06-27 07:21:29,410 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-technical-support-engineer-tier-2-remote-b2b-saas-platform-a09938bd/ HTTP/1.1" 200 3076
+2025-06-27 07:21:41,470 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 07:21:44,004 [INFO] django.server: "OPTIONS /api/token/validate/ HTTP/1.1" 200 0
+2025-06-27 07:21:44,005 [INFO] django.server: "OPTIONS /api/token/validate/ HTTP/1.1" 200 0
+2025-06-27 07:21:44,202 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 471
+2025-06-27 07:21:44,358 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 471
+2025-06-27 07:21:46,475 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 07:21:57,338 [INFO] django.server: - Broken pipe from ('127.0.0.1', 53848)
+2025-06-27 07:21:58,252 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 471
+2025-06-27 07:21:58,540 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 471
+2025-06-27 07:21:58,928 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 07:21:59,196 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 07:21:59,232 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 471
+2025-06-27 07:21:59,447 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 471
+2025-06-27 07:21:59,743 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 07:21:59,969 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 07:22:49,004 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 07:22:50,767 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 07:23:39,123 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 07:23:41,471 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 07:24:29,083 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 07:24:32,481 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 07:25:19,465 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 07:25:23,479 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 07:26:09,636 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 07:26:14,618 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 07:26:59,491 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 07:27:05,730 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 07:27:56,535 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 07:28:29,613 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 07:28:46,484 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 07:28:47,510 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 07:29:38,490 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 07:29:46,531 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 07:30:29,515 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 07:30:46,499 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 07:31:20,478 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 07:31:46,531 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 07:32:11,506 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 07:32:46,649 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 07:33:02,749 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 07:33:46,639 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 07:33:53,587 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 08:52:33,264 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 08:52:35,361 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 08:53:23,357 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 08:53:35,632 [INFO] django.server: - Broken pipe from ('127.0.0.1', 54604)
+2025-06-27 08:53:36,176 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 471
+2025-06-27 08:53:36,283 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 471
+2025-06-27 08:53:36,397 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 08:53:36,524 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 08:53:57,362 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 471
+2025-06-27 08:53:57,623 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 471
+2025-06-27 08:53:57,821 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 08:53:58,025 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 08:53:59,196 [INFO] talent_engine: Job requisition accessed via link: Technical Support Engineer – Tier 2 (Remote, B2B SaaS Platform) for tenant proliance
+2025-06-27 08:53:59,208 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-technical-support-engineer-tier-2-remote-b2b-saas-platform-a09938bd/ HTTP/1.1" 200 3076
+2025-06-27 08:53:59,365 [INFO] talent_engine: Job requisition accessed via link: Technical Support Engineer – Tier 2 (Remote, B2B SaaS Platform) for tenant proliance
+2025-06-27 08:53:59,375 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-technical-support-engineer-tier-2-remote-b2b-saas-platform-a09938bd/ HTTP/1.1" 200 3076
+2025-06-27 08:53:59,643 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 471
+2025-06-27 08:53:59,726 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 471
+2025-06-27 08:54:05,014 [INFO] talent_engine: Job requisition accessed via link: customer service for tenant proliance
+2025-06-27 08:54:05,023 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-customer-service-a7977379/ HTTP/1.1" 200 2381
+2025-06-27 08:54:05,099 [INFO] talent_engine: Job requisition accessed via link: customer service for tenant proliance
+2025-06-27 08:54:05,107 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-customer-service-a7977379/ HTTP/1.1" 200 2381
+2025-06-27 08:54:27,164 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 08:54:48,172 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 08:55:08,828 [INFO] django.server: "POST /api/talent-engine-job-applications/applications/parse-resume/autofil/ HTTP/1.1" 200 229
+2025-06-27 08:55:17,184 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 08:55:31,933 [INFO] talent_engine: Job requisition accessed via link: Technical Support Engineer – Tier 2 (Remote, B2B SaaS Platform) for tenant proliance
+2025-06-27 08:55:31,942 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-technical-support-engineer-tier-2-remote-b2b-saas-platform-a09938bd/ HTTP/1.1" 200 3076
+2025-06-27 08:55:32,020 [INFO] talent_engine: Job requisition accessed via link: Technical Support Engineer – Tier 2 (Remote, B2B SaaS Platform) for tenant proliance
+2025-06-27 08:55:32,026 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-technical-support-engineer-tier-2-remote-b2b-saas-platform-a09938bd/ HTTP/1.1" 200 3076
+2025-06-27 08:55:39,220 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 08:56:07,140 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 08:56:29,242 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 08:56:57,171 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 08:57:20,154 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 08:57:47,172 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 08:58:11,166 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 08:58:37,143 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 08:59:02,200 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 08:59:49,155 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 08:59:53,154 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 09:06:06,826 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-27 09:38:53,110 [INFO] talent_engine: Starting job to close expired job requisitions for 2 tenants.
+2025-06-27 09:38:53,135 [ERROR] talent_engine: Error processing tenant public: relation "talent_engine_job_requisition" does not exist
+LINE 1: ..."talent_engine_job_requisition"."updated_at" FROM "talent_en...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+psycopg2.errors.UndefinedTable: relation "talent_engine_job_requisition" does not exist
+LINE 1: ..."talent_engine_job_requisition"."updated_at" FROM "talent_en...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\talent_engine\cron.py", line 22, in close_expired_requisitions
+    for requisition in expired_requisitions:
+                       ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\venv\Lib\site-packages\django\db\models\query.py", line 384, in __iter__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\venv\Lib\site-packages\django\db\models\query.py", line 1949, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\venv\Lib\site-packages\django\db\models\query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+django.db.utils.ProgrammingError: relation "talent_engine_job_requisition" does not exist
+LINE 1: ..."talent_engine_job_requisition"."updated_at" FROM "talent_en...
+                                                             ^
+
+2025-06-27 09:38:53,237 [INFO] talent_engine: Completed job for closing expired job requisitions.
+2025-06-27 09:39:08,647 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-27 09:39:34,809 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/ HTTP/1.1" 200 0
+2025-06-27 09:39:34,989 [WARNING] django.request: Unauthorized: /api/talent-engine/requisitions/
+2025-06-27 09:39:34,990 [WARNING] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 401 172
+2025-06-27 09:39:35,005 [INFO] django.server: "OPTIONS /api/token/refresh/ HTTP/1.1" 200 0
+2025-06-27 09:39:35,145 [INFO] django.server: "POST /api/token/refresh/ HTTP/1.1" 200 300
+2025-06-27 09:39:35,381 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 09:39:42,925 [INFO] django.server: "OPTIONS /api/token/validate/ HTTP/1.1" 200 0
+2025-06-27 09:39:42,935 [INFO] django.server: "OPTIONS /api/token/validate/ HTTP/1.1" 200 0
+2025-06-27 09:39:43,167 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 471
+2025-06-27 09:39:43,350 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 471
+2025-06-27 09:39:43,639 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 09:39:44,028 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 09:39:50,332 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 09:39:55,285 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 09:39:55,632 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 09:40:04,713 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 09:40:04,923 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 09:40:41,305 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 09:40:55,366 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 09:41:30,079 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 09:41:30,368 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 09:41:36,782 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/PRO-0003/ HTTP/1.1" 200 0
+2025-06-27 09:41:36,782 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/PRO-0003/ HTTP/1.1" 200 0
+2025-06-27 09:41:36,974 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0003/ HTTP/1.1" 200 2841
+2025-06-27 09:41:37,159 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0003/ HTTP/1.1" 200 2841
+2025-06-27 09:41:38,290 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0003/ HTTP/1.1" 200 2841
+2025-06-27 09:41:38,544 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0003/ HTTP/1.1" 200 2841
+2025-06-27 09:41:45,395 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 09:41:55,771 [WARNING] django.request: Not Found: /media/advert_banners/Healthcare_Assistant__Patient_Care__Administrative_Support_Entry_Level.jpg
+2025-06-27 09:41:55,773 [WARNING] django.server: "GET /media/advert_banners/Healthcare_Assistant__Patient_Care__Administrative_Support_Entry_Level.jpg HTTP/1.1" 404 179
+2025-06-27 09:41:57,418 [INFO] talent_engine: Job requisition updated: Healthcare Assistant – Patient Care & Administrative Support (Entry Level) for tenant proliance
+2025-06-27 09:41:57,431 [INFO] django.server: "PATCH /api/talent-engine/requisitions/PRO-0003/ HTTP/1.1" 200 2841
+2025-06-27 09:42:01,351 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 471
+2025-06-27 09:42:01,521 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 471
+2025-06-27 09:42:01,681 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 09:42:01,909 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 09:42:26,295 [INFO] talent_engine: Starting job to close expired job requisitions for 2 tenants.
+2025-06-27 09:42:26,303 [ERROR] talent_engine: Error processing tenant public: relation "talent_engine_job_requisition" does not exist
+LINE 1: ..."talent_engine_job_requisition"."updated_at" FROM "talent_en...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+psycopg2.errors.UndefinedTable: relation "talent_engine_job_requisition" does not exist
+LINE 1: ..."talent_engine_job_requisition"."updated_at" FROM "talent_en...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\talent_engine\cron.py", line 22, in close_expired_requisitions
+    for requisition in expired_requisitions:
+                       ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\venv\Lib\site-packages\django\db\models\query.py", line 384, in __iter__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\venv\Lib\site-packages\django\db\models\query.py", line 1949, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\venv\Lib\site-packages\django\db\models\query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+django.db.utils.ProgrammingError: relation "talent_engine_job_requisition" does not exist
+LINE 1: ..."talent_engine_job_requisition"."updated_at" FROM "talent_en...
+                                                             ^
+
+2025-06-27 09:42:26,333 [INFO] talent_engine: Completed job for closing expired job requisitions.
+2025-06-27 09:42:36,103 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-27 09:42:37,351 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 09:42:42,378 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 471
+2025-06-27 09:42:42,587 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 471
+2025-06-27 09:42:42,814 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 09:42:43,333 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 09:42:47,789 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 09:42:48,079 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 09:42:48,842 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 09:42:49,064 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 09:43:25,262 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 09:43:36,069 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0003/ HTTP/1.1" 200 2841
+2025-06-27 09:43:36,254 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0003/ HTTP/1.1" 200 2841
+2025-06-27 09:43:37,697 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0003/ HTTP/1.1" 200 2841
+2025-06-27 09:43:37,925 [INFO] django.server: "GET /api/talent-engine/requisitions/PRO-0003/ HTTP/1.1" 200 2841
+2025-06-27 09:43:38,917 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 09:43:44,557 [WARNING] django.request: Not Found: /media/advert_banners/Healthcare_Assistant__Patient_Care__Administrative_Support_Entry_Level.jpg
+2025-06-27 09:43:44,558 [WARNING] django.server: "GET /media/advert_banners/Healthcare_Assistant__Patient_Care__Administrative_Support_Entry_Level.jpg HTTP/1.1" 404 179
+2025-06-27 09:43:56,529 [INFO] talent_engine: Job requisition updated: Healthcare Assistant – Patient Care & Administrative Support (Entry Level) for tenant proliance
+2025-06-27 09:43:56,545 [INFO] django.server: "PATCH /api/talent-engine/requisitions/PRO-0003/ HTTP/1.1" 200 2841
+2025-06-27 09:43:59,415 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 471
+2025-06-27 09:43:59,603 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 471
+2025-06-27 09:43:59,721 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 09:43:59,946 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16002
+2025-06-27 09:44:08,569 [INFO] talent_engine: Starting job to close expired job requisitions for 2 tenants.
+2025-06-27 09:44:08,574 [ERROR] talent_engine: Error processing tenant public: relation "talent_engine_job_requisition" does not exist
+LINE 1: ..."talent_engine_job_requisition"."updated_at" FROM "talent_en...
+                                                             ^
+Traceback (most recent call last):
+  File "C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+psycopg2.errors.UndefinedTable: relation "talent_engine_job_requisition" does not exist
+LINE 1: ..."talent_engine_job_requisition"."updated_at" FROM "talent_en...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\talent_engine\cron.py", line 22, in close_expired_requisitions
+    for requisition in expired_requisitions:
+                       ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\venv\Lib\site-packages\django\db\models\query.py", line 384, in __iter__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\venv\Lib\site-packages\django\db\models\query.py", line 1949, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\venv\Lib\site-packages\django\db\models\query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\CPT-003\Desktop\Proliance Source Codes\Backend\crm_api\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+django.db.utils.ProgrammingError: relation "talent_engine_job_requisition" does not exist
+LINE 1: ..."talent_engine_job_requisition"."updated_at" FROM "talent_en...
+                                                             ^
+
+2025-06-27 09:44:08,607 [INFO] talent_engine: Closed job requisition PRO-0003 (Title: Healthcare Assistant – Patient Care & Administrative Support (Entry Level)) for tenant proliance
+2025-06-27 09:44:08,607 [INFO] talent_engine: Updated 1 expired job requisitions to 'closed' for tenant proliance
+2025-06-27 09:44:08,608 [INFO] talent_engine: Completed job for closing expired job requisitions.
+2025-06-27 09:44:19,037 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-06-27 09:44:24,157 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 471
+2025-06-27 09:44:24,346 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 471
+2025-06-27 09:44:24,531 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16004
+2025-06-27 09:44:24,750 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16004
+2025-06-27 09:44:42,373 [INFO] talent_engine: Job requisition accessed via link: Healthcare Assistant – Patient Care & Administrative Support (Entry Level) for tenant proliance
+2025-06-27 09:44:42,396 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-healthcare-assistant-patient-care-administrative-support-entry-level-27c8d5ca/ HTTP/1.1" 200 2843
+2025-06-27 09:44:42,677 [INFO] talent_engine: Job requisition accessed via link: Healthcare Assistant – Patient Care & Administrative Support (Entry Level) for tenant proliance
+2025-06-27 09:44:42,694 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-healthcare-assistant-patient-care-administrative-support-entry-level-27c8d5ca/ HTTP/1.1" 200 2843
+2025-06-27 09:45:05,234 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16004
+2025-06-27 09:45:15,262 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16004
+2025-06-27 09:46:05,263 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16004
+2025-06-27 09:46:49,232 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16004
+2025-06-27 09:46:55,372 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 16004

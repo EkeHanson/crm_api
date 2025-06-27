@@ -3,6 +3,13 @@ import os
 import logging
 from logging.handlers import RotatingFileHandler
 
+import os
+import sys
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(BASE_DIR / 'talent_engine'))
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -31,6 +38,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.apple',
     'allauth.socialaccount.providers.microsoft',
+    'django_crontab',
     'django_filters',
     'rest_framework',
     'rest_framework_simplejwt',
@@ -373,6 +381,17 @@ LOGGING = {
     }
 }
 
+CRON_CLASSES = [
+    "talent_engine.cron.CloseExpiredRequisitionsCronJob",
+]
+
+
+CRONTAB_COMMAND_PREFIX = ''  # Optional
+CRONTAB_DJANGO_PROJECT_NAME = 'lumina_care'
+
+CRONJOBS = [
+    ('0 0 * * *', 'talent_engine.cron.close_expired_requisitions', '>> /app/logs/lumina_care.log 2>&1'),
+]
 
 #payment
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

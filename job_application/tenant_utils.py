@@ -20,16 +20,16 @@ def resolve_tenant_from_unique_link(unique_link: str):
         tenant = Tenant.objects.get(schema_name=tenant_schema)
         connection.set_schema(tenant.schema_name)
 
-        logger.debug(f"Schema set to: {tenant.schema_name}")
+        #logger.debug(f"Schema set to: {tenant.schema_name}")
 
         # Now properly fetch the job requisition by unique_link
-        print("About to get JOb")
+        # print("About to get JOb")
         job_requisition = JobRequisition.objects.filter(
             unique_link=unique_link, 
             tenant=tenant, 
             publish_status=True
         ).first()
-        print("just gotten the JOb")
+        # print("just gotten the JOb")
 
         if not job_requisition:
             logger.warning(f"No published JobRequisition found for link: {unique_link}")

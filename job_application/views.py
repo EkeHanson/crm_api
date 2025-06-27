@@ -30,7 +30,7 @@ class ResumeParseView(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
-        logger.info("Received request to parse resume")
+        #logger.info("Received request to parse resume")
         unique_link = request.data.get('unique_link')
         if unique_link:
             tenant, _ = resolve_tenant_from_unique_link(unique_link)
@@ -60,7 +60,7 @@ class ResumeParseView(APIView):
 
             extracted_data = extract_resume_fields(resume_text)
 
-            logger.info("Successfully parsed resume and extracted fields")
+            #logger.info("Successfully parsed resume and extracted fields")
             return Response({
                 "detail": "Resume parsed successfully",
                 "data": extracted_data
@@ -79,7 +79,7 @@ class JobApplicationsByRequisitionView(generics.ListAPIView):
             tenant = self.request.tenant
             job_requisition_id = self.kwargs['job_requisition_id']
             connection.set_schema(tenant.schema_name)
-            logger.debug(f"Schema set to: {connection.schema_name}")
+            #logger.debug(f"Schema set to: {connection.schema_name}")
             
             with tenant_context(tenant):
                 try:
@@ -93,8 +93,8 @@ class JobApplicationsByRequisitionView(generics.ListAPIView):
                     job_requisition=job_requisition
                 ).select_related('job_requisition')
                 
-                logger.debug(f"Query: {applications.query}")
-                logger.info(f"Retrieved {applications.count()} job applications for JobRequisition {job_requisition_id}")
+                #logger.debug(f"Query: {applications.query}")
+                #logger.info(f"Retrieved {applications.count()} job applications for JobRequisition {job_requisition_id}")
                 
                 return applications
                 
@@ -118,7 +118,7 @@ class PublishedJobRequisitionsWithShortlistedApplicationsView(generics.ListAPIVi
         try:
             tenant = self.request.tenant
             connection.set_schema(tenant.schema_name)
-            logger.debug(f"Schema set to: {connection.schema_name}")
+            #logger.debug(f"Schema set to: {connection.schema_name}")
 
             with tenant_context(tenant):
                 queryset = JobRequisition.objects.filter(
@@ -128,8 +128,8 @@ class PublishedJobRequisitionsWithShortlistedApplicationsView(generics.ListAPIVi
                     applications__is_deleted=False
                 ).distinct()
 
-                logger.debug(f"Query: {queryset.query}")
-                logger.info(f"Retrieved {queryset.count()} published job requisitions with applications for tenant {tenant.schema_name}")
+                #logger.debug(f"Query: {queryset.query}")
+                #logger.info(f"Retrieved {queryset.count()} published job requisitions with applications for tenant {tenant.schema_name}")
                 return queryset
 
         except Exception as e:
@@ -167,7 +167,7 @@ class PublishedJobRequisitionsWithShortlistedApplicationsView(generics.ListAPIVi
                         'total_applications': total_applications
                     })
 
-            logger.info(f"Retrieved {len(response_data)} job requisitions with shortlisted applications for tenant {tenant.schema_name}")
+            #logger.info(f"Retrieved {len(response_data)} job requisitions with shortlisted applications for tenant {tenant.schema_name}")
             return Response(response_data, status=status.HTTP_200_OK)
 
         except Exception as e:
@@ -290,7 +290,7 @@ class ResumeScreeningView(APIView):
                             app.status = 'rejected'
                         app.save()
 
-                logger.info(f"Screened {len(results)} resumes using document type '{document_type}', shortlisted {len(shortlisted)} for JobRequisition {job_requisition_id}")
+                #logger.info(f"Screened {len(results)} resumes using document type '{document_type}', shortlisted {len(shortlisted)} for JobRequisition {job_requisition_id}")
                 return Response({
                     "detail": f"Screened {len(results)} applications using '{document_type}', shortlisted {len(shortlisted)} candidates.",
                     "shortlisted_candidates": shortlisted,
@@ -318,9 +318,9 @@ class JobApplicationListCreateView(generics.GenericAPIView):
                 logger.error("No tenant associated with the request")
                 return Response({"detail": "Tenant not found."}, status=status.HTTP_400_BAD_REQUEST)
 
-            logger.debug(f"User: {request.user}, Tenant: {tenant.schema_name}")
+            #logger.debug(f"User: {request.user}, Tenant: {tenant.schema_name}")
             connection.set_schema(tenant.schema_name)
-            logger.debug(f"Schema set to: {connection.schema_name}")
+            #logger.debug(f"Schema set to: {connection.schema_name}")
             with connection.cursor() as cursor:
                 cursor.execute("SHOW search_path;")
                 search_path = cursor.fetchone()[0]
@@ -328,9 +328,9 @@ class JobApplicationListCreateView(generics.GenericAPIView):
 
             with tenant_context(tenant):
                 applications = JobApplication.active_objects.filter(tenant=tenant).select_related('job_requisition')
-                logger.debug(f"Query: {applications.query}")
+                #logger.debug(f"Query: {applications.query}")
                 serializer = self.get_serializer(applications, many=True)
-                logger.info(f"Retrieved {len(applications)} job applications for tenant {tenant.schema_name}")
+                #logger.info(f"Retrieved {len(applications)} job applications for tenant {tenant.schema_name}")
                 return Response(serializer.data, status=status.HTTP_200_OK)
 
         except Exception as e:
@@ -418,13 +418,13 @@ class JobApplicationDetailView(generics.RetrieveUpdateDestroyAPIView):
         tenant = self.request.tenant
         with tenant_context(tenant):
             serializer.save()
-        logger.info(f"Application updated: {serializer.instance.id} for tenant {tenant.schema_name}")
+        #logger.info(f"Application updated: {serializer.instance.id} for tenant {tenant.schema_name}")
 
     def perform_destroy(self, instance):
         tenant = self.request.tenant
         with tenant_context(tenant):
             instance.soft_delete()
-        logger.info(f"Application soft-deleted: {instance.id} for tenant {tenant.schema_name}")
+        #logger.info(f"Application soft-deleted: {instance.id} for tenant {tenant.schema_name}")
 
 class JobApplicationBulkDeleteView(generics.GenericAPIView):
     permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized]
@@ -446,7 +446,7 @@ class JobApplicationBulkDeleteView(generics.GenericAPIView):
                 with transaction.atomic():
                     for application in applications:
                         application.soft_delete()
-            logger.info(f"Soft-deleted {count} applications for tenant {tenant.schema_name}")
+            #logger.info(f"Soft-deleted {count} applications for tenant {tenant.schema_name}")
             return Response({"detail": f"Soft-deleted {count} application(s)."}, status=status.HTTP_200_OK)
         except Exception as e:
             logger.error(f"Bulk soft delete failed: {str(e)}")
@@ -462,7 +462,7 @@ class SoftDeletedJobApplicationsView(generics.ListAPIView):
             logger.error("No tenant associated with the request")
             raise generics.ValidationError("Tenant not found.")
 
-        logger.debug(f"User: {self.request.user}, Tenant: {tenant.schema_name}")
+        #logger.debug(f"User: {self.request.user}, Tenant: {tenant.schema_name}")
         connection.set_schema(tenant.schema_name)
         with tenant_context(tenant):
             queryset = JobApplication.objects.filter(tenant=tenant, is_deleted=True).select_related('job_requisition')
@@ -473,7 +473,7 @@ class SoftDeletedJobApplicationsView(generics.ListAPIView):
         try:
             queryset = self.get_queryset()
             serializer = self.get_serializer(queryset, many=True)
-            logger.info(f"Retrieved {queryset.count()} soft-deleted job applications for tenant {request.tenant.schema_name}")
+            #logger.info(f"Retrieved {queryset.count()} soft-deleted job applications for tenant {request.tenant.schema_name}")
             return Response({
                 "detail": f"Retrieved {queryset.count()} soft-deleted application(s).",
                 "data": serializer.data
@@ -487,7 +487,7 @@ class RecoverSoftDeletedJobApplicationsView(generics.GenericAPIView):
     permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized]
 
     def post(self, request, *args, **kwargs):
-        logger.debug(f"Received POST request to recover job applications: {request.data}")
+        #logger.debug(f"Received POST request to recover job applications: {request.data}")
         try:
             tenant = request.tenant
             if not tenant:
@@ -512,7 +512,7 @@ class RecoverSoftDeletedJobApplicationsView(generics.GenericAPIView):
                         application.restore()
                         recovered_count += 1
 
-                logger.info(f"Successfully recovered {recovered_count} applications for tenant {tenant.schema_name}")
+                #logger.info(f"Successfully recovered {recovered_count} applications for tenant {tenant.schema_name}")
                 return Response({
                     "detail": f"Successfully recovered {recovered_count} application(s)."
                 }, status=status.HTTP_200_OK)
@@ -525,7 +525,7 @@ class PermanentDeleteJobApplicationsView(generics.GenericAPIView):
     permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized]
 
     def post(self, request, *args, **kwargs):
-        logger.debug(f"Received POST request to permanently delete job applications: {request.data}")
+        #logger.debug(f"Received POST request to permanently delete job applications: {request.data}")
         try:
             tenant = request.tenant
             if not tenant:
@@ -545,7 +545,7 @@ class PermanentDeleteJobApplicationsView(generics.GenericAPIView):
                     return Response({"detail": "No soft-deleted applications found."}, status=status.HTTP_404_NOT_FOUND)
 
                 deleted_count = applications.delete()[0]
-                logger.info(f"Successfully permanently deleted {deleted_count} applications for tenant {tenant.schema_name}")
+                #logger.info(f"Successfully permanently deleted {deleted_count} applications for tenant {tenant.schema_name}")
                 return Response({
                     "detail": f"Successfully permanently deleted {deleted_count} application(s)."
                 }, status=status.HTTP_200_OK)
@@ -569,9 +569,9 @@ class ScheduleListCreateView(generics.GenericAPIView):
                 logger.error("No tenant associated with the request")
                 return Response({"detail": "Tenant not found."}, status=status.HTTP_400_BAD_REQUEST)
 
-            logger.debug(f"User: {request.user}, Tenant: {tenant.schema_name}")
+            #logger.debug(f"User: {request.user}, Tenant: {tenant.schema_name}")
             connection.set_schema(tenant.schema_name)
-            logger.debug(f"Schema after set: {connection.schema_name}")
+            #logger.debug(f"Schema after set: {connection.schema_name}")
             with connection.cursor() as cursor:
                 cursor.execute("SHOW search_path;")
                 search_path = cursor.fetchone()[0]
@@ -584,7 +584,7 @@ class ScheduleListCreateView(generics.GenericAPIView):
                     queryset = queryset.filter(status=status_param)
                 logger.debug(f"Query: {queryset.query}")
                 serializer = self.get_serializer(queryset.order_by('-created_at'), many=True)
-                logger.info(f"Retrieved {queryset.count()} schedules for tenant {tenant.schema_name}")
+                #logger.info(f"Retrieved {queryset.count()} schedules for tenant {tenant.schema_name}")
                 return Response(serializer.data, status=status.HTTP_200_OK)
 
         except Exception as e:
@@ -598,13 +598,13 @@ class ScheduleListCreateView(generics.GenericAPIView):
                 logger.error("No tenant associated with the request")
                 return Response({"detail": "Tenant not found."}, status=status.HTTP_400_BAD_REQUEST)
 
-            logger.debug(f"User: {request.user}, Tenant: {tenant.schema_name}")
+            #logger.debug(f"User: {request.user}, Tenant: {tenant.schema_name}")
             connection.set_schema(tenant.schema_name)
-            logger.debug(f"Schema after set: {connection.schema_name}")
+            #logger.debug(f"Schema after set: {connection.schema_name}")
             with connection.cursor() as cursor:
                 cursor.execute("SHOW search_path;")
                 search_path = cursor.fetchone()[0]
-                logger.debug(f"Database search_path: {search_path}")
+                #logger.debug(f"Database search_path: {search_path}")
 
             serializer = self.get_serializer(data=request.data, context={'request': request})
             if not serializer.is_valid():
@@ -620,7 +620,7 @@ class ScheduleListCreateView(generics.GenericAPIView):
                     return Response({"detail": "Job application not found."}, status=status.HTTP_404_NOT_FOUND)
 
                 schedule = serializer.save(tenant=tenant, job_application=job_application)
-                logger.info(f"Schedule created: {schedule.id} for job application {job_application_id} in tenant {tenant.schema_name}")
+                #logger.info(f"Schedule created: {schedule.id} for job application {job_application_id} in tenant {tenant.schema_name}")
 
                 try:
                     email_connection = configure_email_backend(tenant)
@@ -655,7 +655,7 @@ class ScheduleListCreateView(generics.GenericAPIView):
                         )
                         email.content_subtype = 'html'
                         email.send(fail_silently=False)
-                        logger.info(f"Email sent to {job_application.email} for schedule {schedule.id} in tenant {tenant.schema_name}")
+                        #logger.info(f"Email sent to {job_application.email} for schedule {schedule.id} in tenant {tenant.schema_name}")
 
                 except Exception as email_error:
                     logger.exception(f"Failed to send email for schedule {schedule.id} to {job_application.email}: {str(email_error)}")
@@ -681,17 +681,17 @@ class ScheduleDetailView(generics.RetrieveUpdateDestroyAPIView):
                 logger.error("No tenant associated with the request")
                 raise Exception("Tenant not found.")
 
-            logger.debug(f"User: {self.request.user}, Tenant: {tenant.schema_name}")
+            #logger.debug(f"User: {self.request.user}, Tenant: {tenant.schema_name}")
             connection.set_schema(tenant.schema_name)
-            logger.debug(f"Schema after set: {connection.schema_name}")
+            #logger.debug(f"Schema after set: {connection.schema_name}")
             with connection.cursor() as cursor:
                 cursor.execute("SHOW search_path;")
                 search_path = cursor.fetchone()[0]
-                logger.debug(f"Database search_path: {search_path}")
+                #logger.debug(f"Database search_path: {search_path}")
 
             with tenant_context(tenant):
                 queryset = Schedule.active_objects.filter(tenant=tenant).select_related('job_application')
-                logger.debug(f"Query: {queryset.query}")
+                #logger.debug(f"Query: {queryset.query}")
                 return queryset
 
         except Exception as e:
@@ -702,7 +702,7 @@ class ScheduleDetailView(generics.RetrieveUpdateDestroyAPIView):
         try:
             instance = self.get_object()
             serializer = self.get_serializer(instance)
-            logger.info(f"Retrieved schedule {instance.id} for tenant {request.tenant.schema_name}")
+            #logger.info(f"Retrieved schedule {instance.id} for tenant {request.tenant.schema_name}")
             return Response(serializer.data, status=status.HTTP_200_OK)
         except Exception as e:
             logger.exception(f"Error retrieving schedule {kwargs.get('id')} for tenant {request.tenant.schema_name}: {str(e)}")
@@ -715,13 +715,13 @@ class ScheduleDetailView(generics.RetrieveUpdateDestroyAPIView):
                 logger.error("No tenant associated with the request")
                 return Response({"detail": "Tenant not found."}, status=status.HTTP_400_BAD_REQUEST)
 
-            logger.debug(f"User: {request.user}, Tenant: {tenant.schema_name}")
+            #logger.debug(f"User: {request.user}, Tenant: {tenant.schema_name}")
             connection.set_schema(tenant.schema_name)
-            logger.debug(f"Schema after set: {connection.schema_name}")
+            #logger.debug(f"Schema after set: {connection.schema_name}")
             with connection.cursor() as cursor:
                 cursor.execute("SHOW search_path;")
                 search_path = cursor.fetchone()[0]
-                logger.debug(f"Database search_path: {search_path}")
+                #logger.debug(f"Database search_path: {search_path}")
 
             instance = self.get_object()
             serializer = self.get_serializer(instance, data=request.data, partial=True)
@@ -750,7 +750,7 @@ class ScheduleDetailView(generics.RetrieveUpdateDestroyAPIView):
                     )
 
                 serializer.save()
-                logger.info(f"Schedule {instance.id} updated for tenant {tenant.schema_name}")
+                #logger.info(f"Schedule {instance.id} updated for tenant {tenant.schema_name}")
                 return Response({
                     "detail": "Schedule updated successfully.",
                     "data": serializer.data
@@ -767,9 +767,9 @@ class ScheduleDetailView(generics.RetrieveUpdateDestroyAPIView):
                 logger.error("No tenant associated with the request")
                 return Response({"detail": "Tenant not found."}, status=status.HTTP_400_BAD_REQUEST)
 
-            logger.debug(f"User: {request.user}, Tenant: {tenant.schema_name}")
+            #logger.debug(f"User: {request.user}, Tenant: {tenant.schema_name}")
             connection.set_schema(tenant.schema_name)
-            logger.debug(f"Schema after set: {connection.schema_name}")
+            #logger.debug(f"Schema after set: {connection.schema_name}")
             with connection.cursor() as cursor:
                 cursor.execute("SHOW search_path;")
                 search_path = cursor.fetchone()[0]
@@ -778,7 +778,7 @@ class ScheduleDetailView(generics.RetrieveUpdateDestroyAPIView):
             instance = self.get_object()
             with tenant_context(tenant):
                 instance.soft_delete()
-                logger.info(f"Schedule soft-deleted: {instance.id} for tenant {tenant.schema_name}")
+                #logger.info(f"Schedule soft-deleted: {instance.id} for tenant {tenant.schema_name}")
                 return Response({"detail": "Schedule soft-deleted successfully."}, status=status.HTTP_204_NO_CONTENT)
 
         except Exception as e:
@@ -789,7 +789,7 @@ class ScheduleBulkDeleteView(generics.GenericAPIView):
     permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized]
 
     def post(self, request, *args, **kwargs):
-        logger.debug(f"Received POST request to bulk soft-delete schedules: {request.data}")
+        #logger.debug(f"Received POST request to bulk soft-delete schedules: {request.data}")
         try:
             tenant = request.tenant
             if not tenant:
@@ -814,7 +814,7 @@ class ScheduleBulkDeleteView(generics.GenericAPIView):
                         schedule.soft_delete()
                         deleted_count += 1
 
-                logger.info(f"Successfully soft-deleted {deleted_count} schedules for tenant {tenant.schema_name}")
+                #logger.info(f"Successfully soft-deleted {deleted_count} schedules for tenant {tenant.schema_name}")
                 return Response({
                     "detail": f"Successfully soft-deleted {deleted_count} schedule(s)."
                 }, status=status.HTTP_200_OK)
@@ -837,14 +837,14 @@ class SoftDeletedSchedulesView(generics.ListAPIView):
         connection.set_schema(tenant.schema_name)
         with tenant_context(tenant):
             queryset = Schedule.objects.filter(tenant=tenant, is_deleted=True).select_related('job_application')
-            logger.debug(f"Query: {queryset.query}")
+            #logger.debug(f"Query: {queryset.query}")
             return queryset
 
     def list(self, request, *args, **kwargs):
         try:
             queryset = self.get_queryset()
             serializer = self.get_serializer(queryset, many=True)
-            logger.info(f"Retrieved {queryset.count()} soft-deleted schedules for tenant {request.tenant.schema_name}")
+            #logger.info(f"Retrieved {queryset.count()} soft-deleted schedules for tenant {request.tenant.schema_name}")
             return Response({
                 "detail": f"Retrieved {queryset.count()} soft-deleted schedule(s).",
                 "data": serializer.data
@@ -857,7 +857,7 @@ class RecoverSoftDeletedSchedulesView(generics.GenericAPIView):
     permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized]
 
     def post(self, request, *args, **kwargs):
-        logger.debug(f"Received POST request to recover schedules: {request.data}")
+        #logger.debug(f"Received POST request to recover schedules: {request.data}")
         try:
             tenant = request.tenant
             if not tenant:
@@ -882,7 +882,7 @@ class RecoverSoftDeletedSchedulesView(generics.GenericAPIView):
                         schedule.restore()
                         recovered_count += 1
 
-                logger.info(f"Successfully recovered {recovered_count} schedules for tenant {tenant.schema_name}")
+                #logger.info(f"Successfully recovered {recovered_count} schedules for tenant {tenant.schema_name}")
                 return Response({
                     "detail": f"Successfully recovered {recovered_count} schedule(s)."
                 }, status=status.HTTP_200_OK)
@@ -895,7 +895,7 @@ class PermanentDeleteSchedulesView(generics.GenericAPIView):
     permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized]
 
     def post(self, request, *args, **kwargs):
-        logger.debug(f"Received POST request to permanently delete schedules: {request.data}")
+        #logger.debug(f"Received POST request to permanently delete schedules: {request.data}")
         try:
             tenant = request.tenant
             if not tenant:
@@ -915,7 +915,7 @@ class PermanentDeleteSchedulesView(generics.GenericAPIView):
                     return Response({"detail": "No soft-deleted schedules found."}, status=status.HTTP_404_NOT_FOUND)
 
                 deleted_count = schedules.delete()[0]
-                logger.info(f"Successfully permanently deleted {deleted_count} schedules for tenant {tenant.schema_name}")
+                #logger.info(f"Successfully permanently deleted {deleted_count} schedules for tenant {tenant.schema_name}")
                 return Response({
                     "detail": f"Successfully permanently deleted {deleted_count} schedule(s)."
                 }, status=status.HTTP_200_OK)

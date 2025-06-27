@@ -36,7 +36,7 @@ class JobRequisitionBulkDeleteView(generics.GenericAPIView):
                 with transaction.atomic():
                     for requisition in requisitions:
                         requisition.soft_delete()
-            logger.info(f"Soft-deleted {count} job requisitions for tenant {tenant.schema_name}")
+            #logger.info(f"Soft-deleted {count} job requisitions for tenant {tenant.schema_name}")
             return Response({"detail": f"Soft-deleted {count} requisition(s)."}, status=status.HTTP_200_OK)
         except Exception as e:
             logger.error(f"Bulk soft delete failed: {str(e)}")
@@ -52,22 +52,22 @@ class JobRequisitionListCreateView(generics.ListCreateAPIView):
 
     def get_queryset(self):
         tenant = self.request.tenant
-        logger.debug(f"User: {self.request.user}, Tenant: {tenant.schema_name}")
+        #logger.debug(f"User: {self.request.user}, Tenant: {tenant.schema_name}")
         connection.set_schema(tenant.schema_name)
-        logger.debug(f"Schema set to: {connection.schema_name}")
+        #logger.debug(f"Schema set to: {connection.schema_name}")
         with connection.cursor() as cursor:
             cursor.execute("SHOW search_path;")
             search_path = cursor.fetchone()[0]
-            logger.debug(f"Database search_path: {search_path}")
+            #logger.debug(f"Database search_path: {search_path}")
         queryset = JobRequisition.active_objects.filter(tenant=tenant)
-        logger.debug(f"Query: {queryset.query}")
+        #logger.debug(f"Query: {queryset.query}")
         return queryset
 
     def perform_create(self, serializer):
         tenant = self.request.tenant
         connection.set_schema(tenant.schema_name)
         serializer.save(tenant=tenant)
-        logger.info(f"Job requisition created: {serializer.validated_data['title']} for tenant {tenant.schema_name}")
+        #logger.info(f"Job requisition created: {serializer.validated_data['title']} for tenant {tenant.schema_name}")
 
 class JobRequisitionDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = JobRequisitionSerializer
@@ -77,26 +77,26 @@ class JobRequisitionDetailView(generics.RetrieveUpdateDestroyAPIView):
     def get_queryset(self):
         tenant = self.request.tenant
         connection.set_schema(tenant.schema_name)
-        logger.debug(f"Schema set to: {connection.schema_name}")
+        #logger.debug(f"Schema set to: {connection.schema_name}")
         with connection.cursor() as cursor:
             cursor.execute("SHOW search_path;")
             search_path = cursor.fetchone()[0]
-            logger.debug(f"Database search_path: {search_path}")
+            #logger.debug(f"Database search_path: {search_path}")
         queryset = JobRequisition.active_objects.filter(tenant=tenant)
-        logger.debug(f"Query: {queryset.query}")
+        #logger.debug(f"Query: {queryset.query}")
         return queryset
 
     def perform_update(self, serializer):
         tenant = self.request.tenant
         with tenant_context(tenant):
             serializer.save()
-        logger.info(f"Job requisition updated: {serializer.instance.title} for tenant {tenant.schema_name}")
+        #logger.info(f"Job requisition updated: {serializer.instance.title} for tenant {tenant.schema_name}")
 
     def perform_destroy(self, instance):
         tenant = self.request.tenant
         with tenant_context(tenant):
             instance.soft_delete()
-        logger.info(f"Job requisition soft-deleted: {instance.title} for tenant {tenant.schema_name}")
+        #.info(f"Job requisition soft-deleted: {instance.title} for tenant {tenant.schema_name}")
 
 class JobRequisitionByLinkView(generics.RetrieveAPIView):
     serializer_class = JobRequisitionSerializer
@@ -106,21 +106,21 @@ class JobRequisitionByLinkView(generics.RetrieveAPIView):
     def get_queryset(self):
         unique_link = self.kwargs.get('unique_link', '')
         if not unique_link or '-' not in unique_link:
-            logger.warning(f"Invalid unique_link format: {unique_link}")
+            #logger.warning(f"Invalid unique_link format: {unique_link}")
             return JobRequisition.objects.none()
 
         try:
             tenant_schema = unique_link.split('-')[0]
             tenant = Tenant.objects.get(schema_name=tenant_schema)
-            logger.debug(f"Tenant extracted: {tenant.schema_name}")
+            #logger.debug(f"Tenant extracted: {tenant.schema_name}")
             connection.set_schema(tenant.schema_name)
-            logger.debug(f"Schema set to: {connection.schema_name}")
+            #logger.debug(f"Schema set to: {connection.schema_name}")
             with connection.cursor() as cursor:
                 cursor.execute("SHOW search_path;")
                 search_path = cursor.fetchone()[0]
-                logger.debug(f"Database search_path: {search_path}")
+                #logger.debug(f"Database search_path: {search_path}")
             queryset = JobRequisition.active_objects.filter(tenant=tenant, publish_status=True)
-            logger.debug(f"Query: {queryset.query}")
+            #logger.debug(f"Query: {queryset.query}")
             return queryset
         except Tenant.DoesNotExist:
             logger.warning(f"Tenant {tenant_schema} not found")
@@ -134,7 +134,7 @@ class JobRequisitionByLinkView(generics.RetrieveAPIView):
             instance = self.get_object()
             serializer = self.get_serializer(instance)
             tenant_schema = instance.tenant.schema_name
-            logger.info(f"Job requisition accessed via link: {instance.title} for tenant {tenant_schema}")
+            #logger.info(f"Job requisition accessed via link: {instance.title} for tenant {tenant_schema}")
             return Response(serializer.data)
         except JobRequisition.DoesNotExist:
             logger.warning(f"Job with unique_link {kwargs.get('unique_link')} not found or not published")
@@ -156,18 +156,18 @@ class SoftDeletedJobRequisitionsView(generics.ListAPIView):
             logger.error("No tenant associated with the request")
             raise generics.ValidationError("Tenant not found.")
 
-        logger.debug(f"User: {self.request.user}, Tenant: {tenant.schema_name}")
+        #logger.debug(f"User: {self.request.user}, Tenant: {tenant.schema_name}")
         connection.set_schema(tenant.schema_name)
         with tenant_context(tenant):
             queryset = JobRequisition.objects.filter(tenant=tenant, is_deleted=True)
-            logger.debug(f"Query: {queryset.query}")
+            #logger.debug(f"Query: {queryset.query}")
             return queryset
 
     def list(self, request, *args, **kwargs):
         try:
             queryset = self.get_queryset()
             serializer = self.get_serializer(queryset, many=True)
-            logger.info(f"Retrieved {queryset.count()} soft-deleted job requisitions for tenant {request.tenant.schema_name}")
+            #logger.info(f"Retrieved {queryset.count()} soft-deleted job requisitions for tenant {request.tenant.schema_name}")
             return Response({
                 "detail": f"Retrieved {queryset.count()} soft-deleted requisition(s).",
                 "data": serializer.data
@@ -180,7 +180,7 @@ class RecoverSoftDeletedJobRequisitionsView(generics.GenericAPIView):
     permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized]
 
     def post(self, request, *args, **kwargs):
-        logger.debug(f"Received POST request to recover job requisitions: {request.data}")
+        #logger.debug(f"Received POST request to recover job requisitions: {request.data}")
         try:
             tenant = request.tenant
             if not tenant:
@@ -205,7 +205,7 @@ class RecoverSoftDeletedJobRequisitionsView(generics.GenericAPIView):
                         requisition.restore()
                         recovered_count += 1
 
-                logger.info(f"Successfully recovered {recovered_count} requisitions for tenant {tenant.schema_name}")
+                #logger.info(f"Successfully recovered {recovered_count} requisitions for tenant {tenant.schema_name}")
                 return Response({
                     "detail": f"Successfully recovered {recovered_count} requisition(s)."
                 }, status=status.HTTP_200_OK)
@@ -218,7 +218,7 @@ class PermanentDeleteJobRequisitionsView(generics.GenericAPIView):
     permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized]
 
     def post(self, request, *args, **kwargs):
-        logger.debug(f"Received POST request to permanently delete job requisitions: {request.data}")
+        #logger.debug(f"Received POST request to permanently delete job requisitions: {request.data}")
         try:
             tenant = request.tenant
             if not tenant:
@@ -238,7 +238,7 @@ class PermanentDeleteJobRequisitionsView(generics.GenericAPIView):
                     return Response({"detail": "No soft-deleted requisitions found."}, status=status.HTTP_404_NOT_FOUND)
 
                 deleted_count = requisitions.delete()[0]
-                logger.info(f"Successfully permanently deleted {deleted_count} requisitions for tenant {tenant.schema_name}")
+                #logger.info(f"Successfully permanently deleted {deleted_count} requisitions for tenant {tenant.schema_name}")
                 return Response({
                     "detail": f"Successfully permanently deleted {deleted_count} requisition(s)."
                 }, status=status.HTTP_200_OK)

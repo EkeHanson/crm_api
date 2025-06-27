@@ -73,7 +73,7 @@ class JobApplicationSerializer(serializers.ModelSerializer):
         ]
 
     def validate(self, data):
-        logger.debug(f"Validating data: {data}")
+        #logger.debug(f"Validating data: {data}")
         job_requisition = data.get('job_requisition')
         if not job_requisition:
             raise serializers.ValidationError("Job requisition is required.")
@@ -81,7 +81,7 @@ class JobApplicationSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("This job is not published.")
         documents_required = job_requisition.documents_required or []
         documents_data = data.get('documents', [])
-        logger.debug(f"Documents required: {documents_required}, Provided: {[doc['document_type'] for doc in documents_data]}")
+        #logger.debug(f"Documents required: {documents_required}, Provided: {[doc['document_type'] for doc in documents_data]}")
         if documents_required:
             provided_types = {doc['document_type'] for doc in documents_data}
             missing_docs = [doc for doc in documents_required if doc not in provided_types]
@@ -95,20 +95,20 @@ class JobApplicationSerializer(serializers.ModelSerializer):
         documents_data = validated_data.pop('documents', [])
         tenant = self.context['request'].tenant
         validated_data['tenant'] = tenant
-        logger.debug(f"Creating application for tenant: {tenant.schema_name}, job_requisition: {validated_data['job_requisition'].title}")
+        #logger.debug(f"Creating application for tenant: {tenant.schema_name}, job_requisition: {validated_data['job_requisition'].title}")
 
         documents = []
         for doc_data in documents_data:
             file = doc_data['file']
             folder_path = os.path.join('application_documents', timezone.now().strftime('%Y/%m/%d'))
             full_folder_path = os.path.join(settings.MEDIA_ROOT, folder_path)
-            logger.debug(f"Creating directory: {full_folder_path}")
+            #logger.debug(f"Creating directory: {full_folder_path}")
             os.makedirs(full_folder_path, exist_ok=True)
             file_extension = os.path.splitext(file.name)[1]
             filename = f"{uuid.uuid4()}{file_extension}"
             upload_path = os.path.join(folder_path, filename).replace('\\', '/')
             full_upload_path = os.path.join(settings.MEDIA_ROOT, upload_path)
-            logger.debug(f"Saving file to: {full_upload_path}")
+            #logger.debug(f"Saving file to: {full_upload_path}")
             try:
                 with open(full_upload_path, 'wb+') as destination:
                     for chunk in file.chunks():
@@ -128,7 +128,7 @@ class JobApplicationSerializer(serializers.ModelSerializer):
 
         validated_data['documents'] = documents
         application = JobApplication.objects.create(**validated_data)
-        logger.info(f"Application created: {application.id} for {application.full_name}")
+        #logger.info(f"Application created: {application.id} for {application.full_name}")
         return application
 
     def get_fields(self):
@@ -234,16 +234,16 @@ class ScheduleSerializer(serializers.ModelSerializer):
         read_only_fields = ['id', 'tenant', 'tenant_schema', 'job_application_id', 'candidate_name', 'job_requisition_title', 'is_deleted', 'created_at', 'updated_at']
 
     def validate(self, data):
-        logger.debug(f"Validating schedule data: {data}, instance: {self.instance}")
+        #logger.debug(f"Validating schedule data: {data}, instance: {self.instance}")
         job_application = data.get('job_application', getattr(self.instance, 'job_application', None))
         if not job_application:
             logger.error("Job application is required but not provided or found on instance")
             raise serializers.ValidationError("Job application is required.")
         if job_application.status != 'shortlisted':
-            logger.warning(f"Invalid job application status: {job_application.status} for job_application {job_application.id}")
+            #logger.warning(f"Invalid job application status: {job_application.status} for job_application {job_application.id}")
             raise serializers.ValidationError("Schedules can only be created for shortlisted applicants.")
         if data.get('meeting_mode') == 'Virtual' and not data.get('meeting_link'):
-            logger.warning("Missing meeting link for virtual interview")
+            #logger.warning("Missing meeting link for virtual interview")
             raise serializers.ValidationError("Meeting link is required for virtual interviews.")
         if data.get('meeting_mode') == 'Virtual' and data.get('meeting_link'):
             validate_url = URLValidator()
@@ -266,13 +266,13 @@ class ScheduleSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         tenant = self.context['request'].tenant
         validated_data['tenant'] = tenant
-        logger.debug(f"Creating schedule for tenant: {tenant.schema_name}, application: {validated_data['job_application'].id}")
+        #logger.debug(f"Creating schedule for tenant: {tenant.schema_name}, application: {validated_data['job_application'].id}")
         schedule = Schedule.objects.create(**validated_data)
-        logger.info(f"Schedule created: {schedule.id} for {schedule.job_application.full_name}")
+        #logger.info(f"Schedule created: {schedule.id} for {schedule.job_application.full_name}")
         return schedule
 
     def update(self, instance, validated_data):
-        logger.debug(f"Updating schedule {instance.id} with data: {validated_data}")
+        #logger.debug(f"Updating schedule {instance.id} with data: {validated_data}")
         if validated_data.get('status') == 'cancelled' and instance.status != 'cancelled' and not validated_data.get('cancellation_reason'):
             logger.warning(f"Missing cancellation reason for cancelling schedule {instance.id}")
             raise serializers.ValidationError("Cancellation reason is required when cancelling a schedule.")

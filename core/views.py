@@ -81,11 +81,11 @@ class TenantViewSet(viewsets.ModelViewSet):
 
             if tenant_id:
                 tenant = Tenant.objects.get(id=tenant_id)
-                logger.debug(f"Tenant extracted from token by ID: {tenant.schema_name}")
+                #logger.debug(f"Tenant extracted from token by ID: {tenant.schema_name}")
                 return tenant
             elif schema_name:
                 tenant = Tenant.objects.get(schema_name=schema_name)
-                logger.debug(f"Tenant extracted from token by schema: {tenant.schema_name}")
+                #logger.debug(f"Tenant extracted from token by schema: {tenant.schema_name}")
                 return tenant
             else:
                 logger.warning("No tenant_id or schema_name in token")
@@ -103,13 +103,13 @@ class TenantViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         """Filter queryset to the authenticated user's tenant."""
         tenant = self.get_tenant_from_token(self.request)
-        logger.debug(f"Filtering queryset for tenant: {tenant.schema_name}")
+        #logger.debug(f"Filtering queryset for tenant: {tenant.schema_name}")
         connection.set_schema(tenant.schema_name)
-        logger.debug(f"Schema set to: {connection.schema_name}")
+        #logger.debug(f"Schema set to: {connection.schema_name}")
         with connection.cursor() as cursor:
             cursor.execute("SHOW search_path;")
             search_path = cursor.fetchone()[0]
-            logger.debug(f"Database search_path: {search_path}")
+            #logger.debug(f"Database search_path: {search_path}")
         return Tenant.objects.filter(id=tenant.id)
 
     def perform_create(self, serializer):
@@ -119,7 +119,7 @@ class TenantViewSet(viewsets.ModelViewSet):
             with transaction.atomic():
                 with tenant_context(tenant):
                     new_tenant = serializer.save()
-                    logger.info(f"Tenant created: {new_tenant.name} (schema: {new_tenant.schema_name}) for tenant {tenant.schema_name}")
+                    #logger.info(f"Tenant created: {new_tenant.name} (schema: {new_tenant.schema_name}) for tenant {tenant.schema_name}")
                     return Response(serializer.data)
         except Exception as e:
             logger.error(f"Failed to create tenant: {str(e)}")
@@ -129,7 +129,7 @@ class TenantViewSet(viewsets.ModelViewSet):
         """List tenants (should return only the authenticated tenant)."""
         queryset = self.get_queryset()
         serializer = self.get_serializer(queryset, many=True)
-        logger.info(f"Listing tenants: {[t['id'] for t in serializer.data]} for tenant {request.tenant.schema_name}")
+        #logger.info(f"Listing tenants: {[t['id'] for t in serializer.data]} for tenant {request.tenant.schema_name}")
         return Response(serializer.data)
 
     def retrieve(self, request, *args, **kwargs):
@@ -140,7 +140,7 @@ class TenantViewSet(viewsets.ModelViewSet):
             logger.warning(f"Unauthorized access attempt to tenant {instance.id} by tenant {tenant.id}")
             return Response({"detail": "Not authorized to access this tenant"}, status=status.HTTP_403_FORBIDDEN)
         serializer = self.get_serializer(instance)
-        logger.info(f"Retrieving tenant: {instance.id} for tenant {tenant.schema_name}")
+        #logger.info(f"Retrieving tenant: {instance.id} for tenant {tenant.schema_name}")
         return Response(serializer.data)
 
     def perform_update(self, serializer):
@@ -152,7 +152,7 @@ class TenantViewSet(viewsets.ModelViewSet):
             raise serializers.ValidationError("Not authorized to update this tenant")
         with tenant_context(tenant):
             serializer.save()
-        logger.info(f"Tenant updated: {instance.name} for tenant {tenant.schema_name}")
+        #logger.info(f"Tenant updated: {instance.name} for tenant {tenant.schema_name}")
 
     def perform_destroy(self, instance):
         """Delete a tenant within the authenticated tenant's context."""
@@ -162,4 +162,4 @@ class TenantViewSet(viewsets.ModelViewSet):
             raise serializers.ValidationError("Not authorized to delete this tenant")
         with tenant_context(tenant):
             instance.delete()
-        logger.info(f"Tenant deleted: {instance.name} for tenant {tenant.schema_name}")
+        #logger.info(f"Tenant deleted: {instance.name} for tenant {tenant.schema_name}")

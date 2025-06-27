@@ -14,7 +14,7 @@ class SubscriptionListCreateView(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save()
-        logger.info(f"Subscription created for tenant {serializer.validated_data['tenant'].schema_name}")
+        #logger.info(f"Subscription created for tenant {serializer.validated_data['tenant'].schema_name}")
 
 class SubscriptionDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Subscription.objects.all()

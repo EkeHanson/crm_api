@@ -18,7 +18,7 @@ def get_sentence_transformer_model():
         try:
             from sentence_transformers import SentenceTransformer, util
             _model = SentenceTransformer('all-MiniLM-L6-v2', device='cpu')
-            logger.info("Loaded SentenceTransformer model")
+            #logger.info("Loaded SentenceTransformer model")
         except Exception as e:
             logger.exception(f"Failed to load SentenceTransformer model: {str(e)}")
             raise RuntimeError("Unable to initialize sentence transformer model")
@@ -28,7 +28,7 @@ def get_sentence_transformer_model():
 def parse_resume(file_path):
     """Extract text from PDF or DOCX files."""
     try:
-        logger.debug(f"Processing file_path: {file_path}")
+        #logger.debug(f"Processing file_path: {file_path}")
         temp_file_path = None
         if file_path.startswith("http"):
             response = requests.get(file_path)
@@ -47,10 +47,10 @@ def parse_resume(file_path):
                 full_path = default_storage.path(normalized_path)
             else:
                 logger.error(f"File does not exist: {normalized_path}")
-                print(f"File does not exist: {normalized_path}")
+                #print(f"File does not exist: {normalized_path}")
                 return ""
 
-        logger.debug(f"Full path: {full_path}")
+        #logger.debug(f"Full path: {full_path}")
 
         ext = os.path.splitext(full_path)[1].lower()
         if ext == '.pdf':
@@ -79,7 +79,7 @@ def screen_resume(resume_text, job_description):
     try:
         if not resume_text or not job_description:
             logger.warning(f"Empty input: resume_text={bool(resume_text)}, job_description={bool(job_description)}")
-            print(f"Empty input: resume_text={bool(resume_text)}, job_description={bool(job_description)}")
+            #print(f"Empty input: resume_text={bool(resume_text)}, job_description={bool(job_description)}")
             return 0.0
         model = get_sentence_transformer_model()
         from sentence_transformers import util

@@ -34,7 +34,7 @@ class AdminUserCreateView(APIView):
             try:
                 user = serializer.save()
                 refresh = RefreshToken.for_user(user)
-                logger.info(f"Admin user created: {user.email} for tenant {user.tenant.schema_name}")
+                #logger.info(f"Admin user created: {user.email} for tenant {user.tenant.schema_name}")
                 return Response({
                     'status': 'success',
                     'message': f"Admin user {user.email} created successfully.",

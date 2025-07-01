@@ -16,7 +16,7 @@ class JobRequisitionSerializer(serializers.ModelSerializer):
             'id', 'tenant', 'tenant_domain', 'title', 'unique_link', 'status', 'requested_by', 'role', 'company_name',
             'job_type', 'location_type', 'company_address', 'salary_range',
             'job_description', 'number_of_candidates', 'qualification_requirement',
-            'experience_requirement', 'knowledge_requirement', 'reason',
+            'experience_requirement', 'knowledge_requirement', 'reason', 'job_requisition_code', 'job_application_code',
             'deadline_date', 'start_date', 'responsibilities', 'documents_required',
             'compliance_checklist', 'advert_banner', 'requested_date', 'publish_status',
             'is_deleted', 'created_at', 'updated_at', 'num_of_applications', 'job_location'

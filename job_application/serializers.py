@@ -8,8 +8,11 @@ from django.utils import timezone
 import os
 import uuid
 from django.core.validators import URLValidator
+from .utils import parse_resume, screen_resume, extract_resume_fields
 
 logger = logging.getLogger('job_applications')
+
+
 
 class DocumentSerializer(serializers.Serializer):
     document_type = serializers.CharField(max_length=50)
@@ -18,9 +21,9 @@ class DocumentSerializer(serializers.Serializer):
     uploaded_at = serializers.DateTimeField(read_only=True, default=timezone.now)
 
     def get_file_url(self, obj):
-        file_path = obj.get('file_path', None)
-        if file_path:
-            return file_path
+        file_url = obj.get('file_url', None)
+        if file_url:
+            return file_url
         return None
 
     def validate_file(self, value):
@@ -54,7 +57,7 @@ class DocumentSerializer(serializers.Serializer):
 class JobApplicationSerializer(serializers.ModelSerializer):
     documents = DocumentSerializer(many=True, required=False)
     job_requisition_id = serializers.CharField(source='job_requisition.id', read_only=True)
-    job_requisition_title = serializers.CharField(source='job_requisition.title', read_only=True)  # Added field
+    job_requisition_title = serializers.CharField(source='job_requisition.title', read_only=True)
     tenant_schema = serializers.CharField(source='tenant.schema_name', read_only=True)
 
     class Meta:
@@ -63,17 +66,15 @@ class JobApplicationSerializer(serializers.ModelSerializer):
             'id', 'tenant', 'tenant_schema', 'job_requisition', 'job_requisition_id',
             'job_requisition_title', 'date_of_birth',
             'full_name', 'email', 'phone', 'qualification', 'experience', 'screening_status', 'screening_score',
-            'knowledge_skill', 'cover_letter', 'resume_status', 'status', 'source',
+            'knowledge_skill', 'cover_letter', 'resume_status', 'employment_gaps', 'status', 'source',
             'documents', 'is_deleted', 'applied_at', 'created_at', 'updated_at'
         ]
-      
         read_only_fields = [
-            'id', 'tenant', 'tenant_schema', 'job_requisition_id', 'job_requisition_title',  # Added to read_only_fields
+            'id', 'tenant', 'tenant_schema', 'job_requisition_id', 'job_requisition_title',
             'is_deleted', 'applied_at', 'created_at', 'updated_at'
         ]
 
     def validate(self, data):
-        #logger.debug(f"Validating data: {data}")
         job_requisition = data.get('job_requisition')
         if not job_requisition:
             raise serializers.ValidationError("Job requisition is required.")
@@ -81,7 +82,6 @@ class JobApplicationSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("This job is not published.")
         documents_required = job_requisition.documents_required or []
         documents_data = data.get('documents', [])
-        #logger.debug(f"Documents required: {documents_required}, Provided: {[doc['document_type'] for doc in documents_data]}")
         if documents_required:
             provided_types = {doc['document_type'] for doc in documents_data}
             missing_docs = [doc for doc in documents_required if doc not in provided_types]
@@ -95,20 +95,20 @@ class JobApplicationSerializer(serializers.ModelSerializer):
         documents_data = validated_data.pop('documents', [])
         tenant = self.context['request'].tenant
         validated_data['tenant'] = tenant
-        #logger.debug(f"Creating application for tenant: {tenant.schema_name}, job_requisition: {validated_data['job_requisition'].title}")
+        logger.debug(f"Creating application for tenant: {tenant.schema_name}, job_requisition: {validated_data['job_requisition'].title}")
 
         documents = []
         for doc_data in documents_data:
             file = doc_data['file']
             folder_path = os.path.join('application_documents', timezone.now().strftime('%Y/%m/%d'))
             full_folder_path = os.path.join(settings.MEDIA_ROOT, folder_path)
-            #logger.debug(f"Creating directory: {full_folder_path}")
             os.makedirs(full_folder_path, exist_ok=True)
             file_extension = os.path.splitext(file.name)[1]
             filename = f"{uuid.uuid4()}{file_extension}"
             upload_path = os.path.join(folder_path, filename).replace('\\', '/')
             full_upload_path = os.path.join(settings.MEDIA_ROOT, upload_path)
-            #logger.debug(f"Saving file to: {full_upload_path}")
+            logger.debug(f"Saving file to full_upload_path: {full_upload_path}")
+
             try:
                 with open(full_upload_path, 'wb+') as destination:
                     for chunk in file.chunks():
@@ -117,18 +117,35 @@ class JobApplicationSerializer(serializers.ModelSerializer):
             except Exception as e:
                 logger.error(f"Failed to save file {full_upload_path}: {str(e)}")
                 raise serializers.ValidationError(f"Failed to save file: {str(e)}")
+
+            file_url = f"/media/{upload_path.lstrip('/')}"
+            logger.debug(f"Constructed file_url: {file_url}")
+
+            # Parse resume for other fields if document_type is resume or cv
+            if doc_data['document_type'].lower() in ['resume', 'cv']:
+                resume_text = parse_resume(upload_path)
+                if resume_text:
+                    resume_data = extract_resume_fields(resume_text)
+                    validated_data['full_name'] = resume_data.get('full_name', validated_data.get('full_name', ''))
+                    validated_data['email'] = resume_data.get('email', validated_data.get('email', ''))
+                    validated_data['phone'] = resume_data.get('phone', validated_data.get('phone', ''))
+                    validated_data['qualification'] = resume_data.get('qualification', validated_data.get('qualification', ''))
+                    validated_data['experience'] = "; ".join(resume_data.get('experience', [])) or validated_data.get('experience', '')
+                    validated_data['knowledge_skill'] = resume_data.get('knowledge_skill', validated_data.get('knowledge_skill', ''))
+
             documents.append({
                 'document_type': doc_data['document_type'],
                 'file_path': upload_path,
-                'file_url': f"{settings.MEDIA_URL}{upload_path.lstrip('/')}",
+                'file_url': file_url,
                 'uploaded_at': timezone.now().isoformat()
             })
             if doc_data['document_type'].lower() in ['resume', 'cv']:
                 validated_data['resume_status'] = True
 
         validated_data['documents'] = documents
+        logger.debug(f"Documents to be saved: {documents}")
         application = JobApplication.objects.create(**validated_data)
-        #logger.info(f"Application created: {application.id} for {application.full_name}")
+        logger.info(f"Application created: {application.id} for {application.full_name}")
         return application
 
     def get_fields(self):
@@ -136,87 +153,6 @@ class JobApplicationSerializer(serializers.ModelSerializer):
         if 'documents' in fields:
             fields['documents'].child.context.update({'job_requisition': self.context.get('job_requisition')})
         return fields
-    
-# class JobApplicationSerializer(serializers.ModelSerializer):
-#     documents = DocumentSerializer(many=True, required=False)
-#     job_requisition_id = serializers.CharField(source='job_requisition.id', read_only=True)
-#     tenant_schema = serializers.CharField(source='tenant.schema_name', read_only=True)
-
-#     class Meta:
-#         model = JobApplication
-#         fields = [
-#             'id', 'tenant', 'tenant_schema', 'job_requisition', 'job_requisition_id',
-#             'full_name', 'email', 'phone', 'qualification', 'experience', 'screening_status', 'screening_score',
-#             'knowledge_skill', 'cover_letter', 'resume_status', 'status', 'source',
-#             'documents', 'is_deleted', 'applied_at', 'created_at', 'updated_at'
-#         ]
-#         read_only_fields = ['id', 'tenant', 'tenant_schema', 'job_requisition_id', 'is_deleted', 'applied_at', 'created_at', 'updated_at']
-
-#     def validate(self, data):
-#         logger.debug(f"Validating data: {data}")
-#         job_requisition = data.get('job_requisition')
-#         if not job_requisition:
-#             raise serializers.ValidationError("Job requisition is required.")
-#         if not job_requisition.publish_status:
-#             raise serializers.ValidationError("This job is not published.")
-#         documents_required = job_requisition.documents_required or []
-#         documents_data = data.get('documents', [])
-#         logger.debug(f"Documents required: {documents_required}, Provided: {[doc['document_type'] for doc in documents_data]}")
-#         if documents_required:
-#             provided_types = {doc['document_type'] for doc in documents_data}
-#             missing_docs = [doc for doc in documents_required if doc not in provided_types]
-#             if missing_docs:
-#                 raise serializers.ValidationError(
-#                     f"Missing required documents: {', '.join(missing_docs)}."
-#                 )
-#         return data
-
-#     def create(self, validated_data):
-#         documents_data = validated_data.pop('documents', [])
-#         tenant = self.context['request'].tenant
-#         validated_data['tenant'] = tenant
-#         logger.debug(f"Creating application for tenant: {tenant.schema_name}, job_applications: {validated_data['job_requisition'].title}")
-
-#         documents = []
-#         for doc_data in documents_data:
-#             file = doc_data['file']
-#             folder_path = os.path.join('application_documents', timezone.now().strftime('%Y/%m/%d'))
-#             full_folder_path = os.path.join(settings.MEDIA_ROOT, folder_path)
-#             logger.debug(f"Creating directory: {full_folder_path}")
-#             os.makedirs(full_folder_path, exist_ok=True)
-#             file_extension = os.path.splitext(file.name)[1]
-#             filename = f"{uuid.uuid4()}{file_extension}"
-#             upload_path = os.path.join(folder_path, filename).replace('\\', '/')
-#             full_upload_path = os.path.join(settings.MEDIA_ROOT, upload_path)
-#             logger.debug(f"Saving file to: {full_upload_path}")
-#             try:
-#                 with open(full_upload_path, 'wb+') as destination:
-#                     for chunk in file.chunks():
-#                         destination.write(chunk)
-#                 logger.debug(f"File saved successfully: {full_upload_path}")
-#             except Exception as e:
-#                 logger.error(f"Failed to save file {full_upload_path}: {str(e)}")
-#                 raise serializers.ValidationError(f"Failed to save file: {str(e)}")
-#             documents.append({
-#                 'document_type': doc_data['document_type'],
-#                 'file_path': upload_path,
-#                 'file_url': f"{settings.MEDIA_URL}{upload_path.lstrip('/')}",
-#                 'uploaded_at': timezone.now().isoformat()
-#             })
-#             if doc_data['document_type'].lower() in ['resume', 'cv']:
-#                 validated_data['resume_status'] = True
-
-#         validated_data['documents'] = documents
-#         application = JobApplication.objects.create(**validated_data)
-#         logger.info(f"Application created: {application.id} for {application.full_name}")
-#         return application
-
-#     def get_fields(self):
-#         fields = super().get_fields()
-#         if 'documents' in fields:
-#             fields['documents'].child.context.update({'job_requisition': self.context.get('job_requisition')})
-#         return fields
-
 class ScheduleSerializer(serializers.ModelSerializer):
     job_application_id = serializers.CharField(source='job_application.id', read_only=True)
     tenant_schema = serializers.CharField(source='tenant.schema_name', read_only=True)

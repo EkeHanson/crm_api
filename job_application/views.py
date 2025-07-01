@@ -70,6 +70,7 @@ class ResumeParseView(APIView):
             logger.exception(f"Error parsing resume: {str(e)}")
             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+
 class JobApplicationsByRequisitionView(generics.ListAPIView):
     serializer_class = JobApplicationSerializer
     permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized]
@@ -241,6 +242,7 @@ class ResumeScreeningView(APIView):
                                 "email": app.email,
                                 "score": 0.0,
                                 "screening_status": app.screening_status,
+                                "employment_gaps": []
                             })
                             logger.debug(f"No matching document for application {app.id} with document_type {document_type}")
                             continue
@@ -255,6 +257,7 @@ class ResumeScreeningView(APIView):
                                 "email": app.email,
                                 "score": 0.0,
                                 "screening_status": app.screening_status,
+                                "employment_gaps": []
                             })
                             logger.debug(f"Failed to parse resume for application {app.id}")
                             continue
@@ -267,8 +270,13 @@ class ResumeScreeningView(APIView):
                         ).strip()
                         
                         score = screen_resume(resume_text, job_requirements)
+                        resume_data = extract_resume_fields(resume_text)
+                        employment_gaps = resume_data.get("employment_gaps", [])
+                        logger.debug(f"Employment gaps for application {app.id}: {employment_gaps}")
+
                         app.screening_status = 'processed'
                         app.screening_score = score
+                        app.employment_gaps = employment_gaps
                         app.save()
 
                         results.append({
@@ -277,6 +285,7 @@ class ResumeScreeningView(APIView):
                             "email": app.email,
                             "score": score,
                             "screening_status": app.screening_status,
+                            "employment_gaps": employment_gaps
                         })
 
                     results.sort(key=lambda x: x['score'], reverse=True)
@@ -290,7 +299,7 @@ class ResumeScreeningView(APIView):
                             app.status = 'rejected'
                         app.save()
 
-                #logger.info(f"Screened {len(results)} resumes using document type '{document_type}', shortlisted {len(shortlisted)} for JobRequisition {job_requisition_id}")
+                logger.info(f"Screened {len(results)} resumes using document type '{document_type}', shortlisted {len(shortlisted)} for JobRequisition {job_requisition_id}")
                 return Response({
                     "detail": f"Screened {len(results)} applications using '{document_type}', shortlisted {len(shortlisted)} candidates.",
                     "shortlisted_candidates": shortlisted,

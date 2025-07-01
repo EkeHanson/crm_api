@@ -17,7 +17,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-!v)6(7@u983fg+8gdo1o)dr^59vvp3^ol*apr%c+$0n$#swz-1'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'cmvp-api-v1.onrender.com', 'ef6c-102-90-116-15.ngrok-free.app']
 
@@ -181,10 +181,10 @@ WSGI_APPLICATION = 'lumina_care.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django_tenants.postgresql_backend',
-        'NAME': 'crm_db_glf7',
-        'USER': 'crm_db_glf7_user',
-        'PASSWORD': '82M4ACt6NgUww2qigTBmGp3Ezw47qk0t',
-        'HOST': 'dpg-d1egfk15pdvs73c1paog-a.oregon-postgres.render.com',
+        'NAME': 'crm_db_ydt8',
+        'USER': 'crm_db_ydt8_user',
+        'PASSWORD': 'N7aE6mmUOn7gHO9ZDeG4Dqnpq1uhPxS0',
+        'HOST': 'dpg-d1hk5jjuibrs73fbicqg-a.oregon-postgres.render.com',
         'PORT': '5432',
     }
 }

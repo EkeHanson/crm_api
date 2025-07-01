@@ -24,6 +24,59 @@ from .utils import parse_resume, screen_resume, extract_resume_fields
 
 logger = logging.getLogger('job_applications')
 
+class JobApplicationWithSchedulesView(generics.RetrieveAPIView):
+    serializer_class = JobApplicationSerializer
+    permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized]
+    lookup_field = 'id'
+
+    def get_queryset(self):
+        tenant = self.request.tenant
+        connection.set_schema(tenant.schema_name)
+        logger.debug(f"Schema set to: {connection.schema_name}")
+        return JobApplication.active_objects.filter(tenant=tenant).select_related('job_requisition')
+
+    def retrieve(self, request, *args, **kwargs):
+        try:
+            tenant = request.tenant
+            if not tenant:
+                logger.error("No tenant associated with the request")
+                return Response({"detail": "Tenant not found."}, status=status.HTTP_400_BAD_REQUEST)
+
+            with tenant_context(tenant):
+                # Retrieve the job application
+                job_application = self.get_object()
+                job_application_serializer = self.get_serializer(job_application)
+
+                # Retrieve the associated job requisition
+                job_requisition = job_application.job_requisition
+                job_requisition_serializer = JobRequisitionSerializer(job_requisition)
+
+                # Retrieve associated schedules
+                schedules = Schedule.active_objects.filter(
+                    tenant=tenant,
+                    job_application=job_application
+                ).select_related('job_application')
+                schedule_serializer = ScheduleSerializer(schedules, many=True)
+
+                # Combine the data
+                response_data = {
+                    'job_application': job_application_serializer.data,
+                    'job_requisition': job_requisition_serializer.data,
+                    'schedules': schedule_serializer.data,
+                    'schedule_count': schedules.count()
+                }
+
+                logger.info(f"Retrieved job application {job_application.id} with requisition {job_requisition.id} and {schedules.count()} schedules for tenant {tenant.schema_name}")
+                return Response(response_data, status=status.HTTP_200_OK)
+
+        except JobApplication.DoesNotExist:
+            logger.error(f"JobApplication {kwargs.get('id')} not found for tenant {tenant.schema_name}")
+            return Response({"detail": "Job application not found."}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            logger.exception(f"Error retrieving job application {kwargs.get('id')} and schedules for tenant {tenant.schema_name}: {str(e)}")
+            return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+
 
 class ResumeParseView(APIView):
     parser_classes = [MultiPartParser, FormParser]

@@ -13,7 +13,6 @@ from .utils import parse_resume, screen_resume, extract_resume_fields
 logger = logging.getLogger('job_applications')
 
 
-
 class DocumentSerializer(serializers.Serializer):
     document_type = serializers.CharField(max_length=50)
     file = serializers.FileField(write_only=True)
@@ -153,6 +152,7 @@ class JobApplicationSerializer(serializers.ModelSerializer):
         if 'documents' in fields:
             fields['documents'].child.context.update({'job_requisition': self.context.get('job_requisition')})
         return fields
+
 class ScheduleSerializer(serializers.ModelSerializer):
     job_application_id = serializers.CharField(source='job_application.id', read_only=True)
     tenant_schema = serializers.CharField(source='tenant.schema_name', read_only=True)

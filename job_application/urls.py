@@ -19,7 +19,11 @@ urlpatterns = [
     path('applications/permanent-delete/application/', PermanentDeleteJobApplicationsView.as_view(), name='permanent-delete-applications'),
     path('applications/job-requisitions/<str:job_requisition_id>/applications/', JobApplicationsByRequisitionView.as_view(), name='job-applications-by-requisition'),
 
-    path('applications/<str:id>/with-schedules/', JobApplicationWithSchedulesView.as_view(), name='application-with-schedules'),
+
+    path('applications/code/<str:code>/email/<str:email>/with-schedules/schedules/', JobApplicationWithSchedulesView.as_view(), name='application-with-schedules'),
+
+    # path('applications/<str:id>/with-schedules/schedules/', JobApplicationWithSchedulesView.as_view(), name='application-with-schedules'),
+
 
     path('applications/parse-resume/autofil/', ResumeParseView.as_view(), name='resume-parse'),
 

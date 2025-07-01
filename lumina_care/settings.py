@@ -179,7 +179,6 @@ WSGI_APPLICATION = 'lumina_care.wsgi.application'
 #     }
 # }
 
-
 DATABASES = {
     'default': {
         'ENGINE': 'django_tenants.postgresql_backend',
@@ -203,7 +202,7 @@ SHARED_APPS = [
     'django.contrib.messages',
     'django.contrib.sites',
     'core',
-    'users',  # Ensure 'users' is in SHARED_APPS
+    'users',
     'subscriptions',
 ]
 
@@ -249,7 +248,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 
 STATIC_URL = 'static/'

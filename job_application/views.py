@@ -24,27 +24,72 @@ from .utils import parse_resume, screen_resume, extract_resume_fields
 
 logger = logging.getLogger('job_applications')
 
+import logging
+from django.db import connection
+from django_tenants.utils import tenant_context
+from rest_framework import generics, status
+from rest_framework.permissions import AllowAny
+from rest_framework.response import Response
+from .models import JobApplication, Schedule
+from .serializers import JobApplicationSerializer, ScheduleSerializer
+from talent_engine.models import JobRequisition
+from talent_engine.serializers import JobRequisitionSerializer
+from .tenant_utils import resolve_tenant_from_unique_link
+
+logger = logging.getLogger('job_applications')
+
 class JobApplicationWithSchedulesView(generics.RetrieveAPIView):
     serializer_class = JobApplicationSerializer
-    permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized]
-    lookup_field = 'id'
+    permission_classes = [AllowAny]
 
     def get_queryset(self):
         tenant = self.request.tenant
+        if not tenant:
+            logger.error("No tenant associated with the request")
+            raise generics.ValidationError("Tenant not found.")
         connection.set_schema(tenant.schema_name)
         logger.debug(f"Schema set to: {connection.schema_name}")
         return JobApplication.active_objects.filter(tenant=tenant).select_related('job_requisition')
 
     def retrieve(self, request, *args, **kwargs):
         try:
-            tenant = request.tenant
-            if not tenant:
-                logger.error("No tenant associated with the request")
-                return Response({"detail": "Tenant not found."}, status=status.HTTP_400_BAD_REQUEST)
+            # Resolve tenant from unique_link
+            unique_link = request.query_params.get('unique_link')
+            if not unique_link:
+                logger.error("No unique_link provided in the request")
+                return Response({"detail": "Unique link is required."}, status=status.HTTP_400_BAD_REQUEST)
+
+            tenant, job_requisition = resolve_tenant_from_unique_link(unique_link)
+            if not tenant or not job_requisition:
+                logger.error(f"Invalid or expired unique_link: {unique_link}")
+                return Response({"detail": "Invalid or expired job link."}, status=status.HTTP_400_BAD_REQUEST)
+
+            request.tenant = tenant
+            connection.set_schema(tenant.schema_name)
+            logger.debug(f"Schema set to: {connection.schema_name}")
+
+            # Get job_application_code and email from URL parameters
+            job_application_code = self.kwargs.get('code')
+            email = self.kwargs.get('email')
+            if not job_application_code or not email:
+                logger.error("Missing job_application_code or email in request")
+                return Response({"detail": "Both job application code and email are required."}, status=status.HTTP_400_BAD_REQUEST)
 
             with tenant_context(tenant):
-                # Retrieve the job application
-                job_application = self.get_object()
+                # Retrieve the job application by job_application_code and email
+                try:
+                    job_application = JobApplication.active_objects.get(
+                        job_requisition__job_application_code=job_application_code,
+                        email=email,
+                        tenant=tenant
+                    )
+                except JobApplication.DoesNotExist:
+                    logger.error(f"JobApplication with job_application_code {job_application_code} and email {email} not found for tenant {tenant.schema_name}")
+                    return Response({"detail": "Job application not found."}, status=status.HTTP_404_NOT_FOUND)
+                except JobApplication.MultipleObjectsReturned:
+                    logger.error(f"Multiple JobApplications found for job_application_code {job_application_code} and email {email} in tenant {tenant.schema_name}")
+                    return Response({"detail": "Multiple job applications found. Please contact support."}, status=status.HTTP_400_BAD_REQUEST)
+
                 job_application_serializer = self.get_serializer(job_application)
 
                 # Retrieve the associated job requisition
@@ -66,15 +111,64 @@ class JobApplicationWithSchedulesView(generics.RetrieveAPIView):
                     'schedule_count': schedules.count()
                 }
 
-                logger.info(f"Retrieved job application {job_application.id} with requisition {job_requisition.id} and {schedules.count()} schedules for tenant {tenant.schema_name}")
+                logger.info(f"Retrieved job application with code {job_application_code} and email {email} with requisition {job_requisition.id} and {schedules.count()} schedules for tenant {tenant.schema_name}")
                 return Response(response_data, status=status.HTTP_200_OK)
 
-        except JobApplication.DoesNotExist:
-            logger.error(f"JobApplication {kwargs.get('id')} not found for tenant {tenant.schema_name}")
-            return Response({"detail": "Job application not found."}, status=status.HTTP_404_NOT_FOUND)
         except Exception as e:
-            logger.exception(f"Error retrieving job application {kwargs.get('id')} and schedules for tenant {tenant.schema_name}: {str(e)}")
+            logger.exception(f"Error retrieving job application with code {self.kwargs.get('code')} and email {self.kwargs.get('email')} for tenant {tenant.schema_name if tenant else 'unknown'}: {str(e)}")
             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+# class JobApplicationWithSchedulesView(generics.RetrieveAPIView):
+#     serializer_class = JobApplicationSerializer
+#     # permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized]
+#     permission_classes = [AllowAny]
+#     lookup_field = 'id'
+
+#     def get_queryset(self):
+#         tenant = self.request.tenant
+#         connection.set_schema(tenant.schema_name)
+#         logger.debug(f"Schema set to: {connection.schema_name}")
+#         return JobApplication.active_objects.filter(tenant=tenant).select_related('job_requisition')
+
+#     def retrieve(self, request, *args, **kwargs):
+#         try:
+#             tenant = request.tenant
+#             if not tenant:
+#                 logger.error("No tenant associated with the request")
+#                 return Response({"detail": "Tenant not found."}, status=status.HTTP_400_BAD_REQUEST)
+
+#             with tenant_context(tenant):
+#                 # Retrieve the job application
+#                 job_application = self.get_object()
+#                 job_application_serializer = self.get_serializer(job_application)
+
+#                 # Retrieve the associated job requisition
+#                 job_requisition = job_application.job_requisition
+#                 job_requisition_serializer = JobRequisitionSerializer(job_requisition)
+
+#                 # Retrieve associated schedules
+#                 schedules = Schedule.active_objects.filter(
+#                     tenant=tenant,
+#                     job_application=job_application
+#                 ).select_related('job_application')
+#                 schedule_serializer = ScheduleSerializer(schedules, many=True)
+
+#                 # Combine the data
+#                 response_data = {
+#                     'job_application': job_application_serializer.data,
+#                     'job_requisition': job_requisition_serializer.data,
+#                     'schedules': schedule_serializer.data,
+#                     'schedule_count': schedules.count()
+#                 }
+
+#                 logger.info(f"Retrieved job application {job_application.id} with requisition {job_requisition.id} and {schedules.count()} schedules for tenant {tenant.schema_name}")
+#                 return Response(response_data, status=status.HTTP_200_OK)
+
+#         except JobApplication.DoesNotExist:
+#             logger.error(f"JobApplication {kwargs.get('id')} not found for tenant {tenant.schema_name}")
+#             return Response({"detail": "Job application not found."}, status=status.HTTP_404_NOT_FOUND)
+#         except Exception as e:
+#             logger.exception(f"Error retrieving job application {kwargs.get('id')} and schedules for tenant {tenant.schema_name}: {str(e)}")
+#             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         
 
 

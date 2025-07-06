@@ -314,13 +314,14 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(BASE_DIR / 'talent_engine'))  # For fcntl mock on Windows
 
+
 # Determine log directory based on environment
 if os.getenv('RENDER'):  # Render sets this environment variable
     LOG_DIR = '/tmp/logs'
 else:
     LOG_DIR = os.path.join(BASE_DIR, 'logs')
 
-os.makedirs(LOG_DIR, exist_ok=True)  # Ensure the logs directory exists
+os.makedirs(LOG_DIR, exist_ok=True)
 
 LOGGING = {
     'version': 1,
@@ -393,8 +394,6 @@ CRONTAB_DJANGO_PROJECT_NAME = 'lumina_care'
 CRONJOBS = [
     ('0 11 * * *', 'talent_engine.cron.close_expired_requisitions', f'>> {os.path.join(LOG_DIR, "lumina_care.log")} 2>&1'),
 ]
-
-
 
 #payment
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

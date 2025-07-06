@@ -64,7 +64,7 @@ class CustomTokenSerializer(TokenObtainPairSerializer):
             raise serializers.ValidationError("No tenant found for this email domain.")
 
         tenant = domain.tenant
-        logger.info(f"Authenticating user for tenant: {tenant.schema_name}")
+        #logger.info(f"Authenticating user for tenant: {tenant.schema_name}")
 
         with tenant_context(tenant):
             user = CustomUser.objects.filter(email=email).first()
@@ -94,7 +94,6 @@ class CustomTokenSerializer(TokenObtainPairSerializer):
 
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenSerializer
-
 
 
 class CustomTokenRefreshSerializer(TokenRefreshSerializer):

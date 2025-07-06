@@ -5,17 +5,15 @@
 
 #python manage.py shell
 from core.models import Tenant, Domain
-if not Tenant.objects.filter(schema_name='public1').exists():
+if not Tenant.objects.filter(schema_name='harvoxtech').exists():
     tenant = Tenant.objects.create(
-        name='public1',
-        schema_name='public1'
+        name='harvoxtech',
+        schema_name='harvoxtech'
     )
-    tenant.auto_create_schema = False  # Set attribute after creation
+    tenant.auto_create_schema = False
     tenant.save()
-    Domain.objects.create(tenant=tenant, domain='2fbe-102-90-98-83.ngrok-free.app', is_primary=True)
+    Domain.objects.create(tenant=tenant, domain='harvoxtech.com', is_primary=True)
     Domain.objects.create(tenant=tenant, domain='localhost', is_primary=False)
-
-    
 
 
 #CREATE TENANT ADMIN USER 
@@ -23,16 +21,16 @@ if not Tenant.objects.filter(schema_name='public1').exists():
 from core.models import Tenant
 from users.models import CustomUser
 from django_tenants.utils import tenant_context
-tenant = Tenant.objects.get(schema_name='proliance')
+tenant = Tenant.objects.get(schema_name='harvoxtech')
 with tenant_context(tenant):
     CustomUser.objects.create_superuser(
-        username='info.godson',
-        email='admin@prolianceltd.com',
+        username='admin',
+        email='admin@harvoxtech.com',
         password='qwerty',
         role='admin',
-        first_name='Richard',
-        last_name='Killion',
-        job_role='Quality Assurance',
+        first_name='Ernest',
+        last_name='Bush',
+        job_role='Care Manager',
         tenant=tenant
     )
 
@@ -41,7 +39,7 @@ with tenant_context(tenant):
 
 from core.models import Tenant
 from subscriptions.models import Subscription
-tenant = Tenant.objects.get(schema_name='proliance')
+tenant = Tenant.objects.get(schema_name='harvoxtech')
 Subscription.objects.create(tenant=tenant, module='talent_engine', is_active=True)
 
 from django.db import connection

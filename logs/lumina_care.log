@@ -2469,3 +2469,4 @@
 2025-07-06 22:20:48,180 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 8386
 2025-07-06 22:21:39,202 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 8386
 2025-07-06 22:21:51,538 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.
+2025-07-06 22:21:55,256 [INFO] django.utils.autoreload: Watching for file changes with StatReloader

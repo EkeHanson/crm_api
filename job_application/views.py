@@ -14,7 +14,7 @@ from rest_framework.views import APIView
 
 from core.utils.email_config import configure_email_backend
 from talent_engine.models import JobRequisition
-from talent_engine.serializers import JobRequisitionSerializer
+from talent_engine.serializers import JobRequisitionSerializer, ComplianceItemSerializer
 
 from .models import Schedule, JobApplication
 from .permissions import IsSubscribedAndAuthorized
@@ -258,6 +258,8 @@ class JobApplicationsByRequisitionView(generics.ListAPIView):
         except Exception as e:
             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+
+
 class PublishedJobRequisitionsWithShortlistedApplicationsView(generics.ListAPIView):
     serializer_class = JobRequisitionSerializer
     permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized]
@@ -321,6 +323,10 @@ class PublishedJobRequisitionsWithShortlistedApplicationsView(generics.ListAPIVi
         except Exception as e:
             logger.exception("Error processing job requisitions and shortlisted applications")
             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+
+
 
 class ResumeScreeningView(APIView):
     permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized]
@@ -1078,4 +1084,41 @@ class PermanentDeleteSchedulesView(generics.GenericAPIView):
 
         except Exception as e:
             logger.exception(f"Error during permanent deletion of schedules for tenant {tenant.schema_name if tenant else 'unknown'}: {str(e)}")
+            return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class ApplicantComplianceStatusView(APIView):
+    permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized]
+
+    def put(self, request, job_application_id, item_id):
+        """Update the compliance status for a specific item in a job application."""
+        try:
+            tenant = request.tenant
+            with tenant_context(tenant):
+                try:
+                    job_application = JobApplication.active_objects.get(id=job_application_id, tenant=tenant)
+                except JobApplication.DoesNotExist:
+                    logger.error(f"JobApplication {job_application_id} not found for tenant {tenant.schema_name}")
+                    return Response({"detail": "Job application not found."}, status=status.HTTP_404_NOT_FOUND)
+
+                serializer = ComplianceItemSerializer(data=request.data)
+                if not serializer.is_valid():
+                    logger.error(f"Invalid compliance status data: {serializer.errors}")
+                    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+                try:
+                    item = job_application.update_compliance_status(
+                        item_id=item_id,
+                        status=serializer.validated_data["status"],
+                        checked_by=serializer.validated_data.get("checked_by", request.user),
+                        notes=serializer.validated_data.get("notes", "")
+                    )
+                    logger.info(f"Updated compliance status for item {item_id} in application {job_application_id}")
+                    return Response(ComplianceItemSerializer(item).data, status=status.HTTP_200_OK)
+                except ValueError as e:
+                    logger.error(f"Compliance item {item_id} not found in application {job_application_id}")
+                    return Response({"detail": str(e)}, status=status.HTTP_404_NOT_FOUND)
+
+        except Exception as e:
+            logger.exception(f"Error updating compliance status for item {item_id} in application {job_application_id}: {str(e)}")
             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

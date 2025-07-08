@@ -2,6 +2,7 @@
 from rest_framework import serializers
 from .models import JobApplication, Schedule
 from talent_engine.models import JobRequisition
+from talent_engine.serializers import ComplianceItemSerializer
 import logging
 from django.conf import settings
 from django.utils import timezone
@@ -58,6 +59,7 @@ class JobApplicationSerializer(serializers.ModelSerializer):
     job_requisition_id = serializers.CharField(source='job_requisition.id', read_only=True)
     job_requisition_title = serializers.CharField(source='job_requisition.title', read_only=True)
     tenant_schema = serializers.CharField(source='tenant.schema_name', read_only=True)
+    compliance_status = ComplianceItemSerializer(many=True, required=False)
 
     class Meta:
         model = JobApplication
@@ -66,8 +68,9 @@ class JobApplicationSerializer(serializers.ModelSerializer):
             'job_requisition_title', 'date_of_birth',
             'full_name', 'email', 'phone', 'qualification', 'experience', 'screening_status', 'screening_score',
             'knowledge_skill', 'cover_letter', 'resume_status', 'employment_gaps', 'status', 'source',
-            'documents', 'is_deleted', 'applied_at', 'created_at', 'updated_at'
+            'documents', 'compliance_status', 'is_deleted', 'applied_at', 'created_at', 'updated_at'
         ]
+        
         read_only_fields = [
             'id', 'tenant', 'tenant_schema', 'job_requisition_id', 'job_requisition_title',
             'is_deleted', 'applied_at', 'created_at', 'updated_at'
@@ -92,6 +95,7 @@ class JobApplicationSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         documents_data = validated_data.pop('documents', [])
+        compliance_status = validated_data.pop('compliance_status', [])
         tenant = self.context['request'].tenant
         validated_data['tenant'] = tenant
         logger.debug(f"Creating application for tenant: {tenant.schema_name}, job_requisition: {validated_data['job_requisition'].title}")
@@ -120,7 +124,6 @@ class JobApplicationSerializer(serializers.ModelSerializer):
             file_url = f"/media/{upload_path.lstrip('/')}"
             logger.debug(f"Constructed file_url: {file_url}")
 
-            # Parse resume for other fields if document_type is resume or cv
             if doc_data['document_type'].lower() in ['resume', 'cv']:
                 resume_text = parse_resume(upload_path)
                 if resume_text:
@@ -144,15 +147,13 @@ class JobApplicationSerializer(serializers.ModelSerializer):
         validated_data['documents'] = documents
         logger.debug(f"Documents to be saved: {documents}")
         application = JobApplication.objects.create(**validated_data)
+        application.initialize_compliance_status(validated_data['job_requisition'])
         logger.info(f"Application created: {application.id} for {application.full_name}")
         return application
+    
 
-    def get_fields(self):
-        fields = super().get_fields()
-        if 'documents' in fields:
-            fields['documents'].child.context.update({'job_requisition': self.context.get('job_requisition')})
-        return fields
 
+    
 class ScheduleSerializer(serializers.ModelSerializer):
     job_application_id = serializers.CharField(source='job_application.id', read_only=True)
     tenant_schema = serializers.CharField(source='tenant.schema_name', read_only=True)

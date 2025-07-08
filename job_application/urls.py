@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import (
     JobApplicationListCreateView,    JobApplicationDetailView,    JobApplicationBulkDeleteView,    SoftDeletedJobApplicationsView,
-    RecoverSoftDeletedJobApplicationsView,    PermanentDeleteJobApplicationsView,
+    RecoverSoftDeletedJobApplicationsView,    PermanentDeleteJobApplicationsView, ApplicantComplianceStatusView,
     ScheduleListCreateView,    ScheduleDetailView,    ScheduleBulkDeleteView,    SoftDeletedSchedulesView,
     RecoverSoftDeletedSchedulesView,    PermanentDeleteSchedulesView,JobApplicationWithSchedulesView,
     ResumeParseView,    JobApplicationsByRequisitionView,    PublishedJobRequisitionsWithShortlistedApplicationsView,
@@ -23,7 +23,7 @@ urlpatterns = [
     path('applications/code/<str:code>/email/<str:email>/with-schedules/schedules/', JobApplicationWithSchedulesView.as_view(), name='application-with-schedules'),
 
     # path('applications/<str:id>/with-schedules/schedules/', JobApplicationWithSchedulesView.as_view(), name='application-with-schedules'),
-
+    path('applications/compliance/<str:job_application_id>/compliance-items/<str:item_id>/', ApplicantComplianceStatusView.as_view(), name='applicant-compliance-status'),
 
     path('applications/parse-resume/autofil/', ResumeParseView.as_view(), name='resume-parse'),
 

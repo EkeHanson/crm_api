@@ -10,6 +10,10 @@ from rest_framework.response import Response
 from .models import JobRequisition
 from .serializers import JobRequisitionSerializer
 from .permissions import IsSubscribedAndAuthorized
+from django.utils import timezone
+from rest_framework.views import APIView
+from .serializers import ComplianceItemSerializer
+
 
 logger = logging.getLogger('talent_engine')
 
@@ -245,4 +249,107 @@ class PermanentDeleteJobRequisitionsView(generics.GenericAPIView):
 
         except Exception as e:
             logger.exception(f"Error during permanent deletion of requisitions for tenant {tenant.schema_name if tenant else 'unknown'}: {str(e)}")
+            return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+
+
+class ComplianceItemView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, job_requisition_id):
+        try:
+            tenant = request.tenant
+            with tenant_context(tenant):
+                try:
+                    job_requisition = JobRequisition.active_objects.get(id=job_requisition_id, tenant=tenant)
+                except JobRequisition.DoesNotExist:
+                    logger.error(f"JobRequisition {job_requisition_id} not found for tenant {tenant.schema_name}")
+                    return Response({"detail": "Job requisition not found."}, status=status.HTTP_404_NOT_FOUND)
+
+                serializer = ComplianceItemSerializer(data=request.data)
+                if serializer.is_valid():
+                    item_data = serializer.validated_data
+                    # Ensure default values for applicant-specific fields
+                    item_data.setdefault('status', 'pending')
+                    item_data.setdefault('checked_by', None)
+                    item_data.setdefault('checked_at', None)
+                    new_item = job_requisition.add_compliance_item(
+                        name=item_data['name'],
+                        description=item_data.get('description', ''),
+                        required=item_data.get('required', True),
+                        status=item_data['status'],
+                        checked_by=item_data['checked_by'],
+                        checked_at=item_data['checked_at']
+                    )
+                    logger.info(f"Added compliance item to JobRequisition {job_requisition_id} for tenant {tenant.schema_name}")
+                    return Response(ComplianceItemSerializer(new_item).data, status=status.HTTP_201_CREATED)
+                logger.error(f"Invalid compliance item data for tenant {tenant.schema_name}: {serializer.errors}")
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            logger.exception(f"Error adding compliance item to JobRequisition {job_requisition_id} for tenant {tenant.schema_name if hasattr(request, 'tenant') else 'unknown'}: {str(e)}")
+            return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    def put(self, request, job_requisition_id, item_id):
+        try:
+            tenant = request.tenant
+            with tenant_context(tenant):
+                try:
+                    job_requisition = JobRequisition.active_objects.get(id=job_requisition_id, tenant=tenant)
+                except JobRequisition.DoesNotExist:
+                    logger.error(f"JobRequisition {job_requisition_id} not found for tenant {tenant.schema_name}")
+                    return Response({"detail": "Job requisition not found."}, status=status.HTTP_404_NOT_FOUND)
+
+                serializer = ComplianceItemSerializer(data=request.data)
+                if serializer.is_valid():
+                    item_data = serializer.validated_data
+                    for item in job_requisition.compliance_checklist:
+                        if str(item['id']) == str(item_id):
+                            item.update({
+                                'name': item_data['name'],
+                                'description': item_data.get('description', ''),
+                                'required': item_data.get('required', True),
+                                'status': item_data.get('status', item['status']),
+                                'checked_by': item_data.get('checked_by', item.get('checked_by')),
+                                'checked_at': item_data.get('checked_at', item.get('checked_at'))
+                            })
+                            job_requisition.save()
+                            logger.info(f"Updated compliance item {item_id} for JobRequisition {job_requisition_id} for tenant {tenant.schema_name}")
+                            return Response(ComplianceItemSerializer(item).data, status=status.HTTP_200_OK)
+                    logger.error(f"Compliance item {item_id} not found in JobRequisition {job_requisition_id} for tenant {tenant.schema_name}")
+                    return Response({"detail": "Compliance item not found."}, status=status.HTTP_404_NOT_FOUND)
+                logger.error(f"Invalid compliance item data for tenant {tenant.schema_name}: {serializer.errors}")
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            logger.exception(f"Error updating compliance item {item_id} for JobRequisition {job_requisition_id} for tenant {tenant.schema_name if hasattr(request, 'tenant') else 'unknown'}: {str(e)}")
+            return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+    def delete(self, request, job_requisition_id, item_id):
+        try:
+            tenant = request.tenant
+            with tenant_context(tenant):
+                try:
+                    job_requisition = JobRequisition.active_objects.get(id=job_requisition_id, tenant=tenant)
+                except JobRequisition.DoesNotExist:
+                    logger.error(f"JobRequisition {job_requisition_id} not found for tenant {tenant.schema_name}")
+                    return Response({"detail": "Job requisition not found."}, status=status.HTTP_404_NOT_FOUND)
+
+                initial_length = len(job_requisition.compliance_checklist)
+                # Filter out the item, ensuring item is a dictionary and has an 'id' field
+                updated_checklist = []
+                for item in job_requisition.compliance_checklist:
+                    if not isinstance(item, dict) or 'id' not in item:
+                        logger.warning(f"Skipping invalid compliance item in JobRequisition {job_requisition_id}: {item}")
+                        continue
+                    if str(item['id']) != str(item_id):
+                        updated_checklist.append(item)
+
+                if len(updated_checklist) < initial_length:
+                    job_requisition.compliance_checklist = updated_checklist
+                    job_requisition.save()
+                    logger.info(f"Deleted compliance item {item_id} from JobRequisition {job_requisition_id} for tenant {tenant.schema_name}")
+                    return Response(status=status.HTTP_204_NO_CONTENT)
+                logger.error(f"Compliance item {item_id} not found in JobRequisition {job_requisition_id} for tenant {tenant.schema_name}")
+                return Response({"detail": "Compliance item not found."}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            logger.exception(f"Error deleting compliance item {item_id} for JobRequisition {job_requisition_id} for tenant {tenant.schema_name if hasattr(request, 'tenant') else 'unknown'}: {str(e)}")
             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

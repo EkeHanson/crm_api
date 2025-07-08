@@ -1,12 +1,8 @@
-
 from django.db import models
-from django.utils.text import slugify
 from core.models import Tenant
 from talent_engine.models import JobRequisition
-import uuid
 import logging
-from datetime import date
-
+from django.utils import timezone
 
 logger = logging.getLogger('job_applications')
 
@@ -28,6 +24,7 @@ class JobApplication(models.Model):
     ]
 
     id = models.CharField(primary_key=True, max_length=20, editable=False, unique=True)
+    compliance_status = models.JSONField(default=list, blank=True)  # Changed from lambda: [] to list
 
     tenant = models.ForeignKey(Tenant, on_delete=models.CASCADE, related_name='job_applications')
     job_requisition = models.ForeignKey(JobRequisition, on_delete=models.CASCADE, related_name='applications')
@@ -73,41 +70,6 @@ class JobApplication(models.Model):
             self.job_requisition.num_of_applications += 1
             self.job_requisition.save()
 
-
-    # def save(self, *args, **kwargs):
-    #     is_new = not self.pk
-    #     if not self.id:
-    #         # Get first 3 letters of tenant name
-    #         tenant_prefix = self.tenant.name[:3].upper()
-    #         # Get first 2 letters of model name ("Job Application" -> "JA")
-    #         model_prefix = "JA"
-            
-    #         # Find latest ID with this pattern
-    #         pattern = f"{tenant_prefix}-{model_prefix}-"
-    #         latest = JobApplication.objects.filter(id__startswith=pattern).order_by('-id').first()
-            
-    #         if latest:
-    #             # Extract the number part and increment
-    #             try:
-    #                 last_number = int(latest.id.split('-')[-1])
-    #                 number = last_number + 1
-    #             except (ValueError, IndexError):
-    #                 number = 1
-    #         else:
-    #             number = 1
-                
-    #         self.id = f"{pattern}{number:04d}"
-
-    #     # Validate date of birth is in the past
-    #     if self.date_of_birth and self.date_of_birth > date.today():
-    #         raise ValueError("_birthDate of birth cannot be in the future")
-            
-    #     super().save(*args, **kwargs)
-        
-    #     if is_new:
-    #         self.job_requisition.num_of_applications += 1
-    #         self.job_requisition.save()
-
     def soft_delete(self):
         self.is_deleted = True
         self.save()
@@ -118,6 +80,38 @@ class JobApplication(models.Model):
         self.save()
         logger.info(f"JobApplication {self.id} restored for tenant {self.tenant.schema_name}")
 
+    def initialize_compliance_status(self, job_requisition):
+        """Initialize compliance status based on job requisition's compliance checklist."""
+        if not self.compliance_status:
+            self.compliance_status = [
+                {
+                    "id": item["id"],
+                    "name": item["name"],
+                    "description": item["description"],
+                    "required": item["required"],
+                    "status": "pending",
+                    "checked_by": None,
+                    "checked_at": None,
+                    "notes": ""
+                } for item in job_requisition.compliance_checklist
+            ]
+            self.save()
+            logger.info(f"Initialized compliance status for application {self.id}")
+
+    def update_compliance_status(self, item_id, status, checked_by=None, notes=""):
+        """Update the status of a compliance item for this application."""
+        for item in self.compliance_status:
+            if item["id"] == item_id:
+                item["status"] = status
+                item["checked_by"] = checked_by
+                item["checked_at"] = timezone.now().isoformat() if status != "pending" else None
+                item["notes"] = notes
+                self.save()
+                logger.info(f"Updated compliance status for item {item_id} in application {self.id}")
+                return item
+        logger.warning(f"Compliance item {item_id} not found in application {self.id}")
+        raise ValueError("Compliance item not found")
+    
 
 class Schedule(models.Model):
     STATUS_CHOICES = [

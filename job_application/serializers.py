@@ -99,13 +99,125 @@ class DocumentSerializer(serializers.Serializer):
 #             )
 #         return value
 
+# class JobApplicationSerializer(serializers.ModelSerializer):
+#     documents = DocumentSerializer(many=True, required=False)
+#     job_requisition_id = serializers.CharField(source='job_requisition.id', read_only=True)
+#     job_requisition_title = serializers.CharField(source='job_requisition.title', read_only=True)
+#     tenant_schema = serializers.CharField(source='tenant.schema_name', read_only=True)
+#     compliance_status = ComplianceItemSerializer(many=True, required=False)
+    
+
+#     class Meta:
+#         model = JobApplication
+#         fields = [
+#             'id', 'tenant', 'tenant_schema', 'job_requisition', 'job_requisition_id',
+#             'job_requisition_title', 'date_of_birth',
+#             'full_name', 'email', 'phone', 'qualification', 'experience', 'screening_status', 'screening_score',
+#             'knowledge_skill', 'cover_letter', 'resume_status', 'employment_gaps', 'status', 'source',
+#             'documents', 'compliance_status', 'is_deleted', 'applied_at', 'created_at', 'updated_at'
+#         ]
+        
+#         read_only_fields = [
+#             'id', 'tenant', 'tenant_schema', 'job_requisition_id', 'job_requisition_title',
+#             'is_deleted', 'applied_at', 'created_at', 'updated_at'
+#         ]
+
+#     def validate(self, data):
+#         job_requisition = data.get('job_requisition')
+#         if not job_requisition:
+#             raise serializers.ValidationError("Job requisition is required.")
+#         if not job_requisition.publish_status:
+#             raise serializers.ValidationError("This job is not published.")
+#         documents_required = job_requisition.documents_required or []
+#         documents_data = data.get('documents', [])
+#         if documents_required:
+#             provided_types = {doc['document_type'] for doc in documents_data}
+#             missing_docs = [doc for doc in documents_required if doc not in provided_types]
+#             if missing_docs:
+#                 raise serializers.ValidationError(
+#                     f"Missing required documents: {', '.join(missing_docs)}."
+#                 )
+#         return data
+
+#     def create(self, validated_data):
+#         documents_data = validated_data.pop('documents', [])
+#         compliance_status = validated_data.pop('compliance_status', [])
+#         tenant = self.context['request'].tenant
+#         validated_data['tenant'] = tenant
+#         logger.debug(f"Creating application for tenant: {tenant.schema_name}, job_requisition: {validated_data['job_requisition'].title}")
+
+#         documents = []
+#         for doc_data in documents_data:
+#             file = doc_data['file']
+#             folder_path = os.path.join('application_documents', timezone.now().strftime('%Y/%m/%d'))
+#             full_folder_path = os.path.join(settings.MEDIA_ROOT, folder_path)
+#             os.makedirs(full_folder_path, exist_ok=True)
+#             file_extension = os.path.splitext(file.name)[1]
+#             filename = f"{uuid.uuid4()}{file_extension}"
+#             upload_path = os.path.join(folder_path, filename).replace('\\', '/')
+#             full_upload_path = os.path.join(settings.MEDIA_ROOT, upload_path)
+#             logger.debug(f"Saving file to full_upload_path: {full_upload_path}")
+
+#             try:
+#                 with open(full_upload_path, 'wb+') as destination:
+#                     for chunk in file.chunks():
+#                         destination.write(chunk)
+#                 logger.debug(f"File saved successfully: {full_upload_path}")
+#             except Exception as e:
+#                 logger.error(f"Failed to save file {full_upload_path}: {str(e)}")
+#                 raise serializers.ValidationError(f"Failed to save file: {str(e)}")
+
+#             file_url = f"/media/{upload_path.lstrip('/')}"
+#             logger.debug(f"Constructed file_url: {file_url}")
+
+#             if doc_data['document_type'].lower() in ['resume', 'cv']:
+#                 resume_text = parse_resume(upload_path)
+#                 if resume_text:
+#                     resume_data = extract_resume_fields(resume_text)
+#                     validated_data['full_name'] = resume_data.get('full_name', validated_data.get('full_name', ''))
+#                     validated_data['email'] = resume_data.get('email', validated_data.get('email', ''))
+#                     validated_data['phone'] = resume_data.get('phone', validated_data.get('phone', ''))
+#                     validated_data['qualification'] = resume_data.get('qualification', validated_data.get('qualification', ''))
+#                     validated_data['experience'] = "; ".join(resume_data.get('experience', [])) or validated_data.get('experience', '')
+#                     validated_data['knowledge_skill'] = resume_data.get('knowledge_skill', validated_data.get('knowledge_skill', ''))
+
+#             documents.append({
+#                 'document_type': doc_data['document_type'],
+#                 'file_path': upload_path,
+#                 'file_url': file_url,
+#                 'uploaded_at': timezone.now().isoformat()
+#             })
+#             if doc_data['document_type'].lower() in ['resume', 'cv']:
+#                 validated_data['resume_status'] = True
+
+#         validated_data['documents'] = documents
+#         logger.debug(f"Documents to be saved: {documents}")
+#         application = JobApplication.objects.create(**validated_data)
+#         application.initialize_compliance_status(validated_data['job_requisition'])
+#         logger.info(f"Application created: {application.id} for {application.full_name}")
+#         return application
+    
+#     def to_representation(self, instance):
+#             data = super().to_representation(instance)
+#             # Ensure compliance_status includes all fields, preserving nested document
+#             if 'compliance_status' in data:
+#                 data['compliance_status'] = [
+#                     item for item in data['compliance_status']  # Use raw items to avoid overwriting
+#                 ]
+#             return data
+    
 class JobApplicationSerializer(serializers.ModelSerializer):
     documents = DocumentSerializer(many=True, required=False)
     job_requisition_id = serializers.CharField(source='job_requisition.id', read_only=True)
     job_requisition_title = serializers.CharField(source='job_requisition.title', read_only=True)
     tenant_schema = serializers.CharField(source='tenant.schema_name', read_only=True)
-    compliance_status = ComplianceItemSerializer(many=True, required=False)
-    
+    compliance_status = serializers.ListField(
+        child=serializers.DictField(
+            child=serializers.CharField(allow_blank=True, required=False),
+            allow_empty=True
+        ),
+        required=False
+    )
 
     class Meta:
         model = JobApplication
@@ -116,7 +228,6 @@ class JobApplicationSerializer(serializers.ModelSerializer):
             'knowledge_skill', 'cover_letter', 'resume_status', 'employment_gaps', 'status', 'source',
             'documents', 'compliance_status', 'is_deleted', 'applied_at', 'created_at', 'updated_at'
         ]
-        
         read_only_fields = [
             'id', 'tenant', 'tenant_schema', 'job_requisition_id', 'job_requisition_title',
             'is_deleted', 'applied_at', 'created_at', 'updated_at'
@@ -196,17 +307,25 @@ class JobApplicationSerializer(serializers.ModelSerializer):
         application.initialize_compliance_status(validated_data['job_requisition'])
         logger.info(f"Application created: {application.id} for {application.full_name}")
         return application
-    
-    def to_representation(self, instance):
-            data = super().to_representation(instance)
-            # Ensure compliance_status includes all fields, preserving nested document
-            if 'compliance_status' in data:
-                data['compliance_status'] = [
-                    item for item in data['compliance_status']  # Use raw items to avoid overwriting
-                ]
-            return data
-    
 
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        # Ensure compliance_status includes all fields, preserving nested document
+        if 'compliance_status' in data:
+            data['compliance_status'] = [
+                {
+                    'id': item.get('id', ''),
+                    'name': item.get('name', ''),
+                    'description': item.get('description', ''),
+                    'required': item.get('required', False),
+                    'status': item.get('status', 'pending'),
+                    'checked_by': item.get('checked_by', None),
+                    'checked_at': item.get('checked_at', None),
+                    'notes': item.get('notes', ''),
+                    'document': item.get('document', {'file_url': '', 'uploaded_at': ''})
+                } for item in data['compliance_status']
+            ]
+        return data
 
     
 class ScheduleSerializer(serializers.ModelSerializer):

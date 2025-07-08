@@ -1123,11 +1123,18 @@ class ApplicantComplianceStatusView(APIView):
             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         
 
+
+
+
+
 class ApplicantComplianceStatusUpdate(APIView):
     permission_classes = [AllowAny]
 
     def put(self, request, job_application_id, item_id=None):
         try:
+            # print(request.data)
+            # print(request.data)
+            # print(request.data)
             unique_link = request.data.get("unique_link")
             if not unique_link:
                 return Response({"detail": "Missing unique_link."}, status=status.HTTP_400_BAD_REQUEST)
@@ -1166,6 +1173,9 @@ class ApplicantComplianceStatusUpdate(APIView):
 
                         for index, doc_data in enumerate(documents_data):
                             document_type = doc_data.get('document_type')  # This is the id (UUID)
+                            # print(document_type)
+                            # print(document_type)
+                            # print(document_type)
                             file = doc_data.get('file')
                             if not document_type or not file:
                                 logger.warning(f"Invalid document data at index {index}: {doc_data}")
@@ -1174,16 +1184,20 @@ class ApplicantComplianceStatusUpdate(APIView):
                             # Get or create the corresponding compliance item
                             compliance_item = next((item for item in current_compliance_status if str(item.get('id')) == str(document_type)), None)
                             if not compliance_item:
+                                # Map document_type (UUID) to the corresponding compliance requirement name
+                                # Assume initialize_compliance_status sets up initial items with names
+                                initial_item = next((item for item in job_application.compliance_status if str(item.get('id')) == str(document_type)), None)
+                                compliance_requirement = initial_item.get('name', document_type) if initial_item else document_type
                                 compliance_item = {
                                     'id': document_type,
-                                    'name': document_type,  # Could map to checklist name if available
+                                    'name': f"{job_application.full_name} - {compliance_requirement}",
                                     'description': '',
                                     'required': True,
                                     'status': 'pending',
                                     'checked_by': None,
                                     'checked_at': None,
                                     'notes': '',
-                                    'document': {}  # Initialize document field
+                                    'document': {}
                                 }
                                 current_compliance_status.append(compliance_item)
                                 logger.debug(f"Created new compliance item: {compliance_item}")
@@ -1232,16 +1246,20 @@ class ApplicantComplianceStatusUpdate(APIView):
 
                 # Update single item status
                 if item_id:
-                    serializer = ComplianceItemSerializer(data=request.data)
-                    if not serializer.is_valid():
-                        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-                    item = job_application.update_compliance_status(
-                        item_id=item_id,
-                        status=serializer.validated_data["status"],
-                        checked_by=serializer.validated_data.get("checked_by", request.user.id),
-                        notes=serializer.validated_data.get("notes", "")
-                    )
-                    return Response(ComplianceItemSerializer(item).data, status=status.HTTP_200_OK)
+                    # Handle single item update manually
+                    status_value = request.data.get('status')
+                    checked_by = request.data.get('checked_by', request.user.id)
+                    notes = request.data.get('notes', '')
+                    if status_value:
+                        for item in job_application.compliance_status:
+                            if str(item.get('id')) == str(item_id):
+                                item['status'] = status_value
+                                item['checked_by'] = checked_by
+                                item['checked_at'] = timezone.now().isoformat()
+                                item['notes'] = notes
+                                job_application.save(update_fields=['compliance_status'])
+                                return Response(item, status=status.HTTP_200_OK)
+                        return Response({"detail": "Item not found."}, status=status.HTTP_404_NOT_FOUND)
 
                 # Submit items for review
                 elif request.data.get('submit'):
@@ -1268,6 +1286,9 @@ class ApplicantComplianceStatusUpdate(APIView):
         except JobApplication.DoesNotExist:
             logger.error(f"JobApplication {job_application_id} not found for tenant {tenant.schema_name if tenant else 'None'}")
             return Response({"detail": "Job application not found."}, status=status.HTTP_404_NOT_FOUND)
+        except serializers.ValidationError as e:
+            logger.error(f"Validation error updating compliance status: {str(e)}")
+            return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             logger.exception(f"Error updating compliance status: {str(e)}")
             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

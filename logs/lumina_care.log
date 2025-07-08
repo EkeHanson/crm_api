@@ -6344,3 +6344,93 @@ TypeError: Object of type JobApplication is not JSON serializable
 2025-07-08 17:04:14,855 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
 2025-07-08 17:04:46,336 [INFO] django.server: "PUT /api/talent-engine-job-applications/applications/applicant/upload/PRO-0019/compliance-items/ HTTP/1.1" 200 2186
 2025-07-08 17:08:18,799 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.
+2025-07-08 17:08:24,446 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-08 17:10:18,278 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\talent_engine\serializers.py changed, reloading.
+2025-07-08 17:10:21,101 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-08 17:11:50,471 [INFO] django.server: "OPTIONS /api/token/validate/ HTTP/1.1" 200 0
+2025-07-08 17:11:50,478 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/ HTTP/1.1" 200 0
+2025-07-08 17:11:50,663 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/john.adebayo@email.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 5914
+2025-07-08 17:11:50,668 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 498
+2025-07-08 17:11:50,761 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 8696
+2025-07-08 17:12:06,780 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 498
+2025-07-08 17:12:06,996 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 498
+2025-07-08 17:12:07,439 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 8696
+2025-07-08 17:12:07,636 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 8696
+2025-07-08 17:13:04,737 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\serializers.py changed, reloading.
+2025-07-08 17:13:08,276 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-08 17:13:39,687 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-08 17:13:51,790 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-08 17:14:10,292 [INFO] django.server: "OPTIONS /api/token/ HTTP/1.1" 200 0
+2025-07-08 17:14:13,511 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 1070
+2025-07-08 17:14:13,717 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 486
+2025-07-08 17:14:13,873 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 486
+2025-07-08 17:14:20,165 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/john.adebayo@email.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 6487
+2025-07-08 17:14:20,400 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/john.adebayo@email.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 6487
+2025-07-08 17:14:36,459 [ERROR] django.request: Internal Server Error: /api/talent-engine-job-applications/applications/applicant/upload/PRO-0019/compliance-items/
+Traceback (most recent call last):
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py", line 1231, in put
+    return Response(response_data, status=status.HTTP_200_OK)
+                                          ^^^^^^
+UnboundLocalError: cannot access local variable 'status' where it is not associated with a value
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py", line 1277, in put
+    return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                                               ^^^^^^
+UnboundLocalError: cannot access local variable 'status' where it is not associated with a value
+2025-07-08 17:14:36,464 [ERROR] django.server: "PUT /api/talent-engine-job-applications/applications/applicant/upload/PRO-0019/compliance-items/ HTTP/1.1" 500 157275
+2025-07-08 17:16:33,956 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-08 17:16:37,357 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-08 17:17:12,324 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\serializers.py changed, reloading.
+2025-07-08 17:17:16,234 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-08 17:17:32,992 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/john.adebayo@email.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 6487
+2025-07-08 17:17:33,255 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/john.adebayo@email.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 6487
+2025-07-08 17:17:48,276 [INFO] django.server: "PUT /api/talent-engine-job-applications/applications/applicant/upload/PRO-0019/compliance-items/ HTTP/1.1" 200 2759
+2025-07-08 17:19:21,390 [INFO] django.server: "PUT /api/talent-engine-job-applications/applications/applicant/upload/PRO-0019/compliance-items/ HTTP/1.1" 200 2759
+2025-07-08 17:27:23,933 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-08 17:27:27,500 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-08 17:27:52,281 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/john.adebayo@email.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 6487
+2025-07-08 17:27:52,703 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/john.adebayo@email.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 6487
+2025-07-08 17:28:18,443 [INFO] django.server: "PUT /api/talent-engine-job-applications/applications/applicant/upload/PRO-0019/compliance-items/ HTTP/1.1" 200 2759
+2025-07-08 17:30:19,807 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-08 17:30:22,599 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-08 17:31:27,203 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-08 17:31:29,724 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-08 17:32:27,595 [INFO] django.server: "PUT /api/talent-engine-job-applications/applications/applicant/upload/PRO-0019/compliance-items/ HTTP/1.1" 200 2759
+2025-07-08 17:38:51,340 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-08 17:40:44,998 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-08 17:41:02,504 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/john.adebayo@email.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 6487
+2025-07-08 17:41:02,799 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/john.adebayo@email.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 6487
+2025-07-08 17:41:21,789 [INFO] django.server: "PUT /api/talent-engine-job-applications/applications/applicant/upload/PRO-0019/compliance-items/ HTTP/1.1" 200 2759
+2025-07-08 17:46:02,310 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 8696
+2025-07-08 17:46:02,437 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 8696
+2025-07-08 17:46:05,916 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 10751
+2025-07-08 17:46:06,099 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 10751
+2025-07-08 17:46:10,249 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/schedules/ HTTP/1.1" 200 0
+2025-07-08 17:46:10,252 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/schedules/ HTTP/1.1" 200 0
+2025-07-08 17:46:10,400 [INFO] django.server: "GET /api/talent-engine-job-applications/schedules/ HTTP/1.1" 200 7513
+2025-07-08 17:46:10,534 [INFO] django.server: "GET /api/talent-engine-job-applications/schedules/ HTTP/1.1" 200 7513
+2025-07-08 17:46:25,118 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/ekehanson@gmail.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 7503
+2025-07-08 17:46:25,291 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/ekehanson@gmail.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 7503
+2025-07-08 17:51:43,464 [INFO] django.server: "PUT /api/talent-engine-job-applications/applications/applicant/upload/PRO-0019/compliance-items/ HTTP/1.1" 200 2759
+2025-07-08 17:54:32,787 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.

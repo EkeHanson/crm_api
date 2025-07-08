@@ -28,6 +28,9 @@ class ComplianceItemSerializer(serializers.Serializer):
         if data.get('checked_by') and not data.get('checked_at'):
             raise serializers.ValidationError("checked_at is required when checked_by is provided.")
         return data
+    
+
+    
 class JobRequisitionSerializer(serializers.ModelSerializer):
     requested_by = serializers.SerializerMethodField()
     tenant = serializers.SlugRelatedField(slug_field='schema_name', read_only=True)

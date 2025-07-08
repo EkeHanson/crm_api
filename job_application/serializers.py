@@ -12,8 +12,6 @@ from django.core.validators import URLValidator
 from .utils import parse_resume, screen_resume, extract_resume_fields
 
 logger = logging.getLogger('job_applications')
-
-
 class DocumentSerializer(serializers.Serializer):
     document_type = serializers.CharField(max_length=50)
     file = serializers.FileField(write_only=True)
@@ -42,6 +40,13 @@ class DocumentSerializer(serializers.Serializer):
         return value
 
     def validate_document_type(self, value):
+        # Allow UUIDs (ids) for compliance status updates
+        try:
+            uuid.UUID(value)  # Check if it's a valid UUID
+            return value  # Accept UUIDs as document_type for compliance updates
+        except ValueError:
+            pass  # Proceed with regular validation if not a UUID
+
         if value.lower() == 'resume':
             return value
         job_requisition = self.context.get('job_requisition')
@@ -54,12 +59,53 @@ class DocumentSerializer(serializers.Serializer):
             )
         return value
 
+# class DocumentSerializer(serializers.Serializer):
+#     document_type = serializers.CharField(max_length=50)
+#     file = serializers.FileField(write_only=True)
+#     file_url = serializers.SerializerMethodField(read_only=True)
+#     uploaded_at = serializers.DateTimeField(read_only=True, default=timezone.now)
+
+#     def get_file_url(self, obj):
+#         file_url = obj.get('file_url', None)
+#         if file_url:
+#             return file_url
+#         return None
+
+#     def validate_file(self, value):
+#         allowed_types = [
+#             'application/pdf',
+#             'application/msword',
+#             'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+#         ]
+#         if value.content_type not in allowed_types:
+#             raise serializers.ValidationError(
+#                 f"Invalid file type: {value.content_type}. Only PDF and Word (.doc, .docx) files are allowed."
+#             )
+#         max_size = 50 * 1024 * 1024
+#         if value.size > max_size:
+#             raise serializers.ValidationError(f"File size exceeds 50 MB limit.")
+#         return value
+
+#     def validate_document_type(self, value):
+#         if value.lower() == 'resume':
+#             return value
+#         job_requisition = self.context.get('job_requisition')
+#         if not job_requisition:
+#             raise serializers.ValidationError("Job requisition context is missing.")
+#         documents_required = job_requisition.documents_required or []
+#         if documents_required and value not in documents_required:
+#             raise serializers.ValidationError(
+#                 f"Invalid document type: {value}. Must be one of {documents_required}."
+#             )
+#         return value
+
 class JobApplicationSerializer(serializers.ModelSerializer):
     documents = DocumentSerializer(many=True, required=False)
     job_requisition_id = serializers.CharField(source='job_requisition.id', read_only=True)
     job_requisition_title = serializers.CharField(source='job_requisition.title', read_only=True)
     tenant_schema = serializers.CharField(source='tenant.schema_name', read_only=True)
     compliance_status = ComplianceItemSerializer(many=True, required=False)
+    
 
     class Meta:
         model = JobApplication
@@ -150,6 +196,15 @@ class JobApplicationSerializer(serializers.ModelSerializer):
         application.initialize_compliance_status(validated_data['job_requisition'])
         logger.info(f"Application created: {application.id} for {application.full_name}")
         return application
+    
+    def to_representation(self, instance):
+            data = super().to_representation(instance)
+            # Ensure compliance_status includes all fields, preserving nested document
+            if 'compliance_status' in data:
+                data['compliance_status'] = [
+                    item for item in data['compliance_status']  # Use raw items to avoid overwriting
+                ]
+            return data
     
 
 

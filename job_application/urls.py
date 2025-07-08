@@ -3,7 +3,7 @@ from .views import (
     JobApplicationListCreateView,    JobApplicationDetailView,    JobApplicationBulkDeleteView,    SoftDeletedJobApplicationsView,
     RecoverSoftDeletedJobApplicationsView,    PermanentDeleteJobApplicationsView, ApplicantComplianceStatusView,
     ScheduleListCreateView,    ScheduleDetailView,    ScheduleBulkDeleteView,    SoftDeletedSchedulesView,
-    RecoverSoftDeletedSchedulesView,    PermanentDeleteSchedulesView,JobApplicationWithSchedulesView,
+    RecoverSoftDeletedSchedulesView,    PermanentDeleteSchedulesView,JobApplicationWithSchedulesView,ApplicantComplianceStatusUpdate,
     ResumeParseView,    JobApplicationsByRequisitionView,    PublishedJobRequisitionsWithShortlistedApplicationsView,
     ResumeScreeningView,
 )
@@ -24,6 +24,13 @@ urlpatterns = [
 
     # path('applications/<str:id>/with-schedules/schedules/', JobApplicationWithSchedulesView.as_view(), name='application-with-schedules'),
     path('applications/compliance/<str:job_application_id>/compliance-items/<str:item_id>/', ApplicantComplianceStatusView.as_view(), name='applicant-compliance-status'),
+    path('applications/<str:job_application_id>/compliance-items/submit/', ApplicantComplianceStatusView.as_view(), name='submit-compliance-items'),
+    
+
+    path('applications/applicant/upload/<str:job_application_id>/compliance-items/', ApplicantComplianceStatusUpdate.as_view(), name='applicant-compliance-status'),
+    path('applications/<str:job_application_id>/compliance-items/<str:item_id>/', ApplicantComplianceStatusView.as_view(), name='applicant-compliance-item-status'),
+
+
 
     path('applications/parse-resume/autofil/', ResumeParseView.as_view(), name='resume-parse'),
 

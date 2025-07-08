@@ -101,7 +101,7 @@ class JobApplication(models.Model):
     def update_compliance_status(self, item_id, status, checked_by=None, notes=""):
         """Update the status of a compliance item for this application."""
         for item in self.compliance_status:
-            if item["id"] == item_id:
+            if str(item["id"]) == str(item_id):
                 item["status"] = status
                 item["checked_by"] = checked_by
                 item["checked_at"] = timezone.now().isoformat() if status != "pending" else None

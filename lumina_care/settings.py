@@ -404,3 +404,7 @@ EMAIL_HOST_USER = 'ekenehanson@gmail.com'  # Your email address
 EMAIL_HOST_PASSWORD = 'pduw cpmw dgoq adrp'  # Your email password or app-specific password if using Gmail, etc.
 DEFAULT_FROM_EMAIL = 'ekenehanson@gmail.com'  # The default email address to use for sending emails
 EMAIL_DEBUG = True
+
+# settings.py
+FILE_UPLOAD_MAX_MEMORY_SIZE = 10485760  # 10MB
+DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760  # 10MB

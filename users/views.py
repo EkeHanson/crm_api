@@ -16,6 +16,20 @@ from core.models import Tenant
 logger = logging.getLogger('users')
 
 
+# views.py
+import logging
+from django_tenants.utils import tenant_context
+from rest_framework import viewsets, serializers, status
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework_simplejwt.tokens import RefreshToken
+from .models import CustomUser
+from .serializers import CustomUserSerializer, UserCreateSerializer, AdminUserCreateSerializer
+from core.models import Tenant
+
+logger = logging.getLogger('users')
+
 class UserViewSet(viewsets.ModelViewSet):
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
@@ -33,13 +47,15 @@ class UserViewSet(viewsets.ModelViewSet):
         with tenant_context(tenant):
             serializer.save()
 
-
 class UserCreateView(APIView):
     permission_classes = [IsAdminUser]
 
     def post(self, request):
-        # Log the incoming request data for debugging
-        logger.debug(f"User creation request for tenant {request.user.tenant.schema_name}: {request.data}")
+        logger.debug(f"User creation request for tenant {request.user.tenant.schema_name}: {dict(request.data)}")
+        logger.debug(f"Request files: {[(key, file.name, file.size) for key, file in request.FILES.items()]}")
+        print(f"Request data: {dict(request.data)}")
+        print(f"Request files: {[(key, file.name, file.size) for key, file in request.FILES.items()]}")
+
         serializer = UserCreateSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             try:
@@ -73,12 +89,14 @@ class UserCreateView(APIView):
                     'status': 'error',
                     'message': str(e)
                 }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-        logger.error(f"Validation error for tenant {request.user.tenant.schema_name}: {serializer.errors}", exc_info=True)
-        return Response({
-            'status': 'error',
-            'message': serializer.errors
-        }, status=status.HTTP_400_BAD_REQUEST)
-    
+        else:
+            logger.error(f"Validation error for tenant {request.user.tenant.schema_name}: {serializer.errors}")
+            print(f"Validation error: {serializer.errors}")
+            return Response({
+                'status': 'error',
+                'message': serializer.errors
+            }, status=status.HTTP_400_BAD_REQUEST)
+
 
 class AdminUserCreateView(APIView):
     permission_classes = [IsAdminUser]

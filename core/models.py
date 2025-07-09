@@ -1,8 +1,8 @@
 # apps/core/models.py
 from django_tenants.models import TenantMixin, DomainMixin
 from django.db import models
-from users.models import CustomUser
 import logging
+
 logger = logging.getLogger('core')
 
 class Tenant(TenantMixin):
@@ -26,23 +26,32 @@ class Tenant(TenantMixin):
 class Domain(DomainMixin):
     tenant = models.ForeignKey('core.Tenant', related_name='domain_set', on_delete=models.CASCADE)
 
-# apps/core/models.py
 class Module(models.Model):
     name = models.CharField(max_length=100)  # e.g., Talent Engine, Compliance
     is_active = models.BooleanField(default=True)
     tenant = models.ForeignKey('core.Tenant', on_delete=models.CASCADE)
 
-# apps/core/models.py
 class RolePermission(models.Model):
-    role = models.CharField(max_length=20, choices=CustomUser.ROLES)
-    module = models.ForeignKey(Module, on_delete=models.CASCADE)
+    # Use string reference to avoid circular import
+    role = models.CharField(max_length=20, choices=[
+        ('admin', 'Admin'),
+        ('hr', 'HR'),
+        ('carer', 'Carer'),
+        ('client', 'Client'),
+        ('family', 'Family'),
+        ('auditor', 'Auditor'),
+        ('tutor', 'Tutor'),
+        ('assessor', 'Assessor'),
+        ('iqa', 'IQA'),
+        ('eqa', 'EQA'),
+    ])
+    module = models.ForeignKey('core.Module', on_delete=models.CASCADE)
     can_view = models.BooleanField(default=False)
     can_create = models.BooleanField(default=False)
     can_edit = models.BooleanField(default=False)
     can_delete = models.BooleanField(default=False)
     tenant = models.ForeignKey('core.Tenant', on_delete=models.CASCADE)
 
-#Log AI decisions in a dedicated model:
 class AIDecisionLog(models.Model):
     decision_type = models.CharField(max_length=100)  # e.g., 'candidate_match'
     confidence_score = models.FloatField()
@@ -50,8 +59,7 @@ class AIDecisionLog(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     tenant = models.ForeignKey('core.Tenant', on_delete=models.CASCADE)
 
-# apps/core/models.py Tenant Customization
 class TenantConfig(models.Model):
-    tenant = models.OneToOneField(Tenant, on_delete=models.CASCADE)
+    tenant = models.OneToOneField('core.Tenant', on_delete=models.CASCADE)
     logo = models.ImageField(upload_to='tenant_logos/')
     custom_fields = models.JSONField(default=dict)

@@ -1,4 +1,3 @@
-# apps/core/serializers.py
 from rest_framework import serializers
 from .models import Tenant, Domain, Module, TenantConfig
 import re
@@ -11,6 +10,20 @@ class DomainSerializer(serializers.ModelSerializer):
         model = Domain
         fields = ['id', 'domain', 'is_primary']
 
+class ModuleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Module
+        fields = ['id', 'name', 'is_active']
+        read_only_fields = ['id']
+
+    def validate_name(self, value):
+        if not re.match(r'^[a-zA-Z0-9\s\-]+$', value):
+            raise serializers.ValidationError("Module name can only contain letters, numbers, spaces, or hyphens.")
+        tenant = self.context['request'].user.tenant
+        if Module.objects.filter(name=value, tenant=tenant).exists():
+            raise serializers.ValidationError(f"Module '{value}' already exists for this tenant.")
+        return value
+
 class TenantSerializer(serializers.ModelSerializer):
     domain = serializers.CharField(write_only=True, required=True)
     domains = DomainSerializer(many=True, read_only=True, source='domain_set')
@@ -18,7 +31,6 @@ class TenantSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tenant
         fields = "__all__"
-        #fields = ['id', 'name', 'schema_name', 'created_at', 'domain', 'domains']
         read_only_fields = ['id', 'schema_name', 'created_at', 'domains']
 
     def validate_name(self, value):
@@ -51,7 +63,10 @@ class TenantSerializer(serializers.ModelSerializer):
             domain = Domain.objects.create(tenant=tenant, domain=domain_name, is_primary=True)
             logger.info(f"Domain created: {domain.domain} for tenant {tenant.id}")
             TenantConfig.objects.create(tenant=tenant)
-            default_modules = ['Talent Engine', 'Compliance', 'Training', 'Care Coordination', 'Workforce', 'Analytics', 'Integrations']
+            default_modules = [
+                'Talent Engine', 'Compliance', 'Training', 'Care Coordination',
+                'Workforce', 'Analytics', 'Integrations', 'Assets Management', 'Payroll'
+            ]
             for module_name in default_modules:
                 Module.objects.create(name=module_name, tenant=tenant)
             logger.info(f"Modules and config created for tenant {tenant.id}")

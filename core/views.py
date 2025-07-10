@@ -57,6 +57,18 @@ from .serializers import TenantConfigSerializer
 
 logger = logging.getLogger('core')
 
+import logging
+from django.db import transaction
+from django_tenants.utils import tenant_context
+from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .models import TenantConfig
+from .serializers import TenantConfigSerializer
+
+logger = logging.getLogger('core')
+
 class TenantConfigView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -66,9 +78,10 @@ class TenantConfigView(APIView):
             try:
                 config = TenantConfig.objects.get(tenant=tenant)
                 serializer = TenantConfigSerializer(config)
+                logger.info(f"Fetched TenantConfig for tenant {tenant.schema_name}: {serializer.data}")
                 return Response(serializer.data, status=status.HTTP_200_OK)
             except TenantConfig.DoesNotExist:
-                # Create TenantConfig with default templates
+                # Default email templates
                 default_templates = {
                     'interviewScheduling': {
                         'content': (
@@ -129,7 +142,7 @@ class TenantConfigView(APIView):
                             tenant=tenant,
                             email_templates=default_templates
                         )
-                        logger.info(f"Created TenantConfig for tenant {tenant.schema_name}")
+                        logger.info(f"Created TenantConfig for tenant {tenant.schema_name} with default email templates")
                         serializer = TenantConfigSerializer(config)
                         return Response(serializer.data, status=status.HTTP_201_CREATED)
                 except Exception as e:
@@ -144,13 +157,21 @@ class TenantConfigView(APIView):
         with tenant_context(tenant):
             try:
                 config = TenantConfig.objects.get(tenant=tenant)
-                serializer = TenantConfigSerializer(config, data=request.data, partial=True)
+                # Merge existing email_templates with incoming updates
+                current_templates = config.email_templates or {}
+                incoming_templates = request.data.get('email_templates', {})
+                updated_templates = { **current_templates, **incoming_templates }
+                # Update request data with merged templates
+                updated_data = { **request.data, 'email_templates': updated_templates }
+                serializer = TenantConfigSerializer(config, data=updated_data, partial=True)
                 if serializer.is_valid():
                     serializer.save()
-                    logger.info(f"Tenant config updated for tenant {tenant.schema_name}")
+                    logger.info(f"Tenant config updated for tenant {tenant.schema_name}: {updated_templates}")
                     return Response(serializer.data, status=status.HTTP_200_OK)
+                logger.error(f"Validation error for tenant {tenant.schema_name}: {serializer.errors}")
                 return Response({'status': 'error', 'message': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
             except TenantConfig.DoesNotExist:
+                logger.error(f"Tenant config not found for tenant {tenant.schema_name}")
                 return Response({'status': 'error', 'message': 'Tenant config not found'}, status=status.HTTP_404_NOT_FOUND)
 
     def post(self, request):
@@ -158,17 +179,20 @@ class TenantConfigView(APIView):
         with tenant_context(tenant):
             try:
                 if TenantConfig.objects.filter(tenant=tenant).exists():
+                    logger.warning(f"Tenant config already exists for tenant {tenant.schema_name}")
                     return Response({'status': 'error', 'message': 'Tenant config already exists'}, status=status.HTTP_400_BAD_REQUEST)
                 serializer = TenantConfigSerializer(data=request.data)
                 if serializer.is_valid():
                     serializer.save(tenant=tenant)
                     logger.info(f"Tenant config created for tenant {tenant.schema_name}")
                     return Response(serializer.data, status=status.HTTP_201_CREATED)
+                logger.error(f"Validation error for tenant {tenant.schema_name}: {serializer.errors}")
                 return Response({'status': 'error', 'message': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
             except Exception as e:
-                logger.error(f"Error creating tenant config: {str(e)}")
+                logger.error(f"Error creating tenant config for tenant {tenant.schema_name}: {str(e)}")
                 return Response({'status': 'error', 'message': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
             
+                   
 class TenantViewSet(viewsets.ModelViewSet):
     queryset = Tenant.objects.all()
     serializer_class = TenantSerializer

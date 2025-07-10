@@ -1,4 +1,4 @@
-# apps/core/migrations/0004_initialize_tenant_configs.py
+# apps/core/migrations/0005_initialize_tenant_configs.py
 from django.db import migrations
 from django_tenants.utils import tenant_context
 
@@ -79,7 +79,7 @@ def create_tenant_configs(apps, schema_editor):
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('core', '0003_tenant_default_from_email_tenant_email_host_and_more'),
+        ('core', '0004_tenantconfig_email_templates_alter_tenantconfig_logo'),
     ]
 
     operations = [

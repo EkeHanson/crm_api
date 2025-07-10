@@ -1,9 +1,10 @@
 import logging
 from core.models import Tenant
+from users.models import CustomUser
 from django.db import connection, transaction
 from django_filters.rest_framework import DjangoFilterBackend
 from django_tenants.utils import tenant_context
-from rest_framework import generics, status
+from rest_framework import generics, status, serializers
 from rest_framework.filters import SearchFilter
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -46,7 +47,6 @@ class JobRequisitionBulkDeleteView(generics.GenericAPIView):
             logger.error(f"Bulk soft delete failed: {str(e)}")
             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         
-
 class JobRequisitionListCreateView(generics.ListCreateAPIView):
     serializer_class = JobRequisitionSerializer
     permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized]
@@ -56,22 +56,52 @@ class JobRequisitionListCreateView(generics.ListCreateAPIView):
 
     def get_queryset(self):
         tenant = self.request.tenant
-        #logger.debug(f"User: {self.request.user}, Tenant: {tenant.schema_name}")
         connection.set_schema(tenant.schema_name)
-        #logger.debug(f"Schema set to: {connection.schema_name}")
         with connection.cursor() as cursor:
             cursor.execute("SHOW search_path;")
             search_path = cursor.fetchone()[0]
-            #logger.debug(f"Database search_path: {search_path}")
+            logger.debug(f"Database search_path: {search_path}")
         queryset = JobRequisition.active_objects.filter(tenant=tenant)
-        #logger.debug(f"Query: {queryset.query}")
         return queryset
 
     def perform_create(self, serializer):
         tenant = self.request.tenant
+        user = self.request.user
+        if not isinstance(user, CustomUser) or user.tenant != tenant:
+            logger.error(f"Invalid user {user.email} for tenant {tenant.schema_name}")
+            raise serializers.ValidationError("Authenticated user is not valid for this tenant.")
         connection.set_schema(tenant.schema_name)
-        serializer.save(tenant=tenant)
-        #logger.info(f"Job requisition created: {serializer.validated_data['title']} for tenant {tenant.schema_name}")
+        serializer.save(
+            tenant=tenant,
+            requested_by=user
+        )
+        logger.info(f"Job requisition created: {serializer.validated_data['title']} for tenant {tenant.schema_name} by user {user.email}")
+
+# class JobRequisitionListCreateView(generics.ListCreateAPIView):
+#     serializer_class = JobRequisitionSerializer
+#     permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized]
+#     filter_backends = [DjangoFilterBackend, SearchFilter]
+#     filterset_fields = ['status', 'role']
+#     search_fields = ['title', 'status', 'requested_by__email', 'role']
+
+#     def get_queryset(self):
+#         tenant = self.request.tenant
+#         #logger.debug(f"User: {self.request.user}, Tenant: {tenant.schema_name}")
+#         connection.set_schema(tenant.schema_name)
+#         #logger.debug(f"Schema set to: {connection.schema_name}")
+#         with connection.cursor() as cursor:
+#             cursor.execute("SHOW search_path;")
+#             search_path = cursor.fetchone()[0]
+#             #logger.debug(f"Database search_path: {search_path}")
+#         queryset = JobRequisition.active_objects.filter(tenant=tenant)
+#         #logger.debug(f"Query: {queryset.query}")
+#         return queryset
+
+#     def perform_create(self, serializer):
+#         tenant = self.request.tenant
+#         connection.set_schema(tenant.schema_name)
+#         serializer.save(tenant=tenant)
+#         #logger.info(f"Job requisition created: {serializer.validated_data['title']} for tenant {tenant.schema_name}")
 
 class JobRequisitionDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = JobRequisitionSerializer

@@ -10,3 +10,4 @@ urlpatterns = [
     path('modules/', ModuleListView.as_view(), name='module_list'),
     path('config/', TenantConfigView.as_view(), name='tenant_config'),
 ]
+

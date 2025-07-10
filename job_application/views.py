@@ -7,9 +7,8 @@ from django.core.files.storage import default_storage
 from django.core.mail import EmailMessage
 from django.core.validators import URLValidator
 from django.db import connection, transaction
-from django.template.loader import render_to_string, TemplateDoesNotExist
 from django.utils import timezone
-
+from django.template import Template, Context
 from django_tenants.utils import tenant_context
 
 from rest_framework import generics, serializers, status
@@ -19,6 +18,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from core.utils.email_config import configure_email_backend
+from core.models import TenantConfig
 
 from talent_engine.models import JobRequisition
 from talent_engine.serializers import JobRequisitionSerializer, ComplianceItemSerializer
@@ -35,8 +35,6 @@ from .utils import parse_resume, screen_resume, extract_resume_fields
 
 logger = logging.getLogger(__name__)
 
-
-
 class JobApplicationWithSchedulesView(generics.RetrieveAPIView):
     serializer_class = JobApplicationSerializer
     permission_classes = [AllowAny]
@@ -52,7 +50,6 @@ class JobApplicationWithSchedulesView(generics.RetrieveAPIView):
 
     def retrieve(self, request, *args, **kwargs):
         try:
-            # Resolve tenant from unique_link
             unique_link = request.query_params.get('unique_link')
             if not unique_link:
                 logger.error("No unique_link provided in the request")
@@ -67,7 +64,6 @@ class JobApplicationWithSchedulesView(generics.RetrieveAPIView):
             connection.set_schema(tenant.schema_name)
             logger.debug(f"Schema set to: {connection.schema_name}")
 
-            # Get job_application_code and email from URL parameters
             job_application_code = self.kwargs.get('code')
             email = self.kwargs.get('email')
             if not job_application_code or not email:
@@ -75,7 +71,6 @@ class JobApplicationWithSchedulesView(generics.RetrieveAPIView):
                 return Response({"detail": "Both job application code and email are required."}, status=status.HTTP_400_BAD_REQUEST)
 
             with tenant_context(tenant):
-                # Retrieve the job application by job_application_code and email
                 try:
                     job_application = JobApplication.active_objects.get(
                         job_requisition__job_application_code=job_application_code,
@@ -90,19 +85,14 @@ class JobApplicationWithSchedulesView(generics.RetrieveAPIView):
                     return Response({"detail": "Multiple job applications found. Please contact support."}, status=status.HTTP_400_BAD_REQUEST)
 
                 job_application_serializer = self.get_serializer(job_application)
-
-                # Retrieve the associated job requisition
                 job_requisition = job_application.job_requisition
                 job_requisition_serializer = JobRequisitionSerializer(job_requisition)
-
-                # Retrieve associated schedules
                 schedules = Schedule.active_objects.filter(
                     tenant=tenant,
                     job_application=job_application
                 ).select_related('job_application')
                 schedule_serializer = ScheduleSerializer(schedules, many=True)
 
-                # Combine the data
                 response_data = {
                     'job_application': job_application_serializer.data,
                     'job_requisition': job_requisition_serializer.data,
@@ -116,67 +106,12 @@ class JobApplicationWithSchedulesView(generics.RetrieveAPIView):
         except Exception as e:
             logger.exception(f"Error retrieving job application with code {self.kwargs.get('code')} and email {self.kwargs.get('email')} for tenant {tenant.schema_name if tenant else 'unknown'}: {str(e)}")
             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-# class JobApplicationWithSchedulesView(generics.RetrieveAPIView):
-#     serializer_class = JobApplicationSerializer
-#     # permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized]
-#     permission_classes = [AllowAny]
-#     lookup_field = 'id'
-
-#     def get_queryset(self):
-#         tenant = self.request.tenant
-#         connection.set_schema(tenant.schema_name)
-#         logger.debug(f"Schema set to: {connection.schema_name}")
-#         return JobApplication.active_objects.filter(tenant=tenant).select_related('job_requisition')
-
-#     def retrieve(self, request, *args, **kwargs):
-#         try:
-#             tenant = request.tenant
-#             if not tenant:
-#                 logger.error("No tenant associated with the request")
-#                 return Response({"detail": "Tenant not found."}, status=status.HTTP_400_BAD_REQUEST)
-
-#             with tenant_context(tenant):
-#                 # Retrieve the job application
-#                 job_application = self.get_object()
-#                 job_application_serializer = self.get_serializer(job_application)
-
-#                 # Retrieve the associated job requisition
-#                 job_requisition = job_application.job_requisition
-#                 job_requisition_serializer = JobRequisitionSerializer(job_requisition)
-
-#                 # Retrieve associated schedules
-#                 schedules = Schedule.active_objects.filter(
-#                     tenant=tenant,
-#                     job_application=job_application
-#                 ).select_related('job_application')
-#                 schedule_serializer = ScheduleSerializer(schedules, many=True)
-
-#                 # Combine the data
-#                 response_data = {
-#                     'job_application': job_application_serializer.data,
-#                     'job_requisition': job_requisition_serializer.data,
-#                     'schedules': schedule_serializer.data,
-#                     'schedule_count': schedules.count()
-#                 }
-
-#                 logger.info(f"Retrieved job application {job_application.id} with requisition {job_requisition.id} and {schedules.count()} schedules for tenant {tenant.schema_name}")
-#                 return Response(response_data, status=status.HTTP_200_OK)
-
-#         except JobApplication.DoesNotExist:
-#             logger.error(f"JobApplication {kwargs.get('id')} not found for tenant {tenant.schema_name}")
-#             return Response({"detail": "Job application not found."}, status=status.HTTP_404_NOT_FOUND)
-#         except Exception as e:
-#             logger.exception(f"Error retrieving job application {kwargs.get('id')} and schedules for tenant {tenant.schema_name}: {str(e)}")
-#             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-        
-
 
 class ResumeParseView(APIView):
     parser_classes = [MultiPartParser, FormParser]
     permission_classes = [AllowAny]
 
     def post(self, request):
-        #logger.info("Received request to parse resume")
         unique_link = request.data.get('unique_link')
         if unique_link:
             tenant, _ = resolve_tenant_from_unique_link(unique_link)
@@ -195,9 +130,7 @@ class ResumeParseView(APIView):
 
             temp_file_path = default_storage.save(f'temp_resumes/{resume_file.name}', resume_file)
             full_path = default_storage.path(temp_file_path)
-
             resume_text = parse_resume(full_path)
-
             default_storage.delete(temp_file_path)
 
             if not resume_text:
@@ -205,8 +138,7 @@ class ResumeParseView(APIView):
                 return Response({"detail": "Could not extract text from resume."}, status=status.HTTP_400_BAD_REQUEST)
 
             extracted_data = extract_resume_fields(resume_text)
-
-            #logger.info("Successfully parsed resume and extracted fields")
+            logger.info("Successfully parsed resume and extracted fields")
             return Response({
                 "detail": "Resume parsed successfully",
                 "data": extracted_data
@@ -215,7 +147,6 @@ class ResumeParseView(APIView):
         except Exception as e:
             logger.exception(f"Error parsing resume: {str(e)}")
             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
 
 class JobApplicationsByRequisitionView(generics.ListAPIView):
     serializer_class = JobApplicationSerializer
@@ -226,7 +157,7 @@ class JobApplicationsByRequisitionView(generics.ListAPIView):
             tenant = self.request.tenant
             job_requisition_id = self.kwargs['job_requisition_id']
             connection.set_schema(tenant.schema_name)
-            #logger.debug(f"Schema set to: {connection.schema_name}")
+            logger.debug(f"Schema set to: {connection.schema_name}")
             
             with tenant_context(tenant):
                 try:
@@ -240,8 +171,8 @@ class JobApplicationsByRequisitionView(generics.ListAPIView):
                     job_requisition=job_requisition
                 ).select_related('job_requisition')
                 
-                #logger.debug(f"Query: {applications.query}")
-                #logger.info(f"Retrieved {applications.count()} job applications for JobRequisition {job_requisition_id}")
+                logger.debug(f"Query: {applications.query}")
+                logger.info(f"Retrieved {applications.count()} job applications for JobRequisition {job_requisition_id}")
                 
                 return applications
                 
@@ -257,8 +188,6 @@ class JobApplicationsByRequisitionView(generics.ListAPIView):
         except Exception as e:
             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-
-
 class PublishedJobRequisitionsWithShortlistedApplicationsView(generics.ListAPIView):
     serializer_class = JobRequisitionSerializer
     permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized]
@@ -267,7 +196,7 @@ class PublishedJobRequisitionsWithShortlistedApplicationsView(generics.ListAPIVi
         try:
             tenant = self.request.tenant
             connection.set_schema(tenant.schema_name)
-            #logger.debug(f"Schema set to: {connection.schema_name}")
+            logger.debug(f"Schema set to: {connection.schema_name}")
 
             with tenant_context(tenant):
                 queryset = JobRequisition.objects.filter(
@@ -277,8 +206,8 @@ class PublishedJobRequisitionsWithShortlistedApplicationsView(generics.ListAPIVi
                     applications__is_deleted=False
                 ).distinct()
 
-                #logger.debug(f"Query: {queryset.query}")
-                #logger.info(f"Retrieved {queryset.count()} published job requisitions with applications for tenant {tenant.schema_name}")
+                logger.debug(f"Query: {queryset.query}")
+                logger.info(f"Retrieved {queryset.count()} published job requisitions with applications for tenant {tenant.schema_name}")
                 return queryset
 
         except Exception as e:
@@ -316,16 +245,12 @@ class PublishedJobRequisitionsWithShortlistedApplicationsView(generics.ListAPIVi
                         'total_applications': total_applications
                     })
 
-            #logger.info(f"Retrieved {len(response_data)} job requisitions with shortlisted applications for tenant {tenant.schema_name}")
+            logger.info(f"Retrieved {len(response_data)} job requisitions with shortlisted applications for tenant {tenant.schema_name}")
             return Response(response_data, status=status.HTTP_200_OK)
 
         except Exception as e:
             logger.exception("Error processing job requisitions and shortlisted applications")
             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-
-
-
 
 class ResumeScreeningView(APIView):
     permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized]
@@ -479,9 +404,9 @@ class JobApplicationListCreateView(generics.GenericAPIView):
                 logger.error("No tenant associated with the request")
                 return Response({"detail": "Tenant not found."}, status=status.HTTP_400_BAD_REQUEST)
 
-            #logger.debug(f"User: {request.user}, Tenant: {tenant.schema_name}")
+            logger.debug(f"User: {request.user}, Tenant: {tenant.schema_name}")
             connection.set_schema(tenant.schema_name)
-            #logger.debug(f"Schema set to: {connection.schema_name}")
+            logger.debug(f"Schema set to: {connection.schema_name}")
             with connection.cursor() as cursor:
                 cursor.execute("SHOW search_path;")
                 search_path = cursor.fetchone()[0]
@@ -489,9 +414,9 @@ class JobApplicationListCreateView(generics.GenericAPIView):
 
             with tenant_context(tenant):
                 applications = JobApplication.active_objects.filter(tenant=tenant).select_related('job_requisition')
-                #logger.debug(f"Query: {applications.query}")
+                logger.debug(f"Query: {applications.query}")
                 serializer = self.get_serializer(applications, many=True)
-                #logger.info(f"Retrieved {len(applications)} job applications for tenant {tenant.schema_name}")
+                logger.info(f"Retrieved {len(applications)} job applications for tenant {tenant.schema_name}")
                 return Response(serializer.data, status=status.HTTP_200_OK)
 
         except Exception as e:
@@ -579,13 +504,13 @@ class JobApplicationDetailView(generics.RetrieveUpdateDestroyAPIView):
         tenant = self.request.tenant
         with tenant_context(tenant):
             serializer.save()
-        #logger.info(f"Application updated: {serializer.instance.id} for tenant {tenant.schema_name}")
+            logger.info(f"Application updated: {serializer.instance.id} for tenant {tenant.schema_name}")
 
     def perform_destroy(self, instance):
         tenant = self.request.tenant
         with tenant_context(tenant):
             instance.soft_delete()
-        #logger.info(f"Application soft-deleted: {instance.id} for tenant {tenant.schema_name}")
+            logger.info(f"Application soft-deleted: {instance.id} for tenant {tenant.schema_name}")
 
 class JobApplicationBulkDeleteView(generics.GenericAPIView):
     permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized]
@@ -607,7 +532,7 @@ class JobApplicationBulkDeleteView(generics.GenericAPIView):
                 with transaction.atomic():
                     for application in applications:
                         application.soft_delete()
-            #logger.info(f"Soft-deleted {count} applications for tenant {tenant.schema_name}")
+                    logger.info(f"Soft-deleted {count} applications for tenant {tenant.schema_name}")
             return Response({"detail": f"Soft-deleted {count} application(s)."}, status=status.HTTP_200_OK)
         except Exception as e:
             logger.error(f"Bulk soft delete failed: {str(e)}")
@@ -623,18 +548,18 @@ class SoftDeletedJobApplicationsView(generics.ListAPIView):
             logger.error("No tenant associated with the request")
             raise generics.ValidationError("Tenant not found.")
 
-        #logger.debug(f"User: {self.request.user}, Tenant: {tenant.schema_name}")
+        logger.debug(f"User: {self.request.user}, Tenant: {tenant.schema_name}")
         connection.set_schema(tenant.schema_name)
         with tenant_context(tenant):
             queryset = JobApplication.objects.filter(tenant=tenant, is_deleted=True).select_related('job_requisition')
-           # logger.debug(f"Query: {queryset.query}")
+            logger.debug(f"Query: {queryset.query}")
             return queryset
 
     def list(self, request, *args, **kwargs):
         try:
             queryset = self.get_queryset()
             serializer = self.get_serializer(queryset, many=True)
-            #logger.info(f"Retrieved {queryset.count()} soft-deleted job applications for tenant {request.tenant.schema_name}")
+            logger.info(f"Retrieved {queryset.count()} soft-deleted job applications for tenant {request.tenant.schema_name}")
             return Response({
                 "detail": f"Retrieved {queryset.count()} soft-deleted application(s).",
                 "data": serializer.data
@@ -643,12 +568,11 @@ class SoftDeletedJobApplicationsView(generics.ListAPIView):
             logger.exception(f"Error listing soft-deleted job applications for tenant {request.tenant.schema_name}: {str(e)}")
             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-
 class RecoverSoftDeletedJobApplicationsView(generics.GenericAPIView):
     permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized]
 
     def post(self, request, *args, **kwargs):
-        #logger.debug(f"Received POST request to recover job applications: {request.data}")
+        logger.debug(f"Received POST request to recover job applications: {request.data}")
         try:
             tenant = request.tenant
             if not tenant:
@@ -673,7 +597,7 @@ class RecoverSoftDeletedJobApplicationsView(generics.GenericAPIView):
                         application.restore()
                         recovered_count += 1
 
-                #logger.info(f"Successfully recovered {recovered_count} applications for tenant {tenant.schema_name}")
+                logger.info(f"Successfully recovered {recovered_count} applications for tenant {tenant.schema_name}")
                 return Response({
                     "detail": f"Successfully recovered {recovered_count} application(s)."
                 }, status=status.HTTP_200_OK)
@@ -686,7 +610,7 @@ class PermanentDeleteJobApplicationsView(generics.GenericAPIView):
     permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized]
 
     def post(self, request, *args, **kwargs):
-        #logger.debug(f"Received POST request to permanently delete job applications: {request.data}")
+        logger.debug(f"Received POST request to permanently delete job applications: {request.data}")
         try:
             tenant = request.tenant
             if not tenant:
@@ -706,7 +630,7 @@ class PermanentDeleteJobApplicationsView(generics.GenericAPIView):
                     return Response({"detail": "No soft-deleted applications found."}, status=status.HTTP_404_NOT_FOUND)
 
                 deleted_count = applications.delete()[0]
-                #logger.info(f"Successfully permanently deleted {deleted_count} applications for tenant {tenant.schema_name}")
+                logger.info(f"Successfully permanently deleted {deleted_count} applications for tenant {tenant.schema_name}")
                 return Response({
                     "detail": f"Successfully permanently deleted {deleted_count} application(s)."
                 }, status=status.HTTP_200_OK)
@@ -714,6 +638,10 @@ class PermanentDeleteJobApplicationsView(generics.GenericAPIView):
         except Exception as e:
             logger.exception(f"Error during permanent deletion of applications for tenant {tenant.schema_name if tenant else 'unknown'}: {str(e)}")
             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+
+
 
 class ScheduleListCreateView(generics.GenericAPIView):
     serializer_class = ScheduleSerializer
@@ -730,9 +658,9 @@ class ScheduleListCreateView(generics.GenericAPIView):
                 logger.error("No tenant associated with the request")
                 return Response({"detail": "Tenant not found."}, status=status.HTTP_400_BAD_REQUEST)
 
-            #logger.debug(f"User: {request.user}, Tenant: {tenant.schema_name}")
+            logger.debug(f"User: {request.user}, Tenant: {tenant.schema_name}")
             connection.set_schema(tenant.schema_name)
-            #logger.debug(f"Schema after set: {connection.schema_name}")
+            logger.debug(f"Schema after set: {connection.schema_name}")
             with connection.cursor() as cursor:
                 cursor.execute("SHOW search_path;")
                 search_path = cursor.fetchone()[0]
@@ -745,7 +673,7 @@ class ScheduleListCreateView(generics.GenericAPIView):
                     queryset = queryset.filter(status=status_param)
                 logger.debug(f"Query: {queryset.query}")
                 serializer = self.get_serializer(queryset.order_by('-created_at'), many=True)
-                #logger.info(f"Retrieved {queryset.count()} schedules for tenant {tenant.schema_name}")
+                logger.info(f"Retrieved {queryset.count()} schedules for tenant {tenant.schema_name}")
                 return Response(serializer.data, status=status.HTTP_200_OK)
 
         except Exception as e:
@@ -759,76 +687,107 @@ class ScheduleListCreateView(generics.GenericAPIView):
                 logger.error("No tenant associated with the request")
                 return Response({"detail": "Tenant not found."}, status=status.HTTP_400_BAD_REQUEST)
 
-            #logger.debug(f"User: {request.user}, Tenant: {tenant.schema_name}")
+            logger.debug(f"User: {request.user}, Tenant: {tenant.schema_name}")
             connection.set_schema(tenant.schema_name)
-            #logger.debug(f"Schema after set: {connection.schema_name}")
+            logger.debug(f"Schema after set: {connection.schema_name}")
             with connection.cursor() as cursor:
                 cursor.execute("SHOW search_path;")
                 search_path = cursor.fetchone()[0]
-                #logger.debug(f"Database search_path: {search_path}")
+                logger.debug(f"Database search_path: {search_path}")
 
-            serializer = self.get_serializer(data=request.data, context={'request': request})
-            if not serializer.is_valid():
-                logger.error(f"Validation failed: {serializer.errors}")
-                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            data = request.data.copy()
+            job_application_ids = data.get('job_application', [])
+            if not isinstance(job_application_ids, list):
+                job_application_ids = [job_application_ids]
 
+            if not job_application_ids:
+                logger.error("No job application IDs provided")
+                return Response({"detail": "At least one job application ID is required."}, status=status.HTTP_400_BAD_REQUEST)
+
+            created_schedules = []
             with tenant_context(tenant):
-                job_application_id = serializer.validated_data.get('job_application').id
                 try:
-                    job_application = JobApplication.active_objects.get(id=job_application_id, tenant=tenant)
-                except JobApplication.DoesNotExist:
-                    logger.error(f"JobApplication {job_application_id} not found for tenant {tenant.schema_name}")
-                    return Response({"detail": "Job application not found."}, status=status.HTTP_404_NOT_FOUND)
+                    config = TenantConfig.objects.get(tenant=tenant)
+                    email_template = config.email_templates.get('interviewScheduling', {})
+                    template_content = email_template.get('content', '')
+                    is_auto_sent = email_template.get('is_auto_sent', False)
+                except TenantConfig.DoesNotExist:
+                    logger.warning(f"TenantConfig not found for tenant {tenant.schema_name}")
+                    template_content = ''
+                    is_auto_sent = False
 
-                schedule = serializer.save(tenant=tenant, job_application=job_application)
-                #logger.info(f"Schedule created: {schedule.id} for job application {job_application_id} in tenant {tenant.schema_name}")
-
-                try:
-                    email_connection = configure_email_backend(tenant)
-                    interview_date = schedule.interview_date_time.strftime("%d %b %Y")
-                    interview_time = schedule.interview_date_time.strftime("%I:%M %p")
-                    email_context = {
-                        'applicant_name': job_application.full_name,
-                        'job_title': job_application.job_requisition.title,
-                        'interview_date': interview_date,
-                        'interview_time': interview_time,
-                        'meeting_mode': schedule.meeting_mode,
-                        'meeting_link': schedule.meeting_link if schedule.meeting_mode == 'Virtual' else '',
-                        'interview_address': schedule.interview_address if schedule.meeting_mode == 'Physical' else '',
-                        'message': schedule.message,
-                        'from_email': tenant.default_from_email or 'no-reply@example.com',
-                        'tenant_name': tenant.name,
-                    }
+                for job_application_id in job_application_ids:
+                    serializer = self.get_serializer(data={**data, 'job_application': job_application_id}, context={'request': request})
+                    if not serializer.is_valid():
+                        logger.error(f"Validation failed for job application {job_application_id}: {serializer.errors}")
+                        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
                     try:
-                        email_body = render_to_string('emails/schedule_notification.html', email_context)
-                    except TemplateDoesNotExist as e:
-                        logger.error(f"Template 'emails/schedule_notification.html' not found: {str(e)}")
-                        pass
-                    else:
-                        email_subject = f"Interview Schedule for {job_application.job_requisition.title}"
-                        email = EmailMessage(
-                            subject=email_subject,
-                            body=email_body,
-                            from_email=tenant.default_from_email or 'no-reply@example.com',
-                            to=[job_application.email],
-                            connection=email_connection,
+                        job_application = JobApplication.active_objects.get(id=job_application_id, tenant=tenant)
+                    except JobApplication.DoesNotExist:
+                        logger.error(f"JobApplication {job_application_id} not found for tenant {tenant.schema_name}")
+                        return Response({"detail": f"Job application {job_application_id} not found."}, status=status.HTTP_404_NOT_FOUND)
+
+                    with transaction.atomic():
+                        interview_date = serializer.validated_data['interview_date_time'].strftime("%d %b %Y")
+                        interview_time = serializer.validated_data['interview_date_time'].strftime("%I:%M %p")
+                        location = serializer.validated_data.get('meeting_link') if serializer.validated_data['meeting_mode'] == 'Virtual' else serializer.validated_data.get('interview_address', '')
+                        placeholders = {
+                            '[Candidate Name]': job_application.full_name,
+                            '[Position]': job_application.job_requisition.title,
+                            '[Company]': tenant.name,
+                            '[Insert Date]': interview_date,
+                            '[Insert Time]': interview_time,
+                            '[Meeting Mode]': 'Zoom' if serializer.validated_data['meeting_mode'] == 'Virtual' else 'On-site',
+                            '[Zoom / Google Meet / On-site – Insert Address or Link]': location,
+                            '[Name(s) & Position(s)]': request.user.get_full_name() or 'Hiring Team',
+                            '[Your Name]': request.user.get_full_name() or 'Hiring Team',
+                            '[your.email@proliance.com]': tenant.default_from_email or 'no-reply@proliance.com',
+                            '[Dashboard Link]': f"{settings.WEB_PAGE_URL}/application-dashboard/{job_application.job_requisition.job_application_code}/{job_application.email}/{job_application.job_requisition.unique_link}"
+                        }
+
+                        # Use provided message if available, else render from template
+                        email_body = data.get('message', template_content)
+                        if not data.get('message') and template_content:
+                            for placeholder, value in placeholders.items():
+                                email_body = email_body.replace(placeholder, str(value))
+
+                        schedule = serializer.save(
+                            tenant=tenant,
+                            job_application=job_application,
+                            message=email_body if is_auto_sent else ''
                         )
-                        email.content_subtype = 'html'
-                        email.send(fail_silently=False)
-                        #logger.info(f"Email sent to {job_application.email} for schedule {schedule.id} in tenant {tenant.schema_name}")
+                        logger.info(f"Schedule created: {schedule.id} for job application {job_application_id} in tenant {tenant.schema_name}")
+                        created_schedules.append(schedule.id)
 
-                except Exception as email_error:
-                    logger.exception(f"Failed to send email for schedule {schedule.id} to {job_application.email}: {str(email_error)}")
+                        if is_auto_sent:
+                            try:
+                                email_connection = configure_email_backend(tenant)
+                                email_subject = f"Interview Schedule for {job_application.job_requisition.title}"
 
-                return Response({
-                    "detail": "Schedule created successfully.",
-                    "schedule_id": schedule.id
-                }, status=status.HTTP_201_CREATED)
+                                email = EmailMessage(
+                                    subject=email_subject,
+                                    body=email_body,
+                                    from_email=tenant.default_from_email or 'no-reply@proliance.com',
+                                    to=[job_application.email],
+                                    connection=email_connection,
+                                )
+                                email.content_subtype = 'html'
+                                email.send(fail_silently=False)
+                                logger.info(f"Email sent to {job_application.email} for schedule {schedule.id} in tenant {tenant.schema_name}")
+
+                            except Exception as email_error:
+                                logger.exception(f"Failed to send email for schedule {schedule.id} to {job_application.email}: {str(email_error)}")
+                                raise Exception(f"Failed to send email: {str(email_error)}")
+
+            return Response({
+                "detail": "Schedules created successfully.",
+                "schedule_ids": created_schedules
+            }, status=status.HTTP_201_CREATED)
 
         except Exception as e:
-            logger.exception(f"Error creating schedule for tenant {tenant.schema_name if tenant else 'unknown'}: {str(e)}")
-            return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            logger.exception(f"Error creating schedules for tenant {tenant.schema_name if tenant else 'unknown'}: {str(e)}")
+            return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 class ScheduleDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ScheduleSerializer
@@ -842,17 +801,17 @@ class ScheduleDetailView(generics.RetrieveUpdateDestroyAPIView):
                 logger.error("No tenant associated with the request")
                 raise Exception("Tenant not found.")
 
-            #logger.debug(f"User: {self.request.user}, Tenant: {tenant.schema_name}")
+            logger.debug(f"User: {self.request.user}, Tenant: {tenant.schema_name}")
             connection.set_schema(tenant.schema_name)
-            #logger.debug(f"Schema after set: {connection.schema_name}")
+            logger.debug(f"Schema after set: {connection.schema_name}")
             with connection.cursor() as cursor:
                 cursor.execute("SHOW search_path;")
                 search_path = cursor.fetchone()[0]
-                #logger.debug(f"Database search_path: {search_path}")
+                logger.debug(f"Database search_path: {search_path}")
 
             with tenant_context(tenant):
                 queryset = Schedule.active_objects.filter(tenant=tenant).select_related('job_application')
-                #logger.debug(f"Query: {queryset.query}")
+                logger.debug(f"Query: {queryset.query}")
                 return queryset
 
         except Exception as e:
@@ -863,7 +822,7 @@ class ScheduleDetailView(generics.RetrieveUpdateDestroyAPIView):
         try:
             instance = self.get_object()
             serializer = self.get_serializer(instance)
-            #logger.info(f"Retrieved schedule {instance.id} for tenant {request.tenant.schema_name}")
+            logger.info(f"Retrieved schedule {instance.id} for tenant {request.tenant.schema_name}")
             return Response(serializer.data, status=status.HTTP_200_OK)
         except Exception as e:
             logger.exception(f"Error retrieving schedule {kwargs.get('id')} for tenant {request.tenant.schema_name}: {str(e)}")
@@ -876,13 +835,13 @@ class ScheduleDetailView(generics.RetrieveUpdateDestroyAPIView):
                 logger.error("No tenant associated with the request")
                 return Response({"detail": "Tenant not found."}, status=status.HTTP_400_BAD_REQUEST)
 
-            #logger.debug(f"User: {request.user}, Tenant: {tenant.schema_name}")
+            logger.debug(f"User: {request.user}, Tenant: {tenant.schema_name}")
             connection.set_schema(tenant.schema_name)
-            #logger.debug(f"Schema after set: {connection.schema_name}")
+            logger.debug(f"Schema after set: {connection.schema_name}")
             with connection.cursor() as cursor:
                 cursor.execute("SHOW search_path;")
                 search_path = cursor.fetchone()[0]
-                #logger.debug(f"Database search_path: {search_path}")
+                logger.debug(f"Database search_path: {search_path}")
 
             instance = self.get_object()
             serializer = self.get_serializer(instance, data=request.data, partial=True)
@@ -911,7 +870,7 @@ class ScheduleDetailView(generics.RetrieveUpdateDestroyAPIView):
                     )
 
                 serializer.save()
-                #logger.info(f"Schedule {instance.id} updated for tenant {tenant.schema_name}")
+                logger.info(f"Schedule {instance.id} updated for tenant {tenant.schema_name}")
                 return Response({
                     "detail": "Schedule updated successfully.",
                     "data": serializer.data
@@ -928,9 +887,9 @@ class ScheduleDetailView(generics.RetrieveUpdateDestroyAPIView):
                 logger.error("No tenant associated with the request")
                 return Response({"detail": "Tenant not found."}, status=status.HTTP_400_BAD_REQUEST)
 
-            #logger.debug(f"User: {request.user}, Tenant: {tenant.schema_name}")
+            logger.debug(f"User: {request.user}, Tenant: {tenant.schema_name}")
             connection.set_schema(tenant.schema_name)
-            #logger.debug(f"Schema after set: {connection.schema_name}")
+            logger.debug(f"Schema after set: {connection.schema_name}")
             with connection.cursor() as cursor:
                 cursor.execute("SHOW search_path;")
                 search_path = cursor.fetchone()[0]
@@ -939,7 +898,7 @@ class ScheduleDetailView(generics.RetrieveUpdateDestroyAPIView):
             instance = self.get_object()
             with tenant_context(tenant):
                 instance.soft_delete()
-                #logger.info(f"Schedule soft-deleted: {instance.id} for tenant {tenant.schema_name}")
+                logger.info(f"Schedule soft-deleted: {instance.id} for tenant {tenant.schema_name}")
                 return Response({"detail": "Schedule soft-deleted successfully."}, status=status.HTTP_204_NO_CONTENT)
 
         except Exception as e:
@@ -950,7 +909,7 @@ class ScheduleBulkDeleteView(generics.GenericAPIView):
     permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized]
 
     def post(self, request, *args, **kwargs):
-        #logger.debug(f"Received POST request to bulk soft-delete schedules: {request.data}")
+        logger.debug(f"Received POST request to bulk soft-delete schedules: {request.data}")
         try:
             tenant = request.tenant
             if not tenant:
@@ -975,7 +934,7 @@ class ScheduleBulkDeleteView(generics.GenericAPIView):
                         schedule.soft_delete()
                         deleted_count += 1
 
-                #logger.info(f"Successfully soft-deleted {deleted_count} schedules for tenant {tenant.schema_name}")
+                logger.info(f"Successfully soft-deleted {deleted_count} schedules for tenant {tenant.schema_name}")
                 return Response({
                     "detail": f"Successfully soft-deleted {deleted_count} schedule(s)."
                 }, status=status.HTTP_200_OK)
@@ -998,14 +957,14 @@ class SoftDeletedSchedulesView(generics.ListAPIView):
         connection.set_schema(tenant.schema_name)
         with tenant_context(tenant):
             queryset = Schedule.objects.filter(tenant=tenant, is_deleted=True).select_related('job_application')
-            #logger.debug(f"Query: {queryset.query}")
+            logger.debug(f"Query: {queryset.query}")
             return queryset
 
     def list(self, request, *args, **kwargs):
         try:
             queryset = self.get_queryset()
             serializer = self.get_serializer(queryset, many=True)
-            #logger.info(f"Retrieved {queryset.count()} soft-deleted schedules for tenant {request.tenant.schema_name}")
+            logger.info(f"Retrieved {queryset.count()} soft-deleted schedules for tenant {request.tenant.schema_name}")
             return Response({
                 "detail": f"Retrieved {queryset.count()} soft-deleted schedule(s).",
                 "data": serializer.data
@@ -1018,7 +977,7 @@ class RecoverSoftDeletedSchedulesView(generics.GenericAPIView):
     permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized]
 
     def post(self, request, *args, **kwargs):
-        #logger.debug(f"Received POST request to recover schedules: {request.data}")
+        logger.debug(f"Received POST request to recover schedules: {request.data}")
         try:
             tenant = request.tenant
             if not tenant:
@@ -1043,7 +1002,7 @@ class RecoverSoftDeletedSchedulesView(generics.GenericAPIView):
                         schedule.restore()
                         recovered_count += 1
 
-                #logger.info(f"Successfully recovered {recovered_count} schedules for tenant {tenant.schema_name}")
+                logger.info(f"Successfully recovered {recovered_count} schedules for tenant {tenant.schema_name}")
                 return Response({
                     "detail": f"Successfully recovered {recovered_count} schedule(s)."
                 }, status=status.HTTP_200_OK)
@@ -1056,7 +1015,7 @@ class PermanentDeleteSchedulesView(generics.GenericAPIView):
     permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized]
 
     def post(self, request, *args, **kwargs):
-        #logger.debug(f"Received POST request to permanently delete schedules: {request.data}")
+        logger.debug(f"Received POST request to permanently delete schedules: {request.data}")
         try:
             tenant = request.tenant
             if not tenant:
@@ -1076,7 +1035,7 @@ class PermanentDeleteSchedulesView(generics.GenericAPIView):
                     return Response({"detail": "No soft-deleted schedules found."}, status=status.HTTP_404_NOT_FOUND)
 
                 deleted_count = schedules.delete()[0]
-                #logger.info(f"Successfully permanently deleted {deleted_count} schedules for tenant {tenant.schema_name}")
+                logger.info(f"Successfully permanently deleted {deleted_count} schedules for tenant {tenant.schema_name}")
                 return Response({
                     "detail": f"Successfully permanently deleted {deleted_count} schedule(s)."
                 }, status=status.HTTP_200_OK)
@@ -1085,12 +1044,10 @@ class PermanentDeleteSchedulesView(generics.GenericAPIView):
             logger.exception(f"Error during permanent deletion of schedules for tenant {tenant.schema_name if tenant else 'unknown'}: {str(e)}")
             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-
 class ApplicantComplianceStatusView(APIView):
     permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized]
 
     def put(self, request, job_application_id, item_id):
-        """Update the compliance status for a specific item in a job application."""
         try:
             tenant = request.tenant
             with tenant_context(tenant):
@@ -1121,20 +1078,12 @@ class ApplicantComplianceStatusView(APIView):
         except Exception as e:
             logger.exception(f"Error updating compliance status for item {item_id} in application {job_application_id}: {str(e)}")
             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-        
-
-
-
-
 
 class ApplicantComplianceStatusUpdate(APIView):
     permission_classes = [AllowAny]
 
     def put(self, request, job_application_id, item_id=None):
         try:
-            # print(request.data)
-            # print(request.data)
-            # print(request.data)
             unique_link = request.data.get("unique_link")
             if not unique_link:
                 return Response({"detail": "Missing unique_link."}, status=status.HTTP_400_BAD_REQUEST)
@@ -1148,7 +1097,6 @@ class ApplicantComplianceStatusUpdate(APIView):
                 job_application = JobApplication.active_objects.get(id=job_application_id, tenant=tenant)
                 logger.debug(f"Retrieved job_application: {job_application.id}, initial compliance_status: {job_application.compliance_status}")
 
-                # Manually reconstruct documents list
                 documents_data = []
                 file_keys = [key for key in request.FILES.keys() if key.startswith('documents[')]
                 index_set = set(key.split('[')[1].split(']')[0] for key in file_keys)
@@ -1158,11 +1106,10 @@ class ApplicantComplianceStatusUpdate(APIView):
                     file_key = f'documents[{index}][file]'
                     if doc_type_key in request.data and file_key in request.FILES:
                         documents_data.append({
-                            'document_type': request.data[doc_type_key],  # This is the id from frontend
+                            'document_type': request.data[doc_type_key],
                             'file': request.FILES[file_key],
                         })
 
-                # Handle document upload
                 if documents_data:
                     with transaction.atomic():
                         current_compliance_status = job_application.compliance_status or []
@@ -1172,20 +1119,14 @@ class ApplicantComplianceStatusUpdate(APIView):
                             logger.debug(f"Initialized compliance_status: {current_compliance_status}")
 
                         for index, doc_data in enumerate(documents_data):
-                            document_type = doc_data.get('document_type')  # This is the id (UUID)
-                            # print(document_type)
-                            # print(document_type)
-                            # print(document_type)
+                            document_type = doc_data.get('document_type')
                             file = doc_data.get('file')
                             if not document_type or not file:
                                 logger.warning(f"Invalid document data at index {index}: {doc_data}")
                                 continue
 
-                            # Get or create the corresponding compliance item
                             compliance_item = next((item for item in current_compliance_status if str(item.get('id')) == str(document_type)), None)
                             if not compliance_item:
-                                # Map document_type (UUID) to the corresponding compliance requirement name
-                                # Assume initialize_compliance_status sets up initial items with names
                                 initial_item = next((item for item in job_application.compliance_status if str(item.get('id')) == str(document_type)), None)
                                 compliance_requirement = initial_item.get('name', document_type) if initial_item else document_type
                                 compliance_item = {
@@ -1202,7 +1143,6 @@ class ApplicantComplianceStatusUpdate(APIView):
                                 current_compliance_status.append(compliance_item)
                                 logger.debug(f"Created new compliance item: {compliance_item}")
 
-                            # Save the file and update document field
                             folder_path = os.path.join('application_documents', timezone.now().strftime('%Y/%m/%d'))
                             full_folder_path = os.path.join(settings.MEDIA_ROOT, folder_path)
                             os.makedirs(full_folder_path, exist_ok=True)
@@ -1223,7 +1163,6 @@ class ApplicantComplianceStatusUpdate(APIView):
                             file_url = f"/media/{upload_path.lstrip('/')}"
                             logger.debug(f"Generated file_url: {file_url}")
 
-                            # Update compliance_item document field
                             compliance_item['document'] = {
                                 'file_url': file_url,
                                 'uploaded_at': timezone.now().isoformat()
@@ -1231,7 +1170,6 @@ class ApplicantComplianceStatusUpdate(APIView):
                             compliance_item['status'] = 'uploaded'
                             logger.debug(f"Updated compliance item with document: {compliance_item}")
 
-                        # Save updated compliance_status
                         job_application.compliance_status = current_compliance_status
                         job_application.save(update_fields=['compliance_status'])
                         logger.debug(f"Post-save compliance_status: {job_application.compliance_status}")
@@ -1244,9 +1182,7 @@ class ApplicantComplianceStatusUpdate(APIView):
                     logger.debug(f"Response data: {response_data}")
                     return Response(response_data, status=status.HTTP_200_OK)
 
-                # Update single item status
                 if item_id:
-                    # Handle single item update manually
                     status_value = request.data.get('status')
                     checked_by = request.data.get('checked_by', request.user.id)
                     notes = request.data.get('notes', '')
@@ -1261,7 +1197,6 @@ class ApplicantComplianceStatusUpdate(APIView):
                                 return Response(item, status=status.HTTP_200_OK)
                         return Response({"detail": "Item not found."}, status=status.HTTP_404_NOT_FOUND)
 
-                # Submit items for review
                 elif request.data.get('submit'):
                     ids = request.data.getlist('ids') or request.data.get('ids', [])
                     with transaction.atomic():

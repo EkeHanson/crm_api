@@ -411,3 +411,10 @@ EMAIL_DEBUG = True
 
 FILE_UPLOAD_MAX_MEMORY_SIZE = 3145728  # 3MB
 DATA_UPLOAD_MAX_MEMORY_SIZE = 3145728  # 3MB
+
+
+
+
+WEB_PAGE_URL = 'http://localhost:5173'
+
+# WEB_PAGE_URL =  'https://crm-frontend-react.vercel.app',

@@ -78,7 +78,7 @@ class TenantConfigView(APIView):
             try:
                 config = TenantConfig.objects.get(tenant=tenant)
                 serializer = TenantConfigSerializer(config)
-                logger.info(f"Fetched TenantConfig for tenant {tenant.schema_name}: {serializer.data}")
+                #logger.info(f"Fetched TenantConfig for tenant {tenant.schema_name}: {serializer.data}")
                 return Response(serializer.data, status=status.HTTP_200_OK)
             except TenantConfig.DoesNotExist:
                 # Default email templates

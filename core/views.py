@@ -1,21 +1,16 @@
 import logging
 import jwt
-
 from django.conf import settings
 from django.db import transaction, connection
-
+from django_tenants.utils import tenant_context
 from rest_framework import viewsets, status, serializers
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
-from django_tenants.utils import tenant_context
-
 from .models import Tenant, Domain, Module, TenantConfig
-from .serializers import TenantSerializer, ModuleSerializer
+from .serializers import TenantSerializer, ModuleSerializer, TenantConfigSerializer
 
 logger = logging.getLogger('core')
-
 
 class ModuleListView(APIView):
     permission_classes = [IsAuthenticated, IsAdminUser]
@@ -49,6 +44,131 @@ class ModuleListView(APIView):
             'message': serializer.errors
         }, status=status.HTTP_400_BAD_REQUEST)
 
+# apps/core/views.py
+import logging
+from django.db import transaction
+from django_tenants.utils import tenant_context
+from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .models import TenantConfig
+from .serializers import TenantConfigSerializer
+
+logger = logging.getLogger('core')
+
+class TenantConfigView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        tenant = request.user.tenant
+        with tenant_context(tenant):
+            try:
+                config = TenantConfig.objects.get(tenant=tenant)
+                serializer = TenantConfigSerializer(config)
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            except TenantConfig.DoesNotExist:
+                # Create TenantConfig with default templates
+                default_templates = {
+                    'interviewScheduling': {
+                        'content': (
+                            'Hello [Candidate Name],\n\n'
+                            'We’re pleased to invite you to an interview for the [Position] role at [Company].\n'
+                            'Please let us know your availability so we can confirm a convenient time.\n\n'
+                            'Best regards,\n[Your Name]'
+                        ),
+                        'is_auto_sent': False
+                    },
+                    'interviewRescheduling': {
+                        'content': (
+                            'Hello [Candidate Name],\n\n'
+                            'Due to unforeseen circumstances, we need to reschedule your interview originally set for [Old Date/Time]. '
+                            'Kindly share a few alternative slots that work for you.\n\n'
+                            'Thanks for your understanding,\n[Your Name]'
+                        ),
+                        'is_auto_sent': False
+                    },
+                    'interviewRejection': {
+                        'content': (
+                            'Hello [Candidate Name],\n\n'
+                            'Thank you for taking the time to interview. After careful consideration, '
+                            'we have decided not to move forward.\n\n'
+                            'Best wishes,\n[Your Name]'
+                        ),
+                        'is_auto_sent': False
+                    },
+                    'interviewAcceptance': {
+                        'content': (
+                            'Hello [Candidate Name],\n\n'
+                            'Congratulations! We are moving you to the next stage. We’ll follow up with next steps.\n\n'
+                            'Looking forward,\n[Your Name]'
+                        ),
+                        'is_auto_sent': False
+                    },
+                    'jobRejection': {
+                        'content': (
+                            'Hello [Candidate Name],\n\n'
+                            'Thank you for applying. Unfortunately, we’ve chosen another candidate at this time.\n\n'
+                            'Kind regards,\n[Your Name]'
+                        ),
+                        'is_auto_sent': False
+                    },
+                    'jobAcceptance': {
+                        'content': (
+                            'Hello [Candidate Name],\n\n'
+                            'We’re excited to offer you the [Position] role at [Company]! '
+                            'Please find the offer letter attached.\n\n'
+                            'Welcome aboard!\n[Your Name]'
+                        ),
+                        'is_auto_sent': False
+                    }
+                }
+                try:
+                    with transaction.atomic():
+                        config = TenantConfig.objects.create(
+                            tenant=tenant,
+                            email_templates=default_templates
+                        )
+                        logger.info(f"Created TenantConfig for tenant {tenant.schema_name}")
+                        serializer = TenantConfigSerializer(config)
+                        return Response(serializer.data, status=status.HTTP_201_CREATED)
+                except Exception as e:
+                    logger.error(f"Error creating TenantConfig for tenant {tenant.schema_name}: {str(e)}")
+                    return Response(
+                        {'status': 'error', 'message': 'Failed to create tenant configuration'},
+                        status=status.HTTP_500_INTERNAL_SERVER_ERROR
+                    )
+
+    def patch(self, request):
+        tenant = request.user.tenant
+        with tenant_context(tenant):
+            try:
+                config = TenantConfig.objects.get(tenant=tenant)
+                serializer = TenantConfigSerializer(config, data=request.data, partial=True)
+                if serializer.is_valid():
+                    serializer.save()
+                    logger.info(f"Tenant config updated for tenant {tenant.schema_name}")
+                    return Response(serializer.data, status=status.HTTP_200_OK)
+                return Response({'status': 'error', 'message': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+            except TenantConfig.DoesNotExist:
+                return Response({'status': 'error', 'message': 'Tenant config not found'}, status=status.HTTP_404_NOT_FOUND)
+
+    def post(self, request):
+        tenant = request.user.tenant
+        with tenant_context(tenant):
+            try:
+                if TenantConfig.objects.filter(tenant=tenant).exists():
+                    return Response({'status': 'error', 'message': 'Tenant config already exists'}, status=status.HTTP_400_BAD_REQUEST)
+                serializer = TenantConfigSerializer(data=request.data)
+                if serializer.is_valid():
+                    serializer.save(tenant=tenant)
+                    logger.info(f"Tenant config created for tenant {tenant.schema_name}")
+                    return Response(serializer.data, status=status.HTTP_201_CREATED)
+                return Response({'status': 'error', 'message': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+            except Exception as e:
+                logger.error(f"Error creating tenant config: {str(e)}")
+                return Response({'status': 'error', 'message': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            
 class TenantViewSet(viewsets.ModelViewSet):
     queryset = Tenant.objects.all()
     serializer_class = TenantSerializer

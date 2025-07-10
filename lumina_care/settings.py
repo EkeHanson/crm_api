@@ -168,6 +168,7 @@ TEMPLATES = [
 ]
 WSGI_APPLICATION = 'lumina_care.wsgi.application'
 
+
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django_tenants.postgresql_backend',

@@ -1,7 +1,9 @@
+# apps/core/serializers.py
 from rest_framework import serializers
 from .models import Tenant, Domain, Module, TenantConfig
 import re
 import logging
+from django.db import transaction
 
 logger = logging.getLogger('core')
 
@@ -24,14 +26,29 @@ class ModuleSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(f"Module '{value}' already exists for this tenant.")
         return value
 
+class EmailTemplateSerializer(serializers.Serializer):
+    content = serializers.CharField()
+    is_auto_sent = serializers.BooleanField(default=False)
+
+class TenantConfigSerializer(serializers.ModelSerializer):
+    email_templates = serializers.DictField(
+        child=EmailTemplateSerializer(),
+        required=False
+    )
+
+    class Meta:
+        model = TenantConfig
+        fields = ['logo', 'custom_fields', 'email_templates']
+
 class TenantSerializer(serializers.ModelSerializer):
     domain = serializers.CharField(write_only=True, required=True)
     domains = DomainSerializer(many=True, read_only=True, source='domain_set')
+    config = TenantConfigSerializer(source='tenantconfig', required=False)
 
     class Meta:
         model = Tenant
         fields = "__all__"
-        read_only_fields = ['id', 'schema_name', 'created_at', 'domains']
+        read_only_fields = ['id', 'schema_name', 'created_at', 'domains', 'config']
 
     def validate_name(self, value):
         if not re.match(r'^[a-zA-Z0-9\s\'-]+$', value):
@@ -58,26 +75,96 @@ class TenantSerializer(serializers.ModelSerializer):
         validated_data['schema_name'] = schema_name
         logger.info(f"Creating tenant with name: {validated_data['name']}, schema_name: {schema_name}, domain: {domain_name}")
         try:
-            tenant = Tenant.objects.create(**validated_data)
-            logger.info(f"Tenant created: {tenant.id}, schema_name: {tenant.schema_name}")
-            domain = Domain.objects.create(tenant=tenant, domain=domain_name, is_primary=True)
-            logger.info(f"Domain created: {domain.domain} for tenant {tenant.id}")
-            TenantConfig.objects.create(tenant=tenant)
-            default_modules = [
-                'Talent Engine', 'Compliance', 'Training', 'Care Coordination',
-                'Workforce', 'Analytics', 'Integrations', 'Assets Management', 'Payroll'
-            ]
-            for module_name in default_modules:
-                Module.objects.create(name=module_name, tenant=tenant)
-            logger.info(f"Modules and config created for tenant {tenant.id}")
-            try:
-                domains = tenant.domain_set.all()
-                logger.info(f"Domains for tenant {tenant.id}: {[d.domain for d in domains]}")
-            except AttributeError as e:
-                logger.error(f"domain_set access failed: {str(e)}")
-                domains = Domain.objects.filter(tenant=tenant)
-                logger.info(f"Fallback domains for tenant {tenant.id}: {[d.domain for d in domains]}")
-            return tenant
+            with transaction.atomic():
+                tenant = Tenant.objects.create(**validated_data)
+                logger.info(f"Tenant created: {tenant.id}, schema_name: {tenant.schema_name}")
+                domain = Domain.objects.create(tenant=tenant, domain=domain_name, is_primary=True)
+                logger.info(f"Domain created: {domain.domain} for tenant {tenant.id}")
+
+                # Default email templates
+                default_templates = {
+                    'interviewScheduling': {
+                        'content': (
+                            'Hello [Candidate Name],\n\n'
+                            'We’re pleased to invite you to an interview for the [Position] role at [Company].\n'
+                            'Please let us know your availability so we can confirm a convenient time.\n\n'
+                            'Best regards,\n[Your Name]'
+                        ),
+                        'is_auto_sent': False
+                    },
+                    'interviewRescheduling': {
+                        'content': (
+                            'Hello [Candidate Name],\n\n'
+                            'Due to unforeseen circumstances, we need to reschedule your interview originally set for [Old Date/Time]. '
+                            'Kindly share a few alternative slots that work for you.\n\n'
+                            'Thanks for your understanding,\n[Your Name]'
+                        ),
+                        'is_auto_sent': False
+                    },
+                    'interviewRejection': {
+                        'content': (
+                            'Hello [Candidate Name],\n\n'
+                            'Thank you for taking the time to interview. After careful consideration, '
+                            'we have decided not to move forward.\n\n'
+                            'Best wishes,\n[Your Name]'
+                        ),
+                        'is_auto_sent': False
+                    },
+                    'interviewAcceptance': {
+                        'content': (
+                            'Hello [Candidate Name],\n\n'
+                            'Congratulations! We are moving you to the next stage. We’ll follow up with next steps.\n\n'
+                            'Looking forward,\n[Your Name]'
+                        ),
+                        'is_auto_sent': False
+                    },
+                    'jobRejection': {
+                        'content': (
+                            'Hello [Candidate Name],\n\n'
+                            'Thank you for applying. Unfortunately, we’ve chosen another candidate at this time.\n\n'
+                            'Kind regards,\n[Your Name]'
+                        ),
+                        'is_auto_sent': False
+                    },
+                    'jobAcceptance': {
+                        'content': (
+                            'Hello [Candidate Name],\n\n'
+                            'We’re excited to offer you the [Position] role at [Company]! '
+                            'Please find the offer letter attached.\n\n'
+                            'Welcome aboard!\n[Your Name]'
+                        ),
+                        'is_auto_sent': False
+                    }
+                }
+
+                # Create TenantConfig with default email templates
+                try:
+                    TenantConfig.objects.create(
+                        tenant=tenant,
+                        email_templates=default_templates
+                    )
+                    logger.info(f"TenantConfig created for tenant {tenant.id} with default email templates")
+                except Exception as e:
+                    logger.error(f"Failed to create TenantConfig for tenant {tenant.id}: {str(e)}")
+                    raise
+
+                # Create default modules
+                default_modules = [
+                    'Talent Engine', 'Compliance', 'Training', 'Care Coordination',
+                    'Workforce', 'Analytics', 'Integrations', 'Assets Management', 'Payroll'
+                ]
+                for module_name in default_modules:
+                    Module.objects.create(name=module_name, tenant=tenant)
+                logger.info(f"Modules created for tenant {tenant.id}")
+
+                try:
+                    domains = tenant.domain_set.all()
+                    logger.info(f"Domains for tenant {tenant.id}: {[d.domain for d in domains]}")
+                except AttributeError as e:
+                    logger.error(f"domain_set access failed: {str(e)}")
+                    domains = Domain.objects.filter(tenant=tenant)
+                    logger.info(f"Fallback domains for tenant {tenant.id}: {[d.domain for d in domains]}")
+                return tenant
         except Exception as e:
             logger.error(f"Failed to create tenant or domain: {str(e)}")
             raise

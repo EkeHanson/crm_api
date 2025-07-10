@@ -318,3 +318,4 @@ LINE 1: SELECT 1 AS "a" FROM "talent_engine_job_requisition" WHERE "...
 2025-07-10 08:53:18,581 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 12647
 2025-07-10 08:54:09,557 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 12647
 2025-07-10 08:54:53,903 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.
+2025-07-10 08:54:59,268 [INFO] django.utils.autoreload: Watching for file changes with StatReloader

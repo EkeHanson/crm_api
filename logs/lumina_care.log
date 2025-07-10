@@ -299,3 +299,22 @@ LINE 1: SELECT 1 AS "a" FROM "talent_engine_job_requisition" WHERE "...
 2025-07-10 08:40:46,322 [INFO] django.server: "POST /api/talent-engine/requisitions/ HTTP/1.1" 201 1826
 2025-07-10 08:41:24,599 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 12647
 2025-07-10 08:41:47,287 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.
+2025-07-10 08:41:52,560 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-10 08:42:32,323 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 11697
+2025-07-10 08:43:23,241 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 11697
+2025-07-10 08:44:14,244 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 11697
+2025-07-10 08:45:05,026 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 11697
+2025-07-10 08:45:56,106 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 11697
+2025-07-10 08:46:47,638 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 11697
+2025-07-10 08:47:38,730 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 11697
+2025-07-10 08:48:29,315 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 11697
+2025-07-10 08:49:20,623 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 11697
+2025-07-10 08:50:12,023 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 11697
+2025-07-10 08:51:03,329 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 11697
+2025-07-10 08:51:53,196 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 11697
+2025-07-10 08:51:53,578 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.
+2025-07-10 08:51:59,013 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-10 08:52:27,755 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 12647
+2025-07-10 08:53:18,581 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 12647
+2025-07-10 08:54:09,557 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 12647
+2025-07-10 08:54:53,903 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.

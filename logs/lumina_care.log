@@ -2187,3 +2187,6 @@ LINE 1: ...fig"."logo", "core_tenantconfig"."custom_fields", "core_tena...
 2025-07-11 11:17:53,571 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/halima.sani@example.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 5713
 2025-07-11 11:24:45,159 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.
 2025-07-11 11:24:47,708 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-11 11:25:44,867 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.
+2025-07-11 11:25:47,777 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-11 11:26:16,683 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.

@@ -7,10 +7,160 @@ from rest_framework import viewsets, status, serializers
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .models import Tenant, Domain, Module, TenantConfig
-from .serializers import TenantSerializer, ModuleSerializer, TenantConfigSerializer
+from rest_framework import generics, status
+from .models import Tenant, Domain, Module, TenantConfig, Branch, Tenant
+from .serializers import TenantSerializer, ModuleSerializer, TenantConfigSerializer, BranchSerializer
 
 logger = logging.getLogger('core')
+
+
+
+class BranchListCreateView(generics.ListCreateAPIView):
+    serializer_class = BranchSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_tenant_from_token(self, request):
+        try:
+            if hasattr(request, 'tenant') and request.tenant:
+                logger.debug(f"Tenant from request: {request.tenant.schema_name}")
+                return request.tenant
+            if hasattr(request.user, 'tenant') and request.user.tenant:
+                logger.debug(f"Tenant from user: {request.user.tenant.schema_name}")
+                return request.user.tenant
+            auth_header = request.headers.get('Authorization', '')
+            if not auth_header.startswith('Bearer '):
+                logger.warning("No valid Bearer token provided")
+                raise ValueError("Invalid token format")
+            token = auth_header.split(' ')[1]
+            decoded_token = jwt.decode(token, settings.SECRET_KEY, algorithms=["HS256"])
+            tenant_id = decoded_token.get('tenant_id')
+            schema_name = decoded_token.get('tenant_schema')
+            if tenant_id:
+                tenant = Tenant.objects.get(id=tenant_id)
+                logger.debug(f"Tenant extracted from token by ID: {tenant.schema_name}")
+                return tenant
+            elif schema_name:
+                tenant = Tenant.objects.get(schema_name=schema_name)
+                logger.debug(f"Tenant extracted from token by schema: {tenant.schema_name}")
+                return tenant
+            else:
+                logger.warning("No tenant_id or schema_name in token")
+                raise ValueError("Tenant not specified in token")
+        except Tenant.DoesNotExist:
+            logger.error("Tenant not found")
+            raise serializers.ValidationError("Tenant not found")
+        except jwt.InvalidTokenError:
+            logger.error("Invalid JWT token")
+            raise serializers.ValidationError("Invalid token")
+        except Exception as e:
+            logger.error(f"Error extracting tenant: {str(e)}")
+            raise serializers.ValidationError(f"Error extracting tenant: {str(e)}")
+
+    def get_queryset(self):
+        tenant = self.get_tenant_from_token(self.request)
+        connection.set_schema(tenant.schema_name)
+        with connection.cursor() as cursor:
+            cursor.execute("SHOW search_path;")
+            search_path = cursor.fetchone()[0]
+            logger.debug(f"Database search_path: {search_path}")
+        with tenant_context(tenant):
+            return Branch.objects.filter(tenant=tenant)
+
+    def perform_create(self, serializer):
+        tenant = self.get_tenant_from_token(self.request)
+        try:
+            with tenant_context(tenant):
+                with transaction.atomic():
+                    branch = serializer.save()
+                    logger.info(f"Branch created: {branch.name} for tenant {tenant.schema_name}")
+        except Exception as e:
+            logger.error(f"Error creating branch for tenant {tenant.schema_name}: {str(e)}")
+            raise serializers.ValidationError(f"Error creating branch: {str(e)}")
+
+    def list(self, request, *args, **kwargs):
+        try:
+            queryset = self.get_queryset()
+            serializer = self.get_serializer(queryset, many=True)
+            logger.info(f"Retrieved {queryset.count()} branches for tenant {request.tenant.schema_name if hasattr(request, 'tenant') else 'unknown'}")
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except Exception as e:
+            logger.error(f"Error listing branches for tenant {request.tenant.schema_name if hasattr(request, 'tenant') else 'unknown'}: {str(e)}")
+            return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+class BranchDetailView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = BranchSerializer
+    permission_classes = [IsAuthenticated]
+    lookup_field = 'id'
+
+    def get_tenant_from_token(self, request):
+        try:
+            if hasattr(request, 'tenant') and request.tenant:
+                logger.debug(f"Tenant from request: {request.tenant.schema_name}")
+                return request.tenant
+            if hasattr(request.user, 'tenant') and request.user.tenant:
+                logger.debug(f"Tenant from user: {request.user.tenant.schema_name}")
+                return request.user.tenant
+            auth_header = request.headers.get('Authorization', '')
+            if not auth_header.startswith('Bearer '):
+                logger.warning("No valid Bearer token provided")
+                raise ValueError("Invalid token format")
+            token = auth_header.split(' ')[1]
+            decoded_token = jwt.decode(token, settings.SECRET_KEY, algorithms=["HS256"])
+            tenant_id = decoded_token.get('tenant_id')
+            schema_name = decoded_token.get('tenant_schema')
+            if tenant_id:
+                tenant = Tenant.objects.get(id=tenant_id)
+                logger.debug(f"Tenant extracted from token by ID: {tenant.schema_name}")
+                return tenant
+            elif schema_name:
+                tenant = Tenant.objects.get(schema_name=schema_name)
+                logger.debug(f"Tenant extracted from token by schema: {tenant.schema_name}")
+                return tenant
+            else:
+                logger.warning("No tenant_id or schema_name in token")
+                raise ValueError("Tenant not specified in token")
+        except Tenant.DoesNotExist:
+            logger.error("Tenant not found")
+            raise serializers.ValidationError("Tenant not found")
+        except jwt.InvalidTokenError:
+            logger.error("Invalid JWT token")
+            raise serializers.ValidationError("Invalid token")
+        except Exception as e:
+            logger.error(f"Error extracting tenant: {str(e)}")
+            raise serializers.ValidationError(f"Error extracting tenant: {str(e)}")
+
+    def get_queryset(self):
+        tenant = self.get_tenant_from_token(self.request)
+        connection.set_schema(tenant.schema_name)
+        with connection.cursor() as cursor:
+            cursor.execute("SHOW search_path;")
+            search_path = cursor.fetchone()[0]
+            logger.debug(f"Database search_path: {search_path}")
+        with tenant_context(tenant):
+            return Branch.objects.filter(tenant=tenant)
+
+    def perform_update(self, serializer):
+        tenant = self.get_tenant_from_token(self.request)
+        try:
+            with tenant_context(tenant):
+                with transaction.atomic():
+                    branch = serializer.save()
+                    logger.info(f"Branch updated: {branch.name} for tenant {tenant.schema_name}")
+        except Exception as e:
+            logger.error(f"Error updating branch for tenant {tenant.schema_name}: {str(e)}")
+            raise serializers.ValidationError(f"Error updating branch: {str(e)}")
+
+    def perform_destroy(self, instance):
+        tenant = self.get_tenant_from_token(self.request)
+        try:
+            with tenant_context(tenant):
+                with transaction.atomic():
+                    instance.delete()
+                    logger.info(f"Branch deleted: {instance.name} for tenant {tenant.schema_name}")
+        except Exception as e:
+            logger.error(f"Error deleting branch for tenant {tenant.schema_name}: {str(e)}")
+            raise serializers.ValidationError(f"Error deleting branch: {str(e)}")
+
 
 class ModuleListView(APIView):
     permission_classes = [IsAuthenticated, IsAdminUser]

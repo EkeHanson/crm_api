@@ -1,8 +1,7 @@
-# apps/users/models.py
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from core.models import Tenant, Module
+from core.models import Tenant, Module, Branch
 
 class CustomUser(AbstractUser):
     ROLES = (
@@ -16,6 +15,8 @@ class CustomUser(AbstractUser):
         ('assessor', 'Assessor'),
         ('iqa', 'IQA'),
         ('eqa', 'EQA'),
+        ('recruiter', 'Recruiter'),
+        ('team_manager', 'Team Manager'),
     )
 
     DASHBOARD_TYPES = (
@@ -50,6 +51,7 @@ class CustomUser(AbstractUser):
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='active')
     two_factor = models.CharField(max_length=20, choices=TWO_FACTOR_CHOICES, default='disable')
     tenant = models.ForeignKey(Tenant, on_delete=models.CASCADE, null=True)
+    branch = models.ForeignKey(Branch, on_delete=models.SET_NULL, null=True, blank=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
@@ -75,3 +77,4 @@ class UserDocument(models.Model):
     file = models.FileField(upload_to='user_documents/%Y/%m/%d/')
     uploaded_at = models.DateTimeField(auto_now_add=True)
     tenant = models.ForeignKey(Tenant, on_delete=models.CASCADE)
+    branch = models.ForeignKey(Branch, on_delete=models.SET_NULL, null=True, blank=True)

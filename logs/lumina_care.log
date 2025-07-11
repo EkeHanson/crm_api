@@ -2241,3 +2241,345 @@ LINE 1: ...fig"."logo", "core_tenantconfig"."custom_fields", "core_tena...
 2025-07-11 12:18:13,405 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/halima.sani@example.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 5723
 2025-07-11 12:18:13,660 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/halima.sani@example.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 5723
 2025-07-11 12:43:40,970 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.
+2025-07-11 12:43:48,579 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-11 12:44:15,084 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.
+2025-07-11 12:44:20,007 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-11 12:53:29,837 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.
+2025-07-11 14:02:24,747 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-11 14:03:13,883 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 967
+2025-07-11 14:04:12,459 [WARNING] django.request: Unauthorized: /api/user/users/
+2025-07-11 14:04:12,460 [WARNING] django.server: "GET /api/user/users/ HTTP/1.1" 401 172
+2025-07-11 14:04:25,937 [INFO] django.server: "GET /api/user/users/ HTTP/1.1" 200 316
+2025-07-11 14:06:34,124 [INFO] django.server: "GET /api/user/users/4/ HTTP/1.1" 200 314
+2025-07-11 14:09:07,589 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\core\serializers.py changed, reloading.
+2025-07-11 14:09:11,744 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-11 14:10:18,706 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\core\views.py changed, reloading.
+2025-07-11 14:10:21,609 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-11 14:10:37,569 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\core\urls.py changed, reloading.
+2025-07-11 14:10:40,560 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-11 14:11:15,552 [INFO] core: Retrieved 0 branches for tenant proliance
+2025-07-11 14:11:15,554 [INFO] django.server: "GET /api/tenant/branches/ HTTP/1.1" 200 2
+2025-07-11 14:12:09,158 [WARNING] django.request: Bad Request: /api/tenant/branches/
+2025-07-11 14:12:09,159 [WARNING] django.server: "POST /api/tenant/branches/ HTTP/1.1" 400 38
+2025-07-11 14:14:53,541 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\core\serializers.py changed, reloading.
+2025-07-11 14:14:59,634 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-11 14:15:42,688 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\core\views.py changed, reloading.
+2025-07-11 14:15:48,159 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-11 14:16:19,803 [WARNING] django.request: Bad Request: /api/tenant/branches/
+2025-07-11 14:16:19,806 [WARNING] django.server: "POST /api/tenant/branches/ HTTP/1.1" 400 38
+2025-07-11 14:16:27,809 [WARNING] django.request: Bad Request: /api/tenant/branches/
+2025-07-11 14:16:27,810 [WARNING] django.server: "POST /api/tenant/branches/ HTTP/1.1" 400 38
+2025-07-11 14:17:41,332 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\core\urls.py changed, reloading.
+2025-07-11 14:17:46,863 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-11 14:24:20,952 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\core\serializers.py changed, reloading.
+2025-07-11 14:24:26,896 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-11 14:25:11,022 [INFO] core: Branch created: Trans Amadi Branch for tenant proliance
+2025-07-11 14:25:11,032 [INFO] django.server: "POST /api/tenant/branches/ HTTP/1.1" 201 132
+2025-07-11 14:32:03,633 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/halima.sani@example.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 5866
+2025-07-11 14:32:03,862 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/halima.sani@example.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 5866
+2025-07-11 14:34:05,361 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 967
+2025-07-11 14:34:24,265 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 950
+2025-07-11 14:34:50,239 [INFO] core: Retrieved 0 branches for tenant arts
+2025-07-11 14:34:50,241 [INFO] django.server: "GET /api/tenant/branches/ HTTP/1.1" 200 2
+2025-07-11 14:35:23,926 [INFO] core: Branch created: Nigeria Branch for tenant arts
+2025-07-11 14:35:23,941 [INFO] django.server: "POST /api/tenant/branches/ HTTP/1.1" 201 128
+2025-07-11 14:35:33,761 [INFO] core: Branch created: UK Branch for tenant arts
+2025-07-11 14:35:33,774 [INFO] django.server: "POST /api/tenant/branches/ HTTP/1.1" 201 123
+2025-07-11 14:38:00,175 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\core\serializers.py changed, reloading.
+2025-07-11 14:38:06,232 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-11 14:38:37,249 [WARNING] django.request: Not Found: /api/tenant/branches/3/
+2025-07-11 14:38:37,252 [WARNING] django.server: "GET /api/tenant/branches/3/ HTTP/1.1" 404 7417
+2025-07-11 14:38:41,191 [INFO] core: Retrieved 2 branches for tenant arts
+2025-07-11 14:38:41,211 [INFO] django.server: "GET /api/tenant/branches/ HTTP/1.1" 200 254
+2025-07-11 14:40:36,493 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\core\serializers.py changed, reloading.
+2025-07-11 14:40:42,457 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-11 14:41:40,232 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\core\serializers.py changed, reloading.
+2025-07-11 14:41:45,133 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-11 14:42:17,000 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\core\serializers.py changed, reloading.
+2025-07-11 14:42:21,561 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-11 14:42:49,544 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\core\urls.py changed, reloading.
+2025-07-11 14:42:54,410 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-11 14:43:12,736 [INFO] django.server: "GET /api/tenant/branches/2/ HTTP/1.1" 200 128
+2025-07-11 14:43:20,557 [INFO] core: Branch updated: Nigeria Branch for tenant arts
+2025-07-11 14:43:20,572 [INFO] django.server: "PATCH /api/tenant/branches/2/ HTTP/1.1" 200 129
+2025-07-11 14:43:27,538 [INFO] core: Retrieved 2 branches for tenant arts
+2025-07-11 14:43:27,542 [INFO] django.server: "GET /api/tenant/branches/ HTTP/1.1" 200 255
+2025-07-11 14:44:01,437 [INFO] django.server: "GET /api/user/users/ HTTP/1.1" 200 316
+2025-07-11 14:44:32,418 [INFO] django.server: "GET /api/user/users/ HTTP/1.1" 200 318
+2025-07-11 14:48:18,056 [INFO] django.server: "GET /api/user/users/ HTTP/1.1" 200 318
+2025-07-11 14:50:14,983 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\users\serializers.py changed, reloading.
+2025-07-11 14:50:20,546 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-11 14:51:24,440 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\users\views.py changed, reloading.
+2025-07-11 14:51:30,238 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-11 14:52:11,039 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\users\urls.py changed, reloading.
+2025-07-11 14:52:16,999 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-11 14:53:33,485 [INFO] core: Retrieved 2 branches for tenant arts
+2025-07-11 14:53:33,504 [INFO] django.server: "GET /api/tenant/branches/ HTTP/1.1" 200 255
+2025-07-11 14:53:42,375 [INFO] django.server: "GET /api/user/users/ HTTP/1.1" 200 318
+2025-07-11 14:54:55,039 [WARNING] django.request: Unauthorized: /api/user/users/8/branch/
+2025-07-11 14:54:55,040 [WARNING] django.server: "PATCH /api/user/users/8/branch/ HTTP/1.1" 401 58
+2025-07-11 14:55:04,185 [WARNING] django.request: Unauthorized: /api/user/users/8/branch/
+2025-07-11 14:55:04,186 [WARNING] django.server: "PATCH /api/user/users/8/branch/ HTTP/1.1" 401 58
+2025-07-11 14:55:10,513 [INFO] users: User info@artstraining.co.uk assigned to branch Nigeria Branch for tenant arts
+2025-07-11 14:55:10,525 [INFO] django.server: "PATCH /api/user/users/8/branch/ HTTP/1.1" 200 425
+2025-07-11 14:56:43,576 [INFO] django.server: "GET /api/user/users/ HTTP/1.1" 200 330
+2025-07-11 14:57:38,169 [WARNING] django.request: Not Found: /api/user/create//
+2025-07-11 14:57:38,171 [WARNING] django.server: "POST /api/user/create// HTTP/1.1" 404 7710
+2025-07-11 14:57:42,648 [ERROR] users: Validation error for tenant arts: {'password': [ErrorDetail(string='Ensure this field has at least 8 characters.', code='min_length')]}
+2025-07-11 14:57:42,650 [WARNING] django.request: Bad Request: /api/user/create/
+2025-07-11 14:57:42,652 [WARNING] django.server: "POST /api/user/create/ HTTP/1.1" 400 90
+2025-07-11 14:57:55,387 [INFO] users: User created: tonna.ezegwu@artstraining.co.uk (ID: 20) for tenant arts
+2025-07-11 14:57:55,413 [INFO] users: User created: tonna.ezegwu@artstraining.co.uk (ID: 20) for tenant arts
+2025-07-11 14:57:55,414 [INFO] django.server: "POST /api/user/create/ HTTP/1.1" 201 883
+2025-07-11 14:58:34,466 [ERROR] users: Validation error for tenant arts: {'username': [ErrorDetail(string="Username 'johndoe' already exists for this tenant.", code='invalid')], 'dashboard': [ErrorDetail(string='"Admin" is not a valid choice.', code='invalid_choice')]}
+2025-07-11 14:58:34,467 [WARNING] django.request: Bad Request: /api/user/create/
+2025-07-11 14:58:34,468 [WARNING] django.server: "POST /api/user/create/ HTTP/1.1" 400 145
+2025-07-11 14:59:00,657 [ERROR] users: Validation error for tenant arts: {'username': [ErrorDetail(string='Username can only contain letters, numbers, or underscores.', code='invalid')]}
+2025-07-11 14:59:00,658 [WARNING] django.request: Bad Request: /api/user/create/
+2025-07-11 14:59:00,659 [WARNING] django.server: "POST /api/user/create/ HTTP/1.1" 400 105
+2025-07-11 14:59:09,019 [INFO] users: User created: ezegwu.tonna@artstraining.co.uk (ID: 21) for tenant arts
+2025-07-11 14:59:09,036 [INFO] users: User created: ezegwu.tonna@artstraining.co.uk (ID: 21) for tenant arts
+2025-07-11 14:59:09,038 [INFO] django.server: "POST /api/user/create/ HTTP/1.1" 201 895
+2025-07-11 14:59:29,163 [INFO] django.server: "GET /api/user/users/ HTTP/1.1" 200 330
+2025-07-11 15:00:12,412 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\users\views.py changed, reloading.
+2025-07-11 15:00:18,132 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-11 15:05:13,288 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\users\views.py changed, reloading.
+2025-07-11 15:05:19,017 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-11 15:05:51,337 [WARNING] django.request: Not Found: /api/user/tenant-users/
+2025-07-11 15:05:51,338 [WARNING] django.server: "GET /api/user/tenant-users/ HTTP/1.1" 404 7724
+2025-07-11 15:06:28,201 [INFO] django.server: "GET /api/user/users/ HTTP/1.1" 200 330
+2025-07-11 15:06:35,081 [WARNING] django.request: Method Not Allowed: /api/user/users/8/branch/
+2025-07-11 15:06:35,082 [WARNING] django.server: "GET /api/user/users/8/branch/ HTTP/1.1" 405 40
+2025-07-11 15:06:55,756 [WARNING] django.request: Not Found: /api/user/tenant-users/
+2025-07-11 15:06:55,757 [WARNING] django.server: "GET /api/user/tenant-users/ HTTP/1.1" 404 7724
+2025-07-11 15:07:07,144 [WARNING] django.request: Not Found: /api/user/tenant-users/
+2025-07-11 15:07:07,145 [WARNING] django.server: "GET /api/user/tenant-users/ HTTP/1.1" 404 7724
+2025-07-11 15:07:24,819 [INFO] django.server: "GET / HTTP/1.1" 200 188
+2025-07-11 15:07:25,729 [WARNING] django.request: Not Found: /favicon.ico
+2025-07-11 15:07:25,730 [WARNING] django.server: "GET /favicon.ico HTTP/1.1" 404 4417
+2025-07-11 15:07:27,915 [INFO] django.server: "GET /api/docs/ HTTP/1.1" 200 4640
+2025-07-11 15:07:32,739 [WARNING] talent_engine: Invalid unique_link format: 
+2025-07-11 15:07:32,752 [WARNING] core: No valid Bearer token provided
+2025-07-11 15:07:32,753 [ERROR] core: Error extracting tenant: Invalid token format
+2025-07-11 15:07:32,758 [WARNING] core: No valid Bearer token provided
+2025-07-11 15:07:32,760 [ERROR] core: Error extracting tenant: Invalid token format
+2025-07-11 15:07:32,764 [WARNING] core: No valid Bearer token provided
+2025-07-11 15:07:32,765 [ERROR] core: Error extracting tenant: Invalid token format
+2025-07-11 15:07:32,770 [WARNING] core: No valid Bearer token provided
+2025-07-11 15:07:32,771 [ERROR] core: Error extracting tenant: Invalid token format
+2025-07-11 15:07:32,774 [WARNING] core: No valid Bearer token provided
+2025-07-11 15:07:32,777 [ERROR] core: Error extracting tenant: Invalid token format
+2025-07-11 15:07:32,788 [WARNING] core: No valid Bearer token provided
+2025-07-11 15:07:32,788 [ERROR] core: Error extracting tenant: Invalid token format
+2025-07-11 15:07:33,034 [INFO] django.server: "GET /api/schema/ HTTP/1.1" 200 156830
+2025-07-11 15:09:23,552 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\users\urls.py changed, reloading.
+2025-07-11 15:09:28,000 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-11 15:09:49,381 [WARNING] django.request: Not Found: /api/user/users/tenant-users/
+2025-07-11 15:09:49,382 [WARNING] django.server: "GET /api/user/users/tenant-users/ HTTP/1.1" 404 23
+2025-07-11 15:10:18,959 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\users\urls.py changed, reloading.
+2025-07-11 15:10:24,255 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-11 15:10:54,126 [ERROR] users: Branch with ID 1 not found for tenant arts
+2025-07-11 15:10:54,148 [WARNING] django.request: Not Found: /api/user/branch-users/1/
+2025-07-11 15:10:54,149 [WARNING] django.server: "GET /api/user/branch-users/1/ HTTP/1.1" 404 57
+2025-07-11 15:11:04,646 [INFO] users: Retrieved 2 users for branch Nigeria Branch in tenant arts
+2025-07-11 15:11:04,685 [INFO] django.server: "GET /api/user/branch-users/2/ HTTP/1.1" 200 906
+2025-07-11 15:11:38,458 [INFO] users: Retrieved 0 users for branch UK Branch in tenant arts
+2025-07-11 15:11:38,465 [INFO] django.server: "GET /api/user/branch-users/3/ HTTP/1.1" 200 81
+2025-07-11 15:11:47,267 [INFO] users: Retrieved 2 users for branch Nigeria Branch in tenant arts
+2025-07-11 15:11:47,299 [INFO] django.server: "GET /api/user/branch-users/2/ HTTP/1.1" 200 906
+2025-07-11 15:12:15,570 [WARNING] django.request: Method Not Allowed: /api/user/users/tcreate/
+2025-07-11 15:12:15,571 [WARNING] django.server: "POST /api/user/users/tcreate/ HTTP/1.1" 405 41
+2025-07-11 15:12:19,486 [WARNING] django.request: Method Not Allowed: /api/user/users/create/
+2025-07-11 15:12:19,488 [WARNING] django.server: "POST /api/user/users/create/ HTTP/1.1" 405 41
+2025-07-11 15:12:35,647 [ERROR] users: Validation error for tenant arts: {'username': [ErrorDetail(string="Username 'tonnaezegwu' already exists for this tenant.", code='invalid')], 'email': [ErrorDetail(string='user with this email address already exists.', code='unique')]}
+2025-07-11 15:12:35,647 [WARNING] django.request: Bad Request: /api/user/create/
+2025-07-11 15:12:35,648 [WARNING] django.server: "POST /api/user/create/ HTTP/1.1" 400 157
+2025-07-11 15:12:59,047 [INFO] users: Retrieved 2 users for branch Nigeria Branch in tenant arts
+2025-07-11 15:12:59,076 [INFO] django.server: "GET /api/user/branch-users/2/ HTTP/1.1" 200 906
+2025-07-11 15:13:09,719 [INFO] users: Retrieved 5 users for tenant arts
+2025-07-11 15:13:09,767 [INFO] django.server: "GET /api/user/tenant-users/ HTTP/1.1" 200 2024
+2025-07-11 15:13:24,174 [INFO] django.server: "GET /api/docs/ HTTP/1.1" 200 4640
+2025-07-11 15:13:25,211 [WARNING] talent_engine: Invalid unique_link format: 
+2025-07-11 15:13:25,226 [WARNING] core: No valid Bearer token provided
+2025-07-11 15:13:25,227 [ERROR] core: Error extracting tenant: Invalid token format
+2025-07-11 15:13:25,234 [WARNING] core: No valid Bearer token provided
+2025-07-11 15:13:25,235 [ERROR] core: Error extracting tenant: Invalid token format
+2025-07-11 15:13:25,238 [WARNING] core: No valid Bearer token provided
+2025-07-11 15:13:25,238 [ERROR] core: Error extracting tenant: Invalid token format
+2025-07-11 15:13:25,242 [WARNING] core: No valid Bearer token provided
+2025-07-11 15:13:25,242 [ERROR] core: Error extracting tenant: Invalid token format
+2025-07-11 15:13:25,245 [WARNING] core: No valid Bearer token provided
+2025-07-11 15:13:25,245 [ERROR] core: Error extracting tenant: Invalid token format
+2025-07-11 15:13:25,254 [WARNING] core: No valid Bearer token provided
+2025-07-11 15:13:25,255 [ERROR] core: Error extracting tenant: Invalid token format
+2025-07-11 15:13:25,433 [INFO] django.server: "GET /api/schema/ HTTP/1.1" 200 158186
+2025-07-11 15:14:24,352 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-11 15:15:09,897 [WARNING] django.request: Unauthorized: /api/user/branch-users/2/
+2025-07-11 15:15:09,898 [WARNING] django.server: "GET /api/user/branch-users/2/ HTTP/1.1" 401 172
+2025-07-11 15:15:20,434 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 962
+2025-07-11 15:15:35,564 [INFO] users: Retrieved 2 users for branch Nigeria Branch in tenant arts
+2025-07-11 15:15:35,603 [INFO] django.server: "GET /api/user/branch-users/2/ HTTP/1.1" 200 906
+2025-07-11 15:15:48,766 [ERROR] users: Branch with ID 1 not found for tenant arts
+2025-07-11 15:15:48,784 [WARNING] django.request: Not Found: /api/user/branch-users/1/
+2025-07-11 15:15:48,785 [WARNING] django.server: "GET /api/user/branch-users/1/ HTTP/1.1" 404 57
+2025-07-11 15:15:51,091 [INFO] users: Retrieved 0 users for branch UK Branch in tenant arts
+2025-07-11 15:15:51,095 [INFO] django.server: "GET /api/user/branch-users/3/ HTTP/1.1" 200 81
+2025-07-11 15:15:53,194 [ERROR] users: Branch with ID 4 not found for tenant arts
+2025-07-11 15:15:53,195 [WARNING] django.request: Not Found: /api/user/branch-users/4/
+2025-07-11 15:15:53,197 [WARNING] django.server: "GET /api/user/branch-users/4/ HTTP/1.1" 404 57
+2025-07-11 15:15:55,437 [ERROR] users: Branch with ID 1 not found for tenant arts
+2025-07-11 15:15:55,438 [WARNING] django.request: Not Found: /api/user/branch-users/1/
+2025-07-11 15:15:55,439 [WARNING] django.server: "GET /api/user/branch-users/1/ HTTP/1.1" 404 57
+2025-07-11 15:15:57,951 [INFO] users: Retrieved 2 users for branch Nigeria Branch in tenant arts
+2025-07-11 15:15:57,983 [INFO] django.server: "GET /api/user/branch-users/2/ HTTP/1.1" 200 906
+2025-07-11 15:16:44,378 [INFO] users: Retrieved 5 users for tenant arts
+2025-07-11 15:16:44,426 [INFO] django.server: "GET /api/user/tenant-users/ HTTP/1.1" 200 2024
+2025-07-11 15:17:20,389 [INFO] users: Retrieved 2 users for branch Nigeria Branch in tenant arts
+2025-07-11 15:17:20,420 [INFO] django.server: "GET /api/user/branch-users/2/ HTTP/1.1" 200 906
+2025-07-11 15:17:23,192 [INFO] users: Retrieved 0 users for branch UK Branch in tenant arts
+2025-07-11 15:17:23,196 [INFO] django.server: "GET /api/user/branch-users/3/ HTTP/1.1" 200 81
+2025-07-11 15:17:27,947 [INFO] users: Retrieved 2 users for branch Nigeria Branch in tenant arts
+2025-07-11 15:17:27,975 [INFO] django.server: "GET /api/user/branch-users/2/ HTTP/1.1" 200 906
+2025-07-11 15:18:07,210 [INFO] users: User support@artstraining.co.uk assigned to branch UK Branch for tenant arts
+2025-07-11 15:18:07,233 [INFO] django.server: "PATCH /api/user/users/9/branch/ HTTP/1.1" 200 418
+2025-07-11 15:18:20,165 [INFO] users: User admin@artstraining.co.uk assigned to branch UK Branch for tenant arts
+2025-07-11 15:18:20,174 [INFO] django.server: "PATCH /api/user/users/10/branch/ HTTP/1.1" 200 416
+2025-07-11 15:18:38,698 [INFO] users: User tonna.ezegwu@artstraining.co.uk assigned to branch UK Branch for tenant arts
+2025-07-11 15:18:38,734 [INFO] django.server: "PATCH /api/user/users/20/branch/ HTTP/1.1" 200 591
+2025-07-11 15:18:40,529 [INFO] users: User ezegwu.tonna@artstraining.co.uk assigned to branch UK Branch for tenant arts
+2025-07-11 15:18:40,560 [INFO] django.server: "PATCH /api/user/users/21/branch/ HTTP/1.1" 200 599
+2025-07-11 15:18:44,631 [INFO] users: Retrieved 1 users for branch Nigeria Branch in tenant arts
+2025-07-11 15:18:44,649 [INFO] django.server: "GET /api/user/branch-users/2/ HTTP/1.1" 200 414
+2025-07-11 15:18:47,970 [INFO] users: Retrieved 4 users for branch UK Branch in tenant arts
+2025-07-11 15:18:48,014 [INFO] django.server: "GET /api/user/branch-users/3/ HTTP/1.1" 200 1700
+2025-07-11 15:18:55,446 [INFO] users: Retrieved 5 users for tenant arts
+2025-07-11 15:18:55,510 [INFO] django.server: "GET /api/user/tenant-users/ HTTP/1.1" 200 2024
+2025-07-11 15:20:29,211 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 2
+2025-07-11 15:21:26,205 [WARNING] django.request: Bad Request: /api/talent-engine/requisitions/
+2025-07-11 15:21:26,206 [WARNING] django.server: "POST /api/talent-engine/requisitions/ HTTP/1.1" 400 38
+2025-07-11 15:27:20,945 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\talent_engine\serializers.py changed, reloading.
+2025-07-11 15:27:25,278 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-11 15:27:46,536 [INFO] talent_engine: Job requisition created: Senior Software Engineer for tenant arts by user info@artstraining.co.uk
+2025-07-11 15:27:46,570 [INFO] django.server: "POST /api/talent-engine/requisitions/ HTTP/1.1" 201 1720
+2025-07-11 15:28:59,506 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\talent_engine\views.py changed, reloading.
+2025-07-11 15:29:05,216 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-11 15:29:24,349 [INFO] django.server: "GET /api/talent-engine/requisitions/ART-0001/ HTTP/1.1" 200 1720
+2025-07-11 15:29:28,084 [INFO] talent_engine: JobRequisition ART-0001 soft-deleted for tenant arts
+2025-07-11 15:29:28,085 [INFO] talent_engine: Job requisition soft-deleted: Senior Software Engineer for tenant arts
+2025-07-11 15:29:28,087 [INFO] django.server: "DELETE /api/talent-engine/requisitions/ART-0001/ HTTP/1.1" 204 0
+2025-07-11 15:29:37,481 [INFO] talent_engine: Job requisition created: Senior Software Engineer for tenant arts by user info@artstraining.co.uk
+2025-07-11 15:29:37,492 [INFO] django.server: "POST /api/talent-engine/requisitions/ HTTP/1.1" 201 1732
+2025-07-11 15:30:01,773 [INFO] users: Retrieved 4 users for branch UK Branch in tenant arts
+2025-07-11 15:30:01,833 [INFO] django.server: "GET /api/user/branch-users/3/ HTTP/1.1" 200 1700
+2025-07-11 15:30:20,265 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 955
+2025-07-11 15:31:05,741 [INFO] talent_engine: Job requisition created: Senior Software Engineer for tenant arts by user admin@artstraining.co.uk
+2025-07-11 15:31:05,751 [INFO] django.server: "POST /api/talent-engine/requisitions/ HTTP/1.1" 201 1728
+2025-07-11 15:31:29,269 [INFO] talent_engine: Job requisition created: Senior Machine Learning Engineer for tenant arts by user admin@artstraining.co.uk
+2025-07-11 15:31:29,280 [INFO] django.server: "POST /api/talent-engine/requisitions/ HTTP/1.1" 201 1744
+2025-07-11 15:31:35,140 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 5208
+2025-07-11 15:32:57,072 [WARNING] django.request: Bad Request: /api/token/
+2025-07-11 15:32:57,073 [WARNING] django.server: "POST /api/token/ HTTP/1.1" 400 45
+2025-07-11 15:33:06,399 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 1131
+2025-07-11 15:33:18,767 [WARNING] django.request: Forbidden: /api/talent-engine/requisitions/
+2025-07-11 15:33:18,768 [WARNING] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 403 63
+2025-07-11 15:34:08,063 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\users\permissions.py changed, reloading.
+2025-07-11 15:34:13,116 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-11 15:34:31,639 [ERROR] django.request: Internal Server Error: /api/talent-engine/requisitions/
+Traceback (most recent call last):
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\views.py", line 503, in dispatch
+    self.initial(request, *args, **kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\views.py", line 421, in initial
+    self.check_permissions(request)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\views.py", line 338, in check_permissions
+    if not permission.has_permission(request, self):
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\users\permissions.py", line 17, in has_permission
+    view.queryset = view.queryset.filter(branch=user.branch)
+                    ^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'filter'
+2025-07-11 15:34:31,652 [ERROR] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 500 115514
+2025-07-11 15:36:15,446 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\users\permissions.py changed, reloading.
+2025-07-11 15:36:20,919 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-11 15:37:05,610 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\talent_engine\views.py changed, reloading.
+2025-07-11 15:37:09,964 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-11 15:37:28,983 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 5208
+2025-07-11 15:38:29,441 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\talent_engine\views.py changed, reloading.
+2025-07-11 15:38:33,763 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-11 15:38:52,180 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 5208
+2025-07-11 15:39:19,049 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\talent_engine\views.py changed, reloading.
+2025-07-11 15:39:22,898 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-11 15:39:41,442 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 3475
+2025-07-11 15:40:36,892 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 1123
+2025-07-11 15:40:50,255 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 3475
+2025-07-11 15:41:08,357 [INFO] users: Retrieved 1 users for branch Nigeria Branch in tenant arts
+2025-07-11 15:41:08,370 [INFO] django.server: "GET /api/user/branch-users/2/ HTTP/1.1" 200 414
+2025-07-11 15:41:29,016 [WARNING] django.request: Bad Request: /api/token/
+2025-07-11 15:41:29,017 [WARNING] django.server: "POST /api/token/ HTTP/1.1" 400 45
+2025-07-11 15:41:38,728 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 962
+2025-07-11 15:41:49,590 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 1734
+2025-07-11 15:46:50,056 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\serializers.py changed, reloading.
+2025-07-11 15:46:55,977 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-11 15:47:34,941 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-11 15:51:01,635 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-11 15:51:05,654 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-11 15:51:49,728 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-11 15:51:54,232 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-11 15:52:41,050 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-11 15:52:45,374 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-11 15:53:15,928 [INFO] users: Retrieved 1 users for branch Nigeria Branch in tenant arts
+2025-07-11 15:53:15,953 [INFO] django.server: "GET /api/user/branch-users/2/ HTTP/1.1" 200 414
+2025-07-11 15:53:31,338 [INFO] django.server: "OPTIONS /api/token/ HTTP/1.1" 200 0
+2025-07-11 15:53:38,671 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 962
+2025-07-11 15:53:38,737 [INFO] django.server: "OPTIONS /api/token/validate/ HTTP/1.1" 200 0
+2025-07-11 15:53:38,742 [INFO] django.server: "OPTIONS /api/token/validate/ HTTP/1.1" 200 0
+2025-07-11 15:53:38,922 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 397
+2025-07-11 15:53:39,066 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 397
+2025-07-11 15:53:46,990 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/ HTTP/1.1" 200 0
+2025-07-11 15:53:46,990 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/ HTTP/1.1" 200 0
+2025-07-11 15:53:47,228 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 1734
+2025-07-11 15:53:47,508 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 1734
+2025-07-11 15:54:12,237 [INFO] users: Retrieved 4 users for branch UK Branch in tenant arts
+2025-07-11 15:54:12,284 [INFO] django.server: "GET /api/user/branch-users/3/ HTTP/1.1" 200 1700
+2025-07-11 15:54:27,820 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 952
+2025-07-11 15:54:28,031 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 387
+2025-07-11 15:54:28,196 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 387
+2025-07-11 15:54:32,649 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 3475
+2025-07-11 15:54:32,883 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 3475
+2025-07-11 15:54:40,433 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/ART-0004/ HTTP/1.1" 200 0
+2025-07-11 15:54:40,433 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/ART-0004/ HTTP/1.1" 200 0
+2025-07-11 15:54:40,649 [INFO] django.server: "GET /api/talent-engine/requisitions/ART-0004/ HTTP/1.1" 200 1744
+2025-07-11 15:54:40,945 [INFO] django.server: "GET /api/talent-engine/requisitions/ART-0004/ HTTP/1.1" 200 1744
+2025-07-11 15:54:43,157 [INFO] talent_engine: Job requisition updated: Senior Machine Learning Engineer for tenant arts
+2025-07-11 15:54:43,182 [INFO] django.server: "PATCH /api/talent-engine/requisitions/ART-0004/ HTTP/1.1" 200 1740
+2025-07-11 15:55:23,449 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 3471
+2025-07-11 15:55:47,459 [INFO] django.server: "GET /api/user/users/ HTTP/1.1" 200 330
+2025-07-11 15:56:14,416 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 3471
+2025-07-11 15:56:34,102 [WARNING] django.request: Method Not Allowed: /api/user/users/10/branch/
+2025-07-11 15:56:34,104 [WARNING] django.server: "GET /api/user/users/10/branch/ HTTP/1.1" 405 40
+2025-07-11 15:56:39,855 [INFO] users: User admin@artstraining.co.uk assigned to branch None for tenant arts
+2025-07-11 15:56:39,872 [INFO] django.server: "PATCH /api/user/users/10/branch/ HTTP/1.1" 200 409
+2025-07-11 15:57:03,399 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 948
+2025-07-11 15:57:03,623 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 380
+2025-07-11 15:57:03,769 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 380
+2025-07-11 15:57:08,295 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 5204
+2025-07-11 15:57:08,568 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 5204
+2025-07-11 15:57:56,314 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.
+2025-07-11 15:58:01,948 [INFO] django.utils.autoreload: Watching for file changes with StatReloader

@@ -1,34 +1,13 @@
 from rest_framework import serializers
 from .models import CustomUser, UserProfile, UserDocument
-from core.models import Module, Tenant, RolePermission, Domain
+from core.models import Module, Tenant, RolePermission, Domain, Branch
 import re
-from django_tenants.utils import tenant_context
 import logging
+from django_tenants.utils import tenant_context
 
 logger = logging.getLogger('users')
 
-
-
-# serializers.py
-from rest_framework import serializers
-from .models import CustomUser, UserProfile, UserDocument
-from core.models import Module, Tenant, RolePermission, Domain
-import re
-from django_tenants.utils import tenant_context
-import logging
-
-logger = logging.getLogger('users')
-
-# serializers.py
-from rest_framework import serializers
-from .models import CustomUser, UserProfile, UserDocument
-from core.models import Module, Tenant, RolePermission, Domain
-import re
-from django_tenants.utils import tenant_context
-import logging
-
-logger = logging.getLogger('users')
-
+# Existing serializers (unchanged, included for context)
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
@@ -47,16 +26,17 @@ class UserProfileSerializer(serializers.ModelSerializer):
 class UserDocumentSerializer(serializers.ModelSerializer):
     file = serializers.FileField(required=True)
     title = serializers.CharField(required=True)
+    branch = serializers.PrimaryKeyRelatedField(queryset=Branch.objects.all(), required=False, allow_null=True)
 
     class Meta:
         model = UserDocument
-        fields = ['id', 'title', 'file', 'uploaded_at']
+        fields = ['id', 'title', 'file', 'uploaded_at', 'branch']
         read_only_fields = ['id', 'uploaded_at']
 
     def validate_file(self, value):
         if not value.name.lower().endswith(('.pdf', '.png', '.jpg', '.jpeg')):
             raise serializers.ValidationError("Only PDF or image files are allowed.")
-        if value.size > 10 * 1024 * 1024:  # 10MB limit
+        if value.size > 10 * 1024 * 1024:
             raise serializers.ValidationError("File size cannot exceed 10MB.")
         return value
 
@@ -66,13 +46,14 @@ class UserCreateSerializer(serializers.ModelSerializer):
     documents = UserDocumentSerializer(many=True, required=False)
     password = serializers.CharField(write_only=True, required=True, min_length=8)
     is_superuser = serializers.BooleanField(default=False, required=False)
+    branch = serializers.PrimaryKeyRelatedField(queryset=Branch.objects.all(), required=False, allow_null=True)
 
     class Meta:
         model = CustomUser
         fields = [
             'id', 'username', 'email', 'password', 'first_name', 'last_name', 'role', 'job_role',
             'dashboard', 'access_level', 'status', 'two_factor', 'is_superuser', 'profile',
-            'modules', 'documents'
+            'modules', 'documents', 'branch'
         ]
         read_only_fields = ['id']
         extra_kwargs = {
@@ -86,18 +67,14 @@ class UserCreateSerializer(serializers.ModelSerializer):
         }
 
     def to_internal_value(self, data):
-        # Ensure data is mutable
         mutable_data = data.copy() if hasattr(data, 'copy') else dict(data)
         logger.debug(f"Request data: {dict(data)}")
         request = self.context.get('request')
         logger.debug(f"Request files: {[(key, file.name, file.size) for key, file in (request.FILES.items() if request else [])]}")
 
-        # Parse profile fields
         profile_data = {}
         profile_fields = ['phone', 'gender', 'dob', 'street', 'city', 'state', 'zip_code', 'department']
         profile_errors = {}
-
-        # Try nested profile dictionary
         if 'profile' in data and isinstance(data['profile'], dict):
             logger.debug("Found nested profile dictionary")
             profile_data = data['profile']
@@ -105,7 +82,6 @@ class UserCreateSerializer(serializers.ModelSerializer):
                 if field not in profile_data or not profile_data[field]:
                     profile_errors[f'profile[{field}]'] = 'This field is required.'
         else:
-            # Parse flat profile[*] fields
             for field in profile_fields:
                 key = f'profile[{field}]'
                 if key in data:
@@ -116,39 +92,35 @@ class UserCreateSerializer(serializers.ModelSerializer):
                         profile_errors[f'profile[{field}]'] = 'This field is required.'
                 else:
                     profile_errors[f'profile[{field}]'] = 'This field is required.'
-
         if profile_errors:
             logger.error(f"Profile validation errors: {profile_errors}")
             raise serializers.ValidationError({'profile': profile_errors})
         if not profile_data:
             logger.error("No valid profile fields found in request data")
             raise serializers.ValidationError({'profile': 'At least one profile field is required.'})
-
         mutable_data['profile'] = profile_data
         logger.debug(f"Parsed profile data: {profile_data}")
 
-        # Parse documents fields
         documents_data = []
         document_indices = set()
         for key in data.keys():
-            if key.startswith('documents[') and (key.endswith('][title]') or key.endswith('][file]')):
+            if key.startswith('documents[') and (key.endswith('][title]') or key.endswith('][file]') or key.endswith('][branch]')):
                 index = key.split('[')[1].split(']')[0]
                 document_indices.add(index)
-
         document_errors = {}
         for index in sorted(document_indices, key=int):
             title_key = f'documents[{index}][title]'
             file_key = f'documents[{index}][file]'
+            branch_key = f'documents[{index}][branch]'
             title = data.get(title_key)
             file = request.FILES.get(file_key) if request else None
-            logger.debug(f"Processing document {index}: title={title}, file={file.name if file else None}, size={file.size if file else 0}")
-
+            branch = data.get(branch_key)
+            logger.debug(f"Processing document {index}: title={title}, file={file.name if file else None}, branch={branch}")
             if title and file:
                 try:
-                    # Validate file using UserDocumentSerializer
-                    doc_serializer = UserDocumentSerializer(data={'title': title, 'file': file})
+                    doc_serializer = UserDocumentSerializer(data={'title': title, 'file': file, 'branch': branch})
                     if doc_serializer.is_valid():
-                        documents_data.append({'title': title, 'file': file})
+                        documents_data.append({'title': title, 'file': file, 'branch': branch})
                     else:
                         document_errors[f'documents[{index}]'] = doc_serializer.errors
                 except Exception as e:
@@ -158,18 +130,15 @@ class UserCreateSerializer(serializers.ModelSerializer):
                     document_errors[f'documents[{index}][title]'] = 'Document title is required.'
                 if not file:
                     document_errors[f'documents[{index}][file]'] = 'Document file is required.'
-
         if document_errors:
             logger.error(f"Document validation errors: {document_errors}")
             raise serializers.ValidationError({'documents': document_errors})
-
         if documents_data:
             mutable_data['documents'] = documents_data
             logger.debug(f"Parsed documents data: {[{k: v.name if k == 'file' else v for k, v in doc.items()} for doc in documents_data]}")
         else:
             mutable_data['documents'] = []
 
-        # Parse modules
         modules_data = []
         module_indices = set()
         for key in data.keys():
@@ -215,32 +184,26 @@ class UserCreateSerializer(serializers.ModelSerializer):
     def validate(self, data):
         tenant = self.context['request'].user.tenant
         logger.debug(f"Validating user data for tenant: {tenant.schema_name}")
-
         role = data.get('role')
         valid_roles = [r[0] for r in CustomUser.ROLES]
         if role and role not in valid_roles:
             raise serializers.ValidationError(f"Invalid role. Must be one of: {', '.join(valid_roles)}.")
-
         dashboard = data.get('dashboard')
         valid_dashboards = [d[0] for d in CustomUser.DASHBOARD_TYPES]
         if dashboard and dashboard not in valid_dashboards:
             raise serializers.ValidationError(f"Invalid dashboard. Must be one of: {', '.join(valid_dashboards)}.")
-
         access_level = data.get('access_level')
         valid_access_levels = [a[0] for a in CustomUser.ACCESS_LEVELS]
         if access_level and access_level not in valid_access_levels:
             raise serializers.ValidationError(f"Invalid access level. Must be one of: {', '.join(valid_access_levels)}.")
-
         status = data.get('status')
         valid_statuses = [s[0] for s in CustomUser.STATUS_CHOICES]
         if status and status not in valid_statuses:
             raise serializers.ValidationError(f"Invalid status. Must be one of: {', '.join(valid_statuses)}.")
-
         two_factor = data.get('two_factor')
         valid_two_factor = [t[0] for t in CustomUser.TWO_FACTOR_CHOICES]
         if two_factor and two_factor not in valid_two_factor:
             raise serializers.ValidationError(f"Invalid two-factor option. Must be one of: {', '.join(valid_two_factor)}.")
-
         return data
 
     def create(self, validated_data):
@@ -248,6 +211,7 @@ class UserCreateSerializer(serializers.ModelSerializer):
         modules = validated_data.pop('modules', [])
         documents = validated_data.pop('documents', [])
         is_superuser = validated_data.pop('is_superuser', False)
+        branch = validated_data.pop('branch', None)
         tenant = self.context['request'].user.tenant
         password = validated_data.pop('password')
 
@@ -256,6 +220,7 @@ class UserCreateSerializer(serializers.ModelSerializer):
                 user = CustomUser.objects.create_user(
                     **validated_data,
                     tenant=tenant,
+                    branch=branch,
                     is_superuser=is_superuser,
                     is_staff=is_superuser,
                     is_active=validated_data.get('status') == 'active'
@@ -287,7 +252,8 @@ class UserCreateSerializer(serializers.ModelSerializer):
                         user=user,
                         tenant=tenant,
                         title=doc_data['title'],
-                        file=doc_data['file']
+                        file=doc_data['file'],
+                        branch=doc_data.get('branch')
                     )
                     logger.debug(f"Document created: {doc_data['title']} for user {user.email}")
 
@@ -304,28 +270,27 @@ class CustomUserSerializer(serializers.ModelSerializer):
         slug_field='name',
         source='profile.modules'
     )
-    tenant = serializers.SlugRelatedField(
-        read_only=True,
-        slug_field='name'
-    )
+    tenant = serializers.SlugRelatedField(read_only=True, slug_field='name')
+    branch = serializers.SlugRelatedField(read_only=True, slug_field='name', allow_null=True)
 
     class Meta:
         model = CustomUser
         fields = [
             'id', 'username', 'email', 'first_name', 'last_name', 'role', 'job_role',
             'dashboard', 'access_level', 'status', 'two_factor', 'is_superuser',
-            'profile', 'modules', 'tenant'
+            'profile', 'modules', 'tenant', 'branch'
         ]
         read_only_fields = ['id', 'is_superuser']
 
 class AdminUserCreateSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, style={'input_type': 'password'})
+    branch = serializers.PrimaryKeyRelatedField(queryset=Branch.objects.all(), required=False, allow_null=True)
 
     class Meta:
         model = CustomUser
         fields = [
             'username', 'email', 'password', 'first_name', 'last_name', 'job_role',
-            'role', 'dashboard', 'access_level', 'status', 'two_factor', 'is_superuser'
+            'role', 'dashboard', 'access_level', 'status', 'two_factor', 'is_superuser', 'branch'
         ]
         extra_kwargs = {
             'role': {'required': False, 'default': 'admin'},
@@ -367,3 +332,31 @@ class AdminUserCreateSerializer(serializers.ModelSerializer):
             user.set_password(password)
             user.save()
             return user
+
+# New serializer for updating user branch
+class UserBranchUpdateSerializer(serializers.ModelSerializer):
+    branch = serializers.PrimaryKeyRelatedField(queryset=Branch.objects.all(), required=False, allow_null=True)
+
+    class Meta:
+        model = CustomUser
+        fields = ['branch']
+
+    def validate_branch(self, value):
+        if value is not None:
+            tenant = self.context['request'].user.tenant
+            with tenant_context(tenant):
+                if not Branch.objects.filter(id=value.id, tenant=tenant).exists():
+                    raise serializers.ValidationError(f"Branch with ID {value.id} does not belong to tenant {tenant.schema_name}.")
+        return value
+
+    def validate(self, data):
+        tenant = self.context['request'].user.tenant
+        user = self.instance
+        if user.tenant != tenant:
+            raise serializers.ValidationError("Cannot update branch for a user from a different tenant.")
+        return data
+
+    def update(self, instance, validated_data):
+        instance.branch = validated_data.get('branch', instance.branch)
+        instance.save()
+        return instance

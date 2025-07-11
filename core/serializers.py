@@ -1,11 +1,74 @@
 # apps/core/serializers.py
 from rest_framework import serializers
-from .models import Tenant, Domain, Module, TenantConfig
+from .models import Tenant, Domain, Module, TenantConfig, Branch
 import re
 import logging
 from django.db import transaction
-
 logger = logging.getLogger('core')
+from django_tenants.utils import tenant_context
+
+
+
+class BranchSerializer(serializers.ModelSerializer):
+    tenant = serializers.SlugRelatedField(
+        slug_field='schema_name',
+        queryset=Tenant.objects.all(),
+        required=False,
+        write_only=True
+    )
+
+    class Meta:
+        model = Branch
+        fields = ['id', 'tenant', 'name', 'location', 'is_head_office', 'created_at']
+        read_only_fields = ['id', 'created_at']
+
+    def validate_name(self, value):
+        if not re.match(r'^[a-zA-Z0-9\s\-]+$', value):
+            raise serializers.ValidationError("Branch name can only contain letters, numbers, spaces, or hyphens.")
+        try:
+            tenant = self.context['request'].user.tenant
+        except AttributeError as e:
+            logger.error(f"Error accessing request.user.tenant: {str(e)}")
+            raise serializers.ValidationError("Tenant not found in request context")
+        with tenant_context(tenant):
+            if Branch.objects.filter(tenant=tenant, name=value).exists():
+                raise serializers.ValidationError(f"Branch '{value}' already exists for this tenant.")
+        return value
+
+    def validate_is_head_office(self, value):
+        if value:  # Only validate if is_head_office is True
+            try:
+                tenant = self.context['request'].user.tenant
+            except AttributeError as e:
+                logger.error(f"Error accessing request.user.tenant: {str(e)}")
+                raise serializers.ValidationError("Tenant not found in request context")
+            with tenant_context(tenant):
+                # Exclude the current instance during updates
+                existing_head_office = Branch.objects.filter(
+                    tenant=tenant,
+                    is_head_office=True
+                ).exclude(id=self.instance.id if self.instance else None)
+                if existing_head_office.exists():
+                    raise serializers.ValidationError(
+                        f"Another branch ('{existing_head_office.first().name}') is already set as head office for this tenant."
+                    )
+        return value
+
+    def validate(self, data):
+        try:
+            tenant = self.context['request'].user.tenant
+        except AttributeError as e:
+            logger.error(f"Error accessing request.user.tenant: {str(e)}")
+            raise serializers.ValidationError("Tenant not found in request context")
+        if 'tenant' in data and data['tenant'] != tenant:
+            logger.warning(f"Attempt to create branch for different tenant {data['tenant'].schema_name} by {tenant.schema_name}")
+            raise serializers.ValidationError("Cannot create branch for a different tenant.")
+        data['tenant'] = tenant  # Set tenant from request context
+        return data
+
+    def create(self, validated_data):
+        return super().create(validated_data)
+
 
 class DomainSerializer(serializers.ModelSerializer):
     class Meta:

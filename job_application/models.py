@@ -1,8 +1,10 @@
 from django.db import models
-from core.models import Tenant
-from talent_engine.models import JobRequisition
-import logging
 from django.utils import timezone
+from core.models import Tenant, Branch
+from talent_engine.models import JobRequisition
+from users.models import CustomUser
+import logging
+import uuid
 
 logger = logging.getLogger('job_applications')
 
@@ -24,9 +26,8 @@ class JobApplication(models.Model):
     ]
 
     id = models.CharField(primary_key=True, max_length=20, editable=False, unique=True)
-    compliance_status = models.JSONField(default=list, blank=True)  # Changed from lambda: [] to list
-
     tenant = models.ForeignKey(Tenant, on_delete=models.CASCADE, related_name='job_applications')
+    branch = models.ForeignKey(Branch, on_delete=models.SET_NULL, null=True, blank=True, related_name='job_applications')
     job_requisition = models.ForeignKey(JobRequisition, on_delete=models.CASCADE, related_name='applications')
     full_name = models.CharField(max_length=255)
     email = models.EmailField(max_length=255)
@@ -42,6 +43,8 @@ class JobApplication(models.Model):
     employment_gaps = models.JSONField(default=list, blank=True)
     source = models.CharField(max_length=50, blank=True, null=True, default='Website')
     documents = models.JSONField(default=list, blank=True)
+    compliance_status = models.JSONField(default=list, blank=True)
+    interview_location = models.CharField(max_length=255, blank=True, null=True)
     is_deleted = models.BooleanField(default=False)
     applied_at = models.DateTimeField(auto_now_add=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -53,7 +56,7 @@ class JobApplication(models.Model):
 
     class Meta:
         db_table = 'job_applications_job_application'
-        unique_together = ('tenant', 'job_requisition', 'email')
+        unique_together = ('tenant', 'job_requisition', 'email', 'branch')
 
     def __str__(self):
         return f"{self.full_name} - {self.job_requisition.title} ({self.tenant.name})"
@@ -81,11 +84,10 @@ class JobApplication(models.Model):
         logger.info(f"JobApplication {self.id} restored for tenant {self.tenant.schema_name}")
 
     def initialize_compliance_status(self, job_requisition):
-        """Initialize compliance status based on job requisition's compliance checklist."""
         if not self.compliance_status:
             self.compliance_status = [
                 {
-                    "id": item["id"],
+                    "id": str(item["id"]),
                     "name": item["name"],
                     "description": item["description"],
                     "required": item["required"],
@@ -99,11 +101,10 @@ class JobApplication(models.Model):
             logger.info(f"Initialized compliance status for application {self.id}")
 
     def update_compliance_status(self, item_id, status, checked_by=None, notes=""):
-        """Update the status of a compliance item for this application."""
         for item in self.compliance_status:
             if str(item["id"]) == str(item_id):
                 item["status"] = status
-                item["checked_by"] = checked_by
+                item["checked_by"] = checked_by.id if checked_by else None
                 item["checked_at"] = timezone.now().isoformat() if status != "pending" else None
                 item["notes"] = notes
                 self.save()
@@ -111,7 +112,6 @@ class JobApplication(models.Model):
                 return item
         logger.warning(f"Compliance item {item_id} not found in application {self.id}")
         raise ValueError("Compliance item not found")
-    
 
 class Schedule(models.Model):
     STATUS_CHOICES = [
@@ -119,10 +119,6 @@ class Schedule(models.Model):
         ('completed', 'Completed'),
         ('cancelled', 'Cancelled'),
     ]
-
-    id = models.CharField(primary_key=True, max_length=20, editable=False, unique=True)
-
-
     TIMEZONE_CHOICES = [
         ('UTC', 'UTC'),
         ('America/New_York', 'Eastern Time (US)'),
@@ -130,12 +126,11 @@ class Schedule(models.Model):
         ('America/Los_Angeles', 'Pacific Time (US)'),
         ('Europe/London', 'London'),
         ('Asia/Tokyo', 'Tokyo'),
-        # Add more as needed
     ]
-    timezone = models.CharField(max_length=100, choices=TIMEZONE_CHOICES, default='UTC')
 
-
+    id = models.CharField(primary_key=True, max_length=20, editable=False, unique=True)
     tenant = models.ForeignKey(Tenant, on_delete=models.CASCADE, related_name='schedules')
+    branch = models.ForeignKey(Branch, on_delete=models.SET_NULL, null=True, blank=True, related_name='schedules')
     job_application = models.ForeignKey(JobApplication, on_delete=models.CASCADE, related_name='schedules')
     interview_date_time = models.DateTimeField()
     meeting_mode = models.CharField(max_length=20, choices=[('Virtual', 'Virtual'), ('Physical', 'Physical')])
@@ -144,8 +139,8 @@ class Schedule(models.Model):
     message = models.TextField(blank=True, null=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='scheduled')
     cancellation_reason = models.TextField(blank=True, null=True)
+    timezone = models.CharField(max_length=100, choices=TIMEZONE_CHOICES, default='UTC')
     is_deleted = models.BooleanField(default=False)
-
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -160,7 +155,7 @@ class Schedule(models.Model):
 
     class Meta:
         db_table = 'job_applications_schedule'
-        unique_together = ('tenant', 'job_application', 'interview_date_time')
+        unique_together = ('tenant', 'job_application', 'interview_date_time', 'branch')
 
     def __str__(self):
         return f"Schedule for {self.job_application.full_name} - {self.job_application.job_requisition.title} ({self.interview_date_time})"
@@ -172,7 +167,6 @@ class Schedule(models.Model):
             number = int(latest.split('-')[1]) + 1 if latest else 1
             self.id = f"{prefix}-{number:04d}"
         super().save(*args, **kwargs)
-
 
     def soft_delete(self):
         self.is_deleted = True

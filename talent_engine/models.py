@@ -2,7 +2,7 @@ from django.db import models
 from django.db.models import Max
 from django.utils.text import slugify
 from users.models import CustomUser
-from core.models import Tenant
+from core.models import Tenant, Branch
 from django.utils import timezone
 import uuid
 import logging
@@ -53,6 +53,7 @@ class JobRequisition(models.Model):
     checked_by = models.CharField(max_length=255, null=True, blank=True)
     num_of_applications = models.IntegerField(default=0, help_text="Number of successful (hired) applications")
     tenant = models.ForeignKey(Tenant, on_delete=models.CASCADE, related_name='talent_requisitions')
+    branch = models.ForeignKey(Branch, on_delete=models.SET_NULL, null=True, blank=True)
     title = models.CharField(max_length=255)
     unique_link = models.CharField(max_length=255, unique=True, blank=True, editable=False)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='rejected')
@@ -63,6 +64,7 @@ class JobRequisition(models.Model):
     location_type = models.CharField(max_length=20, choices=LOCATION_TYPE_CHOICES, default='on_site')
     company_address = models.TextField(blank=True, null=True)
     job_location = models.TextField(blank=True, null=True)
+    interview_location = models.CharField(max_length=255, blank=True)
     salary_range = models.CharField(max_length=100, blank=True, null=True)
     job_description = models.TextField(blank=True, null=True)
     number_of_candidates = models.IntegerField(blank=True, null=True)

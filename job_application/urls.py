@@ -1,9 +1,9 @@
 from django.urls import path
 from .views import (
     JobApplicationListCreateView,    JobApplicationDetailView,    JobApplicationBulkDeleteView,    SoftDeletedJobApplicationsView,
-    RecoverSoftDeletedJobApplicationsView,    PermanentDeleteJobApplicationsView, ApplicantComplianceStatusView,
+    RecoverSoftDeletedJobApplicationsView,    PermanentDeleteJobApplicationsView, ComplianceStatusUpdateView,
     ScheduleListCreateView,    ScheduleDetailView,    ScheduleBulkDeleteView,    SoftDeletedSchedulesView,
-    RecoverSoftDeletedSchedulesView,    PermanentDeleteSchedulesView,JobApplicationWithSchedulesView,ApplicantComplianceStatusUpdate,
+    RecoverSoftDeletedSchedulesView,    PermanentDeleteSchedulesView,JobApplicationWithSchedulesView,ComplianceStatusUpdateView,
     ResumeParseView,    JobApplicationsByRequisitionView,    PublishedJobRequisitionsWithShortlistedApplicationsView,
     ResumeScreeningView,TimezoneChoicesView,
 )
@@ -24,12 +24,12 @@ urlpatterns = [
     path('applications/code/<str:code>/email/<str:email>/with-schedules/schedules/', JobApplicationWithSchedulesView.as_view(), name='application-with-schedules'),
 
     # path('applications/<str:id>/with-schedules/schedules/', JobApplicationWithSchedulesView.as_view(), name='application-with-schedules'),
-    path('applications/compliance/<str:job_application_id>/compliance-items/<str:item_id>/', ApplicantComplianceStatusView.as_view(), name='applicant-compliance-status'),
-    path('applications/<str:job_application_id>/compliance-items/submit/', ApplicantComplianceStatusView.as_view(), name='submit-compliance-items'),
+    path('applications/compliance/<str:job_application_id>/compliance-items/<str:item_id>/', ComplianceStatusUpdateView.as_view(), name='applicant-compliance-status'),
+    path('applications/<str:job_application_id>/compliance-items/submit/', ComplianceStatusUpdateView.as_view(), name='submit-compliance-items'),
     
 
-    path('applications/applicant/upload/<str:job_application_id>/compliance-items/', ApplicantComplianceStatusUpdate.as_view(), name='applicant-compliance-status'),
-    path('applications/<str:job_application_id>/compliance-items/<str:item_id>/', ApplicantComplianceStatusView.as_view(), name='applicant-compliance-item-status'),
+    path('applications/applicant/upload/<str:job_application_id>/compliance-items/', ComplianceStatusUpdateView.as_view(), name='applicant-compliance-status'),
+    path('applications/<str:job_application_id>/compliance-items/<str:item_id>/', ComplianceStatusUpdateView.as_view(), name='applicant-compliance-item-status'),
 
 
 

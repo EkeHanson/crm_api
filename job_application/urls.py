@@ -8,8 +8,6 @@ from .views import (
     ResumeScreeningView,TimezoneChoicesView,
 )
 
-
-
 app_name = 'job_applications'
 
  # Job Application Endpoints

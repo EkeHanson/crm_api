@@ -3139,3 +3139,17 @@ AssertionError: The field 'tenant' was declared on serializer BranchSerializer, 
 2025-07-11 20:50:56,916 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 9177
 2025-07-11 20:53:39,274 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.
 2025-07-11 20:53:42,387 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-11 20:58:15,084 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.
+2025-07-11 20:58:17,746 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-11 20:58:24,008 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-11 21:05:32,827 [WARNING] django.request: Bad Request: /api/token/
+2025-07-11 21:05:32,828 [WARNING] django.server: "POST /api/token/ HTTP/1.1" 400 45
+2025-07-11 21:05:47,226 [WARNING] django.request: Bad Request: /api/token/
+2025-07-11 21:05:47,228 [WARNING] django.server: "POST /api/token/ HTTP/1.1" 400 45
+2025-07-11 21:06:26,982 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 952
+2025-07-11 21:06:27,391 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 387
+2025-07-11 21:06:27,590 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 387
+2025-07-11 21:06:57,037 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 3471
+2025-07-11 21:06:57,394 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 3471
+2025-07-11 21:11:43,656 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/halima.sani@example.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 5866
+2025-07-11 21:11:43,973 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/halima.sani@example.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 5866

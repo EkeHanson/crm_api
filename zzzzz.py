@@ -21,12 +21,13 @@ if not Tenant.objects.filter(schema_name='harvoxtech').exists():
 from core.models import Tenant
 from users.models import CustomUser
 from django_tenants.utils import tenant_context
-tenant = Tenant.objects.get(schema_name='harvoxtech')
+tenant = Tenant.objects.get(schema_name='arts')
 with tenant_context(tenant):
     CustomUser.objects.create_superuser(
         username='admin',
-        email='admin@harvoxtech.com',
+        email='admin@artstraining.co.uk',
         password='qwerty',
+        
         role='admin',
         first_name='Ernest',
         last_name='Bush',

@@ -5,8 +5,11 @@ from .views import (
     ScheduleListCreateView,    ScheduleDetailView,    ScheduleBulkDeleteView,    SoftDeletedSchedulesView,
     RecoverSoftDeletedSchedulesView,    PermanentDeleteSchedulesView,JobApplicationWithSchedulesView,ApplicantComplianceStatusUpdate,
     ResumeParseView,    JobApplicationsByRequisitionView,    PublishedJobRequisitionsWithShortlistedApplicationsView,
-    ResumeScreeningView,
+    ResumeScreeningView,TimezoneChoicesView,
 )
+
+
+
 app_name = 'job_applications'
 
  # Job Application Endpoints
@@ -41,6 +44,7 @@ urlpatterns = [
 
     # Schedule Endpoints
     path('schedules/', ScheduleListCreateView.as_view(), name='schedule-list-create'),
+    path('schedules/api/timezone-choices/', TimezoneChoicesView.as_view(), name='timezone_choices'),
     path('schedules/bulk-delete/', ScheduleBulkDeleteView.as_view(), name='schedule-bulk-delete'),
     path('schedules/<str:id>/', ScheduleDetailView.as_view(), name='schedule-detail'),
     path('schedules/deleted/soft_deleted/', SoftDeletedSchedulesView.as_view(), name='soft-deleted-schedules'),

@@ -122,6 +122,19 @@ class Schedule(models.Model):
 
     id = models.CharField(primary_key=True, max_length=20, editable=False, unique=True)
 
+
+    TIMEZONE_CHOICES = [
+        ('UTC', 'UTC'),
+        ('America/New_York', 'Eastern Time (US)'),
+        ('America/Chicago', 'Central Time (US)'),
+        ('America/Los_Angeles', 'Pacific Time (US)'),
+        ('Europe/London', 'London'),
+        ('Asia/Tokyo', 'Tokyo'),
+        # Add more as needed
+    ]
+    timezone = models.CharField(max_length=100, choices=TIMEZONE_CHOICES, default='UTC')
+
+
     tenant = models.ForeignKey(Tenant, on_delete=models.CASCADE, related_name='schedules')
     job_application = models.ForeignKey(JobApplication, on_delete=models.CASCADE, related_name='schedules')
     interview_date_time = models.DateTimeField()
@@ -132,9 +145,6 @@ class Schedule(models.Model):
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='scheduled')
     cancellation_reason = models.TextField(blank=True, null=True)
     is_deleted = models.BooleanField(default=False)
-
-
-
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -163,31 +173,6 @@ class Schedule(models.Model):
             self.id = f"{prefix}-{number:04d}"
         super().save(*args, **kwargs)
 
-
-    # def save(self, *args, **kwargs):
-    #     if not self.id:
-    #         # Get first 3 letters of tenant name
-    #         tenant_prefix = self.tenant.name[:3].upper()
-    #         # Get first 2 letters of model name ("Schedule" -> "SC")
-    #         model_prefix = "SC"
-            
-    #         # Find latest ID with this pattern
-    #         pattern = f"{tenant_prefix}-{model_prefix}-"
-    #         latest = Schedule.objects.filter(id__startswith=pattern).order_by('-id').first()
-            
-    #         if latest:
-    #             # Extract the number part and increment
-    #             try:
-    #                 last_number = int(latest.id.split('-')[-1])
-    #                 number = last_number + 1
-    #             except (ValueError, IndexError):
-    #                 number = 1
-    #         else:
-    #             number = 1
-                
-    #         self.id = f"{pattern}{number:04d}"
-
-    #     super().save(*args, **kwargs)
 
     def soft_delete(self):
         self.is_deleted = True

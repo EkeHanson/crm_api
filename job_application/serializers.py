@@ -1,4 +1,5 @@
-
+# serializers.py
+import pytz
 from rest_framework import serializers
 from .models import JobApplication, Schedule
 from talent_engine.models import JobRequisition
@@ -339,10 +340,16 @@ class ScheduleSerializer(serializers.ModelSerializer):
         fields = [
             'id', 'tenant', 'tenant_schema', 'job_application', 'job_application_id',
             'candidate_name', 'job_requisition_title', 'interview_date_time',
-            'meeting_mode', 'meeting_link', 'interview_address', 'message',
+            'meeting_mode', 'meeting_link', 'interview_address', 'message','timezone',
             'status', 'cancellation_reason', 'is_deleted', 'created_at', 'updated_at'
         ]
         read_only_fields = ['id', 'tenant', 'tenant_schema', 'job_application_id', 'candidate_name', 'job_requisition_title', 'is_deleted', 'created_at', 'updated_at']
+
+    def validate_timezone(self, value):
+            if value not in pytz.all_timezones:
+                raise serializers.ValidationError(f"Invalid timezone: {value}. Must be a valid timezone from pytz.all_timezones.")
+            return value
+
 
     def validate(self, data):
         #logger.debug(f"Validating schedule data: {data}, instance: {self.instance}")
@@ -372,6 +379,14 @@ class ScheduleSerializer(serializers.ModelSerializer):
         if data.get('interview_date_time') and data['interview_date_time'] <= timezone.now():
             logger.warning(f"Interview date in the past: {data['interview_date_time']}")
             raise serializers.ValidationError("Interview date and time must be in the future.")
+        interview_date_time = data.get('interview_date_time')
+        timezone_str = data.get('timezone', 'UTC')
+        
+        if interview_date_time:
+            # Convert to UTC for storage
+            tz = pytz.timezone(timezone_str)
+            local_dt = tz.localize(interview_date_time.replace(tzinfo=None))
+            data['interview_date_time'] = local_dt.astimezone(pytz.UTC)
         return data
 
     def create(self, validated_data):

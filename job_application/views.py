@@ -812,6 +812,9 @@ from .utils import parse_resume, screen_resume, extract_resume_fields
 
 logger = logging.getLogger('job_applications')
 
+
+
+
 class ScheduleListCreateView(generics.GenericAPIView):
     serializer_class = ScheduleSerializer
     permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized, BranchRestrictedPermission]
@@ -828,7 +831,6 @@ class ScheduleListCreateView(generics.GenericAPIView):
             logger.debug(f"Database search_path: {search_path}")
         queryset = Schedule.active_objects.filter(tenant=tenant).select_related('job_application')
         if self.request.user.branch:
-        #if self.request.user.role == 'recruiter' and self.request.user.branch:
             queryset = queryset.filter(branch=self.request.user.branch)
         status_param = self.request.query_params.get('status', None)
         if status_param:
@@ -858,6 +860,16 @@ class ScheduleListCreateView(generics.GenericAPIView):
                 cursor.execute("SHOW search_path;")
                 search_path = cursor.fetchone()[0]
                 logger.debug(f"Database search_path: {search_path}")
+
+            # Validate email configuration from Tenant model
+            required_email_fields = ['email_host', 'email_port', 'email_host_user', 'email_host_password', 'default_from_email']
+            missing_fields = [field for field in required_email_fields if not getattr(tenant, field)]
+            if missing_fields:
+                logger.error(f"Missing email configuration fields for tenant {tenant.schema_name}: {missing_fields}")
+                return Response(
+                    {"detail": f"Missing email configuration: {', '.join(missing_fields)}"},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
 
             data = request.data.copy()
             job_application_ids = data.get('job_application', [])
@@ -921,15 +933,32 @@ class ScheduleListCreateView(generics.GenericAPIView):
                         schedule = serializer.save(
                             tenant=tenant,
                             job_application=job_application,
-                            branch=request.user.branch if request.user.is_authenticated and request.user.role == 'recruiter' and request.user.branch else job_application.branch,
+                            branch=request.user.branch if request.user.is_authenticated and request.user.branch else job_application.branch,
+                            #branch=request.user.branch if request.user.is_authenticated and request.user.role == 'recruiter' and request.user.branch else job_application.branch,
                             message=email_body if is_auto_sent else ''
                         )
-                        logger.info(f"Schedule created: {schedule.id} for job application {job_application_id} in tenant {tenant.schema_name}")
                         created_schedules.append(schedule.id)
 
                         if is_auto_sent:
                             try:
                                 email_connection = configure_email_backend(tenant)
+                                # Log email configuration settings
+                                print(f"Email configuration for tenant {tenant.schema_name}: "
+                                            f"host={tenant.email_host}, "
+                                            f"port={tenant.email_port}, "
+                                            f"use_ssl={tenant.email_use_ssl}, "
+                                            f"host_user={tenant.email_host_user}, "
+                                            f"host_password={'*' * len(tenant.email_host_password) if tenant.email_host_password else None}, "
+                                            f"default_from_email={tenant.default_from_email}")
+                                
+                                logger.info(f"Email configuration for tenant {tenant.schema_name}: "
+                                            f"host={tenant.email_host}, "
+                                            f"port={tenant.email_port}, "
+                                            f"use_ssl={tenant.email_use_ssl}, "
+                                            f"host_user={tenant.email_host_user}, "
+                                            f"host_password={'*' * len(tenant.email_host_password) if tenant.email_host_password else None}, "
+                                            f"default_from_email={tenant.default_from_email}")
+                                
                                 email_subject = f"Interview Schedule for {job_application.job_requisition.title}"
                                 email = EmailMessage(
                                     subject=email_subject,
@@ -943,7 +972,7 @@ class ScheduleListCreateView(generics.GenericAPIView):
                                 logger.info(f"Email sent to {job_application.email} for schedule {schedule.id} in tenant {tenant.schema_name}")
                             except Exception as email_error:
                                 logger.exception(f"Failed to send email for schedule {schedule.id} to {job_application.email}: {str(email_error)}")
-                                raise Exception(f"Failed to send email: {str(email_error)}")
+                                return Response({"detail": f"Failed to send email: {str(email_error)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
             return Response({
                 "detail": "Schedules created successfully.",
@@ -953,6 +982,8 @@ class ScheduleListCreateView(generics.GenericAPIView):
         except Exception as e:
             logger.exception(f"Error creating schedules for tenant {tenant.schema_name if tenant else 'unknown'}: {str(e)}")
             return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+
 
 
 class TimezoneChoicesView(APIView):

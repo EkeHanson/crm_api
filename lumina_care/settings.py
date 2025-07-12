@@ -125,6 +125,7 @@ WSGI_APPLICATION = 'lumina_care.wsgi.application'
 #     }
 # }
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django_tenants.postgresql_backend',
@@ -135,6 +136,7 @@ DATABASES = {
         'PORT': '5432',
     }
 }
+
 
 DATABASE_ROUTERS = ['django_tenants.routers.TenantSyncRouter']
 TENANT_MODEL = "core.Tenant"
@@ -150,6 +152,7 @@ SHARED_APPS = [
     'users',
     'subscriptions',
 ]
+
 TENANT_APPS = [
     'django.contrib.admin',
     'rest_framework',
@@ -225,6 +228,7 @@ TEMPLATES = [
 
 LOG_DIR = '/tmp/logs' if os.getenv('RENDER') else os.path.join(BASE_DIR, 'logs')
 os.makedirs(LOG_DIR, exist_ok=True)
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -265,7 +269,7 @@ EMAIL_HOST = config('EMAIL_HOST', default='smtp.gmail.com')
 EMAIL_PORT = config('EMAIL_PORT', default=587, cast=int)
 EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=True, cast=bool)
 EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='ekenehanson@gmail.com')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='pduw cpmw dgoq adrp')
 DEFAULT_FROM_EMAIL = config('EMAIL_HOST_USER', default='ekenehanson@gmail.com')
 EMAIL_DEBUG = True
 
@@ -273,3 +277,4 @@ FILE_UPLOAD_MAX_MEMORY_SIZE = 3145728  # 3MB
 DATA_UPLOAD_MAX_MEMORY_SIZE = 3145728  # 3MB
 
 WEB_PAGE_URL = 'https://crm-frontend-react.vercel.app'
+# WEB_PAGE_URL = 'http://localhost:5173'

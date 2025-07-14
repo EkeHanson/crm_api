@@ -59,18 +59,29 @@ class DocumentSerializer(serializers.Serializer):
             )
         return value
 
+class ComplianceDocumentSerializer(serializers.Serializer):
+    file_url = serializers.CharField(allow_blank=True, required=False, allow_null=True)
+    uploaded_at = serializers.DateTimeField(allow_null=True, required=False)
+
+class ComplianceStatusSerializer(serializers.Serializer):
+    id = serializers.CharField(allow_blank=True, required=False, allow_null=True)
+    name = serializers.CharField(allow_blank=True, required=False, allow_null=True)
+    description = serializers.CharField(allow_blank=True, required=False, allow_null=True)
+    required = serializers.BooleanField(required=False)
+    status = serializers.CharField(allow_blank=True, required=False, allow_null=True)
+    checked_by = serializers.CharField(allow_blank=True, required=False, allow_null=True)
+    checked_at = serializers.DateTimeField(allow_null=True, required=False)
+    notes = serializers.CharField(allow_blank=True, required=False, allow_null=True)
+    document = ComplianceDocumentSerializer(required=False, allow_null=True)
+
+
 class JobApplicationSerializer(serializers.ModelSerializer):
     documents = DocumentSerializer(many=True, required=False)
     job_requisition_id = serializers.CharField(source='job_requisition.id', read_only=True)
     job_requisition_title = serializers.CharField(source='job_requisition.title', read_only=True)
     tenant_schema = serializers.CharField(source='tenant.schema_name', read_only=True)
-    compliance_status = serializers.ListField(
-        child=serializers.DictField(
-            child=serializers.CharField(allow_blank=True, required=False),
-            allow_empty=True
-        ),
-        required=False
-    )
+    compliance_status = ComplianceStatusSerializer(many=True, required=False)
+
     branch = serializers.SlugRelatedField(slug_field='name', read_only=True, allow_null=True)
 
     class Meta:
@@ -90,20 +101,32 @@ class JobApplicationSerializer(serializers.ModelSerializer):
 
     def validate(self, data):
         tenant = self.context['request'].tenant
-        job_requisition = data.get('job_requisition')
+        job_requisition = self.context.get('job_requisition')
+        instance = self.instance  # Get the existing instance for updates
+
         if not job_requisition:
             raise serializers.ValidationError("Job requisition is required.")
         if not job_requisition.publish_status:
             raise serializers.ValidationError("This job is not published.")
+
         documents_required = job_requisition.documents_required or []
         documents_data = data.get('documents', [])
-        if documents_required:
-            provided_types = {doc['document_type'] for doc in documents_data}
-            missing_docs = [doc for doc in documents_required if doc not in provided_types]
-            if missing_docs:
-                raise serializers.ValidationError(
-                    f"Missing required documents: {', '.join(missing_docs)}."
-                )
+        existing_documents = instance.documents if instance else []
+
+        # Get existing document types
+        existing_types = {doc['document_type'] for doc in existing_documents}
+        provided_types = {doc['document_type'] for doc in documents_data}
+
+        # Combine existing and provided document types
+        all_provided_types = existing_types.union(provided_types)
+
+        # Check for missing required documents
+        missing_docs = [doc for doc in documents_required if doc not in all_provided_types]
+        if missing_docs:
+            raise serializers.ValidationError(
+                f"Missing required documents: {', '.join(missing_docs)}."
+            )
+
         return data
 
     def create(self, validated_data):
@@ -167,6 +190,49 @@ class JobApplicationSerializer(serializers.ModelSerializer):
         logger.info(f"Application created: {application.id} for {application.full_name}")
         return application
 
+
+    def update(self, instance, validated_data):
+        documents_data = validated_data.pop('documents', [])
+        compliance_status = validated_data.pop('compliance_status', None)
+        job_requisition = instance.job_requisition
+
+        if documents_data:
+            existing_documents = instance.documents or []
+            for doc_data in documents_data:
+                file = doc_data['file']
+                document_type = doc_data['document_type']
+
+                folder_path = os.path.join('compliance_documents', timezone.now().strftime('%Y/%m/%d'))
+                full_folder_path = os.path.join(settings.MEDIA_ROOT, folder_path)
+                os.makedirs(full_folder_path, exist_ok=True)
+                file_extension = os.path.splitext(file.name)[1]
+                filename = f"{uuid.uuid4()}{file_extension}"
+                upload_path = os.path.join(folder_path, filename).replace('\\', '/')
+                full_upload_path = os.path.join(settings.MEDIA_ROOT, upload_path)
+                logger.debug(f"Saving file to full_upload_path: {full_upload_path}")
+
+                try:
+                    with open(full_upload_path, 'wb+') as destination:
+                        for chunk in file.chunks():
+                            destination.write(chunk)
+                    logger.debug(f"File saved successfully: {full_upload_path}")
+                except Exception as e:
+                    logger.error(f"Failed to save file {full_upload_path}: {str(e)}")
+                    raise serializers.ValidationError(f"Failed to save file: {str(e)}")
+
+                file_url = f"/media/{upload_path.lstrip('/')}"
+                doc_data['file_url'] = file_url
+                doc_data['uploaded_at'] = timezone.now().isoformat()
+                existing_documents.append(doc_data)
+
+            validated_data['documents'] = existing_documents
+
+        if compliance_status is not None:
+            validated_data['compliance_status'] = compliance_status
+
+        return super().update(instance, validated_data)
+
+
     def to_representation(self, instance):
         data = super().to_representation(instance)
         if 'compliance_status' in data:
@@ -184,7 +250,15 @@ class JobApplicationSerializer(serializers.ModelSerializer):
                 } for item in data['compliance_status']
             ]
         return data
-    
+
+
+
+
+
+
+
+
+
 
 
 

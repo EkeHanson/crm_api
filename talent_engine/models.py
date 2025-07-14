@@ -56,7 +56,7 @@ class JobRequisition(models.Model):
     branch = models.ForeignKey(Branch, on_delete=models.SET_NULL, null=True, blank=True)
     title = models.CharField(max_length=255)
     unique_link = models.CharField(max_length=255, unique=True, blank=True, editable=False)
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='rejected')
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
     requested_by = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, related_name='talent_requisitions')
     role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='staff')
     company_name = models.CharField(max_length=255, blank=True, null=True)

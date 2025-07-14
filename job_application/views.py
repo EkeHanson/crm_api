@@ -21,6 +21,7 @@ from .models import JobApplication, Schedule
 from .permissions import IsSubscribedAndAuthorized, BranchRestrictedPermission
 from .serializers import JobApplicationSerializer, ScheduleSerializer, DocumentSerializer
 from .tenant_utils import resolve_tenant_from_unique_link
+from django_tenants.utils import schema_context
 from .utils import parse_resume, screen_resume, extract_resume_fields
 
 logger = logging.getLogger('job_applications')
@@ -608,7 +609,8 @@ class JobApplicationListCreateView(generics.GenericAPIView):
             )
 
             if not serializer.is_valid():
-                logger.error(f"Validation failed: {serializer.errors}")
+                logger.error(f" Validation failed: {serializer.errors}")
+                print(f" Validation failed: {serializer.errors}")
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
             with transaction.atomic():
@@ -622,6 +624,8 @@ class JobApplicationListCreateView(generics.GenericAPIView):
         except Exception as e:
             logger.exception(f"Unexpected error during job application submission: {str(e)}")
             return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+
 
 class JobApplicationDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = JobApplicationSerializer
@@ -784,33 +788,6 @@ class PermanentDeleteJobApplicationsView(generics.GenericAPIView):
             logger.exception(f"Error during permanent deletion of applications for tenant {tenant.schema_name if tenant else 'unknown'}: {str(e)}")
             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-
-import logging
-import os
-import uuid
-import pytz
-from django.conf import settings
-from django.core.files.storage import default_storage
-from django.core.mail import EmailMessage
-from django.db import connection, transaction
-from django.utils import timezone
-from django_tenants.utils import tenant_context
-from rest_framework import generics, serializers, status
-from rest_framework.parsers import JSONParser, MultiPartParser, FormParser
-from rest_framework.permissions import IsAuthenticated, AllowAny
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from core.utils.email_config import configure_email_backend
-from core.models import TenantConfig
-from talent_engine.models import JobRequisition
-from talent_engine.serializers import JobRequisitionSerializer
-from .models import JobApplication, Schedule
-from .permissions import IsSubscribedAndAuthorized, BranchRestrictedPermission
-from .serializers import JobApplicationSerializer, ScheduleSerializer, DocumentSerializer
-from .tenant_utils import resolve_tenant_from_unique_link
-from .utils import parse_resume, screen_resume, extract_resume_fields
-
-logger = logging.getLogger('job_applications')
 
 
 
@@ -1260,6 +1237,9 @@ class PermanentDeleteSchedulesView(generics.GenericAPIView):
             logger.exception(f"Error during permanent deletion of schedules for tenant {tenant.schema_name if tenant else 'unknown'}: {str(e)}")
             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+
+
+
 class ComplianceStatusUpdateView(APIView):
     permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized, BranchRestrictedPermission]
 
@@ -1301,4 +1281,130 @@ class ComplianceStatusUpdateView(APIView):
             return Response({"detail": str(ve)}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             logger.exception(f"Error updating compliance status for application {application_id}: {str(e)}")
+            return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+
+
+class ApplicantComplianceUploadView(APIView):
+    permission_classes = []  # No authentication required
+
+    def put(self, request, job_application_id):
+        try:
+            # Extract unique_link from request data
+            unique_link = request.POST.get('unique_link')
+            if not unique_link:
+                logger.error("Missing unique_link in PUT request")
+                return Response({"detail": "Missing unique_link."}, status=status.HTTP_400_BAD_REQUEST)
+
+            # Resolve tenant and job requisition from unique_link
+            tenant, _ = resolve_tenant_from_unique_link(unique_link)
+            if not tenant:
+                logger.error(f"Invalid or expired unique_link: {unique_link}")
+                return Response({"detail": "Invalid or expired job link."}, status=status.HTTP_400_BAD_REQUEST)
+
+            # Set tenant context
+            request.tenant = tenant
+            with schema_context(tenant.schema_name):
+                # Fetch the job application within the tenant context
+                try:
+                    application = JobApplication.active_objects.get(id=job_application_id)
+                except JobApplication.DoesNotExist:
+                    logger.error(f"JobApplication {job_application_id} not found for tenant {tenant.schema_name}")
+                    return Response({"detail": "Job application not found."}, status=status.HTTP_404_NOT_FOUND)
+
+                # Prepare data for processing
+                files = request.FILES.getlist('documents')
+                document_ids = request.POST.getlist('document_ids')  # Get compliance item IDs
+                document_names = request.POST.getlist('document_names')  # Get compliance item names
+
+                if not files or len(files) != len(document_ids) or len(files) != len(document_names):
+                    return Response({"detail": "Mismatch in documents, document_ids, or document_names."}, status=status.HTTP_400_BAD_REQUEST)
+
+                # Create a mapping of compliance item IDs to names from JobRequisition
+                compliance_checklist = {item['id']: item['name'] for item in application.job_requisition.compliance_checklist}
+
+                # Validate document_ids against compliance_checklist
+                for doc_id in document_ids:
+                    if doc_id not in compliance_checklist:
+                        return Response({"detail": f"Invalid compliance item ID: {doc_id}"}, status=status.HTTP_400_BAD_REQUEST)
+
+                documents_data = []
+                for i, (file, doc_id, doc_name) in enumerate(zip(files, document_ids, document_names)):
+                    # Validate that the document_name matches the compliance checklist name
+                    if doc_name != compliance_checklist.get(doc_id):
+                        logger.warning(f"Document name {doc_name} does not match compliance checklist name {compliance_checklist.get(doc_id)} for ID {doc_id}")
+                        # Optionally, you can enforce strict matching or use the compliance_checklist name
+                        doc_name = compliance_checklist[doc_id]
+
+                    folder_path = os.path.join('compliance_documents', timezone.now().strftime('%Y/%m/%d'))
+                    full_folder_path = os.path.join(settings.MEDIA_ROOT, folder_path)
+                    os.makedirs(full_folder_path, exist_ok=True)
+                    file_extension = os.path.splitext(file.name)[1]
+                    filename = f"{uuid.uuid4()}{file_extension}"
+                    upload_path = os.path.join(folder_path, filename).replace('\\', '/')
+                    full_upload_path = os.path.join(settings.MEDIA_ROOT, upload_path)
+
+                    try:
+                        with open(full_upload_path, 'wb+') as destination:
+                            for chunk in file.chunks():
+                                destination.write(chunk)
+                        logger.debug(f"File saved successfully: {full_upload_path}")
+                    except Exception as e:
+                        logger.error(f"Failed to save file {full_upload_path}: {str(e)}")
+                        return Response({"error": f"Failed to save file: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+                    file_url = f"/media/{upload_path.lstrip('/')}"
+                    documents_data.append({
+                        'document_type': doc_id,  # Use the compliance item ID
+                        'file': file,
+                        'file_url': file_url,
+                        'uploaded_at': timezone.now().isoformat()
+                    })
+
+                # Update compliance_status
+                updated_compliance_status = application.compliance_status.copy() if application.compliance_status else []
+                for doc_id, doc_name, doc_data in zip(document_ids, document_names, documents_data):
+                    for item in updated_compliance_status:
+                        if str(item.get('id')) == str(doc_id):
+                            item['name'] = compliance_checklist[doc_id]  # Ensure name is set correctly
+                            item['document'] = {
+                                'file_url': doc_data['file_url'],
+                                'uploaded_at': doc_data['uploaded_at']
+                            }
+                            item['status'] = 'uploaded'
+                            item['notes'] = ''
+                            break
+                    else:
+                        # If the compliance item doesn't exist, create a new one
+                        updated_compliance_status.append({
+                            'id': doc_id,
+                            'name': compliance_checklist[doc_id],
+                            'description': '',
+                            'required': True,
+                            'status': 'uploaded',
+                            'checked_by': None,
+                            'checked_at': None,
+                            'notes': '',
+                            'document': {
+                                'file_url': doc_data['file_url'],
+                                'uploaded_at': doc_data['uploaded_at']
+                            }
+                        })
+
+                # Update the application
+                with transaction.atomic():
+                    application.compliance_status = updated_compliance_status
+                    application.save()
+
+                # Serialize the updated application
+                serializer = JobApplicationSerializer(application, context={'request': request})
+                return Response({
+                    "detail": "Compliance documents uploaded successfully.",
+                    "compliance_status": serializer.data['compliance_status']
+                }, status=status.HTTP_200_OK)
+
+        except Exception as e:
+            logger.exception(f"Error uploading compliance documents for application {job_application_id}: {str(e)}")
+            print(f"Error uploading compliance documents for application {job_application_id}: {str(e)}")
             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

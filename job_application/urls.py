@@ -5,7 +5,7 @@ from .views import (
     ScheduleListCreateView,    ScheduleDetailView,    ScheduleBulkDeleteView,    SoftDeletedSchedulesView,
     RecoverSoftDeletedSchedulesView,    PermanentDeleteSchedulesView,JobApplicationWithSchedulesView,ComplianceStatusUpdateView,
     ResumeParseView,    JobApplicationsByRequisitionView,    PublishedJobRequisitionsWithShortlistedApplicationsView,
-    ResumeScreeningView,TimezoneChoicesView,
+    ResumeScreeningView,TimezoneChoicesView,ApplicantComplianceUploadView
 )
 
 app_name = 'job_applications'
@@ -27,6 +27,9 @@ urlpatterns = [
     path('applications/compliance/<str:job_application_id>/compliance-items/<str:item_id>/', ComplianceStatusUpdateView.as_view(), name='applicant-compliance-status'),
     path('applications/<str:job_application_id>/compliance-items/submit/', ComplianceStatusUpdateView.as_view(), name='submit-compliance-items'),
     
+    #No Authentication required to update a pplicants data 
+    path('document/applications/applicant/upload/<str:job_application_id>/compliance-update/', ApplicantComplianceUploadView.as_view(), name='applicant-compliance-upload'),
+
 
     path('applications/applicant/upload/<str:job_application_id>/compliance-items/', ComplianceStatusUpdateView.as_view(), name='applicant-compliance-status'),
     path('applications/<str:job_application_id>/compliance-items/<str:item_id>/', ComplianceStatusUpdateView.as_view(), name='applicant-compliance-item-status'),

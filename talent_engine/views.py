@@ -11,7 +11,7 @@ from .models import JobRequisition
 from .serializers import JobRequisitionSerializer, ComplianceItemSerializer
 from users.permissions import BranchRestrictedPermission
 from users.models import CustomUser
-from core.models import Tenant
+from core.models import Tenant, Branch
 from django.utils import timezone
 
 logger = logging.getLogger('talent_engine')
@@ -71,23 +71,48 @@ class JobRequisitionListCreateView(generics.ListCreateAPIView):
             queryset = queryset.filter(branch=self.request.user.branch)
             print(self.request.user.branch)
         return queryset
-
+    
     def perform_create(self, serializer):
         tenant = self.request.tenant
         user = self.request.user
+
+        # Validate user and tenant
         if not isinstance(user, CustomUser) or user.tenant != tenant:
             logger.error(f"Invalid user {user.email} for tenant {tenant.schema_name}")
             raise serializers.ValidationError("Authenticated user is not valid for this tenant.")
-        if not user.branch:
+
+        # Check if tenant has any branches
+        has_branches = Branch.objects.filter(tenant=tenant).exists()
+
+        # Enforce branch assignment only if tenant has branches
+        if has_branches and not user.branch:
             logger.error(f"User {user.email} has no assigned branch in tenant {tenant.schema_name}")
             raise serializers.ValidationError("User must be assigned to a branch to create a requisition.")
+
         connection.set_schema(tenant.schema_name)
         serializer.save(
             tenant=tenant,
             requested_by=user,
-            branch=user.branch
+            branch=user.branch if has_branches else None  # Set branch only if branches exist
         )
         logger.info(f"Job requisition created: {serializer.validated_data['title']} for tenant {tenant.schema_name} by user {user.email}")
+
+    # def perform_create(self, serializer):
+    #     tenant = self.request.tenant
+    #     user = self.request.user
+    #     if not isinstance(user, CustomUser) or user.tenant != tenant:
+    #         logger.error(f"Invalid user {user.email} for tenant {tenant.schema_name}")
+    #         raise serializers.ValidationError("Authenticated user is not valid for this tenant.")
+    #     if not user.branch:
+    #         logger.error(f"User {user.email} has no assigned branch in tenant {tenant.schema_name}")
+    #         raise serializers.ValidationError("User must be assigned to a branch to create a requisition.")
+    #     connection.set_schema(tenant.schema_name)
+    #     serializer.save(
+    #         tenant=tenant,
+    #         requested_by=user,
+    #         branch=user.branch
+    #     )
+    #     logger.info(f"Job requisition created: {serializer.validated_data['title']} for tenant {tenant.schema_name} by user {user.email}")
 
 
 

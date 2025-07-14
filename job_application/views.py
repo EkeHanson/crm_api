@@ -1406,5 +1406,5 @@ class ApplicantComplianceUploadView(APIView):
 
         except Exception as e:
             logger.exception(f"Error uploading compliance documents for application {job_application_id}: {str(e)}")
-            print(f"Error uploading compliance documents for application {job_application_id}: {str(e)}")
+            #print(f"Error uploading compliance documents for application {job_application_id}: {str(e)}")
             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

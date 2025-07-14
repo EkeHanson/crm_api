@@ -1254,7 +1254,8 @@ class ComplianceStatusUpdateView(APIView):
                     logger.error(f"JobApplication {application_id} not found for tenant {tenant.schema_name}")
                     return Response({"detail": "Job application not found."}, status=status.HTTP_404_NOT_FOUND)
 
-                if request.user.role == 'recruiter' and request.user.branch and application.branch != request.user.branch:
+                # if request.user.role == 'recruiter' and request.user.branch and application.branch != request.user.branch:
+                if request.user.branch and application.branch != request.user.branch:
                     logger.error(f"User {request.user.id} not authorized to access application {application_id} in branch {application.branch}")
                     return Response({"detail": "Not authorized to access this application."}, status=status.HTTP_403_FORBIDDEN)
 

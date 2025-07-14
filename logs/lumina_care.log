@@ -344,3 +344,7 @@ NameError: name 'Branch' is not defined
 2025-07-14 14:45:31,966 [INFO] talent_engine: Job requisition created: Respond to emergencies and incidents for tenant proliance by user prince.godson@prolianceltd.com
 2025-07-14 14:45:32,533 [INFO] django.server: "POST /api/talent-engine/requisitions/ HTTP/1.1" 201 1208
 2025-07-14 14:46:06,667 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10383
+2025-07-14 14:49:38,569 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-14 14:49:41,975 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-14 14:49:55,582 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-14 14:49:59,865 [INFO] django.utils.autoreload: Watching for file changes with StatReloader

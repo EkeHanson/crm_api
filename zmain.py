@@ -1,10 +1,17 @@
-import socket
+import smtplib
+import ssl
 
-host = 'smtp.gmail.com'
+host = "smtp.gmail.com"
 port = 587
+username = "ekenehanson@gmail.com"
+password = "pduw cpmw dgoq adrp"
+
 try:
-    sock = socket.create_connection((host, port), timeout=10)
-    print("Connection to smtp.gmail.com:587 successful")
-    sock.close()
+    server = smtplib.SMTP(host, port, timeout=10)
+    server.set_debuglevel(1)  # Enable debug output
+    server.starttls(context=ssl.create_default_context())
+    server.login(username, password)
+    print("Connection successful!")
+    server.quit()
 except Exception as e:
-    print(f"Failed to connect to {host}:{port}: {str(e)}")
+    print(f"Connection failed: {str(e)}")

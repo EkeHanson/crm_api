@@ -947,9 +947,18 @@ class ScheduleListCreateView(generics.GenericAPIView):
                                 email.content_subtype = 'html'
                                 email.send(fail_silently=False)
                                 logger.info(f"Email sent to {job_application.email} for schedule {schedule.id} in tenant {tenant.schema_name}")
+                            # except Exception as email_error:
+                            #     logger.exception(f"Failed to send email for schedule {schedule.id} to {job_application.email}: {str(email_error)}")
+                            #     return Response({"detail": f"Failed to send email: {str(email_error)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                          
                             except Exception as email_error:
                                 logger.exception(f"Failed to send email for schedule {schedule.id} to {job_application.email}: {str(email_error)}")
-                                return Response({"detail": f"Failed to send email: {str(email_error)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                                return Response({
+                                    "detail": "Failed to send confirmation email due to invalid email configuration.",
+                                    "error": str(email_error),
+                                    "suggestion": "Please check the email settings in the tenant configuration. Ensure that only one of EMAIL_USE_TLS or EMAIL_USE_SSL is set to True."
+                                }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 
             return Response({
                 "detail": "Schedules created successfully.",

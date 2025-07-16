@@ -1,5 +1,5 @@
 # python manage.py showmigrations talent_engine
-# python manage.py makemigrations users talent_engine, subscriptions job_application 
+# python manage.py makemigrations users talent_engine subscriptions job_application 
 # python manage.py migrate_schemas --shared
 # python manage.py migrate_schemas
 

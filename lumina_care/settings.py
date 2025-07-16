@@ -61,6 +61,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'allauth.account.middleware.AccountMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 AUTHENTICATION_BACKENDS = (
@@ -151,6 +152,18 @@ DATABASES = {
     }
 }
 
+#FOR HOSTING ON NAMECHEAP
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django_tenants.postgresql_backend',
+#         'NAME': config('DB_NAME', default='postgres'),
+#         'USER': config('DB_USER', default='postgres'),
+#         'PASSWORD': config('DB_PASSWORD', default='zlRWuz2ZRrYe5jNQ'),
+#         'HOST': config('DB_HOST', default='db.gkvgqvosnetifsonhxuo.supabase.co'),
+#         'PORT': config('DB_PORT', default='5432'),
+#     }
+# }
 
 DATABASE_ROUTERS = ['django_tenants.routers.TenantSyncRouter']
 TENANT_MODEL = "core.Tenant"
@@ -197,10 +210,19 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-STATIC_URL = 'static/'
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Static files (CSS, JavaScript, Images)
+STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Add this line
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'talent_engine', 'static'),
+]
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -290,5 +312,5 @@ EMAIL_DEBUG = True
 FILE_UPLOAD_MAX_MEMORY_SIZE = 3145728  # 3MB
 DATA_UPLOAD_MAX_MEMORY_SIZE = 3145728  # 3MB
 
-#WEB_PAGE_URL = 'https://crm-frontend-react.vercel.app'
-WEB_PAGE_URL = 'http://localhost:5173'
+WEB_PAGE_URL = 'https://crm-frontend-react.vercel.app'
+#WEB_PAGE_URL = 'http://localhost:5173'

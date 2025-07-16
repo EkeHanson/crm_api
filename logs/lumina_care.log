@@ -1,491 +1,158 @@
-2025-07-14 12:11:13,962 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
-2025-07-14 12:16:54,892 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
-2025-07-14 12:17:05,638 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/john.adebayo@email.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 9172
-2025-07-14 12:17:05,740 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/john.adebayo@email.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 9172
-2025-07-14 12:18:06,733 [INFO] django.server: "OPTIONS /api/token/ HTTP/1.1" 200 0
-2025-07-14 12:18:08,761 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 970
-2025-07-14 12:18:08,793 [INFO] django.server: "OPTIONS /api/token/validate/ HTTP/1.1" 200 0
-2025-07-14 12:18:08,803 [INFO] django.server: "OPTIONS /api/token/validate/ HTTP/1.1" 200 0
-2025-07-14 12:18:08,887 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
-2025-07-14 12:18:08,959 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
-2025-07-14 12:23:54,090 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/john.adebayo@email.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 9172
-2025-07-14 12:25:37,115 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/john.adebayo@email.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 9172
-2025-07-14 12:25:40,968 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/john.adebayo@email.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 9172
-2025-07-14 12:26:09,028 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/john.adebayo@email.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 9172
-2025-07-14 12:26:30,967 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/john.adebayo@email.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 9172
-2025-07-14 12:26:42,091 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/john.adebayo@email.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 9172
-2025-07-14 12:26:42,337 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/john.adebayo@email.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 9172
-2025-07-14 12:26:53,083 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/john.adebayo@email.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 9172
-2025-07-14 12:26:58,763 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/john.adebayo@email.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 9172
-2025-07-14 12:26:58,956 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/john.adebayo@email.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 9172
-2025-07-14 12:27:20,004 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/john.adebayo@email.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 9172
-2025-07-14 12:27:47,011 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/john.adebayo@email.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 9172
-2025-07-14 12:29:25,385 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/john.adebayo@email.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 9172
-2025-07-14 12:29:25,555 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/john.adebayo@email.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 9172
-2025-07-14 12:42:21,953 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
-2025-07-14 12:42:22,064 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
-2025-07-14 12:48:06,934 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
-2025-07-14 12:48:10,672 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
-2025-07-14 12:56:39,104 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
-2025-07-14 12:56:39,310 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
-2025-07-14 12:56:50,939 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
-2025-07-14 12:56:51,041 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
-2025-07-14 12:56:51,133 [INFO] django.server: "OPTIONS /api/user/tenant-users/ HTTP/1.1" 200 0
-2025-07-14 12:56:51,135 [INFO] django.server: "OPTIONS /api/user/tenant-users/ HTTP/1.1" 200 0
-2025-07-14 12:56:51,404 [INFO] users: Retrieved 11 users for tenant proliance
-2025-07-14 12:56:51,498 [INFO] django.server: "GET /api/user/tenant-users/ HTTP/1.1" 200 4461
-2025-07-14 12:56:51,729 [INFO] users: Retrieved 11 users for tenant proliance
-2025-07-14 12:56:51,817 [INFO] django.server: "GET /api/user/tenant-users/ HTTP/1.1" 200 4461
-2025-07-14 13:04:11,474 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 952
-2025-07-14 13:04:25,027 [INFO] users: Retrieved 5 users for tenant arts
-2025-07-14 13:04:25,052 [INFO] django.server: "GET //api/user/tenant-users/ HTTP/1.1" 200 2017
-2025-07-14 13:20:14,039 [INFO] users: Retrieved 11 users for tenant proliance
-2025-07-14 13:20:14,105 [INFO] django.server: "GET /api/user/tenant-users/ HTTP/1.1" 200 4461
-2025-07-14 13:20:17,017 [INFO] users: Retrieved 11 users for tenant proliance
-2025-07-14 13:20:17,093 [INFO] django.server: "GET /api/user/tenant-users/ HTTP/1.1" 200 4461
-2025-07-14 13:23:36,984 [INFO] users: Retrieved 11 users for tenant proliance
-2025-07-14 13:23:37,043 [INFO] django.server: "GET /api/user/tenant-users/ HTTP/1.1" 200 4461
-2025-07-14 13:23:38,974 [INFO] users: Retrieved 11 users for tenant proliance
-2025-07-14 13:23:39,027 [INFO] django.server: "GET /api/user/tenant-users/ HTTP/1.1" 200 4461
-2025-07-14 13:23:42,964 [INFO] users: Retrieved 11 users for tenant proliance
-2025-07-14 13:23:43,022 [INFO] django.server: "GET /api/user/tenant-users/ HTTP/1.1" 200 4461
-2025-07-14 13:24:38,932 [INFO] users: Retrieved 11 users for tenant proliance
-2025-07-14 13:24:38,964 [INFO] django.server: "GET /api/user/tenant-users/ HTTP/1.1" 200 4461
-2025-07-14 13:25:51,908 [INFO] users: Retrieved 11 users for tenant proliance
-2025-07-14 13:25:51,944 [INFO] django.server: "GET /api/user/tenant-users/ HTTP/1.1" 200 4461
-2025-07-14 13:26:08,942 [INFO] users: Retrieved 11 users for tenant proliance
-2025-07-14 13:26:08,985 [INFO] django.server: "GET /api/user/tenant-users/ HTTP/1.1" 200 4461
-2025-07-14 13:26:25,804 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 13:26:25,924 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 13:27:15,943 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 13:28:07,051 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 13:28:57,011 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 13:29:08,568 [INFO] django.server: "GET / HTTP/1.1" 200 188
-2025-07-14 13:29:09,043 [WARNING] django.request: Not Found: /favicon.ico
-2025-07-14 13:29:09,043 [WARNING] django.server: "GET /favicon.ico HTTP/1.1" 404 4417
-2025-07-14 13:29:10,954 [INFO] django.server: "GET /api/docs/ HTTP/1.1" 200 4640
-2025-07-14 13:29:12,114 [WARNING] talent_engine: Invalid unique_link format: 
-2025-07-14 13:29:12,117 [WARNING] core: No valid Bearer token provided
-2025-07-14 13:29:12,117 [ERROR] core: Error extracting tenant: Invalid token format
-2025-07-14 13:29:12,120 [WARNING] core: No valid Bearer token provided
-2025-07-14 13:29:12,120 [ERROR] core: Error extracting tenant: Invalid token format
-2025-07-14 13:29:12,121 [WARNING] core: No valid Bearer token provided
-2025-07-14 13:29:12,121 [ERROR] core: Error extracting tenant: Invalid token format
-2025-07-14 13:29:12,122 [WARNING] core: No valid Bearer token provided
-2025-07-14 13:29:12,122 [ERROR] core: Error extracting tenant: Invalid token format
-2025-07-14 13:29:12,123 [WARNING] core: No valid Bearer token provided
-2025-07-14 13:29:12,123 [ERROR] core: Error extracting tenant: Invalid token format
-2025-07-14 13:29:12,124 [WARNING] core: No valid Bearer token provided
-2025-07-14 13:29:12,124 [ERROR] core: Error extracting tenant: Invalid token format
-2025-07-14 13:29:12,166 [INFO] django.server: "GET /api/schema/ HTTP/1.1" 200 160973
-2025-07-14 13:29:48,016 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 13:30:38,959 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 13:31:30,059 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 13:32:20,951 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 13:33:11,954 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 13:34:02,976 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 13:34:53,948 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 13:35:44,999 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 13:36:36,015 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 13:37:26,961 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 13:38:17,965 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 13:39:08,978 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 13:39:59,991 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 13:40:50,961 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 13:41:41,956 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 13:42:32,938 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 13:43:23,958 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 13:44:14,983 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 13:45:05,955 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 13:45:56,964 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 13:46:47,989 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 13:47:38,972 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 13:48:29,960 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 13:49:21,101 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 13:50:12,026 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 13:51:02,957 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 13:51:54,019 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 13:52:44,950 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 13:53:36,008 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 13:54:26,974 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 13:55:18,061 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 13:56:08,967 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 13:56:59,965 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 13:57:51,095 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 13:58:41,964 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 13:59:32,004 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 14:00:22,941 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 14:01:13,645 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 14:01:34,877 [ERROR] talent_engine: User support@prolianceltd.com has no assigned branch in tenant proliance
-2025-07-14 14:01:34,878 [WARNING] django.request: Bad Request: /api/talent-engine/requisitions/
-2025-07-14 14:01:34,879 [WARNING] django.server: "POST /api/talent-engine/requisitions/ HTTP/1.1" 400 62
-2025-07-14 14:04:56,042 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
-2025-07-14 14:04:56,224 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
-2025-07-14 14:04:56,386 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 14:04:56,602 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 14:05:06,118 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 14:05:49,292 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 3471
-2025-07-14 14:05:53,740 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 952
-2025-07-14 14:05:56,945 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 14:06:04,697 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 3471
-2025-07-14 14:06:47,936 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 14:06:55,528 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 3471
-2025-07-14 14:07:01,511 [INFO] talent_engine: Job requisition created: Registered Nurse - Elderly Care for tenant arts by user support@artstraining.co.uk
-2025-07-14 14:07:01,517 [INFO] django.server: "POST /api/talent-engine/requisitions/ HTTP/1.1" 201 1953
-2025-07-14 14:07:37,996 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 14:07:58,010 [ERROR] talent_engine: User support@prolianceltd.com has no assigned branch in tenant proliance
-2025-07-14 14:07:58,010 [WARNING] django.request: Bad Request: /api/talent-engine/requisitions/
-2025-07-14 14:07:58,011 [WARNING] django.server: "POST /api/talent-engine/requisitions/ HTTP/1.1" 400 62
-2025-07-14 14:08:50,973 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
-2025-07-14 14:08:51,072 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
-2025-07-14 14:08:51,233 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 14:08:51,337 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 14:09:00,409 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 970
-2025-07-14 14:09:00,534 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
-2025-07-14 14:09:00,630 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
-2025-07-14 14:09:00,769 [INFO] users: Retrieved 11 users for tenant proliance
-2025-07-14 14:09:00,817 [INFO] django.server: "GET /api/user/tenant-users/ HTTP/1.1" 200 4461
-2025-07-14 14:09:00,904 [INFO] users: Retrieved 11 users for tenant proliance
-2025-07-14 14:09:00,949 [INFO] django.server: "GET /api/user/tenant-users/ HTTP/1.1" 200 4461
-2025-07-14 14:09:14,850 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 14:09:14,973 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 14:09:45,820 [INFO] talent_engine: Job requisition created: Registered Nurse - Elderly Care for tenant arts by user support@artstraining.co.uk
-2025-07-14 14:09:45,825 [INFO] django.server: "POST /api/talent-engine/requisitions/ HTTP/1.1" 201 1953
-2025-07-14 14:10:04,966 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 14:10:37,022 [WARNING] django.request: Not Found: /api/tenants/branches/
-2025-07-14 14:10:37,023 [WARNING] django.server: "GET /api/tenants/branches/ HTTP/1.1" 404 4447
-2025-07-14 14:10:51,912 [INFO] core: Retrieved 2 branches for tenant arts
-2025-07-14 14:10:51,916 [INFO] django.server: "GET /api/tenant/branches/ HTTP/1.1" 200 255
-2025-07-14 14:10:55,876 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/ HTTP/1.1" 200 0
-2025-07-14 14:10:55,968 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 14:11:06,047 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.
-2025-07-14 14:11:14,906 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
-2025-07-14 14:12:54,241 [WARNING] django.request: Bad Request: /api/token/
-2025-07-14 14:12:54,242 [WARNING] django.server: "POST /api/token/ HTTP/1.1" 400 45
-2025-07-14 14:12:58,433 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 9174
-2025-07-14 14:13:10,041 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 1113
-2025-07-14 14:13:26,886 [INFO] core: Retrieved 2 branches for tenant arts
-2025-07-14 14:13:27,449 [INFO] django.server: "GET /api/tenant/branches/ HTTP/1.1" 200 312
-2025-07-14 14:13:42,216 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 9174
-2025-07-14 14:14:17,088 [INFO] django.server: "GET /api/tenant/branches/1/ HTTP/1.1" 200 109
-2025-07-14 14:14:33,481 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 9174
-2025-07-14 14:15:03,938 [WARNING] django.request: Method Not Allowed: /api/user/users/1/branch/
-2025-07-14 14:15:03,939 [WARNING] django.server: "GET /api/user/users/1/branch/ HTTP/1.1" 405 40
-2025-07-14 14:15:23,986 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 9174
-2025-07-14 14:15:55,066 [INFO] core: Retrieved 2 branches for tenant arts
-2025-07-14 14:15:55,593 [INFO] django.server: "GET /api/tenant/branches/ HTTP/1.1" 200 312
-2025-07-14 14:16:07,335 [INFO] django.server: "GET /api/tenant/branches/1/ HTTP/1.1" 200 109
-2025-07-14 14:16:15,794 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 9174
-2025-07-14 14:16:28,978 [INFO] core: Branch deleted: UK Branch for tenant arts
-2025-07-14 14:16:30,178 [INFO] django.server: "DELETE /api/tenant/branches/1/ HTTP/1.1" 204 0
-2025-07-14 14:16:42,037 [INFO] core: Branch deleted: Nigeria Branch for tenant arts
-2025-07-14 14:16:42,329 [INFO] django.server: "DELETE /api/tenant/branches/2/ HTTP/1.1" 204 0
-2025-07-14 14:17:07,325 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 9174
-2025-07-14 14:17:27,193 [INFO] core: Retrieved 0 branches for tenant arts
-2025-07-14 14:17:27,748 [INFO] django.server: "GET /api/tenant/branches/ HTTP/1.1" 200 2
-2025-07-14 14:17:44,098 [ERROR] talent_engine: User prince.godson@prolianceltd.com has no assigned branch in tenant proliance
-2025-07-14 14:17:44,099 [WARNING] django.request: Bad Request: /api/talent-engine/requisitions/
-2025-07-14 14:17:44,100 [WARNING] django.server: "POST /api/talent-engine/requisitions/ HTTP/1.1" 400 62
-2025-07-14 14:17:56,737 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 9174
-2025-07-14 14:18:08,064 [INFO] core: Retrieved 0 branches for tenant arts
-2025-07-14 14:18:08,628 [INFO] django.server: "GET /api/tenant/branches/ HTTP/1.1" 200 2
-2025-07-14 14:19:06,764 [INFO] core: Retrieved 0 branches for tenant arts
-2025-07-14 14:19:07,315 [INFO] django.server: "GET /api/tenant/branches/ HTTP/1.1" 200 2
-2025-07-14 14:20:01,822 [INFO] core: Branch created: Port HArcourt Branch for tenant arts
-2025-07-14 14:20:02,986 [INFO] django.server: "POST /api/tenant/branches/ HTTP/1.1" 201 206
-2025-07-14 14:20:13,875 [INFO] core: Branch created: Lagos Mainland Office for tenant arts
-2025-07-14 14:20:14,166 [INFO] django.server: "POST /api/tenant/branches/ HTTP/1.1" 201 149
-2025-07-14 14:20:25,056 [INFO] core: Retrieved 2 branches for tenant arts
-2025-07-14 14:20:25,603 [INFO] django.server: "GET /api/tenant/branches/ HTTP/1.1" 200 358
-2025-07-14 14:21:02,053 [WARNING] users: Unauthorized tenant users list attempt by user support@artstraining.co.uk
-2025-07-14 14:21:02,053 [WARNING] django.request: Forbidden: /api/user/tenant-users/
-2025-07-14 14:21:02,054 [WARNING] django.server: "GET /api/user/tenant-users/ HTTP/1.1" 403 85
-2025-07-14 14:21:43,897 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 966
-2025-07-14 14:22:02,693 [INFO] users: Retrieved 7 users for tenant proliance
-2025-07-14 14:22:11,798 [INFO] django.server: "GET /api/user/tenant-users/ HTTP/1.1" 200 2288
-2025-07-14 14:23:02,305 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 9174
-2025-07-14 14:23:28,125 [ERROR] talent_engine: User support@prolianceltd.com has no assigned branch in tenant proliance
-2025-07-14 14:23:28,125 [WARNING] django.request: Bad Request: /api/talent-engine/requisitions/
-2025-07-14 14:23:28,126 [WARNING] django.server: "POST /api/talent-engine/requisitions/ HTTP/1.1" 400 62
-2025-07-14 14:23:58,887 [INFO] core: Retrieved 0 branches for tenant proliance
-2025-07-14 14:23:59,445 [INFO] django.server: "GET /api/tenant/branches/ HTTP/1.1" 200 2
-2025-07-14 14:24:27,634 [INFO] core: Branch created: Lagos Mainland Office for tenant proliance
-2025-07-14 14:24:27,927 [INFO] django.server: "POST /api/tenant/branches/ HTTP/1.1" 201 149
-2025-07-14 14:25:13,979 [WARNING] django.request: Not Found: /api/tenant/tenant-users/
-2025-07-14 14:25:13,980 [WARNING] django.server: "GET /api/tenant/tenant-users/ HTTP/1.1" 404 7713
-2025-07-14 14:25:36,536 [INFO] users: Retrieved 7 users for tenant proliance
-2025-07-14 14:25:45,663 [INFO] django.server: "GET /api/user/tenant-users/ HTTP/1.1" 200 2288
-2025-07-14 14:26:25,192 [ERROR] users: Validation error for user admin@prolianceltd.com in tenant proliance: {'branch': [ErrorDetail(string='Invalid pk "1" - object does not exist.', code='does_not_exist')]}
-2025-07-14 14:26:25,193 [WARNING] django.request: Bad Request: /api/user/users/1/branch/
-2025-07-14 14:26:25,193 [WARNING] django.server: "PATCH /api/user/users/1/branch/ HTTP/1.1" 400 85
-2025-07-14 14:26:46,872 [INFO] core: Retrieved 1 branches for tenant proliance
-2025-07-14 14:26:47,419 [INFO] django.server: "GET /api/tenant/branches/ HTTP/1.1" 200 151
-2025-07-14 14:27:13,444 [INFO] users: User support@prolianceltd.com assigned to branch Lagos Mainland Office for tenant proliance
-2025-07-14 14:27:14,270 [INFO] django.server: "PATCH /api/user/users/2/branch/ HTTP/1.1" 200 430
-2025-07-14 14:27:29,819 [INFO] users: User info@prolianceltd.com assigned to branch Lagos Mainland Office for tenant proliance
-2025-07-14 14:27:30,643 [INFO] django.server: "PATCH /api/user/users/3/branch/ HTTP/1.1" 200 422
-2025-07-14 14:27:41,196 [INFO] users: User enterprise@prolianceltd.com assigned to branch Lagos Mainland Office for tenant proliance
-2025-07-14 14:27:42,140 [INFO] django.server: "PATCH /api/user/users/4/branch/ HTTP/1.1" 200 440
-2025-07-14 14:27:51,932 [INFO] users: User prince.godson@prolianceltd.com assigned to branch Lagos Mainland Office for tenant proliance
-2025-07-14 14:27:52,765 [INFO] django.server: "PATCH /api/user/users/5/branch/ HTTP/1.1" 200 452
-2025-07-14 14:28:02,413 [INFO] users: User tonna.ezugwu@prolianceltd.com assigned to branch Lagos Mainland Office for tenant proliance
-2025-07-14 14:28:03,254 [INFO] django.server: "PATCH /api/user/users/6/branch/ HTTP/1.1" 200 434
-2025-07-14 14:28:24,440 [INFO] users: User frank@prolianceltd.com assigned to branch Lagos Mainland Office for tenant proliance
-2025-07-14 14:28:25,283 [INFO] django.server: "PATCH /api/user/users/7/branch/ HTTP/1.1" 200 420
-2025-07-14 14:28:31,488 [ERROR] users: User with ID 8 not found for tenant proliance
-2025-07-14 14:28:31,490 [WARNING] django.request: Not Found: /api/user/users/8/branch/
-2025-07-14 14:28:31,492 [WARNING] django.server: "PATCH /api/user/users/8/branch/ HTTP/1.1" 404 55
-2025-07-14 14:28:52,973 [INFO] users: Retrieved 7 users for tenant proliance
-2025-07-14 14:29:06,647 [INFO] django.server: "GET /api/user/tenant-users/ HTTP/1.1" 200 2402
-2025-07-14 14:29:42,999 [INFO] django.server: "OPTIONS /api/token/validate/ HTTP/1.1" 200 0
-2025-07-14 14:29:43,008 [INFO] django.server: "OPTIONS /api/token/validate/ HTTP/1.1" 200 0
-2025-07-14 14:29:48,387 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 417
-2025-07-14 14:29:53,477 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 417
-2025-07-14 14:29:54,400 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 2
-2025-07-14 14:30:00,881 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 2
-2025-07-14 14:30:44,970 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 2
-2025-07-14 14:31:17,871 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
-2025-07-14 14:31:34,316 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/john.adebayo@email.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 9172
-2025-07-14 14:31:34,576 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/john.adebayo@email.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 9172
-2025-07-14 14:31:59,486 [INFO] django.server: "OPTIONS /api/token/ HTTP/1.1" 200 0
-2025-07-14 14:32:02,947 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 970
-2025-07-14 14:32:03,083 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
-2025-07-14 14:32:03,297 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
-2025-07-14 14:32:03,428 [INFO] users: Retrieved 11 users for tenant proliance
-2025-07-14 14:32:03,512 [INFO] django.server: "GET /api/user/tenant-users/ HTTP/1.1" 200 4461
-2025-07-14 14:32:03,681 [INFO] users: Retrieved 11 users for tenant proliance
-2025-07-14 14:32:03,759 [INFO] django.server: "GET /api/user/tenant-users/ HTTP/1.1" 200 4461
-2025-07-14 14:32:06,026 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 14:32:06,369 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 14:32:38,684 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
-2025-07-14 14:32:38,886 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
-2025-07-14 14:32:39,110 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 14:32:39,332 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 14:32:58,729 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 970
-2025-07-14 14:33:23,014 [INFO] users: Retrieved 11 users for tenant proliance
-2025-07-14 14:33:23,047 [INFO] django.server: "GET /api/user/tenant-users/ HTTP/1.1" 200 4461
-2025-07-14 14:33:30,054 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 14:34:18,794 [WARNING] django.request: Not Found: /api/user/users/branch/
-2025-07-14 14:34:18,794 [WARNING] django.server: "GET /api/user/users/branch/ HTTP/1.1" 404 23
-2025-07-14 14:34:20,963 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 14:34:30,749 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.
-2025-07-14 14:34:33,488 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
-2025-07-14 14:35:08,098 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 985
-2025-07-14 14:35:23,671 [WARNING] django.request: Not Found: /api/user/users/branch/
-2025-07-14 14:35:23,672 [WARNING] django.server: "GET /api/user/users/branch/ HTTP/1.1" 404 23
-2025-07-14 14:35:24,049 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 2
-2025-07-14 14:35:37,883 [WARNING] django.request: Not Found: /api/user/users/branches/
-2025-07-14 14:35:37,884 [WARNING] django.server: "GET /api/user/users/branches/ HTTP/1.1" 404 23
-2025-07-14 14:36:00,668 [INFO] core: Retrieved 1 branches for tenant proliance
-2025-07-14 14:36:01,243 [INFO] django.server: "GET /api/tenant/branches/ HTTP/1.1" 200 151
-2025-07-14 14:36:11,302 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 1055
-2025-07-14 14:36:11,870 [WARNING] django.request: Not Found: /api/tenant/branches/1/
-2025-07-14 14:36:11,870 [WARNING] django.server: "GET /api/tenant/branches/1/ HTTP/1.1" 404 47
-2025-07-14 14:36:28,920 [INFO] core: Branch deleted: Lagos Mainland Office for tenant proliance
-2025-07-14 14:36:29,215 [INFO] django.server: "DELETE /api/tenant/branches/5/ HTTP/1.1" 204 0
-2025-07-14 14:36:40,616 [INFO] core: Retrieved 0 branches for tenant proliance
-2025-07-14 14:36:41,198 [INFO] django.server: "GET /api/tenant/branches/ HTTP/1.1" 200 2
-2025-07-14 14:36:56,439 [INFO] users: Retrieved 7 users for tenant proliance
-2025-07-14 14:37:20,196 [INFO] django.server: "GET /api/user/tenant-users/ HTTP/1.1" 200 2288
-2025-07-14 14:37:20,752 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 9174
-2025-07-14 14:37:58,629 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 9174
-2025-07-14 14:39:01,989 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 9174
-2025-07-14 14:39:37,750 [WARNING] django.request: Not Found: /api/ustenanter/tenants/
-2025-07-14 14:39:37,751 [WARNING] django.server: "GET /api/ustenanter/tenants/ HTTP/1.1" 404 4453
-2025-07-14 14:39:40,580 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 9174
-2025-07-14 14:39:50,287 [INFO] core: Listing tenants: [2] for tenant proliance
-2025-07-14 14:39:50,288 [INFO] django.server: "GET /api/tenant/tenants/ HTTP/1.1" 200 4956
-2025-07-14 14:40:33,460 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 9174
-2025-07-14 14:41:24,687 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 9174
-2025-07-14 14:42:19,276 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 9174
-2025-07-14 14:42:41,734 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\talent_engine\views.py changed, reloading.
-2025-07-14 14:42:44,760 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
-2025-07-14 14:43:15,049 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 398
-2025-07-14 14:43:19,351 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 398
-2025-07-14 14:43:28,672 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 9174
-2025-07-14 14:43:45,611 [ERROR] django.request: Internal Server Error: /api/talent-engine/requisitions/
-Traceback (most recent call last):
-  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
-    response = get_response(request)
-  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
-    response = wrapped_callback(request, *callback_args, **callback_kwargs)
-  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
-    return view_func(request, *args, **kwargs)
-  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
-    return self.dispatch(request, *args, **kwargs)
-           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\views.py", line 515, in dispatch
-    response = self.handle_exception(exc)
-  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\views.py", line 475, in handle_exception
-    self.raise_uncaught_exception(exc)
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
-  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\views.py", line 486, in raise_uncaught_exception
-    raise exc
-  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\views.py", line 512, in dispatch
-    response = handler(request, *args, **kwargs)
-  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\generics.py", line 246, in post
-    return self.create(request, *args, **kwargs)
-           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\mixins.py", line 19, in create
-    self.perform_create(serializer)
-    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
-  File "C:\Users\CPT-003\Desktop\CRM\crm_api\talent_engine\views.py", line 85, in perform_create
-    has_branches = Branch.objects.filter(tenant=tenant).exists()
-                   ^^^^^^
-NameError: name 'Branch' is not defined
-2025-07-14 14:43:45,619 [ERROR] django.server: "POST /api/talent-engine/requisitions/ HTTP/1.1" 500 125757
-2025-07-14 14:43:48,464 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 9174
-2025-07-14 14:44:16,355 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\talent_engine\views.py changed, reloading.
-2025-07-14 14:44:23,658 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
-2025-07-14 14:45:00,936 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 398
-2025-07-14 14:45:05,348 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 398
-2025-07-14 14:45:15,815 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 9174
-2025-07-14 14:45:30,122 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 9174
-2025-07-14 14:45:31,966 [INFO] talent_engine: Job requisition created: Respond to emergencies and incidents for tenant proliance by user prince.godson@prolianceltd.com
-2025-07-14 14:45:32,533 [INFO] django.server: "POST /api/talent-engine/requisitions/ HTTP/1.1" 201 1208
-2025-07-14 14:46:06,667 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10383
-2025-07-14 14:49:38,569 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
-2025-07-14 14:49:41,975 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
-2025-07-14 14:49:55,582 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
-2025-07-14 14:49:59,865 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
-2025-07-14 15:13:11,578 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.
-2025-07-14 15:13:19,403 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
-2025-07-14 15:13:40,656 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
-2025-07-14 15:13:40,898 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
-2025-07-14 15:13:41,253 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 15:13:41,632 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 15:13:41,824 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/john.adebayo@email.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 9172
-2025-07-14 15:13:42,169 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/john.adebayo@email.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 9172
-2025-07-14 15:13:48,348 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
-2025-07-14 15:13:48,603 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
-2025-07-14 15:44:23,749 [INFO] django.server: "GET / HTTP/1.1" 200 188
-2025-07-14 15:44:25,690 [INFO] django.server: "GET /api/docs/ HTTP/1.1" 200 4640
-2025-07-14 15:44:26,117 [WARNING] talent_engine: Invalid unique_link format: 
-2025-07-14 15:44:26,121 [WARNING] core: No valid Bearer token provided
-2025-07-14 15:44:26,121 [ERROR] core: Error extracting tenant: Invalid token format
-2025-07-14 15:44:26,122 [WARNING] core: No valid Bearer token provided
-2025-07-14 15:44:26,122 [ERROR] core: Error extracting tenant: Invalid token format
-2025-07-14 15:44:26,123 [WARNING] core: No valid Bearer token provided
-2025-07-14 15:44:26,123 [ERROR] core: Error extracting tenant: Invalid token format
-2025-07-14 15:44:26,124 [WARNING] core: No valid Bearer token provided
-2025-07-14 15:44:26,124 [ERROR] core: Error extracting tenant: Invalid token format
-2025-07-14 15:44:26,126 [WARNING] core: No valid Bearer token provided
-2025-07-14 15:44:26,126 [ERROR] core: Error extracting tenant: Invalid token format
-2025-07-14 15:44:26,128 [WARNING] core: No valid Bearer token provided
-2025-07-14 15:44:26,128 [ERROR] core: Error extracting tenant: Invalid token format
-2025-07-14 15:44:26,173 [INFO] django.server: "GET /api/schema/ HTTP/1.1" 200 160973
-2025-07-14 15:45:24,982 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/john.adebayo@email.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 9172
-2025-07-14 15:45:26,979 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/john.adebayo@email.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 9172
-2025-07-14 15:46:19,092 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/john.adebayo@email.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 9172
-2025-07-14 15:47:24,329 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/john.adebayo@email.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 9172
-2025-07-14 15:47:24,426 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/john.adebayo@email.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 9172
-2025-07-14 15:48:53,165 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
-2025-07-14 15:48:53,237 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
-2025-07-14 15:49:00,917 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
-2025-07-14 15:49:00,977 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
-2025-07-14 15:49:05,681 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
-2025-07-14 15:49:05,784 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
-2025-07-14 15:49:13,689 [INFO] django.server: "OPTIONS /api/user/tenant-users/ HTTP/1.1" 200 0
-2025-07-14 15:49:13,689 [INFO] django.server: "OPTIONS /api/user/tenant-users/ HTTP/1.1" 200 0
-2025-07-14 15:49:13,796 [INFO] users: Retrieved 11 users for tenant proliance
-2025-07-14 15:49:13,836 [INFO] django.server: "GET /api/user/tenant-users/ HTTP/1.1" 200 4461
-2025-07-14 15:49:13,897 [INFO] users: Retrieved 11 users for tenant proliance
-2025-07-14 15:49:13,933 [INFO] django.server: "GET /api/user/tenant-users/ HTTP/1.1" 200 4461
-2025-07-14 15:53:16,350 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
-2025-07-14 15:53:16,547 [INFO] users: Retrieved 11 users for tenant proliance
-2025-07-14 15:53:16,567 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
-2025-07-14 15:53:16,609 [INFO] django.server: "GET /api/user/tenant-users/ HTTP/1.1" 200 4461
-2025-07-14 15:53:16,792 [INFO] users: Retrieved 11 users for tenant proliance
-2025-07-14 15:53:16,850 [INFO] django.server: "GET /api/user/tenant-users/ HTTP/1.1" 200 4461
-2025-07-14 15:53:19,670 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 15:53:19,895 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 15:54:09,957 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 15:55:00,966 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 15:55:51,969 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 15:56:42,918 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 15:57:33,960 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 15:58:24,928 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 15:58:44,120 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.
-2025-07-14 15:58:46,503 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
-2025-07-14 15:59:15,944 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 16:00:07,039 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 16:00:57,928 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 16:01:48,930 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 16:02:39,995 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 16:03:30,945 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 16:04:20,973 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 16:04:25,289 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 16:04:25,391 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 16:04:30,279 [INFO] talent_engine: Job requisition accessed via link: NLP & Data Scientist for tenant proliance
-2025-07-14 16:04:30,293 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-nlp-data-scientist-12a4a2fd/ HTTP/1.1" 200 2894
-2025-07-14 16:04:30,383 [INFO] talent_engine: Job requisition accessed via link: NLP & Data Scientist for tenant proliance
-2025-07-14 16:04:30,400 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-nlp-data-scientist-12a4a2fd/ HTTP/1.1" 200 2894
-2025-07-14 16:04:30,611 [INFO] django.server: "GET /media/advert_banners/Data_Scientist_-_NLP__Machine_Learning.jpg HTTP/1.1" 200 162365
-2025-07-14 16:05:16,044 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 16:06:05,972 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 16:06:56,034 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 16:07:46,030 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 16:08:36,070 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 16:09:25,943 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 16:10:33,933 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 16:11:33,841 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/ HTTP/1.1" 200 0
-2025-07-14 16:11:33,951 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 16:12:13,943 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
-2025-07-14 16:12:13,994 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/john.adebayo@email.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 9172
-2025-07-14 16:12:14,066 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 16:12:15,955 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
-2025-07-14 16:12:16,008 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/john.adebayo@email.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 9172
-2025-07-14 16:12:16,028 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 16:12:52,956 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
-2025-07-14 16:12:52,993 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/john.adebayo@email.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 9172
-2025-07-14 16:12:53,000 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 16:13:08,915 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
-2025-07-14 16:13:08,959 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 16:13:08,965 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/john.adebayo@email.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 9172
-2025-07-14 16:13:59,063 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 16:13:59,194 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 16:15:46,576 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
-2025-07-14 16:15:46,671 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
-2025-07-14 16:17:14,214 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 16:17:14,316 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 16:18:04,942 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
-2025-07-14 16:18:15,368 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 0
-2025-07-14 16:18:15,368 [INFO] django.server: "OPTIONS /api/tenant/config/?t=1752506295355 HTTP/1.1" 200 0
-2025-07-14 16:18:15,378 [INFO] django.server: "OPTIONS /api/tenant/config/?t=1752506295355 HTTP/1.1" 200 0
-2025-07-14 16:18:15,379 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 0
-2025-07-14 16:18:15,450 [INFO] core: Fetched TenantConfig for tenant proliance
-2025-07-14 16:18:15,452 [INFO] django.server: "GET /api/tenant/config/?t=1752506295355 HTTP/1.1" 200 5585
-2025-07-14 16:18:15,506 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 28716
-2025-07-14 16:18:15,520 [INFO] core: Fetched TenantConfig for tenant proliance
-2025-07-14 16:18:15,522 [INFO] django.server: "GET /api/tenant/config/?t=1752506295355 HTTP/1.1" 200 5585
-2025-07-14 16:18:15,647 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 28716
-2025-07-14 16:18:17,616 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/schedules/ HTTP/1.1" 200 0
-2025-07-14 16:18:17,619 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/schedules/api/timezone-choices/ HTTP/1.1" 200 0
-2025-07-14 16:18:17,621 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/schedules/ HTTP/1.1" 200 0
-2025-07-14 16:18:17,621 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/schedules/api/timezone-choices/ HTTP/1.1" 200 0
-2025-07-14 16:18:17,697 [INFO] django.server: "GET /api/talent-engine-job-applications/schedules/api/timezone-choices/ HTTP/1.1" 200 286
-2025-07-14 16:18:17,736 [INFO] django.server: "GET /api/talent-engine-job-applications/schedules/ HTTP/1.1" 200 10739
-2025-07-14 16:18:17,763 [INFO] django.server: "GET /api/talent-engine-job-applications/schedules/api/timezone-choices/ HTTP/1.1" 200 286
-2025-07-14 16:18:17,830 [INFO] django.server: "GET /api/talent-engine-job-applications/schedules/ HTTP/1.1" 200 10739
-2025-07-14 16:18:36,261 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/schedules/bulk-delete/ HTTP/1.1" 200 0
-2025-07-14 16:18:36,350 [INFO] django.server: "POST /api/talent-engine-job-applications/schedules/bulk-delete/ HTTP/1.1" 200 53
-2025-07-14 16:18:43,403 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/john.adebayo@email.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 7391
-2025-07-14 16:18:43,529 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/john.adebayo@email.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 7391
-2025-07-14 16:20:56,873 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 28716
-2025-07-14 16:20:56,986 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 28716
-2025-07-14 16:20:57,098 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 28716
-2025-07-14 16:22:01,353 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/john.adebayo@email.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 7391
-2025-07-14 16:22:01,370 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
-2025-07-14 16:22:01,511 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
-2025-07-14 16:22:01,571 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/john.adebayo@email.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 7391
-2025-07-14 16:22:01,829 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 28716
-2025-07-14 16:22:02,007 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 28716
-2025-07-14 16:22:02,171 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 28716
-2025-07-14 16:27:44,167 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 28716
-2025-07-14 16:27:44,366 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 28716
-2025-07-14 16:27:52,620 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
-2025-07-14 16:27:52,926 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
-2025-07-14 16:27:55,854 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 28716
-2025-07-14 16:27:56,089 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 28716
-2025-07-14 16:27:56,314 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 28716
-2025-07-14 16:29:02,117 [INFO] django.server: - Broken pipe from ('127.0.0.1', 55016)
+2025-07-16 13:42:58,406 [INFO] django.server: "OPTIONS /api/tenant/config/?t=1752669778390 HTTP/1.1" 200 0
+2025-07-16 13:42:58,511 [INFO] core: Fetched TenantConfig for tenant proliance
+2025-07-16 13:42:58,513 [INFO] django.server: "GET /api/tenant/config/?t=1752669778390 HTTP/1.1" 200 5585
+2025-07-16 13:42:58,578 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 28716
+2025-07-16 13:43:03,171 [INFO] core: Retrieving tenant: 2 for tenant proliance
+2025-07-16 13:43:03,186 [INFO] django.server: "GET /api/tenant/tenants/2/ HTTP/1.1" 200 5957
+2025-07-16 13:43:03,284 [INFO] core: Retrieving tenant: 2 for tenant proliance
+2025-07-16 13:43:03,295 [INFO] django.server: "GET /api/tenant/tenants/2/ HTTP/1.1" 200 5957
+2025-07-16 13:43:10,704 [INFO] core: Saving tenant with schema_name: proliance
+2025-07-16 13:43:10,709 [INFO] core: Tenant updated: proliance for tenant proliance
+2025-07-16 13:43:10,717 [INFO] django.server: "PATCH /api/tenant/tenants/2/ HTTP/1.1" 200 5958
+2025-07-16 13:44:11,659 [INFO] core: Saving tenant with schema_name: proliance
+2025-07-16 13:44:11,664 [INFO] core: Tenant updated: proliance for tenant proliance
+2025-07-16 13:44:11,670 [INFO] django.server: "PATCH /api/tenant/tenants/2/ HTTP/1.1" 200 5948
+2025-07-16 13:44:14,726 [INFO] django.server: "OPTIONS /api/tenant/config/?t=1752669854704 HTTP/1.1" 200 0
+2025-07-16 13:44:14,728 [INFO] django.server: "OPTIONS /api/tenant/config/?t=1752669854704 HTTP/1.1" 200 0
+2025-07-16 13:44:14,828 [INFO] core: Fetched TenantConfig for tenant proliance
+2025-07-16 13:44:14,829 [INFO] django.server: "GET /api/tenant/config/?t=1752669854704 HTTP/1.1" 200 5585
+2025-07-16 13:44:14,893 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 28716
+2025-07-16 13:44:14,914 [INFO] core: Fetched TenantConfig for tenant proliance
+2025-07-16 13:44:14,915 [INFO] django.server: "GET /api/tenant/config/?t=1752669854704 HTTP/1.1" 200 5585
+2025-07-16 13:44:15,018 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 28716
+2025-07-16 13:44:16,835 [INFO] django.server: "GET /api/talent-engine-job-applications/schedules/api/timezone-choices/ HTTP/1.1" 200 286
+2025-07-16 13:44:16,877 [INFO] django.server: "GET /api/talent-engine-job-applications/schedules/ HTTP/1.1" 200 7987
+2025-07-16 13:44:16,913 [INFO] django.server: "GET /api/talent-engine-job-applications/schedules/api/timezone-choices/ HTTP/1.1" 200 286
+2025-07-16 13:44:16,992 [INFO] django.server: "GET /api/talent-engine-job-applications/schedules/ HTTP/1.1" 200 7987
+2025-07-16 13:44:19,191 [INFO] django.server: "OPTIONS /api/tenant/config/?t=1752669859178 HTTP/1.1" 200 0
+2025-07-16 13:44:19,193 [INFO] django.server: "OPTIONS /api/tenant/config/?t=1752669859178 HTTP/1.1" 200 0
+2025-07-16 13:44:19,284 [INFO] core: Fetched TenantConfig for tenant proliance
+2025-07-16 13:44:19,285 [INFO] django.server: "GET /api/tenant/config/?t=1752669859178 HTTP/1.1" 200 5585
+2025-07-16 13:44:19,350 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 28716
+2025-07-16 13:44:19,370 [INFO] core: Fetched TenantConfig for tenant proliance
+2025-07-16 13:44:19,372 [INFO] django.server: "GET /api/tenant/config/?t=1752669859178 HTTP/1.1" 200 5585
+2025-07-16 13:44:19,481 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 28716
+2025-07-16 13:44:45,863 [ERROR] django.request: Internal Server Error: /api/talent-engine-job-applications/schedules/
+2025-07-16 13:44:45,864 [ERROR] django.server: "POST /api/talent-engine-job-applications/schedules/ HTTP/1.1" 500 145
+2025-07-16 13:44:52,022 [INFO] django.server: "OPTIONS /api/tenant/config/?t=1752669891993 HTTP/1.1" 200 0
+2025-07-16 13:44:52,121 [INFO] core: Fetched TenantConfig for tenant proliance
+2025-07-16 13:44:52,123 [INFO] django.server: "GET /api/tenant/config/?t=1752669891993 HTTP/1.1" 200 5585
+2025-07-16 13:44:52,173 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 28716
+2025-07-16 13:45:31,718 [INFO] django.server: "OPTIONS /api/tenant/config/?t=1752669931692 HTTP/1.1" 200 0
+2025-07-16 13:45:31,860 [INFO] core: Fetched TenantConfig for tenant proliance
+2025-07-16 13:45:31,866 [INFO] django.server: "GET /api/tenant/config/?t=1752669931692 HTTP/1.1" 200 5585
+2025-07-16 13:45:31,930 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 28716
+2025-07-16 13:46:01,309 [INFO] django.server: "OPTIONS /api/tenant/config/?t=1752669961284 HTTP/1.1" 200 0
+2025-07-16 13:46:01,410 [INFO] core: Fetched TenantConfig for tenant proliance
+2025-07-16 13:46:01,411 [INFO] django.server: "GET /api/tenant/config/?t=1752669961284 HTTP/1.1" 200 5585
+2025-07-16 13:46:01,471 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 28716
+2025-07-16 13:46:05,479 [INFO] core: Retrieving tenant: 2 for tenant proliance
+2025-07-16 13:46:05,486 [INFO] django.server: "GET /api/tenant/tenants/2/ HTTP/1.1" 200 5948
+2025-07-16 13:46:05,563 [INFO] core: Retrieving tenant: 2 for tenant proliance
+2025-07-16 13:46:05,571 [INFO] django.server: "GET /api/tenant/tenants/2/ HTTP/1.1" 200 5948
+2025-07-16 13:46:10,381 [INFO] core: Saving tenant with schema_name: proliance
+2025-07-16 13:46:10,386 [INFO] core: Tenant updated: proliance for tenant proliance
+2025-07-16 13:46:10,395 [INFO] django.server: "PATCH /api/tenant/tenants/2/ HTTP/1.1" 200 5947
+2025-07-16 13:46:12,741 [INFO] django.server: "OPTIONS /api/tenant/config/?t=1752669972717 HTTP/1.1" 200 0
+2025-07-16 13:46:12,741 [INFO] django.server: "OPTIONS /api/tenant/config/?t=1752669972717 HTTP/1.1" 200 0
+2025-07-16 13:46:12,835 [INFO] core: Fetched TenantConfig for tenant proliance
+2025-07-16 13:46:12,836 [INFO] django.server: "GET /api/tenant/config/?t=1752669972717 HTTP/1.1" 200 5585
+2025-07-16 13:46:12,908 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 28716
+2025-07-16 13:46:12,919 [INFO] core: Fetched TenantConfig for tenant proliance
+2025-07-16 13:46:12,921 [INFO] django.server: "GET /api/tenant/config/?t=1752669972717 HTTP/1.1" 200 5585
+2025-07-16 13:46:13,059 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 28716
+2025-07-16 13:46:27,481 [ERROR] django.request: Internal Server Error: /api/talent-engine-job-applications/schedules/
+2025-07-16 13:46:27,482 [ERROR] django.server: "POST /api/talent-engine-job-applications/schedules/ HTTP/1.1" 500 129
+2025-07-16 13:47:00,276 [INFO] django.server: "OPTIONS /api/tenant/config/?t=1752670020246 HTTP/1.1" 200 0
+2025-07-16 13:47:00,369 [INFO] core: Fetched TenantConfig for tenant proliance
+2025-07-16 13:47:00,371 [INFO] django.server: "GET /api/tenant/config/?t=1752670020246 HTTP/1.1" 200 5585
+2025-07-16 13:47:00,423 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 28716
+2025-07-16 13:48:31,460 [INFO] django.server: "OPTIONS /api/tenant/config/?t=1752670111415 HTTP/1.1" 200 0
+2025-07-16 13:48:31,567 [INFO] core: Fetched TenantConfig for tenant proliance
+2025-07-16 13:48:31,569 [INFO] django.server: "GET /api/tenant/config/?t=1752670111415 HTTP/1.1" 200 5585
+2025-07-16 13:48:31,605 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 28716
+2025-07-16 13:48:32,925 [INFO] django.server: "OPTIONS /api/tenant/config/?t=1752670112880 HTTP/1.1" 200 0
+2025-07-16 13:48:33,079 [INFO] core: Fetched TenantConfig for tenant proliance
+2025-07-16 13:48:33,082 [INFO] django.server: "GET /api/tenant/config/?t=1752670112880 HTTP/1.1" 200 5585
+2025-07-16 13:48:33,143 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 28716
+2025-07-16 13:52:13,319 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-16 13:52:16,424 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-16 13:52:47,425 [INFO] django.server: "OPTIONS /api/tenant/config/?t=1752670367416 HTTP/1.1" 200 0
+2025-07-16 13:52:47,566 [INFO] core: Fetched TenantConfig for tenant proliance
+2025-07-16 13:52:47,569 [INFO] django.server: "GET /api/tenant/config/?t=1752670367416 HTTP/1.1" 200 5585
+2025-07-16 13:52:47,650 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 28716
+2025-07-16 13:53:32,797 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-16 13:53:36,446 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-16 13:53:48,445 [INFO] django.server: "OPTIONS /api/tenant/config/?t=1752670428432 HTTP/1.1" 200 0
+2025-07-16 13:53:48,645 [INFO] core: Fetched TenantConfig for tenant proliance
+2025-07-16 13:53:48,649 [INFO] django.server: "GET /api/tenant/config/?t=1752670428432 HTTP/1.1" 200 5585
+2025-07-16 13:53:48,764 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 28716
+2025-07-16 13:54:17,421 [INFO] django.server: "OPTIONS /api/tenant/config/?t=1752670457416 HTTP/1.1" 200 0
+2025-07-16 13:54:17,546 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 28716
+2025-07-16 13:54:17,604 [INFO] core: Fetched TenantConfig for tenant proliance
+2025-07-16 13:54:17,605 [INFO] django.server: "GET /api/tenant/config/?t=1752670457416 HTTP/1.1" 200 5585
+2025-07-16 13:55:29,399 [INFO] django.server: "OPTIONS /api/tenant/config/?t=1752670529394 HTTP/1.1" 200 0
+2025-07-16 13:55:29,492 [INFO] core: Fetched TenantConfig for tenant proliance
+2025-07-16 13:55:29,494 [INFO] django.server: "GET /api/tenant/config/?t=1752670529394 HTTP/1.1" 200 5585
+2025-07-16 13:55:29,557 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 28716
+2025-07-16 13:55:43,656 [INFO] django.server: "OPTIONS /api/tenant/config/?t=1752670543619 HTTP/1.1" 200 0
+2025-07-16 13:55:43,756 [INFO] core: Fetched TenantConfig for tenant proliance
+2025-07-16 13:55:43,758 [INFO] django.server: "GET /api/tenant/config/?t=1752670543619 HTTP/1.1" 200 5585
+2025-07-16 13:55:43,806 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 28716
+2025-07-16 13:55:47,522 [ERROR] django.request: Internal Server Error: /api/talent-engine-job-applications/schedules/
+2025-07-16 13:55:47,523 [ERROR] django.server: "POST /api/talent-engine-job-applications/schedules/ HTTP/1.1" 500 334
+2025-07-16 13:55:58,983 [ERROR] django.request: Internal Server Error: /api/talent-engine-job-applications/schedules/
+2025-07-16 13:55:58,984 [ERROR] django.server: "POST /api/talent-engine-job-applications/schedules/ HTTP/1.1" 500 334
+2025-07-16 13:56:09,025 [INFO] core: Retrieving tenant: 2 for tenant proliance
+2025-07-16 13:56:09,036 [INFO] django.server: "GET /api/tenant/tenants/2/ HTTP/1.1" 200 5947
+2025-07-16 13:56:09,102 [INFO] core: Retrieving tenant: 2 for tenant proliance
+2025-07-16 13:56:09,112 [INFO] django.server: "GET /api/tenant/tenants/2/ HTTP/1.1" 200 5947
+2025-07-16 13:56:17,417 [INFO] core: Saving tenant with schema_name: proliance
+2025-07-16 13:56:17,422 [INFO] core: Tenant updated: proliance for tenant proliance
+2025-07-16 13:56:17,428 [INFO] django.server: "PATCH /api/tenant/tenants/2/ HTTP/1.1" 200 5948
+2025-07-16 13:56:20,333 [INFO] django.server: "OPTIONS /api/tenant/config/?t=1752670580314 HTTP/1.1" 200 0
+2025-07-16 13:56:20,335 [INFO] django.server: "OPTIONS /api/tenant/config/?t=1752670580316 HTTP/1.1" 200 0
+2025-07-16 13:56:20,427 [INFO] core: Fetched TenantConfig for tenant proliance
+2025-07-16 13:56:20,431 [INFO] django.server: "GET /api/tenant/config/?t=1752670580314 HTTP/1.1" 200 5585
+2025-07-16 13:56:20,438 [INFO] core: Fetched TenantConfig for tenant proliance
+2025-07-16 13:56:20,441 [INFO] django.server: "GET /api/tenant/config/?t=1752670580316 HTTP/1.1" 200 5585
+2025-07-16 13:56:20,481 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 28716
+2025-07-16 13:56:20,592 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 28716
+2025-07-16 13:57:44,997 [INFO] django.server: "OPTIONS /api/tenant/config/?t=1752670664962 HTTP/1.1" 200 0
+2025-07-16 13:57:45,133 [INFO] core: Fetched TenantConfig for tenant proliance
+2025-07-16 13:57:45,136 [INFO] django.server: "GET /api/tenant/config/?t=1752670664962 HTTP/1.1" 200 5585
+2025-07-16 13:57:45,216 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 28716
+2025-07-16 13:58:08,707 [ERROR] django.request: Internal Server Error: /api/talent-engine-job-applications/schedules/
+2025-07-16 13:58:08,707 [ERROR] django.server: "POST /api/talent-engine-job-applications/schedules/ HTTP/1.1" 500 350
+2025-07-16 13:59:41,172 [INFO] django.server: "OPTIONS /api/tenant/config/?t=1752670781143 HTTP/1.1" 200 0
+2025-07-16 13:59:41,328 [INFO] core: Fetched TenantConfig for tenant proliance
+2025-07-16 13:59:41,330 [INFO] django.server: "GET /api/tenant/config/?t=1752670781143 HTTP/1.1" 200 5585
+2025-07-16 13:59:41,384 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 28716
+2025-07-16 14:00:11,198 [INFO] django.server: "OPTIONS /api/tenant/config/?t=1752670811159 HTTP/1.1" 200 0
+2025-07-16 14:00:11,395 [INFO] core: Fetched TenantConfig for tenant proliance
+2025-07-16 14:00:11,397 [INFO] django.server: "GET /api/tenant/config/?t=1752670811159 HTTP/1.1" 200 5585
+2025-07-16 14:00:11,504 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 28716
+2025-07-16 14:00:38,982 [INFO] django.server: "OPTIONS /api/tenant/config/?t=1752670838941 HTTP/1.1" 200 0
+2025-07-16 14:00:39,201 [INFO] core: Fetched TenantConfig for tenant proliance
+2025-07-16 14:00:39,212 [INFO] django.server: "GET /api/tenant/config/?t=1752670838941 HTTP/1.1" 200 5585
+2025-07-16 14:00:39,324 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 28716
+2025-07-16 14:01:17,254 [INFO] django.server: "OPTIONS /api/tenant/config/?t=1752670877203 HTTP/1.1" 200 0
+2025-07-16 14:01:17,407 [INFO] core: Fetched TenantConfig for tenant proliance
+2025-07-16 14:01:17,412 [INFO] django.server: "GET /api/tenant/config/?t=1752670877203 HTTP/1.1" 200 5585
+2025-07-16 14:01:17,501 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 28716
+2025-07-16 14:01:28,769 [INFO] django.server: "OPTIONS /api/tenant/config/?t=1752670888758 HTTP/1.1" 200 0
+2025-07-16 14:01:28,880 [INFO] core: Fetched TenantConfig for tenant proliance
+2025-07-16 14:01:28,882 [INFO] django.server: "GET /api/tenant/config/?t=1752670888758 HTTP/1.1" 200 5585
+2025-07-16 14:01:28,940 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 28716
+2025-07-16 14:01:32,496 [INFO] django.server: "OPTIONS /api/tenant/config/?t=1752670892445 HTTP/1.1" 200 0
+2025-07-16 14:01:32,726 [INFO] core: Fetched TenantConfig for tenant proliance
+2025-07-16 14:01:32,732 [INFO] django.server: "GET /api/tenant/config/?t=1752670892445 HTTP/1.1" 200 5585
+2025-07-16 14:01:32,823 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 28716
+2025-07-16 14:01:34,721 [INFO] django.server: "OPTIONS /api/tenant/config/?t=1752670894690 HTTP/1.1" 200 0
+2025-07-16 14:01:34,852 [INFO] core: Fetched TenantConfig for tenant proliance
+2025-07-16 14:01:34,854 [INFO] django.server: "GET /api/tenant/config/?t=1752670894690 HTTP/1.1" 200 5585
+2025-07-16 14:01:34,925 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 28716
+2025-07-16 14:01:38,367 [INFO] django.server: "OPTIONS /api/tenant/config/?t=1752670898342 HTTP/1.1" 200 0
+2025-07-16 14:01:38,477 [INFO] core: Fetched TenantConfig for tenant proliance
+2025-07-16 14:01:38,479 [INFO] django.server: "GET /api/tenant/config/?t=1752670898342 HTTP/1.1" 200 5585
+2025-07-16 14:01:38,544 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 28716

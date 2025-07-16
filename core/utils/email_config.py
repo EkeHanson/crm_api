@@ -35,7 +35,10 @@ def configure_email_backend(tenant):
     # print(tenant)
     # print(tenant.email_host)
     # print(tenant.email_host_user)
-    # print(tenant.email_host_user)
+    # print(tenant.email_port)
+    # print(tenant.email_host_password)
+    # print(tenant.email_use_ssl)
+    # print(tenant.default_from_email)
     # print("tenant")
     email_settings = {
         'EMAIL_BACKEND': 'django.core.mail.backends.smtp.EmailBackend',

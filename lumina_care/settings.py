@@ -117,16 +117,16 @@ WSGI_APPLICATION = 'lumina_care.wsgi.application'
 
 
 #FOR HOSTING ON NAMECHEAP
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django_tenants.postgresql_backend',
-#         'NAME': config('DB_NAME', default='cmvpouya_crm_test_db'),
-#         'USER': config('DB_USER', default='cmvpouya_ekenehanson'),
-#         'PASSWORD': config('DB_PASSWORD', default='123@Qwerty@123'),
-#         'HOST': config('DB_HOST', default='localhost'),
-#         'PORT': config('DB_PORT', default='5432'),
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django_tenants.postgresql_backend',
+        'NAME': config('DB_NAME', default='cmvpouya_crm_test_db'),
+        'USER': config('DB_USER', default='cmvpouya_ekenehanson'),
+        'PASSWORD': config('DB_PASSWORD', default='123@Qwerty@123'),
+        'HOST': config('DB_HOST', default='localhost'),
+        'PORT': config('DB_PORT', default='5432'),
+    }
+}
 
 # DATABASES = {
 #     'default': {

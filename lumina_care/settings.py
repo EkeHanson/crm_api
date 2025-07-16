@@ -221,7 +221,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Add this line
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'talent_engine', 'static'),
+    os.path.join(BASE_DIR, 'static'),
 ]
 
 REST_FRAMEWORK = {

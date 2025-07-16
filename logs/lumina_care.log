@@ -348,3 +348,144 @@ NameError: name 'Branch' is not defined
 2025-07-14 14:49:41,975 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
 2025-07-14 14:49:55,582 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
 2025-07-14 14:49:59,865 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-14 15:13:11,578 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.
+2025-07-14 15:13:19,403 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-14 15:13:40,656 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
+2025-07-14 15:13:40,898 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
+2025-07-14 15:13:41,253 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
+2025-07-14 15:13:41,632 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
+2025-07-14 15:13:41,824 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/john.adebayo@email.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 9172
+2025-07-14 15:13:42,169 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/john.adebayo@email.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 9172
+2025-07-14 15:13:48,348 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
+2025-07-14 15:13:48,603 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
+2025-07-14 15:44:23,749 [INFO] django.server: "GET / HTTP/1.1" 200 188
+2025-07-14 15:44:25,690 [INFO] django.server: "GET /api/docs/ HTTP/1.1" 200 4640
+2025-07-14 15:44:26,117 [WARNING] talent_engine: Invalid unique_link format: 
+2025-07-14 15:44:26,121 [WARNING] core: No valid Bearer token provided
+2025-07-14 15:44:26,121 [ERROR] core: Error extracting tenant: Invalid token format
+2025-07-14 15:44:26,122 [WARNING] core: No valid Bearer token provided
+2025-07-14 15:44:26,122 [ERROR] core: Error extracting tenant: Invalid token format
+2025-07-14 15:44:26,123 [WARNING] core: No valid Bearer token provided
+2025-07-14 15:44:26,123 [ERROR] core: Error extracting tenant: Invalid token format
+2025-07-14 15:44:26,124 [WARNING] core: No valid Bearer token provided
+2025-07-14 15:44:26,124 [ERROR] core: Error extracting tenant: Invalid token format
+2025-07-14 15:44:26,126 [WARNING] core: No valid Bearer token provided
+2025-07-14 15:44:26,126 [ERROR] core: Error extracting tenant: Invalid token format
+2025-07-14 15:44:26,128 [WARNING] core: No valid Bearer token provided
+2025-07-14 15:44:26,128 [ERROR] core: Error extracting tenant: Invalid token format
+2025-07-14 15:44:26,173 [INFO] django.server: "GET /api/schema/ HTTP/1.1" 200 160973
+2025-07-14 15:45:24,982 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/john.adebayo@email.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 9172
+2025-07-14 15:45:26,979 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/john.adebayo@email.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 9172
+2025-07-14 15:46:19,092 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/john.adebayo@email.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 9172
+2025-07-14 15:47:24,329 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/john.adebayo@email.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 9172
+2025-07-14 15:47:24,426 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/john.adebayo@email.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 9172
+2025-07-14 15:48:53,165 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
+2025-07-14 15:48:53,237 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
+2025-07-14 15:49:00,917 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
+2025-07-14 15:49:00,977 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
+2025-07-14 15:49:05,681 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
+2025-07-14 15:49:05,784 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
+2025-07-14 15:49:13,689 [INFO] django.server: "OPTIONS /api/user/tenant-users/ HTTP/1.1" 200 0
+2025-07-14 15:49:13,689 [INFO] django.server: "OPTIONS /api/user/tenant-users/ HTTP/1.1" 200 0
+2025-07-14 15:49:13,796 [INFO] users: Retrieved 11 users for tenant proliance
+2025-07-14 15:49:13,836 [INFO] django.server: "GET /api/user/tenant-users/ HTTP/1.1" 200 4461
+2025-07-14 15:49:13,897 [INFO] users: Retrieved 11 users for tenant proliance
+2025-07-14 15:49:13,933 [INFO] django.server: "GET /api/user/tenant-users/ HTTP/1.1" 200 4461
+2025-07-14 15:53:16,350 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
+2025-07-14 15:53:16,547 [INFO] users: Retrieved 11 users for tenant proliance
+2025-07-14 15:53:16,567 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
+2025-07-14 15:53:16,609 [INFO] django.server: "GET /api/user/tenant-users/ HTTP/1.1" 200 4461
+2025-07-14 15:53:16,792 [INFO] users: Retrieved 11 users for tenant proliance
+2025-07-14 15:53:16,850 [INFO] django.server: "GET /api/user/tenant-users/ HTTP/1.1" 200 4461
+2025-07-14 15:53:19,670 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
+2025-07-14 15:53:19,895 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
+2025-07-14 15:54:09,957 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
+2025-07-14 15:55:00,966 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
+2025-07-14 15:55:51,969 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
+2025-07-14 15:56:42,918 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
+2025-07-14 15:57:33,960 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
+2025-07-14 15:58:24,928 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
+2025-07-14 15:58:44,120 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.
+2025-07-14 15:58:46,503 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-14 15:59:15,944 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
+2025-07-14 16:00:07,039 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
+2025-07-14 16:00:57,928 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
+2025-07-14 16:01:48,930 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
+2025-07-14 16:02:39,995 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
+2025-07-14 16:03:30,945 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
+2025-07-14 16:04:20,973 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
+2025-07-14 16:04:25,289 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
+2025-07-14 16:04:25,391 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
+2025-07-14 16:04:30,279 [INFO] talent_engine: Job requisition accessed via link: NLP & Data Scientist for tenant proliance
+2025-07-14 16:04:30,293 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-nlp-data-scientist-12a4a2fd/ HTTP/1.1" 200 2894
+2025-07-14 16:04:30,383 [INFO] talent_engine: Job requisition accessed via link: NLP & Data Scientist for tenant proliance
+2025-07-14 16:04:30,400 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/proliance-nlp-data-scientist-12a4a2fd/ HTTP/1.1" 200 2894
+2025-07-14 16:04:30,611 [INFO] django.server: "GET /media/advert_banners/Data_Scientist_-_NLP__Machine_Learning.jpg HTTP/1.1" 200 162365
+2025-07-14 16:05:16,044 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
+2025-07-14 16:06:05,972 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
+2025-07-14 16:06:56,034 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
+2025-07-14 16:07:46,030 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
+2025-07-14 16:08:36,070 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
+2025-07-14 16:09:25,943 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
+2025-07-14 16:10:33,933 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
+2025-07-14 16:11:33,841 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/ HTTP/1.1" 200 0
+2025-07-14 16:11:33,951 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
+2025-07-14 16:12:13,943 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
+2025-07-14 16:12:13,994 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/john.adebayo@email.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 9172
+2025-07-14 16:12:14,066 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
+2025-07-14 16:12:15,955 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
+2025-07-14 16:12:16,008 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/john.adebayo@email.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 9172
+2025-07-14 16:12:16,028 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
+2025-07-14 16:12:52,956 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
+2025-07-14 16:12:52,993 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/john.adebayo@email.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 9172
+2025-07-14 16:12:53,000 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
+2025-07-14 16:13:08,915 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
+2025-07-14 16:13:08,959 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
+2025-07-14 16:13:08,965 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/john.adebayo@email.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 9172
+2025-07-14 16:13:59,063 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
+2025-07-14 16:13:59,194 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
+2025-07-14 16:15:46,576 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
+2025-07-14 16:15:46,671 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
+2025-07-14 16:17:14,214 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
+2025-07-14 16:17:14,316 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
+2025-07-14 16:18:04,942 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 10761
+2025-07-14 16:18:15,368 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 0
+2025-07-14 16:18:15,368 [INFO] django.server: "OPTIONS /api/tenant/config/?t=1752506295355 HTTP/1.1" 200 0
+2025-07-14 16:18:15,378 [INFO] django.server: "OPTIONS /api/tenant/config/?t=1752506295355 HTTP/1.1" 200 0
+2025-07-14 16:18:15,379 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 0
+2025-07-14 16:18:15,450 [INFO] core: Fetched TenantConfig for tenant proliance
+2025-07-14 16:18:15,452 [INFO] django.server: "GET /api/tenant/config/?t=1752506295355 HTTP/1.1" 200 5585
+2025-07-14 16:18:15,506 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 28716
+2025-07-14 16:18:15,520 [INFO] core: Fetched TenantConfig for tenant proliance
+2025-07-14 16:18:15,522 [INFO] django.server: "GET /api/tenant/config/?t=1752506295355 HTTP/1.1" 200 5585
+2025-07-14 16:18:15,647 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 28716
+2025-07-14 16:18:17,616 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/schedules/ HTTP/1.1" 200 0
+2025-07-14 16:18:17,619 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/schedules/api/timezone-choices/ HTTP/1.1" 200 0
+2025-07-14 16:18:17,621 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/schedules/ HTTP/1.1" 200 0
+2025-07-14 16:18:17,621 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/schedules/api/timezone-choices/ HTTP/1.1" 200 0
+2025-07-14 16:18:17,697 [INFO] django.server: "GET /api/talent-engine-job-applications/schedules/api/timezone-choices/ HTTP/1.1" 200 286
+2025-07-14 16:18:17,736 [INFO] django.server: "GET /api/talent-engine-job-applications/schedules/ HTTP/1.1" 200 10739
+2025-07-14 16:18:17,763 [INFO] django.server: "GET /api/talent-engine-job-applications/schedules/api/timezone-choices/ HTTP/1.1" 200 286
+2025-07-14 16:18:17,830 [INFO] django.server: "GET /api/talent-engine-job-applications/schedules/ HTTP/1.1" 200 10739
+2025-07-14 16:18:36,261 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/schedules/bulk-delete/ HTTP/1.1" 200 0
+2025-07-14 16:18:36,350 [INFO] django.server: "POST /api/talent-engine-job-applications/schedules/bulk-delete/ HTTP/1.1" 200 53
+2025-07-14 16:18:43,403 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/john.adebayo@email.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 7391
+2025-07-14 16:18:43,529 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/john.adebayo@email.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 7391
+2025-07-14 16:20:56,873 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 28716
+2025-07-14 16:20:56,986 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 28716
+2025-07-14 16:20:57,098 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 28716
+2025-07-14 16:22:01,353 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/john.adebayo@email.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 7391
+2025-07-14 16:22:01,370 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
+2025-07-14 16:22:01,511 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
+2025-07-14 16:22:01,571 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/code/PR-JA-0001/email/john.adebayo@email.com/with-schedules/schedules/?unique_link=proliance-nlp-data-scientist-12a4a2fd HTTP/1.1" 200 7391
+2025-07-14 16:22:01,829 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 28716
+2025-07-14 16:22:02,007 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 28716
+2025-07-14 16:22:02,171 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 28716
+2025-07-14 16:27:44,167 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 28716
+2025-07-14 16:27:44,366 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 28716
+2025-07-14 16:27:52,620 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
+2025-07-14 16:27:52,926 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 386
+2025-07-14 16:27:55,854 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 28716
+2025-07-14 16:27:56,089 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 28716
+2025-07-14 16:27:56,314 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 28716
+2025-07-14 16:29:02,117 [INFO] django.server: - Broken pipe from ('127.0.0.1', 55016)

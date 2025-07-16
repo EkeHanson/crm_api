@@ -12,7 +12,7 @@ sys.path.insert(0, str(BASE_DIR / 'talent_engine'))
 
 SECRET_KEY = config('SECRET_KEY', default='django-insecure-!v)6(7@u983fg+8gdo1o)dr^59vvp3^ol*apr%c+$0n$#swz-1')
 DEBUG = config('DEBUG', default=True, cast=bool)
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='127.0.0.1,localhost,cmvp-api-v1.onrender.com').split(',')
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='127.0.0.1,localhost,cmvp-api-v1.onrender.com,temp.artstraining.co.uk').split(',')
 
 INSTALLED_APPS = [
     'corsheaders',
@@ -114,6 +114,18 @@ CORS_ALLOW_HEADERS = ['accept', 'authorization', 'content-type', 'origin', 'x-cs
 ROOT_URLCONF = 'lumina_care.urls'
 WSGI_APPLICATION = 'lumina_care.wsgi.application'
 
+
+#FOR HOSTING ON NAMECHEAP
+DATABASES = {
+    'default': {
+        'ENGINE': 'django_tenants.postgresql_backend',
+        'NAME': config('DB_NAME', default='cmvpouya_crm_test_db'),
+        'USER': config('DB_USER', default='cmvpouya_ekenehanson'),
+        'PASSWORD': config('DB_PASSWORD', default='123@Qwerty@123'),
+        'HOST': config('DB_HOST', default='localhost'),
+        'PORT': config('DB_PORT', default='5432'),
+    }
+}
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django_tenants.postgresql_backend',
@@ -126,16 +138,17 @@ WSGI_APPLICATION = 'lumina_care.wsgi.application'
 # }
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django_tenants.postgresql_backend',
-        'NAME': 'crm_db_ydt8',
-        'USER': 'crm_db_ydt8_user',
-        'PASSWORD': 'N7aE6mmUOn7gHO9ZDeG4Dqnpq1uhPxS0',
-        'HOST': 'dpg-d1hk5jjuibrs73fbicqg-a.oregon-postgres.render.com',
-        'PORT': '5432',
-    }
-}
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django_tenants.postgresql_backend',
+#         'NAME': 'crm_db_ydt8',
+#         'USER': 'crm_db_ydt8_user',
+#         'PASSWORD': 'N7aE6mmUOn7gHO9ZDeG4Dqnpq1uhPxS0',
+#         'HOST': 'dpg-d1hk5jjuibrs73fbicqg-a.oregon-postgres.render.com',
+#         'PORT': '5432',
+#     }
+# }
 
 
 DATABASE_ROUTERS = ['django_tenants.routers.TenantSyncRouter']

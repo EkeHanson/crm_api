@@ -113,6 +113,8 @@ class JobApplication(models.Model):
         logger.warning(f"Compliance item {item_id} not found in application {self.id}")
         raise ValueError("Compliance item not found")
 
+
+
 class Schedule(models.Model):
     STATUS_CHOICES = [
         ('scheduled', 'Scheduled'),

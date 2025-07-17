@@ -117,16 +117,16 @@ WSGI_APPLICATION = 'lumina_care.wsgi.application'
 
 
 #FOR HOSTING ON NAMECHEAP
-DATABASES = {
-    'default': {
-        'ENGINE': 'django_tenants.postgresql_backend',
-        'NAME': config('DB_NAME', default='cmvpouya_crm_test_db'),
-        'USER': config('DB_USER', default='cmvpouya_ekenehanson'),
-        'PASSWORD': config('DB_PASSWORD', default='123@Qwerty@123'),
-        'HOST': config('DB_HOST', default='localhost'),
-        'PORT': config('DB_PORT', default='5432'),
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django_tenants.postgresql_backend',
+#         'NAME': config('DB_NAME', default='cmvpouya_crm_test_db'),
+#         'USER': config('DB_USER', default='cmvpouya_ekenehanson'),
+#         'PASSWORD': config('DB_PASSWORD', default='123@Qwerty@123'),
+#         'HOST': config('DB_HOST', default='localhost'),
+#         'PORT': config('DB_PORT', default='5432'),
+#     }
+# }
 
 # DATABASES = {
 #     'default': {
@@ -314,3 +314,8 @@ DATA_UPLOAD_MAX_MEMORY_SIZE = 3145728  # 3MB
 
 WEB_PAGE_URL = 'https://crm-frontend-react.vercel.app'
 #WEB_PAGE_URL = 'http://localhost:5173'
+
+
+SUPABASE_URL="https://gkvgqvosnetifsonhxuo.supabase.co"
+SUPABASE_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdrdmdxdm9zbmV0aWZzb25oeHVvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI2NTU0OTcsImV4cCI6MjA2ODIzMTQ5N30.foh7w4Ko-wGwMc9GW7ZX2YswK8d4J51wel532mjPTfw"
+SUPABASE_BUCKET="luminacaremedia"

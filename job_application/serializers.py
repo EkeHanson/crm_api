@@ -11,6 +11,9 @@ from talent_engine.models import JobRequisition
 from talent_engine.serializers import ComplianceItemSerializer
 from .utils import parse_resume, extract_resume_fields
 import logging
+from lumina_care.supabase_client import supabase
+import mimetypes
+import io
 
 logger = logging.getLogger('job_applications')
 
@@ -140,48 +143,73 @@ class JobApplicationSerializer(serializers.ModelSerializer):
         logger.debug(f"Creating application for tenant: {tenant.schema_name}, job_requisition: {validated_data['job_requisition'].title}")
 
         documents = []
+        # for doc_data in documents_data:
+        #     file = doc_data['file']
+        #     folder_path = os.path.join('application_documents', timezone.now().strftime('%Y/%m/%d'))
+        #     full_folder_path = os.path.join(settings.MEDIA_ROOT, folder_path)
+        #     os.makedirs(full_folder_path, exist_ok=True)
+        #     file_extension = os.path.splitext(file.name)[1]
+        #     filename = f"{uuid.uuid4()}{file_extension}"
+        #     upload_path = os.path.join(folder_path, filename).replace('\\', '/')
+        #     full_upload_path = os.path.join(settings.MEDIA_ROOT, upload_path)
+        #     logger.debug(f"Saving file to full_upload_path: {full_upload_path}")
+
+        #     try:
+                
+        #         with open(full_upload_path, 'wb+') as destination:
+        #             for chunk in file.chunks():
+        #                 destination.write(chunk)
+        #         logger.debug(f"File saved successfully: {full_upload_path}")
+        #     except Exception as e:
+        #         logger.error(f"Failed to save file {full_upload_path}: {str(e)}")
+        #         raise serializers.ValidationError(f"Failed to save file: {str(e)}")
+
+        #     file_url = f"/media/{upload_path.lstrip('/')}"
+        #     logger.debug(f"Constructed file_url: {file_url}")
+
+        #     if doc_data['document_type'].lower() in ['resume', 'cv']:
+        #         resume_text = parse_resume(upload_path)
+        #         if resume_text:
+        #             resume_data = extract_resume_fields(resume_text)
+        #             validated_data['full_name'] = resume_data.get('full_name', validated_data.get('full_name', ''))
+        #             validated_data['email'] = resume_data.get('email', validated_data.get('email', ''))
+        #             validated_data['phone'] = resume_data.get('phone', validated_data.get('phone', ''))
+        #             validated_data['qualification'] = resume_data.get('qualification', validated_data.get('qualification', ''))
+        #             validated_data['experience'] = "; ".join(resume_data.get('experience', [])) or validated_data.get('experience', '')
+        #             validated_data['knowledge_skill'] = resume_data.get('knowledge_skill', validated_data.get('knowledge_skill', ''))
+
+        #     documents.append({
+        #         'document_type': doc_data['document_type'],
+        #         'file_path': upload_path,
+        #         'file_url': file_url,
+        #         'uploaded_at': timezone.now().isoformat()
+        #     })
+        #     if doc_data['document_type'].lower() in ['resume', 'cv']:
+        #         validated_data['resume_status'] = True
+
+
+        #FOR SUPERBASE FILE HANDLING
         for doc_data in documents_data:
             file = doc_data['file']
-            folder_path = os.path.join('application_documents', timezone.now().strftime('%Y/%m/%d'))
-            full_folder_path = os.path.join(settings.MEDIA_ROOT, folder_path)
-            os.makedirs(full_folder_path, exist_ok=True)
-            file_extension = os.path.splitext(file.name)[1]
-            filename = f"{uuid.uuid4()}{file_extension}"
-            upload_path = os.path.join(folder_path, filename).replace('\\', '/')
-            full_upload_path = os.path.join(settings.MEDIA_ROOT, upload_path)
-            logger.debug(f"Saving file to full_upload_path: {full_upload_path}")
+            file_ext = os.path.splitext(file.name)[1]
+            filename = f"{uuid.uuid4()}{file_ext}"
+            folder_path = f"application_documents/{timezone.now().strftime('%Y/%m/%d')}"
+            path = f"{folder_path}/{filename}"
+            content_type = mimetypes.guess_type(file.name)[0]
 
-            try:
-                with open(full_upload_path, 'wb+') as destination:
-                    for chunk in file.chunks():
-                        destination.write(chunk)
-                logger.debug(f"File saved successfully: {full_upload_path}")
-            except Exception as e:
-                logger.error(f"Failed to save file {full_upload_path}: {str(e)}")
-                raise serializers.ValidationError(f"Failed to save file: {str(e)}")
-
-            file_url = f"/media/{upload_path.lstrip('/')}"
-            logger.debug(f"Constructed file_url: {file_url}")
-
-            if doc_data['document_type'].lower() in ['resume', 'cv']:
-                resume_text = parse_resume(upload_path)
-                if resume_text:
-                    resume_data = extract_resume_fields(resume_text)
-                    validated_data['full_name'] = resume_data.get('full_name', validated_data.get('full_name', ''))
-                    validated_data['email'] = resume_data.get('email', validated_data.get('email', ''))
-                    validated_data['phone'] = resume_data.get('phone', validated_data.get('phone', ''))
-                    validated_data['qualification'] = resume_data.get('qualification', validated_data.get('qualification', ''))
-                    validated_data['experience'] = "; ".join(resume_data.get('experience', [])) or validated_data.get('experience', '')
-                    validated_data['knowledge_skill'] = resume_data.get('knowledge_skill', validated_data.get('knowledge_skill', ''))
+            # Upload to Supabase
+            supabase.storage.from_(settings.SUPABASE_BUCKET).upload(
+                path, file.read(), {"content-type": content_type or 'application/octet-stream'}
+            )
+            file_url = supabase.storage.from_(settings.SUPABASE_BUCKET).get_public_url(path)
 
             documents.append({
                 'document_type': doc_data['document_type'],
-                'file_path': upload_path,
+                'file_path': path,
                 'file_url': file_url,
                 'uploaded_at': timezone.now().isoformat()
             })
-            if doc_data['document_type'].lower() in ['resume', 'cv']:
-                validated_data['resume_status'] = True
+        #FOR SUPERBASE FILE HANDLING
 
         validated_data['documents'] = documents
         logger.debug(f"Documents to be saved: {documents}")
@@ -191,6 +219,54 @@ class JobApplicationSerializer(serializers.ModelSerializer):
         return application
 
 
+    # def update(self, instance, validated_data):
+    #     documents_data = validated_data.pop('documents', [])
+    #     compliance_status = validated_data.pop('compliance_status', None)
+    #     job_requisition = instance.job_requisition
+
+    #     if documents_data:
+    #         existing_documents = instance.documents or []
+    #         for doc_data in documents_data:
+    #             file = doc_data['file']
+    #             document_type = doc_data['document_type']
+
+    #             folder_path = os.path.join('compliance_documents', timezone.now().strftime('%Y/%m/%d'))
+    #             full_folder_path = os.path.join(settings.MEDIA_ROOT, folder_path)
+    #             os.makedirs(full_folder_path, exist_ok=True)
+    #             file_extension = os.path.splitext(file.name)[1]
+    #             filename = f"{uuid.uuid4()}{file_extension}"
+    #             upload_path = os.path.join(folder_path, filename).replace('\\', '/')
+    #             full_upload_path = os.path.join(settings.MEDIA_ROOT, upload_path)
+    #             logger.debug(f"Saving file to full_upload_path: {full_upload_path}")
+
+    #             try:
+
+
+    #                 with open(full_upload_path, 'wb+') as destination:
+    #                     for chunk in file.chunks():
+    #                         destination.write(chunk)
+
+
+
+    #                 logger.debug(f"File saved successfully: {full_upload_path}")
+    #             except Exception as e:
+    #                 logger.error(f"Failed to save file {full_upload_path}: {str(e)}")
+    #                 raise serializers.ValidationError(f"Failed to save file: {str(e)}")
+
+    #             file_url = f"/media/{upload_path.lstrip('/')}"
+    #             doc_data['file_url'] = file_url
+    #             doc_data['uploaded_at'] = timezone.now().isoformat()
+    #             existing_documents.append(doc_data)
+
+    #         validated_data['documents'] = existing_documents
+
+    #     if compliance_status is not None:
+    #         validated_data['compliance_status'] = compliance_status
+
+    #     return super().update(instance, validated_data)
+
+
+#FOR SUPERBASE FILE HANDLING
     def update(self, instance, validated_data):
         documents_data = validated_data.pop('documents', [])
         compliance_status = validated_data.pop('compliance_status', None)
@@ -202,28 +278,25 @@ class JobApplicationSerializer(serializers.ModelSerializer):
                 file = doc_data['file']
                 document_type = doc_data['document_type']
 
-                folder_path = os.path.join('compliance_documents', timezone.now().strftime('%Y/%m/%d'))
-                full_folder_path = os.path.join(settings.MEDIA_ROOT, folder_path)
-                os.makedirs(full_folder_path, exist_ok=True)
                 file_extension = os.path.splitext(file.name)[1]
-                filename = f"{uuid.uuid4()}{file_extension}"
-                upload_path = os.path.join(folder_path, filename).replace('\\', '/')
-                full_upload_path = os.path.join(settings.MEDIA_ROOT, upload_path)
-                logger.debug(f"Saving file to full_upload_path: {full_upload_path}")
+                unique_filename = f"{uuid.uuid4()}{file_extension}"
+                folder_path = timezone.now().strftime('%Y/%m/%d')
+                upload_path = f"compliance_documents/{folder_path}/{unique_filename}"
 
                 try:
-                    with open(full_upload_path, 'wb+') as destination:
-                        for chunk in file.chunks():
-                            destination.write(chunk)
-                    logger.debug(f"File saved successfully: {full_upload_path}")
-                except Exception as e:
-                    logger.error(f"Failed to save file {full_upload_path}: {str(e)}")
-                    raise serializers.ValidationError(f"Failed to save file: {str(e)}")
+                    file_like = io.BytesIO(file.read())
+                    file_like.seek(0)
 
-                file_url = f"/media/{upload_path.lstrip('/')}"
-                doc_data['file_url'] = file_url
-                doc_data['uploaded_at'] = timezone.now().isoformat()
-                existing_documents.append(doc_data)
+                    supabase.storage.from_("your-bucket-name").upload(upload_path, file_like)
+                    public_url = supabase.storage.from_("your-bucket-name").get_public_url(upload_path)
+
+                    doc_data['file_url'] = public_url
+                    doc_data['uploaded_at'] = timezone.now().isoformat()
+                    existing_documents.append(doc_data)
+
+                except Exception as e:
+                    logger.error(f"Failed to upload file to Supabase: {str(e)}")
+                    raise serializers.ValidationError(f"Supabase upload failed: {str(e)}")
 
             validated_data['documents'] = existing_documents
 
@@ -232,6 +305,7 @@ class JobApplicationSerializer(serializers.ModelSerializer):
 
         return super().update(instance, validated_data)
 
+#FOR SUPERBASE FILE HANDLING
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
@@ -250,20 +324,6 @@ class JobApplicationSerializer(serializers.ModelSerializer):
                 } for item in data['compliance_status']
             ]
         return data
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

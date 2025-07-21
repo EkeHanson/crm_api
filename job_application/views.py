@@ -171,13 +171,13 @@ class ResumeScreeningView(APIView):
 
     def options(self, request, *args, **kwargs):
         """
-        Handle CORS preflight OPTIONS request explicitly to ensure headers are set.
+        Handle CORS preflight OPTIONS request to include necessary headers.
         """
         response = Response(status=status.HTTP_200_OK)
         response['Access-Control-Allow-Origin'] = 'https://crm-frontend-react.vercel.app'
-        response['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
+        response['Access-Control-Allow-Methods'] = 'POST, OPTIONS'
         response['Access-Control-Allow-Headers'] = 'accept, authorization, content-type, x-csrftoken, x-requested-with'
-        logger.debug("Handled OPTIONS request for ResumeScreeningView")
+        logger.debug(f"OPTIONS request handled for ResumeScreeningView: {response.headers}")
         return response
 
     def send_rejection_emails(self, tenant, job_requisition, applications):
@@ -199,7 +199,7 @@ class ResumeScreeningView(APIView):
                 if app.status == 'rejected':
                     try:
                         email_content = email_template.replace('[Candidate Name]', app.full_name)
-                        email_content = email_content.replace('[Job Title]', job_requisition.title)
+                        email_content = email_template.replace('[Job Title]', job_requisition.title)
                         email_content = email_content.replace('[Your Name]', 'Hiring Manager')
                         email_content = email_content.replace('[your.email@proliance.com]', tenant.default_from_email or 'hiring@proliance.com')
 
@@ -397,11 +397,15 @@ class ResumeScreeningView(APIView):
 
                     if not results and failed_applications:
                         logger.error(f"All resume screenings failed for JobRequisition {job_requisition_id}")
-                        return Response({
+                        response = Response({
                             "detail": "All resume screenings failed.",
                             "failed_applications": failed_applications,
                             "document_type": document_type
                         }, status=status.HTTP_400_BAD_REQUEST)
+                        response['Access-Control-Allow-Origin'] = 'https://crm-frontend-react.vercel.app'
+                        response['Access-Control-Allow-Methods'] = 'POST, OPTIONS'
+                        response['Access-Control-Allow-Headers'] = 'accept, authorization, content-type, x-csrftoken, x-requested-with'
+                        return response
 
                     results.sort(key=lambda x: x['score'], reverse=True)
                     shortlisted = results[:num_candidates]
@@ -423,10 +427,8 @@ class ResumeScreeningView(APIView):
                     "number_of_candidates": num_candidates,
                     "document_type": document_type
                 }, status=status.HTTP_200_OK)
-
-                # Explicitly set CORS headers for POST response
                 response['Access-Control-Allow-Origin'] = 'https://crm-frontend-react.vercel.app'
-                response['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
+                response['Access-Control-Allow-Methods'] = 'POST, OPTIONS'
                 response['Access-Control-Allow-Headers'] = 'accept, authorization, content-type, x-csrftoken, x-requested-with'
                 logger.debug(f"Set CORS headers for POST response: {response.headers}")
                 return response
@@ -438,12 +440,11 @@ class ResumeScreeningView(APIView):
                 "document_type": document_type,
                 "error_type": type(e).__name__
             }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-            # Set CORS headers for error response
             response['Access-Control-Allow-Origin'] = 'https://crm-frontend-react.vercel.app'
-            response['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
+            response['Access-Control-Allow-Methods'] = 'POST, OPTIONS'
             response['Access-Control-Allow-Headers'] = 'accept, authorization, content-type, x-csrftoken, x-requested-with'
+            logger.debug(f"Set CORS headers for error response: {response.headers}")
             return response
-
 # class ResumeScreeningView(APIView):
 #     permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized, BranchRestrictedPermission]
 #     parser_classes = [JSONParser, MultiPartParser, FormParser]

@@ -5,14 +5,14 @@
 
 #python manage.py shell
 from core.models import Tenant, Domain
-if not Tenant.objects.filter(schema_name='harvoxtech').exists():
+if not Tenant.objects.filter(schema_name='getinride').exists():
     tenant = Tenant.objects.create(
-        name='harvoxtech',
-        schema_name='harvoxtech'
+        name='getinride',
+        schema_name='getinride'
     )
     tenant.auto_create_schema = False
     tenant.save()
-    Domain.objects.create(tenant=tenant, domain='harvoxtech.com', is_primary=True)
+    Domain.objects.create(tenant=tenant, domain='getinride.com', is_primary=True)
     Domain.objects.create(tenant=tenant, domain='localhost', is_primary=False)
 
 
@@ -21,26 +21,24 @@ if not Tenant.objects.filter(schema_name='harvoxtech').exists():
 from core.models import Tenant
 from users.models import CustomUser
 from django_tenants.utils import tenant_context
-tenant = Tenant.objects.get(schema_name='arts')
+tenant = Tenant.objects.get(schema_name='getinride')
 with tenant_context(tenant):
     CustomUser.objects.create_superuser(
-        username='admin',
-        email='admin@artstraining.co.uk',
+        username='support',
+        email='support@getinride.com',
         password='qwerty',
         
         role='admin',
-        first_name='Ernest',
-        last_name='Bush',
-        job_role='Care Manager',
+        first_name='Mature',
+        last_name='Brainiac',
+        job_role='Security Cordinator',
         tenant=tenant
     )
 
 
-
-
 from core.models import Tenant
 from subscriptions.models import Subscription
-tenant = Tenant.objects.get(schema_name='harvoxtech')
+tenant = Tenant.objects.get(schema_name='getinride')
 Subscription.objects.create(tenant=tenant, module='talent_engine', is_active=True)
 
 from django.db import connection

@@ -1,30 +1,41 @@
 import logging
 import os
 import uuid
+import requests
+import tempfile
+import mimetypes
 import pytz
+
 from django.conf import settings
 from django.core.files.storage import default_storage
 from django.core.mail import EmailMessage
-from django.db import connection, transaction
+from django.db import connection, transaction, IntegrityError
 from django.utils import timezone
-from django_tenants.utils import tenant_context
+from django_tenants.utils import tenant_context, schema_context
+
 from rest_framework import generics, serializers, status
 from rest_framework.parsers import JSONParser, MultiPartParser, FormParser
 from rest_framework.permissions import IsAuthenticated, AllowAny
-from rest_framework.views import APIView
 from rest_framework.response import Response
-from core.utils.email_config import configure_email_backend
+from rest_framework.views import APIView
+
 from core.models import TenantConfig
+from core.utils.email_config import configure_email_backend
+
 from talent_engine.models import JobRequisition
 from talent_engine.serializers import JobRequisitionSerializer
+
 from .models import JobApplication, Schedule
-from .permissions import IsSubscribedAndAuthorized, BranchRestrictedPermission
 from .serializers import JobApplicationSerializer, ScheduleSerializer, DocumentSerializer
+from .permissions import IsSubscribedAndAuthorized, BranchRestrictedPermission
 from .tenant_utils import resolve_tenant_from_unique_link
-from django_tenants.utils import schema_context
 from .utils import parse_resume, screen_resume, extract_resume_fields
 
+from lumina_care.supabase_client import supabase
+
 logger = logging.getLogger('job_applications')
+
+
 
 class ResumeParseView(APIView):
     parser_classes = [MultiPartParser, FormParser]
@@ -32,6 +43,9 @@ class ResumeParseView(APIView):
 
     def post(self, request):
         unique_link = request.data.get('unique_link')
+        # print("request.data")
+        # print(request.data)
+        # print("request.data")
         if unique_link:
             tenant, _ = resolve_tenant_from_unique_link(unique_link)
             if not tenant:
@@ -151,6 +165,8 @@ class ResendRejectionEmailsView(APIView):
             logger.exception(f"Error resending rejection emails for JobRequisition {job_requisition_id}: {str(e)}")
             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+
+
 class ResumeScreeningView(APIView):
     permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized, BranchRestrictedPermission]
     parser_classes = [JSONParser, MultiPartParser, FormParser]
@@ -197,8 +213,12 @@ class ResumeScreeningView(APIView):
 
     def post(self, request, job_requisition_id):
         try:
+            logger.debug(f"Payload received: {request.data}")
             tenant = request.tenant
             document_type = request.data.get('document_type')
+            applications_data = request.data.get('applications', [])
+            num_candidates = request.data.get('num_candidates', 10)  # Default to 10 candidates
+
             with tenant_context(tenant):
                 try:
                     job_requisition = JobRequisition.objects.get(id=job_requisition_id, tenant=tenant)
@@ -209,103 +229,176 @@ class ResumeScreeningView(APIView):
                 if not document_type:
                     logger.error(f"Missing document_type for JobRequisition {job_requisition_id}")
                     return Response({"detail": "Document type is required."}, status=status.HTTP_400_BAD_REQUEST)
-                
-                documents_required = job_requisition.documents_required or []
-                if not documents_required:
-                    logger.error(f"No documents required for JobRequisition {job_requisition_id}")
-                    return Response(
-                        {"detail": "No documents are required for this job requisition."},
-                        status=status.HTTP_400_BAD_REQUEST
-                    )
 
                 document_type_lower = document_type.lower()
-                documents_required_lower = [doc.lower() for doc in documents_required]
-                if document_type_lower not in documents_required_lower:
-                    logger.error(f"Invalid document_type '{document_type}' for JobRequisition {job_requisition_id}")
-                    return Response(
-                        {"detail": f"Invalid document type: {document_type}. Must be one of {documents_required}."},
-                        status=status.HTTP_400_BAD_REQUEST
-                    )
-                document_type = next(
-                    (doc for doc in documents_required if doc.lower() == document_type_lower),
-                    document_type
-                )
-                num_candidates = job_requisition.number_of_candidates or 5
+                if document_type_lower not in [doc.lower() for doc in job_requisition.documents_required] and document_type_lower not in ['resume', 'curriculum vitae (cv)']:
+                    logger.error(f"Invalid document_type {document_type} for JobRequisition {job_requisition_id}")
+                    return Response({"detail": f"Invalid document type: {document_type}"}, status=status.HTTP_400_BAD_REQUEST)
 
-                applications = JobApplication.active_objects.filter(
-                    tenant=tenant,
-                    job_requisition=job_requisition,
-                    resume_status=True
-                )
+                if not applications_data:
+                    applications = JobApplication.active_objects.filter(
+                        tenant=tenant,
+                        job_requisition=job_requisition,
+                        resume_status=True
+                    )
+                else:
+                    application_ids = [app['application_id'] for app in applications_data]
+                    applications = JobApplication.active_objects.filter(
+                        tenant=tenant,
+                        job_requisition=job_requisition,
+                        id__in=application_ids,
+                        resume_status=True
+                    )
+                    logger.debug(f"Queried application IDs: {application_ids}")
+                    logger.debug(f"Found applications: {[app.id for app in applications]}")
+
                 if request.user.role == 'recruiter' and request.user.branch:
                     applications = applications.filter(branch=request.user.branch)
+                    logger.debug(f"Filtered by branch {request.user.branch}: {[app.id for app in applications]}")
 
                 if not applications.exists():
                     logger.warning(f"No applications with resumes found for JobRequisition {job_requisition_id}")
-                    return Response({"detail": "No applications with resumes found."}, status=status.HTTP_400_BAD_REQUEST)
+                    logger.debug(f"Query filters: tenant={tenant.schema_name}, job_requisition={job_requisition_id}, resume_status=True")
+                    return Response({"detail": "No applications with resumes found.", "documentType": document_type}, status=status.HTTP_400_BAD_REQUEST)
 
                 results = []
+                failed_applications = []
                 with transaction.atomic():
                     for app in applications:
-                        cv_doc = next(
-                            (doc for doc in app.documents if doc['document_type'].lower() == document_type_lower),
-                            None
-                        )
-                        if not cv_doc:
-                            app.screening_status = 'failed'
-                            app.screening_score = 0.0
+                        # Check if file_url is provided in payload
+                        app_data = next((a for a in applications_data if a['application_id'] == app.id), None)
+                        if app_data and 'file_url' in app_data:
+                            file_url = app_data['file_url']
+                        else:
+                            # Fallback to database documents
+                            cv_doc = next(
+                                (doc for doc in app.documents if doc['document_type'].lower() == document_type_lower),
+                                None
+                            )
+                            if not cv_doc:
+                                app.screening_status = 'failed'
+                                app.screening_score = 0.0
+                                app.save()
+                                failed_applications.append({
+                                    "application_id": app.id,
+                                    "full_name": app.full_name,
+                                    "email": app.email,
+                                    "error": f"No {document_type} document found"
+                                })
+                                logger.debug(f"No matching document for application {app.id} with document_type {document_type}")
+                                continue
+                            file_url = cv_doc['file_url']
+
+                        logger.debug(f"Processing resume for application {app.id}, file_url: {file_url}")
+
+                        try:
+                            # Download file from Supabase
+                            temp_file_path = None
+                            if file_url.startswith('http'):
+                                headers = {"Authorization": f"Bearer {settings.SUPABASE_KEY}"}
+                                logger.debug(f"Downloading file from {file_url}")
+                                response = requests.get(file_url, headers=headers)
+                                if response.status_code != 200:
+                                    app.screening_status = 'failed'
+                                    app.screening_score = 0.0
+                                    app.save()
+                                    failed_applications.append({
+                                        "application_id": app.id,
+                                        "full_name": app.full_name,
+                                        "email": app.email,
+                                        "error": f"Failed to download resume from {file_url}, status code: {response.status_code}"
+                                    })
+                                    logger.debug(f"Failed to download resume for application {app.id} from {file_url}")
+                                    continue
+
+                                # Determine file extension
+                                content_type = response.headers.get('content-type', '')
+                                file_ext = mimetypes.guess_extension(content_type) or os.path.splitext(file_url)[1] or '.pdf'
+                                temp_file = tempfile.NamedTemporaryFile(delete=False, suffix=file_ext)
+                                temp_file.write(response.content)
+                                temp_file.close()
+                                temp_file_path = temp_file.name
+                            else:
+                                logger.error(f"Invalid file URL for application {app.id}: {file_url}")
+                                app.screening_status = 'failed'
+                                app.screening_score = 0.0
+                                app.save()
+                                failed_applications.append({
+                                    "application_id": app.id,
+                                    "full_name": app.full_name,
+                                    "email": app.email,
+                                    "error": f"Invalid file URL: {file_url}"
+                                })
+                                continue
+
+                            # Parse resume
+                            resume_text = parse_resume(temp_file_path)
+                            if not resume_text:
+                                app.screening_status = 'failed'
+                                app.screening_score = 0.0
+                                app.save()
+                                failed_applications.append({
+                                    "application_id": app.id,
+                                    "full_name": app.full_name,
+                                    "email": app.email,
+                                    "error": "Failed to parse resume"
+                                })
+                                logger.debug(f"Failed to parse resume for application {app.id}")
+                                if temp_file_path and os.path.exists(temp_file_path):
+                                    os.unlink(temp_file_path)
+                                continue
+
+                            # Clean up temporary file
+                            if temp_file_path and os.path.exists(temp_file_path):
+                                os.unlink(temp_file_path)
+
+                            job_requirements = (
+                                (job_requisition.job_description or '') + ' ' +
+                                (job_requisition.qualification_requirement or '') + ' ' +
+                                (job_requisition.experience_requirement or '') + ' ' +
+                                (job_requisition.knowledge_requirement or '')
+                            ).strip()
+
+                            score = screen_resume(resume_text, job_requirements)
+                            resume_data = extract_resume_fields(resume_text)
+                            employment_gaps = resume_data.get("employment_gaps", [])
+                            logger.debug(f"Employment gaps for application {app.id}: {employment_gaps}")
+
+                            app.screening_status = 'processed'
+                            app.screening_score = score
+                            app.employment_gaps = employment_gaps
                             app.save()
+
                             results.append({
                                 "application_id": app.id,
                                 "full_name": app.full_name,
                                 "email": app.email,
-                                "score": 0.0,
+                                "score": score,
                                 "screening_status": app.screening_status,
-                                "employment_gaps": []
+                                "employment_gaps": employment_gaps
                             })
-                            logger.debug(f"No matching document for application {app.id} with document_type {document_type}")
-                            continue
-                        resume_text = parse_resume(cv_doc['file_path'])
-                        if not resume_text:
+                        except Exception as e:
                             app.screening_status = 'failed'
                             app.screening_score = 0.0
                             app.save()
-                            results.append({
+                            failed_applications.append({
                                 "application_id": app.id,
                                 "full_name": app.full_name,
                                 "email": app.email,
-                                "score": 0.0,
-                                "screening_status": app.screening_status,
-                                "employment_gaps": []
+                                "error": f"Screening error: {str(e)}"
                             })
-                            logger.debug(f"Failed to parse resume for application {app.id}")
+                            logger.error(f"Error processing resume for application {app.id}: {str(e)}")
+                            if temp_file_path and os.path.exists(temp_file_path):
+                                os.unlink(temp_file_path)
                             continue
 
-                        job_requirements = (
-                            (job_requisition.job_description or '') + ' ' +
-                            (job_requisition.qualification_requirement or '') + ' ' +
-                            (job_requisition.experience_requirement or '') + ' ' +
-                            (job_requisition.knowledge_requirement or '')
-                        ).strip()
-                        
-                        score = screen_resume(resume_text, job_requirements)
-                        resume_data = extract_resume_fields(resume_text)
-                        employment_gaps = resume_data.get("employment_gaps", [])
-                        logger.debug(f"Employment gaps for application {app.id}: {employment_gaps}")
-
-                        app.screening_status = 'processed'
-                        app.screening_score = score
-                        app.employment_gaps = employment_gaps
-                        app.save()
-
-                        results.append({
-                            "application_id": app.id,
-                            "full_name": app.full_name,
-                            "email": app.email,
-                            "score": score,
-                            "screening_status": app.screening_status,
-                            "employment_gaps": employment_gaps
-                        })
+                    if not results and failed_applications:
+                        logger.error(f"All resume screenings failed for JobRequisition {job_requisition_id}")
+                        return Response({
+                            "detail": "All resume screenings failed.",
+                            "failed_applications": failed_applications,
+                            "document_type": document_type
+                        }, status=status.HTTP_400_BAD_REQUEST)
 
                     results.sort(key=lambda x: x['score'], reverse=True)
                     shortlisted = results[:num_candidates]
@@ -324,13 +417,270 @@ class ResumeScreeningView(APIView):
                 return Response({
                     "detail": f"Screened {len(results)} applications using '{document_type}', shortlisted {len(shortlisted)} candidates.",
                     "shortlisted_candidates": shortlisted,
+                    "failed_applications": failed_applications,
                     "number_of_candidates": num_candidates,
                     "document_type": document_type
                 }, status=status.HTTP_200_OK)
 
         except Exception as e:
             logger.exception(f"Error screening resumes for JobRequisition {job_requisition_id}: {str(e)}")
-            return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({
+                "detail": f"Failed to screen resumes: {str(e)}",
+                "document_type": document_type,
+                "error_type": type(e).__name__
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+# class ResumeScreeningView(APIView):
+#     permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized, BranchRestrictedPermission]
+#     parser_classes = [JSONParser, MultiPartParser, FormParser]
+
+#     def send_rejection_emails(self, tenant, job_requisition, applications):
+#         try:
+#             tenant_config = TenantConfig.objects.get(tenant=tenant)
+#             email_config = tenant_config.email_templates.get('interviewRejection', {})
+            
+#             if not email_config.get('is_auto_sent', False):
+#                 logger.info(f"Auto-send not enabled for interviewRejection template for tenant {tenant.schema_name}")
+#                 return
+
+#             email_template = email_config.get('content', '')
+#             if not email_template:
+#                 logger.warning(f"No email template content found for interviewRejection for tenant {tenant.schema_name}")
+#                 return
+
+#             email_backend = configure_email_backend(tenant)
+#             for app in applications:
+#                 if app.status == 'rejected':
+#                     try:
+#                         email_content = email_template.replace('[Candidate Name]', app.full_name)
+#                         email_content = email_content.replace('[Job Title]', job_requisition.title)
+#                         email_content = email_content.replace('[Your Name]', 'Hiring Manager')
+#                         email_content = email_content.replace('[your.email@proliance.com]', tenant.default_from_email or 'hiring@proliance.com')
+
+#                         email = EmailMessage(
+#                             subject=f'Application Update for {job_requisition.title} at Proliance',
+#                             body=email_content,
+#                             from_email=tenant.default_from_email or 'hiring@proliance.com',
+#                             to=[app.email],
+#                             connection=email_backend
+#                         )
+#                         email.send()
+#                         logger.info(f"Rejection email sent to {app.email} for JobRequisition {job_requisition.id}")
+#                     except Exception as e:
+#                         logger.error(f"Failed to send rejection email to {app.email}: {str(e)}")
+
+#         except TenantConfig.DoesNotExist:
+#             logger.error(f"Tenant configuration not found for tenant {tenant.schema_name}")
+#         except Exception as e:
+#             logger.error(f"Error in send_rejection_emails for tenant {tenant.schema_name}: {str(e)}")
+
+#     def post(self, request, job_requisition_id):
+#         try:
+#             logger.debug(f"Payload received: {request.data}")
+#             tenant = request.tenant
+#             document_type = request.data.get('document_type')
+#             applications_data = request.data.get('applications', [])
+#             num_candidates = request.data.get('num_candidates', 10)  # Default to 10 candidates if not specified
+
+#             with tenant_context(tenant):
+#                 try:
+#                     job_requisition = JobRequisition.objects.get(id=job_requisition_id, tenant=tenant)
+#                 except JobRequisition.DoesNotExist:
+#                     logger.error(f"JobRequisition {job_requisition_id} not found for tenant {tenant.schema_name}")
+#                     return Response({"detail": "Job requisition not found."}, status=status.HTTP_404_NOT_FOUND)
+
+#                 if not document_type:
+#                     logger.error(f"Missing document_type for JobRequisition {job_requisition_id}")
+#                     return Response({"detail": "Document type is required."}, status=status.HTTP_400_BAD_REQUEST)
+
+#                 document_type_lower = document_type.lower()
+#                 if document_type_lower not in [doc.lower() for doc in job_requisition.documents_required]:
+#                     logger.error(f"Invalid document_type {document_type} for JobRequisition {job_requisition_id}")
+#                     return Response({"detail": f"Invalid document type: {document_type}"}, status=status.HTTP_400_BAD_REQUEST)
+
+#                 if not applications_data:
+#                     applications = JobApplication.active_objects.filter(
+#                         tenant=tenant,
+#                         job_requisition=job_requisition,
+#                         resume_status=True
+#                     )
+#                 else:
+#                     application_ids = [app['application_id'] for app in applications_data]
+#                     applications = JobApplication.active_objects.filter(
+#                         tenant=tenant,
+#                         job_requisition=job_requisition,
+#                         id__in=application_ids,
+#                         resume_status=True
+#                     )
+#                     logger.debug(f"Queried application IDs: {application_ids}")
+#                     logger.debug(f"Found applications: {[app.id for app in applications]}")
+
+#                 if request.user.role == 'recruiter' and request.user.branch:
+#                     applications = applications.filter(branch=request.user.branch)
+#                     logger.debug(f"Filtered by branch {request.user.branch}: {[app.id for app in applications]}")
+
+#                 if not applications.exists():
+#                     logger.warning(f"No applications with resumes found for JobRequisition {job_requisition_id}")
+#                     logger.debug(f"Query filters: tenant={tenant.schema_name}, job_requisition={job_requisition_id}, resume_status=True")
+#                     return Response({"detail": "No applications with resumes found.", "documentType": document_type}, status=status.HTTP_400_BAD_REQUEST)
+
+#                 results = []
+#                 failed_applications = []
+#                 with transaction.atomic():
+#                     for app in applications:
+#                         # Check if file_url is provided in payload
+#                         app_data = next((a for a in applications_data if a['application_id'] == app.id), None)
+#                         if app_data and 'file_url' in app_data:
+#                             file_url = app_data['file_url']
+#                         else:
+#                             # Fallback to database documents
+#                             cv_doc = next(
+#                                 (doc for doc in app.documents if doc['document_type'].lower() == document_type_lower),
+#                                 None
+#                             )
+#                             if not cv_doc:
+#                                 app.screening_status = 'failed'
+#                                 app.screening_score = 0.0
+#                                 app.save()
+#                                 failed_applications.append({
+#                                     "application_id": app.id,
+#                                     "full_name": app.full_name,
+#                                     "email": app.email,
+#                                     "error": f"No {document_type} document found"
+#                                 })
+#                                 logger.debug(f"No matching document for application {app.id} with document_type {document_type}")
+#                                 continue
+#                             file_url = cv_doc['file_url']
+
+#                         logger.debug(f"Processing resume for application {app.id}, file_url: {file_url}")
+
+#                         try:
+#                             # Download file from Supabase if it's a URL
+#                             if file_url.startswith('http'):
+#                                 headers = {"Authorization": f"Bearer {settings.SUPABASE_KEY}"}
+#                                 logger.debug(f"Downloading file from {file_url}")
+#                                 response = requests.get(file_url, headers=headers)
+#                                 if response.status_code != 200:
+#                                     app.screening_status = 'failed'
+#                                     app.screening_score = 0.0
+#                                     app.save()
+#                                     failed_applications.append({
+#                                         "application_id": app.id,
+#                                         "full_name": app.full_name,
+#                                         "email": app.email,
+#                                         "error": f"Failed to download resume from {file_url}, status code: {response.status_code}"
+#                                     })
+#                                     logger.debug(f"Failed to download resume for application {app.id} from {file_url}")
+#                                     continue
+
+#                                 # Save file temporarily
+#                                 temp_file = tempfile.NamedTemporaryFile(delete=False, suffix='.pdf')
+#                                 temp_file.write(response.content)
+#                                 temp_file.close()
+#                                 temp_file_path = temp_file.name
+#                             else:
+#                                 # Handle local file path
+#                                 temp_file_path = file_url
+
+#                             # Parse resume
+#                             resume_text = parse_resume(temp_file_path)
+#                             if not resume_text:
+#                                 app.screening_status = 'failed'
+#                                 app.screening_score = 0.0
+#                                 app.save()
+#                                 failed_applications.append({
+#                                     "application_id": app.id,
+#                                     "full_name": app.full_name,
+#                                     "email": app.email,
+#                                     "error": "Failed to parse resume"
+#                                 })
+#                                 logger.debug(f"Failed to parse resume for application {app.id}")
+#                                 if file_url.startswith('http') and os.path.exists(temp_file_path):
+#                                     os.unlink(temp_file_path)
+#                                 continue
+
+#                             # Clean up temporary file for Supabase URLs
+#                             if file_url.startswith('http') and os.path.exists(temp_file_path):
+#                                 os.unlink(temp_file_path)
+
+#                             job_requirements = (
+#                                 (job_requisition.job_description or '') + ' ' +
+#                                 (job_requisition.qualification_requirement or '') + ' ' +
+#                                 (job_requisition.experience_requirement or '') + ' ' +
+#                                 (job_requisition.knowledge_requirement or '')
+#                             ).strip()
+
+#                             score = screen_resume(resume_text, job_requirements)
+#                             resume_data = extract_resume_fields(resume_text)
+#                             employment_gaps = resume_data.get("employment_gaps", [])
+#                             logger.debug(f"Employment gaps for application {app.id}: {employment_gaps}")
+
+#                             app.screening_status = 'processed'
+#                             app.screening_score = score
+#                             app.employment_gaps = employment_gaps
+#                             app.save()
+
+#                             results.append({
+#                                 "application_id": app.id,
+#                                 "full_name": app.full_name,
+#                                 "email": app.email,
+#                                 "score": score,
+#                                 "screening_status": app.screening_status,
+#                                 "employment_gaps": employment_gaps
+#                             })
+#                         except Exception as e:
+#                             app.screening_status = 'failed'
+#                             app.screening_score = 0.0
+#                             app.save()
+#                             failed_applications.append({
+#                                 "application_id": app.id,
+#                                 "full_name": app.full_name,
+#                                 "email": app.email,
+#                                 "error": f"Screening error: {str(e)}"
+#                             })
+#                             logger.error(f"Error processing resume for application {app.id}: {str(e)}")
+#                             if file_url.startswith('http') and os.path.exists(temp_file_path):
+#                                 os.unlink(temp_file_path)
+#                             continue
+
+#                     if not results and failed_applications:
+#                         logger.error(f"All resume screenings failed for JobRequisition {job_requisition_id}")
+#                         return Response({
+#                             "detail": "All resume screenings failed.",
+#                             "failed_applications": failed_applications,
+#                             "document_type": document_type
+#                         }, status=status.HTTP_400_BAD_REQUEST)
+
+#                     results.sort(key=lambda x: x['score'], reverse=True)
+#                     shortlisted = results[:num_candidates]
+#                     shortlisted_ids = {item['application_id'] for item in shortlisted}
+
+#                     for app in applications:
+#                         if app.id in shortlisted_ids:
+#                             app.status = 'shortlisted'
+#                         else:
+#                             app.status = 'rejected'
+#                         app.save()
+
+#                     self.send_rejection_emails(tenant, job_requisition, applications)
+
+#                 logger.info(f"Screened {len(results)} resumes using document type '{document_type}', shortlisted {len(shortlisted)} for JobRequisition {job_requisition_id}")
+#                 return Response({
+#                     "detail": f"Screened {len(results)} applications using '{document_type}', shortlisted {len(shortlisted)} candidates.",
+#                     "shortlisted_candidates": shortlisted,
+#                     "failed_applications": failed_applications,
+#                     "number_of_candidates": num_candidates,
+#                     "document_type": document_type
+#                 }, status=status.HTTP_200_OK)
+
+#         except Exception as e:
+#             logger.exception(f"Error screening resumes for JobRequisition {job_requisition_id}: {str(e)}")
+#             return Response({
+#                 "detail": f"Failed to screen resumes: {str(e)}",
+#                 "document_type": document_type,
+#                 "error_type": type(e).__name__
+#             }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)   
+
 
 class JobApplicationWithSchedulesView(generics.RetrieveAPIView):
     serializer_class = JobApplicationSerializer
@@ -520,7 +870,6 @@ class PublishedJobRequisitionsWithShortlistedApplicationsView(generics.ListAPIVi
 
 
 
-
 class JobApplicationListCreateView(generics.GenericAPIView):
     parser_classes = (MultiPartParser, FormParser)
     serializer_class = JobApplicationSerializer
@@ -528,7 +877,7 @@ class JobApplicationListCreateView(generics.GenericAPIView):
     def get_permissions(self):
         if self.request.method == 'GET':
             return [IsAuthenticated(), IsSubscribedAndAuthorized(), BranchRestrictedPermission()]
-        return [AllowAny()]
+        return []
 
     def get_queryset(self):
         tenant = self.request.tenant
@@ -541,8 +890,7 @@ class JobApplicationListCreateView(generics.GenericAPIView):
             search_path = cursor.fetchone()[0]
             logger.debug(f"Database search_path: {search_path}")
         queryset = JobApplication.active_objects.filter(tenant=tenant).select_related('job_requisition')
-        if self.request.user.branch:
-        # if self.request.user.role == 'recruiter' and self.request.user.branch:
+        if self.request.user.is_authenticated and self.request.user.branch:
             queryset = queryset.filter(branch=self.request.user.branch)
         return queryset
 
@@ -571,10 +919,33 @@ class JobApplicationListCreateView(generics.GenericAPIView):
             request.tenant = tenant
             connection.set_schema(tenant.schema_name)
 
+            email = request.data.get("email")
+            if not email:
+                logger.error("Missing email in POST request")
+                return Response({"detail": "Email is required."}, status=status.HTTP_400_BAD_REQUEST)
+
+            # Check for existing active application
+            with schema_context(tenant.schema_name):
+                existing_application = JobApplication.active_objects.filter(
+                    tenant=tenant,
+                    job_requisition=job_requisition,
+                    email=email
+                )
+                if request.user.is_authenticated and request.user.branch:
+                    existing_application = existing_application.filter(branch=request.user.branch)
+                else:
+                    existing_application = existing_application.filter(branch__isnull=True)
+
+                if existing_application.exists():
+                    logger.warning(f"Duplicate application attempt for email {email} for JobRequisition {job_requisition.id}")
+                    return Response({
+                        "detail": "An application with this email already exists for this job."
+                    }, status=status.HTTP_400_BAD_REQUEST)
+
             application_data = {
                 "job_requisition": job_requisition.id,
                 "full_name": request.data.get("full_name"),
-                "email": request.data.get("email"),
+                "email": email,
                 "phone": request.data.get("phone"),
                 "qualification": request.data.get("qualification"),
                 "experience": request.data.get("experience"),
@@ -609,21 +980,131 @@ class JobApplicationListCreateView(generics.GenericAPIView):
             )
 
             if not serializer.is_valid():
-                logger.error(f" Validation failed: {serializer.errors}")
-                print(f" Validation failed: {serializer.errors}")
+                logger.error(f"Validation failed: {serializer.errors}")
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-            with transaction.atomic():
-                application = serializer.save()
-                logger.info(f"Application created: {application.id} for tenant {tenant.schema_name}")
+            try:
+                with transaction.atomic():
+                    application = serializer.save()
+                    logger.info(f"Application created: {application.id} for tenant {tenant.schema_name}")
+                    return Response({
+                        "detail": "Application submitted successfully.",
+                        "application_id": application.id
+                    }, status=status.HTTP_201_CREATED)
+            except IntegrityError as e:
+                logger.error(f"IntegrityError during application creation for email {email}: {str(e)}")
                 return Response({
-                    "detail": "Application submitted successfully.",
-                    "application_id": application.id
-                }, status=status.HTTP_201_CREATED)
+                    "detail": "An application with this email already exists for this job."
+                }, status=status.HTTP_400_BAD_REQUEST)
 
         except Exception as e:
             logger.exception(f"Unexpected error during job application submission: {str(e)}")
             return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+
+# class JobApplicationListCreateView(generics.GenericAPIView):
+#     parser_classes = (MultiPartParser, FormParser)
+#     serializer_class = JobApplicationSerializer
+
+#     def get_permissions(self):
+#         if self.request.method == 'GET':
+#             return [IsAuthenticated(), IsSubscribedAndAuthorized(), BranchRestrictedPermission()]
+#         return [AllowAny()]
+
+#     def get_queryset(self):
+#         tenant = self.request.tenant
+#         if not tenant:
+#             logger.error("No tenant associated with the request")
+#             raise serializers.ValidationError("Tenant not found.")
+#         connection.set_schema(tenant.schema_name)
+#         with connection.cursor() as cursor:
+#             cursor.execute("SHOW search_path;")
+#             search_path = cursor.fetchone()[0]
+#             logger.debug(f"Database search_path: {search_path}")
+#         queryset = JobApplication.active_objects.filter(tenant=tenant).select_related('job_requisition')
+#         if self.request.user.branch:
+#         # if self.request.user.role == 'recruiter' and self.request.user.branch:
+#             queryset = queryset.filter(branch=self.request.user.branch)
+#         return queryset
+
+#     def get(self, request, *args, **kwargs):
+#         try:
+#             applications = self.get_queryset()
+#             serializer = self.get_serializer(applications, many=True)
+#             logger.info(f"Retrieved {len(applications)} job applications for tenant {request.tenant.schema_name}")
+#             return Response(serializer.data, status=status.HTTP_200_OK)
+#         except Exception as e:
+#             logger.exception(f"Error retrieving job applications: {str(e)}")
+#             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+#     def post(self, request, *args, **kwargs):
+#         try:
+#             unique_link = request.data.get("unique_link")
+#             if not unique_link:
+#                 logger.error("Missing unique_link in POST request")
+#                 return Response({"detail": "Missing unique_link."}, status=status.HTTP_400_BAD_REQUEST)
+
+#             tenant, job_requisition = resolve_tenant_from_unique_link(unique_link)
+#             if not tenant or not job_requisition:
+#                 logger.error(f"Invalid or expired unique_link: {unique_link}")
+#                 return Response({"detail": "Invalid or expired job link."}, status=status.HTTP_400_BAD_REQUEST)
+
+#             request.tenant = tenant
+#             connection.set_schema(tenant.schema_name)
+
+#             application_data = {
+#                 "job_requisition": job_requisition.id,
+#                 "full_name": request.data.get("full_name"),
+#                 "email": request.data.get("email"),
+#                 "phone": request.data.get("phone"),
+#                 "qualification": request.data.get("qualification"),
+#                 "experience": request.data.get("experience"),
+#                 "knowledge_skill": request.data.get("knowledge_skill"),
+#                 "date_of_birth": request.data.get("date_of_birth"),
+#                 "cover_letter": request.data.get("cover_letter", ""),
+#                 "resume_status": request.data.get("resume_status", False),
+#             }
+
+#             documents = []
+#             index = 0
+#             while True:
+#                 doc_type = request.data.get(f"documents[{index}][document_type]")
+#                 doc_file = request.data.get(f"documents[{index}][file]")
+#                 if doc_type and doc_file:
+#                     documents.append({
+#                         "document_type": doc_type,
+#                         "file": doc_file
+#                     })
+#                     index += 1
+#                 else:
+#                     break
+
+#             application_data["documents"] = documents
+
+#             serializer = JobApplicationSerializer(
+#                 data=application_data,
+#                 context={
+#                     "request": request,
+#                     "job_requisition": job_requisition
+#                 }
+#             )
+
+#             if not serializer.is_valid():
+#                 logger.error(f" Validation failed: {serializer.errors}")
+#                 print(f" Validation failed: {serializer.errors}")
+#                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+#             with transaction.atomic():
+#                 application = serializer.save()
+#                 logger.info(f"Application created: {application.id} for tenant {tenant.schema_name}")
+#                 return Response({
+#                     "detail": "Application submitted successfully.",
+#                     "application_id": application.id
+#                 }, status=status.HTTP_201_CREATED)
+
+#         except Exception as e:
+#             logger.exception(f"Unexpected error during job application submission: {str(e)}")
+#             return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 
 

@@ -16,7 +16,14 @@ from sentence_transformers import SentenceTransformer, util
 import torch
 
 logger = logging.getLogger('job_applications')
-
+import pdfplumber
+import re
+import os
+import tempfile
+import requests
+from django.core.files.storage import default_storage
+from docx import Document
+import logging
 _model = None
 
 def get_sentence_transformer_model():
@@ -36,54 +43,7 @@ def get_sentence_transformer_model():
             raise RuntimeError("Unable to initialize sentence transformer model")
     return _model
 
-# def parse_resume(file_path):
-#     """Extract text from PDF or DOCX files."""
-#     try:
-#         #logger.debug(f"Processing file_path: {file_path}")
-#         temp_file_path = None
-#         if file_path.startswith("http"):
-#             response = requests.get(file_path)
-#             if response.status_code != 200:
-#                 logger.error(f"Failed to download file: {file_path}")
-#                 return ""
-#             temp_file = tempfile.NamedTemporaryFile(delete=False, suffix='.pdf')
-#             temp_file.write(response.content)
-#             temp_file.close()
-#             temp_file_path = temp_file.name
-#             full_path = temp_file_path
-#         else:
-#             normalized_path = file_path.lstrip("/").replace("media/", "", 1)
-#             logger.debug(f"Normalized path: {normalized_path}")
-#             if default_storage.exists(normalized_path):
-#                 full_path = default_storage.path(normalized_path)
-#             else:
-#                 logger.error(f"File does not exist: {normalized_path}")
-#                 #print(f"File does not exist: {normalized_path}")
-#                 return ""
 
-#         #logger.debug(f"Full path: {full_path}")
-
-#         ext = os.path.splitext(full_path)[1].lower()
-#         if ext == '.pdf':
-#             text = extract_text(full_path)
-#         elif ext in ['.docx', '.doc']:
-#             doc = Document(full_path)
-#             text = '\n'.join([para.text for para in doc.paragraphs])
-#         else:
-#             logger.error(f"Unsupported file type: {ext}")
-#             text = ""
-
-#         # Clean up temporary file if created
-#         if temp_file_path and os.path.exists(temp_file_path):
-#             os.unlink(temp_file_path)
-#         return text
-#     except Exception as e:
-#         logger.exception(f"Error parsing resume {file_path}: {str(e)}")
-#         # Clean up temporary file on error
-#         if temp_file_path and os.path.exists(temp_file_path):
-#             os.unlink(temp_file_path)
-#         return ""
-    
 
 def screen_resume(resume_text, job_description):
     """Compute similarity score between resume and job description."""
@@ -102,14 +62,24 @@ def screen_resume(resume_text, job_description):
         logger.exception(f"Error screening resume: {str(e)}")
         return 0.0
     
-import pdfplumber
-import re
+import logging
 import os
 import tempfile
 import requests
-from django.core.files.storage import default_storage
+from django.conf import settings
+from pdfplumber import open as pdf_open
 from docx import Document
+from django.core.files.storage import default_storage
+
+logger = logging.getLogger('job_applications')
 import logging
+import os
+import tempfile
+import requests
+import re
+from pdfplumber import open as pdf_open
+from docx import Document
+from django.conf import settings
 
 logger = logging.getLogger('job_applications')
 
@@ -117,10 +87,14 @@ def parse_resume(file_path):
     try:
         logger.debug(f"Processing file_path: {file_path}")
         temp_file_path = None
+        full_path = None
+
         if file_path.startswith("http"):
-            response = requests.get(file_path)
+            # Download file from URL (e.g., Supabase)
+            headers = {"Authorization": f"Bearer {settings.SUPABASE_KEY}"}
+            response = requests.get(file_path, headers=headers)
             if response.status_code != 200:
-                logger.error(f"Failed to download file: {file_path}")
+                logger.error(f"Failed to download file: {file_path}, status code: {response.status_code}")
                 return ""
             temp_file = tempfile.NamedTemporaryFile(delete=False, suffix='.pdf')
             temp_file.write(response.content)
@@ -128,21 +102,21 @@ def parse_resume(file_path):
             temp_file_path = temp_file.name
             full_path = temp_file_path
         else:
-            normalized_path = file_path.lstrip("/").replace("media/", "", 1)
-            logger.debug(f"Normalized path: {normalized_path}")
-            if not default_storage.exists(normalized_path):
-                logger.error(f"File does not exist: {normalized_path}")
+            # Handle local file path (e.g., temporary file created by ResumeScreeningView)
+            full_path = file_path
+            if not os.path.exists(full_path):
+                logger.error(f"File does not exist: {full_path}")
                 return ""
-            full_path = default_storage.path(normalized_path)
 
         ext = os.path.splitext(full_path)[1].lower()
         text = ""
         if ext == '.pdf':
             try:
-                with pdfplumber.open(full_path) as pdf:
+                with pdf_open(full_path) as pdf:
                     text = '\n'.join([page.extract_text() or '' for page in pdf.pages])
             except Exception as e:
                 logger.error(f"pdfplumber failed: {str(e)}. Falling back to pdfminer.")
+                from pdfminer.high_level import extract_text
                 text = extract_text(full_path)
             # Clean OCR artifacts
             text = re.sub(r'^\d{1,2}/\d{1,2}/\d{2,4},\s*\d{1,2}/\d{2}\s*(?:AM|PM)\n?', '', text, flags=re.MULTILINE)
@@ -158,12 +132,64 @@ def parse_resume(file_path):
 
         if temp_file_path and os.path.exists(temp_file_path):
             os.unlink(temp_file_path)
+            logger.debug(f"Cleaned up temporary file: {temp_file_path}")
         return text
     except Exception as e:
         logger.exception(f"Error parsing resume {file_path}: {str(e)}")
         if temp_file_path and os.path.exists(temp_file_path):
             os.unlink(temp_file_path)
         return ""
+# def parse_resume(file_path):
+#     try:
+#         logger.debug(f"Processing file_path: {file_path}")
+#         temp_file_path = None
+#         if file_path.startswith("http"):
+#             response = requests.get(file_path)
+#             if response.status_code != 200:
+#                 logger.error(f"Failed to download file: {file_path}")
+#                 return ""
+#             temp_file = tempfile.NamedTemporaryFile(delete=False, suffix='.pdf')
+#             temp_file.write(response.content)
+#             temp_file.close()
+#             temp_file_path = temp_file.name
+#             full_path = temp_file_path
+#         else:
+#             normalized_path = file_path.lstrip("/").replace("media/", "", 1)
+#             logger.debug(f"Normalized path: {normalized_path}")
+#             if not default_storage.exists(normalized_path):
+#                 logger.error(f"File does not exist: {normalized_path}")
+#                 return ""
+#             full_path = default_storage.path(normalized_path)
+
+#         ext = os.path.splitext(full_path)[1].lower()
+#         text = ""
+#         if ext == '.pdf':
+#             try:
+#                 with pdfplumber.open(full_path) as pdf:
+#                     text = '\n'.join([page.extract_text() or '' for page in pdf.pages])
+#             except Exception as e:
+#                 logger.error(f"pdfplumber failed: {str(e)}. Falling back to pdfminer.")
+#                 text = extract_text(full_path)
+#             # Clean OCR artifacts
+#             text = re.sub(r'^\d{1,2}/\d{1,2}/\d{2,4},\s*\d{1,2}/\d{2}\s*(?:AM|PM)\n?', '', text, flags=re.MULTILINE)
+#             text = re.sub(r'\s+', ' ', text).strip()  # Normalize whitespace
+#             logger.debug(f"Extracted resume text (first 1000 chars): {text[:1000]}")
+#         elif ext in ['.docx', '.doc']:
+#             doc = Document(full_path)
+#             text = '\n'.join([para.text for para in doc.paragraphs])
+#             logger.debug(f"Extracted resume text (first 1000 chars): {text[:1000]}")
+#         else:
+#             logger.error(f"Unsupported file type: {ext}")
+#             text = ""
+
+#         if temp_file_path and os.path.exists(temp_file_path):
+#             os.unlink(temp_file_path)
+#         return text
+#     except Exception as e:
+#         logger.exception(f"Error parsing resume {file_path}: {str(e)}")
+#         if temp_file_path and os.path.exists(temp_file_path):
+#             os.unlink(temp_file_path)
+#         return ""
     
 # def extract_resume_fields(resume_text):
 #     """Extract structured fields from resume text using regex."""

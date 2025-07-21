@@ -17,6 +17,51 @@ import io
 
 logger = logging.getLogger('job_applications')
 
+# class DocumentSerializer(serializers.Serializer):
+#     document_type = serializers.CharField(max_length=50)
+#     file = serializers.FileField(write_only=True)
+#     file_url = serializers.SerializerMethodField(read_only=True)
+#     uploaded_at = serializers.DateTimeField(read_only=True, default=timezone.now)
+
+#     def get_file_url(self, obj):
+#         file_url = obj.get('file_url', None)
+#         if file_url:
+#             return file_url
+#         return None
+
+#     def validate_file(self, value):
+#         allowed_types = [
+#             'application/pdf',
+#             'application/msword',
+#             'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+#         ]
+#         if value.content_type not in allowed_types:
+#             raise serializers.ValidationError(
+#                 f"Invalid file type: {value.content_type}. Only PDF and Word (.doc, .docx) files are allowed."
+#             )
+#         max_size = 50 * 1024 * 1024
+#         if value.size > max_size:
+#             raise serializers.ValidationError(f"File size exceeds 50 MB limit.")
+#         return value
+
+#     def validate_document_type(self, value):
+#         try:
+#             uuid.UUID(value)
+#             return value
+#         except ValueError:
+#             pass
+#         if value.lower() == 'resume':
+#             return value
+#         job_requisition = self.context.get('job_requisition')
+#         if not job_requisition:
+#             raise serializers.ValidationError("Job requisition context is missing.")
+#         documents_required = job_requisition.documents_required or []
+#         if documents_required and value not in documents_required:
+#             raise serializers.ValidationError(
+#                 f"Invalid document type: {value}. Must be one of {documents_required}."
+#             )
+#         return value
+
 class DocumentSerializer(serializers.Serializer):
     document_type = serializers.CharField(max_length=50)
     file = serializers.FileField(write_only=True)
@@ -43,24 +88,48 @@ class DocumentSerializer(serializers.Serializer):
         if value.size > max_size:
             raise serializers.ValidationError(f"File size exceeds 50 MB limit.")
         return value
-
+    
     def validate_document_type(self, value):
+        job_requisition = self.context.get('job_requisition')
+        if not job_requisition:
+            raise serializers.ValidationError("Job requisition context is missing.")
+        documents_required = job_requisition.documents_required or []
+        if not value:
+            raise serializers.ValidationError("Document type is required.")
         try:
             uuid.UUID(value)
             return value
         except ValueError:
             pass
-        if value.lower() == 'resume':
+        if value.lower() in ['resume', 'curriculum vitae (cv)']:  # Allow "Curriculum Vitae (CV)" explicitly
             return value
-        job_requisition = self.context.get('job_requisition')
-        if not job_requisition:
-            raise serializers.ValidationError("Job requisition context is missing.")
-        documents_required = job_requisition.documents_required or []
         if documents_required and value not in documents_required:
             raise serializers.ValidationError(
-                f"Invalid document type: {value}. Must be one of {documents_required}."
+                f"Invalid document type: {value}. Must be one of {documents_required} or 'Curriculum Vitae (CV)'."
             )
         return value
+
+    # def validate_document_type(self, value):
+    #     job_requisition = self.context.get('job_requisition')
+    #     if not job_requisition:
+    #         raise serializers.ValidationError("Job requisition context is missing.")
+    #     documents_required = job_requisition.documents_required or []
+    #     if not value:
+    #         raise serializers.ValidationError("Document type is required.")
+    #     try:
+    #         uuid.UUID(value)
+    #         return value
+    #     except ValueError:
+    #         pass
+    #     if value.lower() == 'resume':
+    #         return value
+    #     if documents_required and value not in documents_required:
+    #         raise serializers.ValidationError(
+    #             f"Invalid document type: {value}. Must be one of {documents_required} or 'resume'."
+    #         )
+    #     return value
+
+
 
 class ComplianceDocumentSerializer(serializers.Serializer):
     file_url = serializers.CharField(allow_blank=True, required=False, allow_null=True)

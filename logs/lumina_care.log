@@ -144,3 +144,4 @@ TypeError: ResumeScreeningView.post() got an unexpected keyword argument 'job_re
 2025-07-21 19:49:01,459 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.
 2025-07-21 19:49:03,964 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
 2025-07-21 19:49:55,458 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.
+2025-07-21 19:49:57,852 [INFO] django.utils.autoreload: Watching for file changes with StatReloader

@@ -165,11 +165,20 @@ class ResendRejectionEmailsView(APIView):
             logger.exception(f"Error resending rejection emails for JobRequisition {job_requisition_id}: {str(e)}")
             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-
-
 class ResumeScreeningView(APIView):
     permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized, BranchRestrictedPermission]
     parser_classes = [JSONParser, MultiPartParser, FormParser]
+
+    def options(self, request, *args, **kwargs):
+        """
+        Handle CORS preflight OPTIONS request explicitly to ensure headers are set.
+        """
+        response = Response(status=status.HTTP_200_OK)
+        response['Access-Control-Allow-Origin'] = 'https://crm-frontend-react.vercel.app'
+        response['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
+        response['Access-Control-Allow-Headers'] = 'accept, authorization, content-type, x-csrftoken, x-requested-with'
+        logger.debug("Handled OPTIONS request for ResumeScreeningView")
+        return response
 
     def send_rejection_emails(self, tenant, job_requisition, applications):
         try:
@@ -217,7 +226,7 @@ class ResumeScreeningView(APIView):
             tenant = request.tenant
             document_type = request.data.get('document_type')
             applications_data = request.data.get('applications', [])
-            num_candidates = request.data.get('num_candidates', 10)  # Default to 10 candidates
+            num_candidates = request.data.get('num_candidates', 10)
 
             with tenant_context(tenant):
                 try:
@@ -265,12 +274,10 @@ class ResumeScreeningView(APIView):
                 failed_applications = []
                 with transaction.atomic():
                     for app in applications:
-                        # Check if file_url is provided in payload
                         app_data = next((a for a in applications_data if a['application_id'] == app.id), None)
                         if app_data and 'file_url' in app_data:
                             file_url = app_data['file_url']
                         else:
-                            # Fallback to database documents
                             cv_doc = next(
                                 (doc for doc in app.documents if doc['document_type'].lower() == document_type_lower),
                                 None
@@ -292,7 +299,6 @@ class ResumeScreeningView(APIView):
                         logger.debug(f"Processing resume for application {app.id}, file_url: {file_url}")
 
                         try:
-                            # Download file from Supabase
                             temp_file_path = None
                             if file_url.startswith('http'):
                                 headers = {"Authorization": f"Bearer {settings.SUPABASE_KEY}"}
@@ -311,7 +317,6 @@ class ResumeScreeningView(APIView):
                                     logger.debug(f"Failed to download resume for application {app.id} from {file_url}")
                                     continue
 
-                                # Determine file extension
                                 content_type = response.headers.get('content-type', '')
                                 file_ext = mimetypes.guess_extension(content_type) or os.path.splitext(file_url)[1] or '.pdf'
                                 temp_file = tempfile.NamedTemporaryFile(delete=False, suffix=file_ext)
@@ -331,7 +336,6 @@ class ResumeScreeningView(APIView):
                                 })
                                 continue
 
-                            # Parse resume
                             resume_text = parse_resume(temp_file_path)
                             if not resume_text:
                                 app.screening_status = 'failed'
@@ -348,7 +352,6 @@ class ResumeScreeningView(APIView):
                                     os.unlink(temp_file_path)
                                 continue
 
-                            # Clean up temporary file
                             if temp_file_path and os.path.exists(temp_file_path):
                                 os.unlink(temp_file_path)
 
@@ -413,8 +416,7 @@ class ResumeScreeningView(APIView):
 
                     self.send_rejection_emails(tenant, job_requisition, applications)
 
-                logger.info(f"Screened {len(results)} resumes using document type '{document_type}', shortlisted {len(shortlisted)} for JobRequisition {job_requisition_id}")
-                return Response({
+                response = Response({
                     "detail": f"Screened {len(results)} applications using '{document_type}', shortlisted {len(shortlisted)} candidates.",
                     "shortlisted_candidates": shortlisted,
                     "failed_applications": failed_applications,
@@ -422,13 +424,288 @@ class ResumeScreeningView(APIView):
                     "document_type": document_type
                 }, status=status.HTTP_200_OK)
 
+                # Explicitly set CORS headers for POST response
+                response['Access-Control-Allow-Origin'] = 'https://crm-frontend-react.vercel.app'
+                response['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
+                response['Access-Control-Allow-Headers'] = 'accept, authorization, content-type, x-csrftoken, x-requested-with'
+                logger.debug(f"Set CORS headers for POST response: {response.headers}")
+                return response
+
         except Exception as e:
             logger.exception(f"Error screening resumes for JobRequisition {job_requisition_id}: {str(e)}")
-            return Response({
+            response = Response({
                 "detail": f"Failed to screen resumes: {str(e)}",
                 "document_type": document_type,
                 "error_type": type(e).__name__
             }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            # Set CORS headers for error response
+            response['Access-Control-Allow-Origin'] = 'https://crm-frontend-react.vercel.app'
+            response['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
+            response['Access-Control-Allow-Headers'] = 'accept, authorization, content-type, x-csrftoken, x-requested-with'
+            return response
+
+# class ResumeScreeningView(APIView):
+#     permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized, BranchRestrictedPermission]
+#     parser_classes = [JSONParser, MultiPartParser, FormParser]
+
+#     def send_rejection_emails(self, tenant, job_requisition, applications):
+#         try:
+#             tenant_config = TenantConfig.objects.get(tenant=tenant)
+#             email_config = tenant_config.email_templates.get('interviewRejection', {})
+            
+#             if not email_config.get('is_auto_sent', False):
+#                 logger.info(f"Auto-send not enabled for interviewRejection template for tenant {tenant.schema_name}")
+#                 return
+
+#             email_template = email_config.get('content', '')
+#             if not email_template:
+#                 logger.warning(f"No email template content found for interviewRejection for tenant {tenant.schema_name}")
+#                 return
+
+#             email_backend = configure_email_backend(tenant)
+#             for app in applications:
+#                 if app.status == 'rejected':
+#                     try:
+#                         email_content = email_template.replace('[Candidate Name]', app.full_name)
+#                         email_content = email_content.replace('[Job Title]', job_requisition.title)
+#                         email_content = email_content.replace('[Your Name]', 'Hiring Manager')
+#                         email_content = email_content.replace('[your.email@proliance.com]', tenant.default_from_email or 'hiring@proliance.com')
+
+#                         email = EmailMessage(
+#                             subject=f'Application Update for {job_requisition.title} at Proliance',
+#                             body=email_content,
+#                             from_email=tenant.default_from_email or 'hiring@proliance.com',
+#                             to=[app.email],
+#                             connection=email_backend
+#                         )
+#                         email.send()
+#                         logger.info(f"Rejection email sent to {app.email} for JobRequisition {job_requisition.id}")
+#                     except Exception as e:
+#                         logger.error(f"Failed to send rejection email to {app.email}: {str(e)}")
+
+#         except TenantConfig.DoesNotExist:
+#             logger.error(f"Tenant configuration not found for tenant {tenant.schema_name}")
+#         except Exception as e:
+#             logger.error(f"Error in send_rejection_emails for tenant {tenant.schema_name}: {str(e)}")
+
+#     def post(self, request, job_requisition_id):
+#         try:
+#             logger.debug(f"Payload received: {request.data}")
+#             tenant = request.tenant
+#             document_type = request.data.get('document_type')
+#             applications_data = request.data.get('applications', [])
+#             num_candidates = request.data.get('num_candidates', 10)  # Default to 10 candidates
+
+#             with tenant_context(tenant):
+#                 try:
+#                     job_requisition = JobRequisition.objects.get(id=job_requisition_id, tenant=tenant)
+#                 except JobRequisition.DoesNotExist:
+#                     logger.error(f"JobRequisition {job_requisition_id} not found for tenant {tenant.schema_name}")
+#                     return Response({"detail": "Job requisition not found."}, status=status.HTTP_404_NOT_FOUND)
+
+#                 if not document_type:
+#                     logger.error(f"Missing document_type for JobRequisition {job_requisition_id}")
+#                     return Response({"detail": "Document type is required."}, status=status.HTTP_400_BAD_REQUEST)
+
+#                 document_type_lower = document_type.lower()
+#                 if document_type_lower not in [doc.lower() for doc in job_requisition.documents_required] and document_type_lower not in ['resume', 'curriculum vitae (cv)']:
+#                     logger.error(f"Invalid document_type {document_type} for JobRequisition {job_requisition_id}")
+#                     return Response({"detail": f"Invalid document type: {document_type}"}, status=status.HTTP_400_BAD_REQUEST)
+
+#                 if not applications_data:
+#                     applications = JobApplication.active_objects.filter(
+#                         tenant=tenant,
+#                         job_requisition=job_requisition,
+#                         resume_status=True
+#                     )
+#                 else:
+#                     application_ids = [app['application_id'] for app in applications_data]
+#                     applications = JobApplication.active_objects.filter(
+#                         tenant=tenant,
+#                         job_requisition=job_requisition,
+#                         id__in=application_ids,
+#                         resume_status=True
+#                     )
+#                     logger.debug(f"Queried application IDs: {application_ids}")
+#                     logger.debug(f"Found applications: {[app.id for app in applications]}")
+
+#                 if request.user.role == 'recruiter' and request.user.branch:
+#                     applications = applications.filter(branch=request.user.branch)
+#                     logger.debug(f"Filtered by branch {request.user.branch}: {[app.id for app in applications]}")
+
+#                 if not applications.exists():
+#                     logger.warning(f"No applications with resumes found for JobRequisition {job_requisition_id}")
+#                     logger.debug(f"Query filters: tenant={tenant.schema_name}, job_requisition={job_requisition_id}, resume_status=True")
+#                     return Response({"detail": "No applications with resumes found.", "documentType": document_type}, status=status.HTTP_400_BAD_REQUEST)
+
+#                 results = []
+#                 failed_applications = []
+#                 with transaction.atomic():
+#                     for app in applications:
+#                         # Check if file_url is provided in payload
+#                         app_data = next((a for a in applications_data if a['application_id'] == app.id), None)
+#                         if app_data and 'file_url' in app_data:
+#                             file_url = app_data['file_url']
+#                         else:
+#                             # Fallback to database documents
+#                             cv_doc = next(
+#                                 (doc for doc in app.documents if doc['document_type'].lower() == document_type_lower),
+#                                 None
+#                             )
+#                             if not cv_doc:
+#                                 app.screening_status = 'failed'
+#                                 app.screening_score = 0.0
+#                                 app.save()
+#                                 failed_applications.append({
+#                                     "application_id": app.id,
+#                                     "full_name": app.full_name,
+#                                     "email": app.email,
+#                                     "error": f"No {document_type} document found"
+#                                 })
+#                                 logger.debug(f"No matching document for application {app.id} with document_type {document_type}")
+#                                 continue
+#                             file_url = cv_doc['file_url']
+
+#                         logger.debug(f"Processing resume for application {app.id}, file_url: {file_url}")
+
+#                         try:
+#                             # Download file from Supabase
+#                             temp_file_path = None
+#                             if file_url.startswith('http'):
+#                                 headers = {"Authorization": f"Bearer {settings.SUPABASE_KEY}"}
+#                                 logger.debug(f"Downloading file from {file_url}")
+#                                 response = requests.get(file_url, headers=headers)
+#                                 if response.status_code != 200:
+#                                     app.screening_status = 'failed'
+#                                     app.screening_score = 0.0
+#                                     app.save()
+#                                     failed_applications.append({
+#                                         "application_id": app.id,
+#                                         "full_name": app.full_name,
+#                                         "email": app.email,
+#                                         "error": f"Failed to download resume from {file_url}, status code: {response.status_code}"
+#                                     })
+#                                     logger.debug(f"Failed to download resume for application {app.id} from {file_url}")
+#                                     continue
+
+#                                 # Determine file extension
+#                                 content_type = response.headers.get('content-type', '')
+#                                 file_ext = mimetypes.guess_extension(content_type) or os.path.splitext(file_url)[1] or '.pdf'
+#                                 temp_file = tempfile.NamedTemporaryFile(delete=False, suffix=file_ext)
+#                                 temp_file.write(response.content)
+#                                 temp_file.close()
+#                                 temp_file_path = temp_file.name
+#                             else:
+#                                 logger.error(f"Invalid file URL for application {app.id}: {file_url}")
+#                                 app.screening_status = 'failed'
+#                                 app.screening_score = 0.0
+#                                 app.save()
+#                                 failed_applications.append({
+#                                     "application_id": app.id,
+#                                     "full_name": app.full_name,
+#                                     "email": app.email,
+#                                     "error": f"Invalid file URL: {file_url}"
+#                                 })
+#                                 continue
+
+#                             # Parse resume
+#                             resume_text = parse_resume(temp_file_path)
+#                             if not resume_text:
+#                                 app.screening_status = 'failed'
+#                                 app.screening_score = 0.0
+#                                 app.save()
+#                                 failed_applications.append({
+#                                     "application_id": app.id,
+#                                     "full_name": app.full_name,
+#                                     "email": app.email,
+#                                     "error": "Failed to parse resume"
+#                                 })
+#                                 logger.debug(f"Failed to parse resume for application {app.id}")
+#                                 if temp_file_path and os.path.exists(temp_file_path):
+#                                     os.unlink(temp_file_path)
+#                                 continue
+
+#                             # Clean up temporary file
+#                             if temp_file_path and os.path.exists(temp_file_path):
+#                                 os.unlink(temp_file_path)
+
+#                             job_requirements = (
+#                                 (job_requisition.job_description or '') + ' ' +
+#                                 (job_requisition.qualification_requirement or '') + ' ' +
+#                                 (job_requisition.experience_requirement or '') + ' ' +
+#                                 (job_requisition.knowledge_requirement or '')
+#                             ).strip()
+
+#                             score = screen_resume(resume_text, job_requirements)
+#                             resume_data = extract_resume_fields(resume_text)
+#                             employment_gaps = resume_data.get("employment_gaps", [])
+#                             logger.debug(f"Employment gaps for application {app.id}: {employment_gaps}")
+
+#                             app.screening_status = 'processed'
+#                             app.screening_score = score
+#                             app.employment_gaps = employment_gaps
+#                             app.save()
+
+#                             results.append({
+#                                 "application_id": app.id,
+#                                 "full_name": app.full_name,
+#                                 "email": app.email,
+#                                 "score": score,
+#                                 "screening_status": app.screening_status,
+#                                 "employment_gaps": employment_gaps
+#                             })
+#                         except Exception as e:
+#                             app.screening_status = 'failed'
+#                             app.screening_score = 0.0
+#                             app.save()
+#                             failed_applications.append({
+#                                 "application_id": app.id,
+#                                 "full_name": app.full_name,
+#                                 "email": app.email,
+#                                 "error": f"Screening error: {str(e)}"
+#                             })
+#                             logger.error(f"Error processing resume for application {app.id}: {str(e)}")
+#                             if temp_file_path and os.path.exists(temp_file_path):
+#                                 os.unlink(temp_file_path)
+#                             continue
+
+#                     if not results and failed_applications:
+#                         logger.error(f"All resume screenings failed for JobRequisition {job_requisition_id}")
+#                         return Response({
+#                             "detail": "All resume screenings failed.",
+#                             "failed_applications": failed_applications,
+#                             "document_type": document_type
+#                         }, status=status.HTTP_400_BAD_REQUEST)
+
+#                     results.sort(key=lambda x: x['score'], reverse=True)
+#                     shortlisted = results[:num_candidates]
+#                     shortlisted_ids = {item['application_id'] for item in shortlisted}
+
+#                     for app in applications:
+#                         if app.id in shortlisted_ids:
+#                             app.status = 'shortlisted'
+#                         else:
+#                             app.status = 'rejected'
+#                         app.save()
+
+#                     self.send_rejection_emails(tenant, job_requisition, applications)
+
+#                 logger.info(f"Screened {len(results)} resumes using document type '{document_type}', shortlisted {len(shortlisted)} for JobRequisition {job_requisition_id}")
+#                 return Response({
+#                     "detail": f"Screened {len(results)} applications using '{document_type}', shortlisted {len(shortlisted)} candidates.",
+#                     "shortlisted_candidates": shortlisted,
+#                     "failed_applications": failed_applications,
+#                     "number_of_candidates": num_candidates,
+#                     "document_type": document_type
+#                 }, status=status.HTTP_200_OK)
+
+#         except Exception as e:
+#             logger.exception(f"Error screening resumes for JobRequisition {job_requisition_id}: {str(e)}")
+#             return Response({
+#                 "detail": f"Failed to screen resumes: {str(e)}",
+#                 "document_type": document_type,
+#                 "error_type": type(e).__name__
+#             }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         
 # class ResumeScreeningView(APIView):
 #     permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized, BranchRestrictedPermission]

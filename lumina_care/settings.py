@@ -139,18 +139,7 @@ DATABASES = {
     }
 }
 
-#FOR HOSTING ON NAMECHEAP
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django_tenants.postgresql_backend',
-#         'NAME': config('DB_NAME', default='postgres'),
-#         'USER': config('DB_USER', default='postgres'),
-#         'PASSWORD': config('DB_PASSWORD', default='zlRWuz2ZRrYe5jNQ'),
-#         'HOST': config('DB_HOST', default='db.gkvgqvosnetifsonhxuo.supabase.co'),
-#         'PORT': config('DB_PORT', default='5432'),
-#     }
-# }
 
 DATABASE_ROUTERS = ['django_tenants.routers.TenantSyncRouter']
 TENANT_MODEL = "core.Tenant"

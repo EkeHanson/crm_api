@@ -105,7 +105,7 @@ SOCIALACCOUNT_PROVIDERS = {
 #     'https://crm-frontend-react.vercel.app',
 #     'http://localhost:5173',
 # ]
-y
+
 CORS_ALLOW_ALL_ORIGINS = True
 
 

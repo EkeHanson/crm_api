@@ -23,3 +23,30 @@
 2025-07-21 21:42:47,705 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/requisitions/PRO-0012/screen-resumes/ HTTP/1.1" 200 0
 2025-07-21 21:43:17,749 [INFO] django.server: "POST /api/talent-engine-job-applications/requisitions/PRO-0012/screen-resumes/ HTTP/1.1" 200 685
 2025-07-21 21:43:29,061 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0012/applications/ HTTP/1.1" 200 4030
+2025-07-21 22:15:28,468 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-21 22:18:37,967 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-21 22:20:05,906 [INFO] django.server: "OPTIONS /api/token/ HTTP/1.1" 200 0
+2025-07-21 22:20:10,193 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 973
+2025-07-21 22:20:10,237 [INFO] django.server: "OPTIONS /api/token/validate/ HTTP/1.1" 200 0
+2025-07-21 22:20:10,243 [INFO] django.server: "OPTIONS /api/token/validate/ HTTP/1.1" 200 0
+2025-07-21 22:20:10,337 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 387
+2025-07-21 22:20:10,441 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 387
+2025-07-21 22:20:10,568 [INFO] django.server: "OPTIONS /api/user/tenant-users/ HTTP/1.1" 200 0
+2025-07-21 22:20:10,569 [INFO] django.server: "OPTIONS /api/user/tenant-users/ HTTP/1.1" 200 0
+2025-07-21 22:20:10,692 [INFO] users: Retrieved 2 users for tenant getinride
+2025-07-21 22:20:10,709 [INFO] django.server: "GET /api/user/tenant-users/ HTTP/1.1" 200 713
+2025-07-21 22:20:10,841 [INFO] users: Retrieved 2 users for tenant getinride
+2025-07-21 22:20:10,863 [INFO] django.server: "GET /api/user/tenant-users/ HTTP/1.1" 200 713
+2025-07-21 22:20:19,233 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/ HTTP/1.1" 200 0
+2025-07-21 22:20:19,422 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 3486
+2025-07-21 22:20:19,672 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 3486
+2025-07-21 22:20:31,149 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 3486
+2025-07-21 22:20:31,237 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 3486
+2025-07-21 22:20:32,698 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/applications/job-requisitions/GET-0001/applications/ HTTP/1.1" 200 0
+2025-07-21 22:20:32,698 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/applications/job-requisitions/GET-0001/applications/ HTTP/1.1" 200 0
+2025-07-21 22:20:32,813 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/GET-0001/applications/ HTTP/1.1" 200 8809
+2025-07-21 22:20:32,907 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/GET-0001/applications/ HTTP/1.1" 200 8809
+2025-07-21 22:20:39,271 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/requisitions/GET-0001/screen-resumes/ HTTP/1.1" 200 0
+2025-07-21 22:21:02,760 [INFO] django.server: "POST /api/talent-engine-job-applications/requisitions/GET-0001/screen-resumes/ HTTP/1.1" 200 1389
+2025-07-21 22:21:02,905 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/GET-0001/applications/ HTTP/1.1" 200 8820
+2025-07-21 22:24:53,453 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.

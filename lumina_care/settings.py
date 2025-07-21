@@ -101,10 +101,12 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-CORS_ALLOWED_ORIGINS = [
-    'https://crm-frontend-react.vercel.app',
-    'http://localhost:5173',
-]
+# CORS_ALLOWED_ORIGINS = [
+#     'https://crm-frontend-react.vercel.app',
+#     'http://localhost:5173',
+# ]
+y
+CORS_ALLOW_ALL_ORIGINS = True
 
 
 CORS_ALLOW_CREDENTIALS = True

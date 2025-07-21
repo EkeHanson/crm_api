@@ -214,3 +214,4 @@ TypeError: ResumeScreeningView.post() got an unexpected keyword argument 'job_re
 2025-07-21 20:35:43,056 [INFO] django.server: "POST /api/talent-engine-job-applications/requisitions/GET-0001/screen-resumes/ HTTP/1.1" 200 1215
 2025-07-21 20:35:43,247 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/GET-0001/applications/ HTTP/1.1" 200 7421
 2025-07-21 20:36:36,531 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.
+2025-07-21 20:36:42,132 [INFO] django.utils.autoreload: Watching for file changes with StatReloader

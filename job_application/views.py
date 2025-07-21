@@ -1061,7 +1061,8 @@ class JobApplicationsByRequisitionView(generics.ListAPIView):
                 logger.debug(f"Query: {applications.query}")
                 logger.info(f"Retrieved {applications.count()} job applications for JobRequisition {job_requisition_id}")
                 
-                return applications
+                # return applications
+                return applications.order_by('-created_at')
                 
         except Exception as e:
             logger.exception(f"Error retrieving job applications for JobRequisition {job_requisition_id}")
@@ -1092,11 +1093,13 @@ class PublishedJobRequisitionsWithShortlistedApplicationsView(generics.ListAPIVi
                     applications__isnull=False,
                     applications__is_deleted=False
                 ).distinct()
-                if self.request.user.role == 'recruiter' and self.request.user.branch:
+                # if self.request.user.role == 'recruiter' and self.request.user.branch:
+                if self.request.user.branch:
                     queryset = queryset.filter(applications__branch=self.request.user.branch)
                 logger.debug(f"Query: {queryset.query}")
                 logger.info(f"Retrieved {queryset.count()} published job requisitions with applications for tenant {tenant.schema_name}")
-                return queryset
+                # return queryset
+                return queryset.order_by('-created_at')
 
         except Exception as e:
             logger.exception("Error retrieving published job requisitions with applications")
@@ -1138,6 +1141,9 @@ class PublishedJobRequisitionsWithShortlistedApplicationsView(generics.ListAPIVi
                         'total_applications': total_applications
                     })
 
+            # Sort response_data by job_requisition's created_at to maintain LIFO
+            response_data.sort(key=lambda x: job_requisition_dict[x['job_requisition']['id']]['created_at'], reverse=True)        
+
             logger.info(f"Retrieved {len(response_data)} job requisitions with shortlisted applications for tenant {tenant.schema_name}")
             return Response(response_data, status=status.HTTP_200_OK)
 
@@ -1169,7 +1175,8 @@ class JobApplicationListCreateView(generics.GenericAPIView):
         queryset = JobApplication.active_objects.filter(tenant=tenant).select_related('job_requisition')
         if self.request.user.is_authenticated and self.request.user.branch:
             queryset = queryset.filter(branch=self.request.user.branch)
-        return queryset
+        # return queryset
+        return queryset.order_by('-created_at')
 
     def get(self, request, *args, **kwargs):
         try:
@@ -1456,7 +1463,8 @@ class SoftDeletedJobApplicationsView(generics.ListAPIView):
             if self.request.user.role == 'recruiter' and self.request.user.branch:
                 queryset = queryset.filter(branch=self.request.user.branch)
             logger.debug(f"Query: {queryset.query}")
-            return queryset
+            # return queryset
+            return queryset.order_by('-created_at')
 
     def list(self, request, *args, **kwargs):
         try:
@@ -1570,7 +1578,8 @@ class ScheduleListCreateView(generics.GenericAPIView):
         status_param = self.request.query_params.get('status', None)
         if status_param:
             queryset = queryset.filter(status=status_param)
-        return queryset
+        # return queryset
+        return queryset.order_by('-created_at')
 
     def get(self, request, *args, **kwargs):
         try:
@@ -1914,7 +1923,8 @@ class SoftDeletedSchedulesView(generics.ListAPIView):
             if self.request.user.role == 'recruiter' and self.request.user.branch:
                 queryset = queryset.filter(branch=self.request.user.branch)
             logger.debug(f"Query: {queryset.query}")
-            return queryset
+            # return queryset
+            return queryset.order_by('-created_at')
 
     def list(self, request, *args, **kwargs):
         try:

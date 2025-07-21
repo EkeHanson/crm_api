@@ -215,3 +215,17 @@ TypeError: ResumeScreeningView.post() got an unexpected keyword argument 'job_re
 2025-07-21 20:35:43,247 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/GET-0001/applications/ HTTP/1.1" 200 7421
 2025-07-21 20:36:36,531 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.
 2025-07-21 20:36:42,132 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-21 20:45:26,113 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-21 20:45:32,350 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-21 20:47:15,939 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-21 20:47:21,487 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-21 20:48:25,460 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-21 20:48:30,096 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-21 20:49:18,948 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-21 20:49:23,020 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-21 20:49:53,899 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-21 20:49:58,688 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-21 20:50:23,000 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-21 20:50:28,084 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-21 20:51:00,886 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-21 20:51:06,461 [INFO] django.utils.autoreload: Watching for file changes with StatReloader

@@ -11,10 +11,10 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         try:
-            tenant = Tenant.objects.get(schema_name="getinride")
+            tenant = Tenant.objects.get(schema_name="proliance")
         except Tenant.DoesNotExist:
-            logger.error("Tenant 'getinride' not found")
-            self.stdout.write(self.style.ERROR("Tenant 'getinride' not found"))
+            logger.error("Tenant 'proliance' not found")
+            self.stdout.write(self.style.ERROR("Tenant 'proliance' not found"))
             return
 
         with tenant_context(tenant):

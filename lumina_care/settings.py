@@ -101,12 +101,10 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-CORS_ALLOWED_ORIGINS = [
-    'http://app.mydomain.com',
-    'https://crm-frontend-react.vercel.app',
-    'http://localhost:5173',
-    'https://370a-102-90-98-83.ngrok-free.app',
-]
+# CORS_ALLOWED_ORIGINS = [
+#     'https://crm-frontend-react.vercel.app',
+#     'http://localhost:5173',
+# ]
 
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_METHODS = ['DELETE', 'GET', 'OPTIONS', 'PATCH', 'POST', 'PUT']

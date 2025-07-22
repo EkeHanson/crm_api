@@ -93,3 +93,110 @@
 2025-07-21 22:38:22,147 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/GET-0001/applications/ HTTP/1.1" 200 10169
 2025-07-21 22:54:21,076 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.
 2025-07-21 22:54:24,235 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-22 01:33:34,188 [INFO] django.server: "OPTIONS /api/token/validate/ HTTP/1.1" 200 0
+2025-07-22 01:33:34,199 [INFO] django.server: "OPTIONS /api/token/validate/ HTTP/1.1" 200 0
+2025-07-22 01:33:35,086 [WARNING] django.request: Not Found: /api/talent-engine/requisitions/by-link/getinride-armed-security-guard-supervisor-corporate-industrial-sites-4decddf8/
+2025-07-22 01:33:35,087 [WARNING] django.server: "GET /api/talent-engine/requisitions/by-link/getinride-armed-security-guard-supervisor-corporate-industrial-sites-4decddf8/ HTTP/1.1" 404 2168
+2025-07-22 01:33:36,702 [WARNING] django.request: Unauthorized: /api/token/validate/
+2025-07-22 01:33:36,703 [WARNING] django.server: "GET /api/token/validate/ HTTP/1.1" 401 183
+2025-07-22 01:33:37,577 [WARNING] django.request: Not Found: /api/talent-engine/requisitions/by-link/getinride-armed-security-guard-supervisor-corporate-industrial-sites-4decddf8/
+2025-07-22 01:33:37,578 [WARNING] django.server: "GET /api/talent-engine/requisitions/by-link/getinride-armed-security-guard-supervisor-corporate-industrial-sites-4decddf8/ HTTP/1.1" 404 2168
+2025-07-22 01:33:39,495 [WARNING] django.request: Unauthorized: /api/token/validate/
+2025-07-22 01:33:39,496 [WARNING] django.server: "GET /api/token/validate/ HTTP/1.1" 401 183
+2025-07-22 01:36:48,844 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.
+2025-07-22 01:36:51,507 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-22 01:37:42,507 [INFO] talent_engine: Job requisition accessed via link: Armed Security Guard Supervisor – Corporate & Industrial Sites for tenant getinride
+2025-07-22 01:37:42,528 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/getinride-armed-security-guard-supervisor-corporate-industrial-sites-4decddf8/ HTTP/1.1" 200 2222
+2025-07-22 01:37:42,623 [INFO] talent_engine: Job requisition accessed via link: Armed Security Guard Supervisor – Corporate & Industrial Sites for tenant getinride
+2025-07-22 01:37:42,634 [INFO] django.server: "GET /api/talent-engine/requisitions/by-link/getinride-armed-security-guard-supervisor-corporate-industrial-sites-4decddf8/ HTTP/1.1" 200 2222
+2025-07-22 01:37:42,658 [INFO] django.server: "GET /media/advert_banners/Armed_Security_Guard_Supervisor__Corporate__Industrial_Sites.jpg HTTP/1.1" 304 0
+2025-07-22 01:37:56,695 [INFO] django.server: "OPTIONS /api/token/ HTTP/1.1" 200 0
+2025-07-22 01:37:58,712 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 973
+2025-07-22 01:37:58,814 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 387
+2025-07-22 01:37:58,896 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 387
+2025-07-22 01:37:59,009 [INFO] django.server: "OPTIONS /api/user/tenant-users/ HTTP/1.1" 200 0
+2025-07-22 01:37:59,009 [INFO] django.server: "OPTIONS /api/user/tenant-users/ HTTP/1.1" 200 0
+2025-07-22 01:37:59,109 [INFO] users: Retrieved 2 users for tenant getinride
+2025-07-22 01:37:59,126 [INFO] django.server: "GET /api/user/tenant-users/ HTTP/1.1" 200 713
+2025-07-22 01:37:59,199 [INFO] users: Retrieved 2 users for tenant getinride
+2025-07-22 01:37:59,209 [INFO] django.server: "GET /api/user/tenant-users/ HTTP/1.1" 200 713
+2025-07-22 01:38:08,266 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/ HTTP/1.1" 200 0
+2025-07-22 01:38:08,267 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/ HTTP/1.1" 200 0
+2025-07-22 01:38:08,381 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 3486
+2025-07-22 01:38:08,487 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 3486
+2025-07-22 01:38:16,954 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 3486
+2025-07-22 01:38:17,039 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 3486
+2025-07-22 01:38:18,781 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 3486
+2025-07-22 01:38:18,863 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 3486
+2025-07-22 01:38:23,829 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 3486
+2025-07-22 01:38:23,921 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 3486
+2025-07-22 01:38:27,960 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 3486
+2025-07-22 01:38:28,048 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 3486
+2025-07-22 10:30:43,449 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-22 10:32:33,363 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-22 10:32:37,816 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-22 10:36:47,357 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-22 10:36:51,541 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-22 10:37:20,896 [INFO] django.server: "OPTIONS /api/token/ HTTP/1.1" 200 0
+2025-07-22 10:37:24,219 [WARNING] django.request: Bad Request: /api/token/
+2025-07-22 10:37:24,221 [WARNING] django.server: "POST /api/token/ HTTP/1.1" 400 45
+2025-07-22 10:37:37,976 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 973
+2025-07-22 10:37:38,061 [INFO] django.server: "OPTIONS /api/token/validate/ HTTP/1.1" 200 0
+2025-07-22 10:37:38,077 [INFO] django.server: "OPTIONS /api/token/validate/ HTTP/1.1" 200 0
+2025-07-22 10:37:38,251 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 387
+2025-07-22 10:37:38,256 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 387
+2025-07-22 10:37:38,566 [INFO] django.server: "OPTIONS /api/user/tenant-users/ HTTP/1.1" 200 0
+2025-07-22 10:37:38,567 [INFO] django.server: "OPTIONS /api/user/tenant-users/ HTTP/1.1" 200 0
+2025-07-22 10:37:38,772 [INFO] users: Retrieved 2 users for tenant getinride
+2025-07-22 10:37:38,790 [INFO] users: Retrieved 2 users for tenant getinride
+2025-07-22 10:37:38,807 [INFO] django.server: "GET /api/user/tenant-users/ HTTP/1.1" 200 713
+2025-07-22 10:37:38,819 [INFO] django.server: "GET /api/user/tenant-users/ HTTP/1.1" 200 713
+2025-07-22 10:37:44,150 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/ HTTP/1.1" 200 0
+2025-07-22 10:37:44,150 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/ HTTP/1.1" 200 0
+2025-07-22 10:37:44,442 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 3486
+2025-07-22 10:37:44,443 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 3486
+2025-07-22 10:37:49,218 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 3486
+2025-07-22 10:37:49,219 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 3486
+2025-07-22 10:37:52,907 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 0
+2025-07-22 10:37:52,910 [INFO] django.server: "OPTIONS /api/tenant/config/?t=1753177072887 HTTP/1.1" 200 0
+2025-07-22 10:37:52,920 [INFO] django.server: "OPTIONS /api/tenant/config/?t=1753177072890 HTTP/1.1" 200 0
+2025-07-22 10:37:52,929 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 0
+2025-07-22 10:37:53,180 [INFO] core: Fetched TenantConfig for tenant getinride
+2025-07-22 10:37:53,192 [INFO] django.server: "GET /api/tenant/config/?t=1753177072887 HTTP/1.1" 200 1453
+2025-07-22 10:37:53,213 [INFO] core: Fetched TenantConfig for tenant getinride
+2025-07-22 10:37:53,219 [INFO] django.server: "GET /api/tenant/config/?t=1753177072890 HTTP/1.1" 200 1453
+2025-07-22 10:37:53,378 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 12750
+2025-07-22 10:37:53,379 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 12750
+2025-07-22 10:40:04,219 [INFO] django.server: "OPTIONS /api/tenant/config/?t=1753177204168 HTTP/1.1" 200 0
+2025-07-22 10:40:04,415 [INFO] core: Fetched TenantConfig for tenant getinride
+2025-07-22 10:40:04,419 [INFO] django.server: "GET /api/tenant/config/?t=1753177204168 HTTP/1.1" 200 1453
+2025-07-22 10:40:04,547 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 12750
+2025-07-22 10:40:22,017 [INFO] django.server: "OPTIONS /api/tenant/config/?t=1753177221971 HTTP/1.1" 200 0
+2025-07-22 10:40:22,205 [INFO] core: Fetched TenantConfig for tenant getinride
+2025-07-22 10:40:22,207 [INFO] django.server: "GET /api/tenant/config/?t=1753177221971 HTTP/1.1" 200 1453
+2025-07-22 10:40:22,328 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 12750
+2025-07-22 10:40:34,900 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/schedules/ HTTP/1.1" 200 0
+2025-07-22 10:40:42,225 [WARNING] django.request: Bad Request: /api/talent-engine-job-applications/schedules/
+2025-07-22 10:40:42,226 [WARNING] django.server: "POST /api/talent-engine-job-applications/schedules/ HTTP/1.1" 400 71
+2025-07-22 10:40:58,992 [INFO] django.server: "POST /api/talent-engine-job-applications/schedules/ HTTP/1.1" 201 72
+2025-07-22 10:40:59,213 [INFO] django.server: "POST /api/talent-engine-job-applications/schedules/ HTTP/1.1" 201 72
+2025-07-22 10:40:59,422 [INFO] django.server: "POST /api/talent-engine-job-applications/schedules/ HTTP/1.1" 201 72
+2025-07-22 10:40:59,585 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/schedules/api/timezone-choices/ HTTP/1.1" 200 0
+2025-07-22 10:40:59,594 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/schedules/api/timezone-choices/ HTTP/1.1" 200 0
+2025-07-22 10:40:59,811 [INFO] django.server: "GET /api/talent-engine-job-applications/schedules/api/timezone-choices/ HTTP/1.1" 200 286
+2025-07-22 10:40:59,871 [INFO] django.server: "GET /api/talent-engine-job-applications/schedules/api/timezone-choices/ HTTP/1.1" 200 286
+2025-07-22 10:40:59,902 [INFO] django.server: "GET /api/talent-engine-job-applications/schedules/ HTTP/1.1" 200 1834
+2025-07-22 10:40:59,959 [INFO] django.server: "GET /api/talent-engine-job-applications/schedules/ HTTP/1.1" 200 1834
+2025-07-22 10:41:10,522 [INFO] django.server: "OPTIONS /api/tenant/config/?t=1753177270492 HTTP/1.1" 200 0
+2025-07-22 10:41:10,523 [INFO] django.server: "OPTIONS /api/tenant/config/?t=1753177270494 HTTP/1.1" 200 0
+2025-07-22 10:41:10,762 [INFO] core: Fetched TenantConfig for tenant getinride
+2025-07-22 10:41:10,764 [INFO] django.server: "GET /api/tenant/config/?t=1753177270492 HTTP/1.1" 200 1453
+2025-07-22 10:41:10,778 [INFO] core: Fetched TenantConfig for tenant getinride
+2025-07-22 10:41:10,782 [INFO] django.server: "GET /api/tenant/config/?t=1753177270494 HTTP/1.1" 200 1453
+2025-07-22 10:41:10,971 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 14577
+2025-07-22 10:41:10,975 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 14577
+2025-07-22 10:41:49,590 [INFO] django.server: "OPTIONS /api/tenant/config/?t=1753177309528 HTTP/1.1" 200 0
+2025-07-22 10:41:49,823 [INFO] core: Fetched TenantConfig for tenant getinride
+2025-07-22 10:41:49,828 [INFO] django.server: "GET /api/tenant/config/?t=1753177309528 HTTP/1.1" 200 1453
+2025-07-22 10:41:49,945 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 14577
+2025-07-22 10:42:14,070 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.

@@ -1077,6 +1077,7 @@ class JobApplicationsByRequisitionView(generics.ListAPIView):
         except Exception as e:
             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+
 class PublishedJobRequisitionsWithShortlistedApplicationsView(generics.ListAPIView):
     serializer_class = JobRequisitionSerializer
     permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized, BranchRestrictedPermission]
@@ -1094,12 +1095,10 @@ class PublishedJobRequisitionsWithShortlistedApplicationsView(generics.ListAPIVi
                     applications__isnull=False,
                     applications__is_deleted=False
                 ).distinct()
-                # if self.request.user.role == 'recruiter' and self.request.user.branch:
                 if self.request.user.branch:
                     queryset = queryset.filter(applications__branch=self.request.user.branch)
                 logger.debug(f"Query: {queryset.query}")
                 logger.info(f"Retrieved {queryset.count()} published job requisitions with applications for tenant {tenant.schema_name}")
-                # return queryset
                 return queryset.order_by('-created_at')
 
         except Exception as e:
@@ -1127,6 +1126,22 @@ class PublishedJobRequisitionsWithShortlistedApplicationsView(generics.ListAPIVi
                     
                     application_serializer = JobApplicationSerializer(shortlisted_applications, many=True)
                     
+                    # Process each application to include schedule information
+                    enhanced_applications = []
+                    for app_data in application_serializer.data:
+                        application_id = app_data['id']
+                        schedules = Schedule.active_objects.filter(
+                            tenant=tenant,
+                            job_application_id=application_id
+                        ).select_related('job_application')
+                        if request.user.role == 'recruiter' and request.user.branch:
+                            schedules = schedules.filter(branch=request.user.branch)
+                        
+                        schedule_serializer = ScheduleSerializer(schedules, many=True)
+                        app_data['scheduled'] = schedules.exists()
+                        app_data['schedules'] = schedule_serializer.data
+                        enhanced_applications.append(app_data)
+                    
                     total_applications = JobApplication.active_objects.filter(
                         tenant=tenant,
                         job_requisition=job_requisition
@@ -1137,7 +1152,7 @@ class PublishedJobRequisitionsWithShortlistedApplicationsView(generics.ListAPIVi
                     
                     response_data.append({
                         'job_requisition': job_requisition_dict.get(job_requisition.id),
-                        'shortlisted_applications': application_serializer.data,
+                        'shortlisted_applications': enhanced_applications,
                         'shortlisted_count': shortlisted_applications.count(),
                         'total_applications': total_applications
                     })
@@ -1151,6 +1166,84 @@ class PublishedJobRequisitionsWithShortlistedApplicationsView(generics.ListAPIVi
         except Exception as e:
             logger.exception("Error processing job requisitions and shortlisted applications")
             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+
+
+
+# class PublishedJobRequisitionsWithShortlistedApplicationsView(generics.ListAPIView):
+#     serializer_class = JobRequisitionSerializer
+#     permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized, BranchRestrictedPermission]
+
+#     def get_queryset(self):
+#         try:
+#             tenant = self.request.tenant
+#             connection.set_schema(tenant.schema_name)
+#             logger.debug(f"Schema set to: {connection.schema_name}")
+
+#             with tenant_context(tenant):
+#                 queryset = JobRequisition.objects.filter(
+#                     tenant=tenant,
+#                     publish_status=True,
+#                     applications__isnull=False,
+#                     applications__is_deleted=False
+#                 ).distinct()
+#                 # if self.request.user.role == 'recruiter' and self.request.user.branch:
+#                 if self.request.user.branch:
+#                     queryset = queryset.filter(applications__branch=self.request.user.branch)
+#                 logger.debug(f"Query: {queryset.query}")
+#                 logger.info(f"Retrieved {queryset.count()} published job requisitions with applications for tenant {tenant.schema_name}")
+#                 # return queryset
+#                 return queryset.order_by('-created_at')
+
+#         except Exception as e:
+#             logger.exception("Error retrieving published job requisitions with applications")
+#             raise
+
+#     def list(self, request, *args, **kwargs):
+#         try:
+#             tenant = request.tenant
+#             queryset = self.get_queryset()
+#             job_requisition_serializer = self.get_serializer(queryset, many=True)
+
+#             job_requisition_dict = {item['id']: item for item in job_requisition_serializer.data}
+
+#             response_data = []
+#             with tenant_context(tenant):
+#                 for job_requisition in queryset:
+#                     shortlisted_applications = JobApplication.active_objects.filter(
+#                         tenant=tenant,
+#                         job_requisition=job_requisition,
+#                         status='shortlisted'
+#                     ).select_related('job_requisition')
+#                     if request.user.role == 'recruiter' and request.user.branch:
+#                         shortlisted_applications = shortlisted_applications.filter(branch=request.user.branch)
+                    
+#                     application_serializer = JobApplicationSerializer(shortlisted_applications, many=True)
+                    
+#                     total_applications = JobApplication.active_objects.filter(
+#                         tenant=tenant,
+#                         job_requisition=job_requisition
+#                     )
+#                     if request.user.role == 'recruiter' and request.user.branch:
+#                         total_applications = total_applications.filter(branch=request.user.branch)
+#                     total_applications = total_applications.count()
+                    
+#                     response_data.append({
+#                         'job_requisition': job_requisition_dict.get(job_requisition.id),
+#                         'shortlisted_applications': application_serializer.data,
+#                         'shortlisted_count': shortlisted_applications.count(),
+#                         'total_applications': total_applications
+#                     })
+
+#             # Sort response_data by job_requisition's created_at to maintain LIFO
+#             response_data.sort(key=lambda x: job_requisition_dict[x['job_requisition']['id']]['created_at'], reverse=True)        
+
+#             logger.info(f"Retrieved {len(response_data)} job requisitions with shortlisted applications for tenant {tenant.schema_name}")
+#             return Response(response_data, status=status.HTTP_200_OK)
+
+#         except Exception as e:
+#             logger.exception("Error processing job requisitions and shortlisted applications")
+#             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 

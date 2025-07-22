@@ -200,3 +200,14 @@
 2025-07-22 10:41:49,828 [INFO] django.server: "GET /api/tenant/config/?t=1753177309528 HTTP/1.1" 200 1453
 2025-07-22 10:41:49,945 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 14577
 2025-07-22 10:42:14,070 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.
+2025-07-22 10:42:20,226 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-22 10:42:44,536 [INFO] django.server: "OPTIONS /api/tenant/config/?t=1753177364464 HTTP/1.1" 200 0
+2025-07-22 10:42:51,158 [WARNING] django.request: Not Found: /api/tenant/config/
+2025-07-22 10:42:51,163 [WARNING] django.server: "GET /api/tenant/config/?t=1753177364464 HTTP/1.1" 404 1969
+2025-07-22 10:42:51,217 [WARNING] django.request: Not Found: /api/talent-engine-job-applications/published-requisitions-with-shortlisted/
+2025-07-22 10:42:51,222 [WARNING] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 404 2117
+2025-07-22 10:42:52,078 [INFO] django.server: "OPTIONS /api/tenant/config/?t=1753177372056 HTTP/1.1" 200 0
+2025-07-22 10:42:56,130 [WARNING] django.request: Not Found: /api/talent-engine-job-applications/published-requisitions-with-shortlisted/
+2025-07-22 10:42:56,140 [WARNING] django.request: Not Found: /api/tenant/config/
+2025-07-22 10:42:56,142 [WARNING] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 404 2117
+2025-07-22 10:42:56,144 [WARNING] django.server: "GET /api/tenant/config/?t=1753177372056 HTTP/1.1" 404 1969

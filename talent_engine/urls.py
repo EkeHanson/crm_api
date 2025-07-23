@@ -1,18 +1,20 @@
-from django.urls import path
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
 from .views import (
-    JobRequisitionListCreateView,
-    JobRequisitionDetailView,
-    JobRequisitionBulkDeleteView,
-    SoftDeletedJobRequisitionsView,
-    RecoverSoftDeletedJobRequisitionsView,
-    PermanentDeleteJobRequisitionsView,
-    JobRequisitionByLinkView,
-    ComplianceItemView
+    JobRequisitionListCreateView,JobRequisitionDetailView,
+    JobRequisitionBulkDeleteView, SoftDeletedJobRequisitionsView,
+    RecoverSoftDeletedJobRequisitionsView,PermanentDeleteJobRequisitionsView,
+    JobRequisitionByLinkView, ComplianceItemView, VideoSessionViewSet
 )
+
+router = DefaultRouter()
+router.register(r'video-sessions', VideoSessionViewSet, basename='video-session')
+
 
 app_name = 'talent_engine'
 
 urlpatterns = [
+    path('', include(router.urls)),
     path('requisitions/', JobRequisitionListCreateView.as_view(), name='requisition-list-create'),
     path('requisitions/<str:id>/', JobRequisitionDetailView.as_view(), name='requisition-detail'),
     path('requisitions/bulk/bulk-delete/', JobRequisitionBulkDeleteView.as_view(), name='requisition-bulk-delete'),

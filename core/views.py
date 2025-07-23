@@ -405,3 +405,7 @@ class TenantViewSet(viewsets.ModelViewSet):
         with tenant_context(tenant):
             instance.delete()
         logger.info(f"Tenant deleted: {instance.name} for tenant {tenant.schema_name}")
+
+
+
+

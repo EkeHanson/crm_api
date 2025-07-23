@@ -134,6 +134,8 @@ from core.models import Domain, Tenant
 from users.models import CustomUser
 from users.serializers import CustomUserSerializer
 import logging
+import jwt
+from django.conf import settings
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
@@ -165,49 +167,80 @@ class TokenValidateView(APIView):
                 'message': 'Invalid or expired token.'
             }, status=status.HTTP_401_UNAUTHORIZED)
 
+
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.tokens import RefreshToken
+from django.utils import timezone
+import jwt
+
 class CustomTokenSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
+        token['tenant_id'] = user.tenant.id
+        token['tenant_schema'] = user.tenant.schema_name
+        return token
+
     def validate(self, attrs):
-        email = attrs.get('email')
-        password = attrs.get('password')
+        data = super().validate(attrs)
+        user = self.user
+        # Check if token was issued before last password reset
+        refresh = RefreshToken(data['refresh'])
+        decoded_token = jwt.decode(data['access'], settings.SECRET_KEY, algorithms=["HS256"])
+        token_iat = decoded_token.get('iat')
+        if user.last_password_reset and token_iat < user.last_password_reset.timestamp():
+            raise serializers.ValidationError("Token is invalid due to recent password reset.")
+        data['tenant_id'] = user.tenant.id
+        data['tenant_schema'] = user.tenant.schema_name
+        data['user'] = CustomUserSerializer(user, context=self.context).data
+        return data
 
-        if not email:
-            raise serializers.ValidationError("Email is required.")
+# class CustomTokenSerializer(TokenObtainPairSerializer):
+#     def validate(self, attrs):
+#         email = attrs.get('email')
+#         password = attrs.get('password')
 
-        try:
-            email_domain = email.split('@')[1]
-            logger.debug(f"Email domain extracted: {email_domain}")
-        except IndexError:
-            raise serializers.ValidationError("Invalid email format.")
+#         if not email:
+#             raise serializers.ValidationError("Email is required.")
 
-        domain = Domain.objects.filter(domain=email_domain).first()
-        if not domain:
-            logger.error(f"No domain found for: {email_domain}")
-            raise serializers.ValidationError("No tenant found for this email domain.")
+#         try:
+#             email_domain = email.split('@')[1]
+#             logger.debug(f"Email domain extracted: {email_domain}")
+#         except IndexError:
+#             raise serializers.ValidationError("Invalid email format.")
 
-        tenant = domain.tenant
-        with tenant_context(tenant):
-            user = CustomUser.objects.filter(email=email).first()
-            if not user or not user.check_password(password):
-                logger.error(f"Invalid credentials for user: {email}")
-                raise serializers.ValidationError("Invalid credentials.")
+#         domain = Domain.objects.filter(domain=email_domain).first()
+#         if not domain:
+#             logger.error(f"No domain found for: {email_domain}")
+#             raise serializers.ValidationError("No tenant found for this email domain.")
 
-            if not user.is_active:
-                logger.error(f"Inactive user: {email}")
-                raise serializers.ValidationError("User account is inactive.")
+#         tenant = domain.tenant
+#         with tenant_context(tenant):
+#             user = CustomUser.objects.filter(email=email).first()
+#             if not user or not user.check_password(password):
+#                 logger.error(f"Invalid credentials for user: {email}")
+#                 raise serializers.ValidationError("Invalid credentials.")
 
-            data = super().validate(attrs)
-            refresh = RefreshToken.for_user(user)
-            refresh['tenant_id'] = str(tenant.id)
-            refresh['tenant_schema'] = tenant.schema_name
+#             if not user.is_active:
+#                 logger.error(f"Inactive user: {email}")
+#                 raise serializers.ValidationError("User account is inactive.")
 
-            data['refresh'] = str(refresh)
-            data['access'] = str(refresh.access_token)
-            data['tenant_id'] = str(tenant.id)
-            data['tenant_schema'] = tenant.schema_name
-            data['user'] = CustomUserSerializer(user).data
+#             data = super().validate(attrs)
+#             refresh = RefreshToken.for_user(user)
+#             refresh['tenant_id'] = str(tenant.id)
+#             refresh['tenant_schema'] = tenant.schema_name
 
-            logger.debug(f"Token data with user: {data}")
-            return data
+#             data['refresh'] = str(refresh)
+#             data['access'] = str(refresh.access_token)
+#             data['tenant_id'] = str(tenant.id)
+#             data['tenant_schema'] = tenant.schema_name
+#             data['user'] = CustomUserSerializer(user).data
+
+#             logger.debug(f"Token data with user: {data}")
+#             return data
+
+
+
 
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenSerializer

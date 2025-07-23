@@ -3,19 +3,245 @@ import jwt
 from django.conf import settings
 from django.db import transaction
 from django_tenants.utils import tenant_context
-from rest_framework import viewsets, status, serializers
+from rest_framework import viewsets, status, serializers, generics
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
-from allauth.socialaccount.models import SocialAccount
 from .models import CustomUser
-from .serializers import CustomUserSerializer, UserCreateSerializer, AdminUserCreateSerializer, UserBranchUpdateSerializer
-from core.models import Tenant, Branch
-
+from .serializers import (CustomUserSerializer, UserCreateSerializer,PasswordResetConfirmSerializer,
+    AdminUserCreateSerializer, UserBranchUpdateSerializer, PasswordResetRequestSerializer)
+from core.models import Tenant, Branch, TenantConfig
+import uuid
+from datetime import timedelta
+from django.core.mail import EmailMessage
+from django.utils import timezone
+from rest_framework.permissions import AllowAny
+from .models import CustomUser, PasswordResetToken
+from django.urls import reverse
 logger = logging.getLogger('users')
 
-# Existing views (unchanged)
+
+
+def configure_email_backend(tenant):
+    """
+    Configure email backend using tenant settings.
+    """
+    from django.core.mail.backends.smtp import EmailBackend
+    return EmailBackend(
+        host=tenant.email_host,
+        port=tenant.email_port,
+        username=tenant.email_host_user,
+        password=tenant.email_host_password,
+        use_ssl=tenant.email_use_ssl,
+        fail_silently=False
+    )
+
+
+class PasswordResetRequestView(generics.GenericAPIView):
+    serializer_class = PasswordResetRequestSerializer
+    permission_classes = [AllowAny]
+
+    def get_tenant(self, request):
+        try:
+            tenant = request.tenant
+            if not tenant:
+                logger.error("No tenant associated with the request")
+                raise serializers.ValidationError("Tenant not found.")
+            return tenant
+        except Exception as e:
+            logger.error(f"Error extracting tenant: {str(e)}")
+            raise serializers.ValidationError(f"Error extracting tenant: {str(e)}")
+
+    def post(self, request, *args, **kwargs):
+        try:
+            tenant = self.get_tenant(request)
+
+            serializer = self.get_serializer(data=request.data, context={'request': request})
+            if not serializer.is_valid():
+                logger.error(f"Validation failed for password reset request: {serializer.errors}")
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+            email = serializer.validated_data['email']
+           
+            with tenant_context(tenant):
+                try:
+                    user = CustomUser.objects.get(email=email, tenant=tenant)
+
+
+                except CustomUser.DoesNotExist:
+                    logger.error(f"User with email {email} not found for tenant {tenant.schema_name}")
+                    return Response({"detail": f"No user found with email '{email}'."}, status=status.HTTP_404_NOT_FOUND)
+
+                # Validate email configuration
+                required_email_fields = ['email_host', 'email_port', 'email_host_user', 'email_host_password', 'default_from_email']
+                missing_fields = [field for field in required_email_fields if not getattr(tenant, field)]
+
+                if missing_fields:
+                    logger.error(f"Missing email configuration fields for tenant {tenant.schema_name}: {missing_fields}")
+                    return Response(
+                        {"detail": f"Missing email configuration: {', '.join(missing_fields)}"},
+                        status=status.HTTP_400_BAD_REQUEST
+                    )
+                    
+
+                # Generate reset token
+                with transaction.atomic():
+                    token = str(uuid.uuid4())
+                    expires_at = timezone.now() + timedelta(hours=1)  # Token valid for 1 hour
+                    PasswordResetToken.objects.create(
+                        user=user,
+                        tenant=tenant,
+                        token=token,
+                        expires_at=expires_at
+                    )
+
+
+                    # Get email template
+                    try:
+                        config = TenantConfig.objects.get(tenant=tenant)
+                        email_template = config.email_templates.get('passwordReset', {})
+                        template_content = email_template.get('content', '')
+                        is_auto_sent = email_template.get('is_auto_sent', True)
+
+
+
+                    except TenantConfig.DoesNotExist:
+                        logger.warning(f"TenantConfig not found for tenant {tenant.schema_name}")
+                        template_content = (
+                            'Hello [User Name],\n\n'
+                            'You have requested to reset your password for [Company]. '
+                            'Please use the following link to reset your password:\n\n'
+                            '[Reset Link]\n\n'
+                            'This link will expire in 1 hour.\n\n'
+                            'Best regards,\n[Your Name]'
+                        )
+                        is_auto_sent = True
+
+                    # Prepare email content
+                    reset_link = f"{settings.WEB_PAGE_URL}{reverse('password_reset_confirm')}?token={token}"
+
+
+                    placeholders = {
+                        '[User Name]': user.get_full_name() or user.username,
+                        '[Company]': tenant.name,
+                        '[Reset Link]': reset_link,
+                        '[Your Name]': 'Support Team',
+                        '[your.email@proliance.com]': tenant.default_from_email or 'no-reply@proliance.com',
+                    }
+
+                    email_body = template_content
+                    for placeholder, value in placeholders.items():
+                        email_body = email_body.replace(placeholder, str(value))
+
+                    # Send email
+                    if is_auto_sent:
+                        try:
+                            email_connection = configure_email_backend(tenant)
+                            # print(tenant.email_host)
+                            # print(tenant.email_port)
+                            # print(tenant.email_use_ssl)
+                            # print(tenant.email_host_user)
+                            # print(tenant.email_host_password)
+                            logger.info(f"Email configuration for tenant {tenant.schema_name}: "
+                                        f"host={tenant.email_host}, "
+                                        f"port={tenant.email_port}, "
+                                        f"use_ssl={tenant.email_use_ssl}, "
+                                        f"host_user={tenant.email_host_user}, "
+                                        f"host_password={'*' * len(tenant.email_host_password) if tenant.email_host_password else None}, "
+                                        f"default_from_email={tenant.default_from_email}")
+
+                            email_subject = f"Password Reset Request for {tenant.name}"
+                            print(f"Password reset email sent to {user.email} for tenant {tenant.schema_name}")
+                            print(f"{token}")
+                            email = EmailMessage(
+                                subject=email_subject,
+                                body=email_body,
+                                from_email=tenant.default_from_email or 'no-reply@proliance.com',
+                                to=[user.email],
+                                connection=email_connection,
+                            )
+                            email.content_subtype = 'html'
+                            email.send(fail_silently=False)
+                            logger.info(f"Password reset email sent to {user.email} for tenant {tenant.schema_name}")
+                            print(f"Password reset email sent to {user.email} for tenant {tenant.schema_name}")
+                        except Exception as email_error:
+                            logger.exception(f"Failed to send password reset email to {user.email}: {str(email_error)}")
+                            return Response({
+                                "detail": "Failed to send password reset email due to invalid email configuration.",
+                                "error": str(email_error),
+                                "suggestion": "Please check the email settings in the tenant configuration."
+                            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+            return Response({
+                "detail": "Password reset email sent successfully.",
+                "token": token
+            }, status=status.HTTP_200_OK)
+
+        except Exception as e:
+            logger.exception(f"Error processing password reset for tenant {tenant.schema_name if tenant else 'unknown'}: {str(e)}")
+            return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+class PasswordResetConfirmView(generics.GenericAPIView):
+    serializer_class = PasswordResetConfirmSerializer
+    permission_classes = [AllowAny]
+
+    def get_tenant(self, request):
+        try:
+            tenant = request.tenant
+            if not tenant:
+                logger.error("No tenant associated with the request")
+                raise serializers.ValidationError("Tenant not found.")
+            return tenant
+        except Exception as e:
+            logger.error(f"Error extracting tenant: {str(e)}")
+            raise serializers.ValidationError(f"Error extracting tenant: {str(e)}")
+
+    def post(self, request, *args, **kwargs):
+        try:
+            tenant = self.get_tenant(request)
+            serializer = self.get_serializer(data=request.data, context={'request': request})
+            if not serializer.is_valid():
+                logger.error(f"Validation failed for password reset confirmation: {serializer.errors}")
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+            token = serializer.validated_data['token']
+            new_password = serializer.validated_data['new_password']
+
+            with tenant_context(tenant):
+                try:
+                    reset_token = PasswordResetToken.objects.get(token=token, tenant=tenant)
+                    if reset_token.used:
+                        logger.error(f"Token {token} already used for tenant {tenant.schema_name}")
+                        return Response({"detail": "This token has already been used."}, status=status.HTTP_400_BAD_REQUEST)
+                    if reset_token.expires_at < timezone.now():
+                        logger.error(f"Token {token} expired for tenant {tenant.schema_name}")
+                        return Response({"detail": "This token has expired."}, status=status.HTTP_400_BAD_REQUEST)
+
+                    user = reset_token.user
+                    with transaction.atomic():
+                        user.set_password(new_password)
+                        user.last_password_reset = timezone.now()  # Update timestamp
+                        user.save()
+                        reset_token.used = True
+                        reset_token.save()
+                        logger.info(f"Password reset successfully for user {user.email} in tenant {tenant.schema_name}")
+
+                    return Response({
+                        "detail": "Password reset successfully."
+                    }, status=status.HTTP_200_OK)
+
+                except PasswordResetToken.DoesNotExist:
+                    logger.error(f"Invalid token {token} for tenant {tenant.schema_name}")
+                    return Response({"detail": "Invalid token."}, status=status.HTTP_400_BAD_REQUEST)
+
+        except Exception as e:
+            logger.exception(f"Error confirming password reset for tenant {tenant.schema_name if tenant else 'unknown'}: {str(e)}")
+            return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
 class UserViewSet(viewsets.ModelViewSet):
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
@@ -37,6 +263,8 @@ class UserViewSet(viewsets.ModelViewSet):
             raise serializers.ValidationError("Only admins or superusers can create users.")
         with tenant_context(tenant):
             serializer.save()
+
+
 
 class UserCreateView(APIView):
     permission_classes = [IsAdminUser]
@@ -385,3 +613,5 @@ class BranchUsersListView(APIView):
                     {"status": "error", "message": str(e)},
                     status=status.HTTP_500_INTERNAL_SERVER_ERROR
                 )
+            
+

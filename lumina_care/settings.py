@@ -11,7 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(BASE_DIR / 'talent_engine'))
 
 SECRET_KEY = config('SECRET_KEY', default='django-insecure-!v)6(7@u983fg+8gdo1o)dr^59vvp3^ol*apr%c+$0n$#swz-1')
-DEBUG = config('DEBUG', default=True, cast=bool)
+DEBUG = config('DEBUG', default=False, cast=bool)
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='127.0.0.1,localhost,cmvp-api-v1.onrender.com,temp.artstraining.co.uk').split(',')
 
 INSTALLED_APPS = [
@@ -24,12 +24,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.google',
-    'allauth.socialaccount.providers.apple',
-    'allauth.socialaccount.providers.microsoft',
+    # 'allauth',
+    # 'allauth.account',
+    # 'allauth.socialaccount',
+    # 'allauth.socialaccount.providers.google',
+    # 'allauth.socialaccount.providers.apple',
+    # 'allauth.socialaccount.providers.microsoft',
     'django_crontab',
     'django_filters',
     'rest_framework',
@@ -60,16 +60,15 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'allauth.account.middleware.AccountMiddleware',
+    # 'allauth.account.middleware.AccountMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
+    # 'allauth.account.auth_backends.AuthenticationBackend',
 )
 
-SITE_ID = 1
 
 ACCOUNT_LOGIN_METHODS = {'email': True}
 ACCOUNT_SIGNUP_FIELDS = ['email*', 'password1*', 'password2*']
@@ -116,7 +115,6 @@ CORS_ALLOW_HEADERS = ['accept', 'authorization', 'content-type', 'origin', 'x-cs
 ROOT_URLCONF = 'lumina_care.urls'
 WSGI_APPLICATION = 'lumina_care.wsgi.application'
 
-
 #FOR HOSTING ON NAMECHEAP
 
 # DATABASES = {
@@ -127,8 +125,10 @@ WSGI_APPLICATION = 'lumina_care.wsgi.application'
 #         'PASSWORD': config('DB_PASSWORD', default='qwerty'),
 #         'HOST': config('DB_HOST', default='localhost'),
 #         'PORT': config('DB_PORT', default='5432'),
+#         'CONN_MAX_AGE': 60,
 #     }
 # }
+
 
 DATABASES = {
     'default': {
@@ -140,6 +140,7 @@ DATABASES = {
         'PORT': '5432',
     }
 }
+
 
 DATABASE_ROUTERS = ['django_tenants.routers.TenantSyncRouter']
 TENANT_MODEL = "core.Tenant"
@@ -204,7 +205,7 @@ STATICFILES_DIRS = [
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-        'allauth.account.auth_backends.AuthenticationBackend',
+        # 'allauth.account.auth_backends.AuthenticationBackend',
     ),
     'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticated',),
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
@@ -221,6 +222,7 @@ SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
     'AUTH_HEADER_TYPES': ('Bearer',),
     'TOKEN_OBTAIN_SERIALIZER': 'lumina_care.views.CustomTokenSerializer',
+    'BLACKLIST_AFTER_ROTATION': True,
 }
 
 TEMPLATES = [

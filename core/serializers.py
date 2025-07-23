@@ -144,6 +144,8 @@ class TenantSerializer(serializers.ModelSerializer):
                 logger.info(f"Domain created: {domain.domain} for tenant {tenant.id}")
 
                 # Default email templates
+
+                # In TenantSerializer.create and TenantConfigView.get
                 default_templates = {
                     'interviewScheduling': {
                         'content': (
@@ -196,6 +198,17 @@ class TenantSerializer(serializers.ModelSerializer):
                             'Welcome aboard!\n[Your Name]'
                         ),
                         'is_auto_sent': False
+                    },
+                    'passwordReset': {
+                        'content': (
+                            'Hello [User Name],\n\n'
+                            'You have requested to reset your password for [Company]. '
+                            'Please use the following link to reset your password:\n\n'
+                            '[Reset Link]\n\n'
+                            'This link will expire in 1 hour.\n\n'
+                            'Best regards,\n[Your Name]'
+                        ),
+                        'is_auto_sent': True
                     }
                 }
 
@@ -393,3 +406,5 @@ class TenantSerializer(serializers.ModelSerializer):
         except Exception as e:
             logger.error(f"Failed to create tenant or domain: {str(e)}")
             raise
+
+

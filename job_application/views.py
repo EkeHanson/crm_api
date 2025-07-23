@@ -26,12 +26,20 @@ from talent_engine.models import JobRequisition
 from talent_engine.serializers import JobRequisitionSerializer
 
 from .models import JobApplication, Schedule
-from .serializers import JobApplicationSerializer, ScheduleSerializer, DocumentSerializer
+from .serializers import JobApplicationSerializer, ScheduleSerializer
 from .permissions import IsSubscribedAndAuthorized, BranchRestrictedPermission
 from .tenant_utils import resolve_tenant_from_unique_link
 from .utils import parse_resume, screen_resume, extract_resume_fields
 
-from lumina_care.supabase_client import supabase
+from django.conf import settings
+import uuid
+import logging
+from rest_framework import serializers, status
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+
+
+
 
 logger = logging.getLogger('job_applications')
 
@@ -1387,111 +1395,6 @@ class JobApplicationListCreateView(generics.GenericAPIView):
             return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 
-# class JobApplicationListCreateView(generics.GenericAPIView):
-#     parser_classes = (MultiPartParser, FormParser)
-#     serializer_class = JobApplicationSerializer
-
-#     def get_permissions(self):
-#         if self.request.method == 'GET':
-#             return [IsAuthenticated(), IsSubscribedAndAuthorized(), BranchRestrictedPermission()]
-#         return [AllowAny()]
-
-#     def get_queryset(self):
-#         tenant = self.request.tenant
-#         if not tenant:
-#             logger.error("No tenant associated with the request")
-#             raise serializers.ValidationError("Tenant not found.")
-#         connection.set_schema(tenant.schema_name)
-#         with connection.cursor() as cursor:
-#             cursor.execute("SHOW search_path;")
-#             search_path = cursor.fetchone()[0]
-#             logger.debug(f"Database search_path: {search_path}")
-#         queryset = JobApplication.active_objects.filter(tenant=tenant).select_related('job_requisition')
-#         if self.request.user.branch:
-#         # if self.request.user.role == 'recruiter' and self.request.user.branch:
-#             queryset = queryset.filter(branch=self.request.user.branch)
-#         return queryset
-
-#     def get(self, request, *args, **kwargs):
-#         try:
-#             applications = self.get_queryset()
-#             serializer = self.get_serializer(applications, many=True)
-#             logger.info(f"Retrieved {len(applications)} job applications for tenant {request.tenant.schema_name}")
-#             return Response(serializer.data, status=status.HTTP_200_OK)
-#         except Exception as e:
-#             logger.exception(f"Error retrieving job applications: {str(e)}")
-#             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-#     def post(self, request, *args, **kwargs):
-#         try:
-#             unique_link = request.data.get("unique_link")
-#             if not unique_link:
-#                 logger.error("Missing unique_link in POST request")
-#                 return Response({"detail": "Missing unique_link."}, status=status.HTTP_400_BAD_REQUEST)
-
-#             tenant, job_requisition = resolve_tenant_from_unique_link(unique_link)
-#             if not tenant or not job_requisition:
-#                 logger.error(f"Invalid or expired unique_link: {unique_link}")
-#                 return Response({"detail": "Invalid or expired job link."}, status=status.HTTP_400_BAD_REQUEST)
-
-#             request.tenant = tenant
-#             connection.set_schema(tenant.schema_name)
-
-#             application_data = {
-#                 "job_requisition": job_requisition.id,
-#                 "full_name": request.data.get("full_name"),
-#                 "email": request.data.get("email"),
-#                 "phone": request.data.get("phone"),
-#                 "qualification": request.data.get("qualification"),
-#                 "experience": request.data.get("experience"),
-#                 "knowledge_skill": request.data.get("knowledge_skill"),
-#                 "date_of_birth": request.data.get("date_of_birth"),
-#                 "cover_letter": request.data.get("cover_letter", ""),
-#                 "resume_status": request.data.get("resume_status", False),
-#             }
-
-#             documents = []
-#             index = 0
-#             while True:
-#                 doc_type = request.data.get(f"documents[{index}][document_type]")
-#                 doc_file = request.data.get(f"documents[{index}][file]")
-#                 if doc_type and doc_file:
-#                     documents.append({
-#                         "document_type": doc_type,
-#                         "file": doc_file
-#                     })
-#                     index += 1
-#                 else:
-#                     break
-
-#             application_data["documents"] = documents
-
-#             serializer = JobApplicationSerializer(
-#                 data=application_data,
-#                 context={
-#                     "request": request,
-#                     "job_requisition": job_requisition
-#                 }
-#             )
-
-#             if not serializer.is_valid():
-#                 logger.error(f" Validation failed: {serializer.errors}")
-#                 print(f" Validation failed: {serializer.errors}")
-#                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-#             with transaction.atomic():
-#                 application = serializer.save()
-#                 logger.info(f"Application created: {application.id} for tenant {tenant.schema_name}")
-#                 return Response({
-#                     "detail": "Application submitted successfully.",
-#                     "application_id": application.id
-#                 }, status=status.HTTP_201_CREATED)
-
-#         except Exception as e:
-#             logger.exception(f"Unexpected error during job application submission: {str(e)}")
-#             return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
-
-
 
 class JobApplicationDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = JobApplicationSerializer
@@ -1826,6 +1729,8 @@ class ScheduleListCreateView(generics.GenericAPIView):
         except Exception as e:
             logger.exception(f"Error creating schedules for tenant {tenant.schema_name if tenant else 'unknown'}: {str(e)}")
             return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+
 
 # class ScheduleListCreateView(generics.GenericAPIView):
 #     serializer_class = ScheduleSerializer
@@ -2459,3 +2364,6 @@ class ApplicantComplianceUploadView(APIView):
             logger.exception(f"Error uploading compliance documents for application {job_application_id}: {str(e)}")
             #print(f"Error uploading compliance documents for application {job_application_id}: {str(e)}")
             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+
+

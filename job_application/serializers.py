@@ -6,10 +6,6 @@ from django.utils import timezone
 from django.core.validators import URLValidator
 from rest_framework import serializers
 from .models import JobApplication, Schedule
-from core.models import Branch
-from talent_engine.models import JobRequisition
-from talent_engine.serializers import ComplianceItemSerializer
-from .utils import parse_resume, extract_resume_fields
 import logging
 from lumina_care.supabase_client import supabase
 import mimetypes
@@ -534,3 +530,6 @@ class ScheduleSerializer(serializers.ModelSerializer):
         if validated_data.get('status') != 'cancelled':
             validated_data['cancellation_reason'] = None
         return super().update(instance, validated_data)
+    
+
+

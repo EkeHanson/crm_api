@@ -1,8 +1,10 @@
 from rest_framework import serializers
 from .models import CustomUser, UserProfile, UserDocument
-from core.models import Module, Tenant, RolePermission, Domain, Branch
+from core.models import Module, RolePermission, Domain, Branch
 import re
+from django.utils import timezone
 import logging
+from .models import CustomUser, PasswordResetToken
 from django_tenants.utils import tenant_context
 
 logger = logging.getLogger('users')
@@ -360,3 +362,66 @@ class UserBranchUpdateSerializer(serializers.ModelSerializer):
         instance.branch = validated_data.get('branch', instance.branch)
         instance.save()
         return instance
+    
+
+
+
+class PasswordResetRequestSerializer(serializers.Serializer):
+    email = serializers.EmailField(required=True)
+
+    def validate_email(self, value):
+        tenant = self.context['request'].tenant
+        with tenant_context(tenant):
+            if not CustomUser.objects.filter(email=value, tenant=tenant).exists():
+                raise serializers.ValidationError(f"No user found with email '{value}' for this tenant.")
+        return value
+
+
+class PasswordResetConfirmSerializer(serializers.Serializer):
+    token = serializers.CharField(required=True)
+    new_password = serializers.CharField(write_only=True, min_length=8, required=True)
+
+    def validate_token(self, value):
+        tenant = self.context['request'].tenant
+        with tenant_context(tenant):
+            try:
+                reset_token = PasswordResetToken.objects.get(token=value, tenant=tenant)
+                if reset_token.expires_at < timezone.now():
+                    raise serializers.ValidationError("This token has expired.")
+                if reset_token.used:
+                    raise serializers.ValidationError("This token has already been used.")
+            except PasswordResetToken.DoesNotExist:
+                raise serializers.ValidationError("Invalid token.")
+        return value
+
+    def validate_new_password(self, value):
+        if not any(c.isupper() for c in value) or not any(c.isdigit() for c in value):
+            raise serializers.ValidationError("Password must contain at least one uppercase letter and one number.")
+        return value
+
+
+
+
+# class PasswordResetConfirmSerializer(serializers.Serializer):
+#     new_password = serializers.CharField(min_length=8, write_only=True)
+
+#     def validate_new_password(self, value):
+#         if not re.search(r'[A-Z]', value):
+#             raise serializers.ValidationError("Password must contain at least one uppercase letter.")
+#         if not re.search(r'[a-z]', value):
+#             raise serializers.ValidationError("Password must contain at least one lowercase letter.")
+#         if not re.search(r'[0-9]', value):
+#             raise serializers.ValidationError("Password must contain at least one digit.")
+#         if not re.search(r'[!@#$%^&*(),.?":{}|<>]', value):
+#             raise serializers.ValidationError("Password must contain at least one special character.")
+#         return value
+
+
+
+
+
+
+
+
+
+

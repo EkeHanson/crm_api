@@ -7,7 +7,18 @@ from django.utils import timezone
 import uuid
 import logging
 from django.core.exceptions import ValidationError
-
+import uuid
+from django.conf import settings
+from django.utils import timezone
+from core.models import Branch
+import logging
+from lumina_care.supabase_client import supabase
+from django.db import models
+from django.conf import settings
+from supabase import create_client, Client
+import uuid
+import logging
+supabase: Client = create_client(settings.SUPABASE_URL, settings.SUPABASE_KEY)
 logger = logging.getLogger('talent_engine')
 
 def validate_compliance_checklist(value):
@@ -175,3 +186,54 @@ class JobRequisition(models.Model):
         else:
             logger.warning(f"Compliance item {item_id} not found in requisition {self.id}")
             raise ValueError("Compliance item not found")
+        
+
+
+
+
+
+
+
+
+# Models
+class VideoSession(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    job_application = models.ForeignKey(
+        'job_application.JobApplication',
+        on_delete=models.CASCADE,
+        related_name='video_sessions'
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    ended_at = models.DateTimeField(null=True, blank=True)
+    is_active = models.BooleanField(default=True)
+    recording_url = models.URLField(null=True, blank=True)
+
+    class Meta:
+        db_table = 'video_session'
+        app_label = 'talent_engine'
+
+    def __str__(self):
+        return f"Video Session {self.id} for {self.job_application}"
+
+class Participant(models.Model):
+    session = models.ForeignKey(
+        VideoSession,
+        on_delete=models.CASCADE,
+        related_name='participants'
+    )
+    user = models.ForeignKey(
+        CustomUser,
+        on_delete=models.CASCADE,
+        related_name='video_participations'
+    )
+    is_muted = models.BooleanField(default=False)
+    is_camera_on = models.BooleanField(default=True)
+    joined_at = models.DateTimeField(auto_now_add=True)
+    left_at = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        db_table = 'video_participant'
+        app_label = 'talent_engine'
+
+    def __str__(self):
+        return f"{self.user} in {self.session}"

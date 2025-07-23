@@ -189,3 +189,9 @@ class Schedule(models.Model):
         self.save()
         logger.info(f"Schedule {self.id} restored for tenant {self.tenant.schema_name}")
 
+
+
+
+
+
+

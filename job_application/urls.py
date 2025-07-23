@@ -1,4 +1,9 @@
-from django.urls import path
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+
+
+
+
 from .views import (
     JobApplicationListCreateView,    JobApplicationDetailView,    JobApplicationBulkDeleteView,    SoftDeletedJobApplicationsView,
     RecoverSoftDeletedJobApplicationsView,    PermanentDeleteJobApplicationsView, ComplianceStatusUpdateView,
@@ -10,8 +15,10 @@ from .views import (
 
 app_name = 'job_applications'
 
+
  # Job Application Endpoints
 urlpatterns = [
+   
     path('applications/', JobApplicationListCreateView.as_view(), name='application-list-create'),
     path('applications/<str:id>/', JobApplicationDetailView.as_view(), name='application-detail'),
     path('applications/bulk-delete/applications/', JobApplicationBulkDeleteView.as_view(), name='application-bulk-delete'),

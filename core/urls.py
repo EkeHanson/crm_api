@@ -12,3 +12,6 @@ urlpatterns = [
     path('branches/', BranchListCreateView.as_view(), name='branch-list-create'),
     path('branches/<int:id>/', BranchDetailView.as_view(), name='branch-detail'),
 ]
+
+
+

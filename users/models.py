@@ -3,6 +3,8 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from core.models import Tenant, Module, Branch
 
+
+
 class CustomUser(AbstractUser):
     ROLES = (
         ('admin', 'Admin'),
@@ -40,6 +42,8 @@ class CustomUser(AbstractUser):
         ('disable', 'Disable'),
     )
 
+
+    last_password_reset = models.DateTimeField(null=True, blank=True)
     username = models.CharField(max_length=150, blank=True, null=True, unique=False)
     email = models.EmailField(_('email address'), unique=True)
     first_name = models.CharField(max_length=100, blank=True)
@@ -78,3 +82,20 @@ class UserDocument(models.Model):
     uploaded_at = models.DateTimeField(auto_now_add=True)
     tenant = models.ForeignKey(Tenant, on_delete=models.CASCADE)
     branch = models.ForeignKey(Branch, on_delete=models.SET_NULL, null=True, blank=True)
+
+
+
+
+class PasswordResetToken(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    tenant = models.ForeignKey(Tenant, on_delete=models.CASCADE)
+    token = models.CharField(max_length=100, unique=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    expires_at = models.DateTimeField()
+    used = models.BooleanField(default=False)
+
+    class Meta:
+        unique_together = ('user', 'tenant', 'token')
+
+    def __str__(self):
+        return f"Password reset token for {self.user.email} in tenant {self.tenant.schema_name}"

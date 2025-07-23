@@ -12,7 +12,34 @@ from .serializers import JobRequisitionSerializer, ComplianceItemSerializer
 from users.permissions import BranchRestrictedPermission
 from users.models import CustomUser
 from core.models import Tenant, Branch
-from django.utils import timezone
+import logging
+import uuid
+from django.conf import settings
+from django.db import connection, transaction
+from django_tenants.utils import tenant_context
+
+from rest_framework import generics, serializers, status
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
+
+from .models import VideoSession, Participant
+from .serializers import VideoSessionSerializer, ParticipantSerializer
+from job_application.permissions import  BranchRestrictedPermission
+
+from lumina_care.supabase_client import supabase
+from django.db import models
+from django.conf import settings
+import uuid
+import logging
+from rest_framework import serializers, viewsets, status
+from rest_framework.decorators import action
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+from drf_spectacular.utils import extend_schema, OpenApiParameter
+
+
 
 logger = logging.getLogger('talent_engine')
 
@@ -374,3 +401,250 @@ class ComplianceItemView(APIView):
         except Exception as e:
             logger.exception(f"Error deleting compliance item {item_id} for JobRequisition {job_requisition_id}: {str(e)}")
             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# ViewSet
+class VideoSessionViewSet(viewsets.ModelViewSet):
+    queryset = VideoSession.objects.all()
+    serializer_class = VideoSessionSerializer
+    permission_classes = [IsAuthenticated, BranchRestrictedPermission]
+
+    def get_queryset(self):
+        tenant = self.request.tenant
+        if not tenant:
+            logger.error("No tenant associated with the request")
+            raise serializers.ValidationError("Tenant not found.")
+        connection.set_schema(tenant.schema_name)
+        with connection.cursor() as cursor:
+            cursor.execute("SHOW search_path;")
+            search_path = cursor.fetchone()[0]
+            logger.debug(f"Database search_path: {search_path}")
+        queryset = VideoSession.objects.filter(job_application__tenant=tenant)
+        if self.request.user.role == 'recruiter' and self.request.user.branch:
+            queryset = queryset.filter(job_application__branch=self.request.user.branch)
+        return queryset
+
+    def perform_create(self, serializer):
+        tenant = self.request.tenant
+        if not tenant:
+            logger.error("No tenant associated with the request")
+            raise serializers.ValidationError("Tenant not found.")
+        connection.set_schema(tenant.schema_name)
+        with tenant_context(tenant):
+            serializer.save(
+                tenant=tenant,
+                job_application__branch=self.request.user.branch if self.request.user.branch else None
+            )
+        logger.info(f"Video session created for job application {serializer.validated_data['job_application']} in tenant {tenant.schema_name}")
+
+    def perform_update(self, serializer):
+        tenant = self.request.tenant
+        if not tenant:
+            logger.error("No tenant associated with the request")
+            raise serializers.ValidationError("Tenant not found.")
+        connection.set_schema(tenant.schema_name)
+        with tenant_context(tenant):
+            serializer.save()
+        logger.info(f"Video session updated: {serializer.instance.id} for tenant {tenant.schema_name}")
+
+    def perform_destroy(self, instance):
+        tenant = self.request.tenant
+        if not tenant:
+            logger.error("No tenant associated with the request")
+            raise serializers.ValidationError("Tenant not found.")
+        connection.set_schema(tenant.schema_name)
+        with tenant_context(tenant):
+            instance.is_active = False
+            instance.ended_at = models.DateTimeField.now()
+            instance.save()
+        logger.info(f"Video session soft-deleted: {instance.id} for tenant {tenant.schema_name}")
+
+    @extend_schema(
+        description="Join a video session and create a participant entry",
+        parameters=[
+            OpenApiParameter(name='session_id', type=str, required=True)
+        ]
+    )
+    @action(detail=False, methods=['post'])
+    def join(self, request):
+        tenant = request.tenant
+        if not tenant:
+            logger.error("No tenant associated with the request")
+            return Response({"detail": "Tenant not found."}, status=status.HTTP_400_BAD_REQUEST)
+        session_id = request.data.get('session_id')
+        connection.set_schema(tenant.schema_name)
+        with tenant_context(tenant):
+            try:
+                session = VideoSession.objects.get(id=session_id, is_active=True, job_application__tenant=tenant)
+                if request.user.role == 'recruiter' and request.user.branch and session.job_application.branch != request.user.branch:
+                    logger.error(f"Unauthorized access to session {session_id} by user {request.user.email}")
+                    return Response({"detail": "Not authorized to access this session."}, status=status.HTTP_403_FORBIDDEN)
+                participant, created = Participant.objects.get_or_create(
+                    session=session,
+                    user=request.user,
+                    defaults={'is_muted': False, 'is_camera_on': True}
+                )
+                logger.info(f"User {request.user.email} joined session {session_id} in tenant {tenant.schema_name}")
+                return Response(ParticipantSerializer(participant).data, status=status.HTTP_200_OK)
+            except VideoSession.DoesNotExist:
+                logger.error(f"Session {session_id} not found or inactive for tenant {tenant.schema_name}")
+                return Response({'error': 'Session not found or inactive'}, status=status.HTTP_404_NOT_FOUND)
+
+    @extend_schema(
+        description="Leave a video session",
+        parameters=[
+            OpenApiParameter(name='session_id', type=str, required=True)
+        ]
+    )
+    @action(detail=False, methods=['post'])
+    def leave(self, request):
+        tenant = request.tenant
+        if not tenant:
+            logger.error("No tenant associated with the request")
+            return Response({"detail": "Tenant not found."}, status=status.HTTP_400_BAD_REQUEST)
+        session_id = request.data.get('session_id')
+        connection.set_schema(tenant.schema_name)
+        with tenant_context(tenant):
+            try:
+                participant = Participant.objects.get(
+                    session__id=session_id,
+                    session__job_application__tenant=tenant,
+                    user=request.user,
+                    left_at__isnull=True
+                )
+                if request.user.role == 'recruiter' and request.user.branch and participant.session.job_application.branch != request.user.branch:
+                    logger.error(f"Unauthorized access to session {session_id} by user {request.user.email}")
+                    return Response({"detail": "Not authorized to access this session."}, status=status.HTTP_403_FORBIDDEN)
+                participant.left_at = models.DateTimeField.now()
+                participant.save()
+                logger.info(f"User {request.user.email} left session {session_id} in tenant {tenant.schema_name}")
+                return Response({'status': 'Left session'}, status=status.HTTP_200_OK)
+            except Participant.DoesNotExist:
+                logger.error(f"Participant not found in session {session_id} for tenant {tenant.schema_name}")
+                return Response({'error': 'Participant not found'}, status=status.HTTP_404_NOT_FOUND)
+
+    @extend_schema(
+        description="Toggle mute status for a participant",
+        parameters=[
+            OpenApiParameter(name='session_id', type=str, required=True),
+            OpenApiParameter(name='mute', type=bool, required=True)
+        ]
+    )
+    @action(detail=False, methods=['post'])
+    def toggle_mute(self, request):
+        tenant = request.tenant
+        if not tenant:
+            logger.error("No tenant associated with the request")
+            return Response({"detail": "Tenant not found."}, status=status.HTTP_400_BAD_REQUEST)
+        session_id = request.data.get('session_id')
+        mute = request.data.get('mute', False)
+        connection.set_schema(tenant.schema_name)
+        with tenant_context(tenant):
+            try:
+                participant = Participant.objects.get(
+                    session__id=session_id,
+                    session__job_application__tenant=tenant,
+                    user=request.user,
+                    left_at__isnull=True
+                )
+                if request.user.role == 'recruiter' and request.user.branch and participant.session.job_application.branch != request.user.branch:
+                    logger.error(f"Unauthorized access to session {session_id} by user {request.user.email}")
+                    return Response({"detail": "Not authorized to access this session."}, status=status.HTTP_403_FORBIDDEN)
+                participant.is_muted = mute
+                participant.save()
+                logger.info(f"User {request.user.email} {'muted' if mute else 'unmuted'} in session {session_id} for tenant {tenant.schema_name}")
+                return Response(ParticipantSerializer(participant).data, status=status.HTTP_200_OK)
+            except Participant.DoesNotExist:
+                logger.error(f"Participant not found in session {session_id} for tenant {tenant.schema_name}")
+                return Response({'error': 'Participant not found'}, status=status.HTTP_404_NOT_FOUND)
+
+    @extend_schema(
+        description="Toggle camera status for a participant",
+        parameters=[
+            OpenApiParameter(name='session_id', type=str, required=True),
+            OpenApiParameter(name='camera_on', type=bool, required=True)
+        ]
+    )
+    @action(detail=False, methods=['post'])
+    def toggle_camera(self, request):
+        tenant = request.tenant
+        if not tenant:
+            logger.error("No tenant associated with the request")
+            return Response({"detail": "Tenant not found."}, status=status.HTTP_400_BAD_REQUEST)
+        session_id = request.data.get('session_id')
+        camera_on = request.data.get('camera_on', True)
+        connection.set_schema(tenant.schema_name)
+        with tenant_context(tenant):
+            try:
+                participant = Participant.objects.get(
+                    session__id=session_id,
+                    session__job_application__tenant=tenant,
+                    user=request.user,
+                    left_at__isnull=True
+                )
+                if request.user.role == 'recruiter' and request.user.branch and participant.session.job_application.branch != request.user.branch:
+                    logger.error(f"Unauthorized access to session {session_id} by user {request.user.email}")
+                    return Response({"detail": "Not authorized to access this session."}, status=status.HTTP_403_FORBIDDEN)
+                participant.is_camera_on = camera_on
+                participant.save()
+                logger.info(f"User {request.user.email} turned camera {'on' if camera_on else 'off'} in session {session_id} for tenant {tenant.schema_name}")
+                return Response(ParticipantSerializer(participant).data, status=status.HTTP_200_OK)
+            except Participant.DoesNotExist:
+                logger.error(f"Participant not found in session {session_id} for tenant {tenant.schema_name}")
+                return Response({'error': 'Participant not found'}, status=status.HTTP_404_NOT_FOUND)
+
+    @extend_schema(
+        description="Start recording a video session",
+        parameters=[
+            OpenApiParameter(name='session_id', type=str, required=True)
+        ]
+    )
+    @action(detail=False, methods=['post'])
+    def start_recording(self, request):
+        tenant = request.tenant
+        if not tenant:
+            logger.error("No tenant associated with the request")
+            return Response({"detail": "Tenant not found."}, status=status.HTTP_400_BAD_REQUEST)
+        session_id = request.data.get('session_id')
+        connection.set_schema(tenant.schema_name)
+        with tenant_context(tenant):
+            try:
+                session = VideoSession.objects.get(id=session_id, is_active=True, job_application__tenant=tenant)
+                if request.user.role == 'recruiter' and request.user.branch and session.job_application.branch != request.user.branch:
+                    logger.error(f"Unauthorized access to session {session_id} by user {request.user.email}")
+                    return Response({"detail": "Not authorized to access this session."}, status=status.HTTP_403_FORBIDDEN)
+                recording_path = f"recordings/{session_id}/{uuid.uuid4()}.webm"
+                supabase.storage.from_(settings.SUPABASE_BUCKET).upload(
+                    recording_path,
+                    b"placeholder_recording_data",  # Replace with actual stream data
+                    {"content-type": "video/webm"}
+                )
+                session.recording_url = f"{settings.SUPABASE_URL}/storage/v1/object/public/{settings.SUPABASE_BUCKET}/{recording_path}"
+                session.save()
+                logger.info(f"Recording started for session {session_id} in tenant {tenant.schema_name}")
+                return Response({'recording_url': session.recording_url}, status=status.HTTP_200_OK)
+            except VideoSession.DoesNotExist:
+                logger.error(f"Session {session_id} not found or inactive for tenant {tenant.schema_name}")
+                return Response({'error': 'Session not found or inactive'}, status=status.HTTP_404_NOT_FOUND)
+

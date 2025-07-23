@@ -165,6 +165,10 @@ class ResendRejectionEmailsView(APIView):
             logger.exception(f"Error resending rejection emails for JobRequisition {job_requisition_id}: {str(e)}")
             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+#FOR TESTING
+
+#FOR TESTING
+
 class ResumeScreeningView(APIView):
     permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized, BranchRestrictedPermission]
     parser_classes = [JSONParser, MultiPartParser, FormParser]
@@ -198,8 +202,10 @@ class ResumeScreeningView(APIView):
             for app in applications:
                 if app.status == 'rejected':
                     try:
-                        email_content = email_template.replace('[Candidate Name]', app.full_name)
-                        email_content = email_template.replace('[Job Title]', job_requisition.title)
+                        # Perform sequential placeholder replacements
+                        email_content = email_template
+                        email_content = email_content.replace('[Candidate Name]', app.full_name)
+                        email_content = email_content.replace('[Job Title]', job_requisition.title)
                         email_content = email_content.replace('[Your Name]', 'Hiring Manager')
                         email_content = email_content.replace('[your.email@proliance.com]', tenant.default_from_email or 'hiring@proliance.com')
 
@@ -214,7 +220,6 @@ class ResumeScreeningView(APIView):
                         logger.info(f"Rejection email sent to {app.email} for JobRequisition {job_requisition.id}")
                     except Exception as e:
                         logger.error(f"Failed to send rejection email to {app.email}: {str(e)}")
-
         except TenantConfig.DoesNotExist:
             logger.error(f"Tenant configuration not found for tenant {tenant.schema_name}")
         except Exception as e:
@@ -226,7 +231,7 @@ class ResumeScreeningView(APIView):
             tenant = request.tenant
             document_type = request.data.get('document_type')
             applications_data = request.data.get('applications', [])
-            num_candidates = request.data.get('num_candidates', 10)
+            num_candidates = request.data.get('num_candidates', 5)
 
             with tenant_context(tenant):
                 try:
@@ -445,6 +450,8 @@ class ResumeScreeningView(APIView):
             response['Access-Control-Allow-Headers'] = 'accept, authorization, content-type, x-csrftoken, x-requested-with'
             logger.debug(f"Set CORS headers for error response: {response.headers}")
             return response
+
+
 # class ResumeScreeningView(APIView):
 #     permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized, BranchRestrictedPermission]
 #     parser_classes = [JSONParser, MultiPartParser, FormParser]
@@ -1672,7 +1679,6 @@ class ScheduleListCreateView(generics.GenericAPIView):
         status_param = self.request.query_params.get('status', None)
         if status_param:
             queryset = queryset.filter(status=status_param)
-        # return queryset
         return queryset.order_by('-created_at')
 
     def get(self, request, *args, **kwargs):
@@ -1686,6 +1692,10 @@ class ScheduleListCreateView(generics.GenericAPIView):
             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     def post(self, request, *args, **kwargs):
+        # print("Request Data")
+        # print(request.data)
+        # print("Request Data")
+        # print("Request Data")
         try:
             tenant = self.request.tenant
             if not tenant:
@@ -1744,16 +1754,18 @@ class ScheduleListCreateView(generics.GenericAPIView):
 
                     with transaction.atomic():
                         timezone_str = serializer.validated_data.get('timezone', 'UTC')
-                        interview_date_time = serializer.validated_data['interview_date_time']
-                        interview_date = interview_date_time.strftime("%d %b %Y")
-                        interview_time = interview_date_time.astimezone(pytz.timezone(timezone_str)).strftime("%I:%M %p")
+                        interview_start_date_time = serializer.validated_data['interview_start_date_time']
+                        interview_end_date_time = serializer.validated_data.get('interview_end_date_time')
+                        interview_date = interview_start_date_time.strftime("%d %b %Y")
+                        interview_start_time = interview_start_date_time.astimezone(pytz.timezone(timezone_str)).strftime("%I:%M %p")
+                        interview_end_time = interview_end_date_time.astimezone(pytz.timezone(timezone_str)).strftime("%I:%M %p") if interview_end_date_time else 'TBD'
                         location = serializer.validated_data.get('meeting_link') if serializer.validated_data['meeting_mode'] == 'Virtual' else serializer.validated_data.get('interview_address', '')
                         placeholders = {
                             '[Candidate Name]': job_application.full_name,
                             '[Position]': job_application.job_requisition.title,
                             '[Company]': tenant.name,
                             '[Insert Date]': interview_date,
-                            '[Insert Time]': interview_time,
+                            '[Insert Time]': f"{interview_start_time} - {interview_end_time}",
                             '[Meeting Mode]': 'Zoom' if serializer.validated_data['meeting_mode'] == 'Virtual' else 'On-site',
                             '[Zoom / Google Meet / On-site – Insert Address or Link]': location,
                             '[Name(s) & Position(s)]': request.user.get_full_name() or 'Hiring Team',
@@ -1772,7 +1784,6 @@ class ScheduleListCreateView(generics.GenericAPIView):
                             tenant=tenant,
                             job_application=job_application,
                             branch=request.user.branch if request.user.is_authenticated and request.user.branch else job_application.branch,
-                            #branch=request.user.branch if request.user.is_authenticated and request.user.role == 'recruiter' and request.user.branch else job_application.branch,
                             message=email_body if is_auto_sent else ''
                         )
                         created_schedules.append(schedule.id)
@@ -1780,15 +1791,6 @@ class ScheduleListCreateView(generics.GenericAPIView):
                         if is_auto_sent:
                             try:
                                 email_connection = configure_email_backend(tenant)
-                                # Log email configuration settings
-                                print(f"Email configuration for tenant {tenant.schema_name}: "
-                                            f"host={tenant.email_host}, "
-                                            f"port={tenant.email_port}, "
-                                            f"use_ssl={tenant.email_use_ssl}, "
-                                            f"host_user={tenant.email_host_user}, "
-                                            f"host_password={'*' * len(tenant.email_host_password) if tenant.email_host_password else None}, "
-                                            f"default_from_email={tenant.default_from_email}")
-                                
                                 logger.info(f"Email configuration for tenant {tenant.schema_name}: "
                                             f"host={tenant.email_host}, "
                                             f"port={tenant.email_port}, "
@@ -1796,7 +1798,7 @@ class ScheduleListCreateView(generics.GenericAPIView):
                                             f"host_user={tenant.email_host_user}, "
                                             f"host_password={'*' * len(tenant.email_host_password) if tenant.email_host_password else None}, "
                                             f"default_from_email={tenant.default_from_email}")
-                                
+
                                 email_subject = f"Interview Schedule for {job_application.job_requisition.title}"
                                 email = EmailMessage(
                                     subject=email_subject,
@@ -1808,10 +1810,6 @@ class ScheduleListCreateView(generics.GenericAPIView):
                                 email.content_subtype = 'html'
                                 email.send(fail_silently=False)
                                 logger.info(f"Email sent to {job_application.email} for schedule {schedule.id} in tenant {tenant.schema_name}")
-                            # except Exception as email_error:
-                            #     logger.exception(f"Failed to send email for schedule {schedule.id} to {job_application.email}: {str(email_error)}")
-                            #     return Response({"detail": f"Failed to send email: {str(email_error)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-                          
                             except Exception as email_error:
                                 logger.exception(f"Failed to send email for schedule {schedule.id} to {job_application.email}: {str(email_error)}")
                                 return Response({
@@ -1819,7 +1817,6 @@ class ScheduleListCreateView(generics.GenericAPIView):
                                     "error": str(email_error),
                                     "suggestion": "Please check the email settings in the tenant configuration. Ensure that only one of EMAIL_USE_TLS or EMAIL_USE_SSL is set to True."
                                 }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
 
             return Response({
                 "detail": "Schedules created successfully.",
@@ -1829,6 +1826,188 @@ class ScheduleListCreateView(generics.GenericAPIView):
         except Exception as e:
             logger.exception(f"Error creating schedules for tenant {tenant.schema_name if tenant else 'unknown'}: {str(e)}")
             return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+# class ScheduleListCreateView(generics.GenericAPIView):
+#     serializer_class = ScheduleSerializer
+#     permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized, BranchRestrictedPermission]
+
+#     def get_queryset(self):
+#         tenant = self.request.tenant
+#         if not tenant:
+#             logger.error("No tenant associated with the request")
+#             raise serializers.ValidationError("Tenant not found.")
+#         connection.set_schema(tenant.schema_name)
+#         with connection.cursor() as cursor:
+#             cursor.execute("SHOW search_path;")
+#             search_path = cursor.fetchone()[0]
+#             logger.debug(f"Database search_path: {search_path}")
+#         queryset = Schedule.active_objects.filter(tenant=tenant).select_related('job_application')
+#         if self.request.user.branch:
+#             queryset = queryset.filter(branch=self.request.user.branch)
+#         status_param = self.request.query_params.get('status', None)
+#         if status_param:
+#             queryset = queryset.filter(status=status_param)
+#         # return queryset
+#         return queryset.order_by('-created_at')
+
+#     def get(self, request, *args, **kwargs):
+#         try:
+#             queryset = self.get_queryset()
+#             serializer = self.get_serializer(queryset.order_by('-created_at'), many=True)
+#             logger.info(f"Retrieved {queryset.count()} schedules for tenant {request.tenant.schema_name}")
+#             return Response(serializer.data, status=status.HTTP_200_OK)
+#         except Exception as e:
+#             logger.exception(f"Error retrieving schedules for tenant {request.tenant.schema_name}: {str(e)}")
+#             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+#     def post(self, request, *args, **kwargs):
+#         print("Request Data")
+#         print(request.data)
+#         print("Request Data")
+#         print("Request Data")
+#         try:
+#             tenant = self.request.tenant
+#             if not tenant:
+#                 logger.error("No tenant associated with the request")
+#                 return Response({"detail": "Tenant not found."}, status=status.HTTP_400_BAD_REQUEST)
+
+#             logger.debug(f"User: {request.user}, Tenant: {tenant.schema_name}")
+#             connection.set_schema(tenant.schema_name)
+#             with connection.cursor() as cursor:
+#                 cursor.execute("SHOW search_path;")
+#                 search_path = cursor.fetchone()[0]
+#                 logger.debug(f"Database search_path: {search_path}")
+
+#             # Validate email configuration from Tenant model
+#             required_email_fields = ['email_host', 'email_port', 'email_host_user', 'email_host_password', 'default_from_email']
+#             missing_fields = [field for field in required_email_fields if not getattr(tenant, field)]
+#             if missing_fields:
+#                 logger.error(f"Missing email configuration fields for tenant {tenant.schema_name}: {missing_fields}")
+#                 return Response(
+#                     {"detail": f"Missing email configuration: {', '.join(missing_fields)}"},
+#                     status=status.HTTP_400_BAD_REQUEST
+#                 )
+
+#             data = request.data.copy()
+#             job_application_ids = data.get('job_application', [])
+#             if not isinstance(job_application_ids, list):
+#                 job_application_ids = [job_application_ids]
+
+#             if not job_application_ids:
+#                 logger.error("No job application IDs provided")
+#                 return Response({"detail": "At least one job application ID is required."}, status=status.HTTP_400_BAD_REQUEST)
+
+#             created_schedules = []
+#             with tenant_context(tenant):
+#                 try:
+#                     config = TenantConfig.objects.get(tenant=tenant)
+#                     email_template = config.email_templates.get('interviewScheduling', {})
+#                     template_content = email_template.get('content', '')
+#                     is_auto_sent = email_template.get('is_auto_sent', False)
+#                 except TenantConfig.DoesNotExist:
+#                     logger.warning(f"TenantConfig not found for tenant {tenant.schema_name}")
+#                     template_content = ''
+#                     is_auto_sent = False
+
+#                 for job_application_id in job_application_ids:
+#                     serializer = self.get_serializer(data={**data, 'job_application': job_application_id}, context={'request': request})
+#                     if not serializer.is_valid():
+#                         logger.error(f"Validation failed for job application {job_application_id}: {serializer.errors}")
+#                         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+#                     try:
+#                         job_application = JobApplication.active_objects.get(id=job_application_id, tenant=tenant)
+#                     except JobApplication.DoesNotExist:
+#                         logger.error(f"JobApplication {job_application_id} not found for tenant {tenant.schema_name}")
+#                         return Response({"detail": f"Job application {job_application_id} not found."}, status=status.HTTP_404_NOT_FOUND)
+
+#                     with transaction.atomic():
+#                         timezone_str = serializer.validated_data.get('timezone', 'UTC')
+#                         interview_date_time = serializer.validated_data['interview_date_time']
+#                         interview_date = interview_date_time.strftime("%d %b %Y")
+#                         interview_time = interview_date_time.astimezone(pytz.timezone(timezone_str)).strftime("%I:%M %p")
+#                         location = serializer.validated_data.get('meeting_link') if serializer.validated_data['meeting_mode'] == 'Virtual' else serializer.validated_data.get('interview_address', '')
+#                         placeholders = {
+#                             '[Candidate Name]': job_application.full_name,
+#                             '[Position]': job_application.job_requisition.title,
+#                             '[Company]': tenant.name,
+#                             '[Insert Date]': interview_date,
+#                             '[Insert Time]': interview_time,
+#                             '[Meeting Mode]': 'Zoom' if serializer.validated_data['meeting_mode'] == 'Virtual' else 'On-site',
+#                             '[Zoom / Google Meet / On-site – Insert Address or Link]': location,
+#                             '[Name(s) & Position(s)]': request.user.get_full_name() or 'Hiring Team',
+#                             '[Your Name]': request.user.get_full_name() or 'Hiring Team',
+#                             '[your.email@proliance.com]': tenant.default_from_email or 'no-reply@proliance.com',
+#                             '[Dashboard Link]': f"{settings.WEB_PAGE_URL}/application-dashboard/{job_application.job_requisition.job_application_code}/{job_application.email}/{job_application.job_requisition.unique_link}",
+#                             '[Timezone]': timezone_str,
+#                         }
+
+#                         email_body = data.get('message', template_content)
+#                         if not data.get('message') and template_content:
+#                             for placeholder, value in placeholders.items():
+#                                 email_body = email_body.replace(placeholder, str(value))
+
+#                         schedule = serializer.save(
+#                             tenant=tenant,
+#                             job_application=job_application,
+#                             branch=request.user.branch if request.user.is_authenticated and request.user.branch else job_application.branch,
+#                             #branch=request.user.branch if request.user.is_authenticated and request.user.role == 'recruiter' and request.user.branch else job_application.branch,
+#                             message=email_body if is_auto_sent else ''
+#                         )
+#                         created_schedules.append(schedule.id)
+
+#                         if is_auto_sent:
+#                             try:
+#                                 email_connection = configure_email_backend(tenant)
+#                                 # Log email configuration settings
+#                                 print(f"Email configuration for tenant {tenant.schema_name}: "
+#                                             f"host={tenant.email_host}, "
+#                                             f"port={tenant.email_port}, "
+#                                             f"use_ssl={tenant.email_use_ssl}, "
+#                                             f"host_user={tenant.email_host_user}, "
+#                                             f"host_password={'*' * len(tenant.email_host_password) if tenant.email_host_password else None}, "
+#                                             f"default_from_email={tenant.default_from_email}")
+                                
+#                                 logger.info(f"Email configuration for tenant {tenant.schema_name}: "
+#                                             f"host={tenant.email_host}, "
+#                                             f"port={tenant.email_port}, "
+#                                             f"use_ssl={tenant.email_use_ssl}, "
+#                                             f"host_user={tenant.email_host_user}, "
+#                                             f"host_password={'*' * len(tenant.email_host_password) if tenant.email_host_password else None}, "
+#                                             f"default_from_email={tenant.default_from_email}")
+                                
+#                                 email_subject = f"Interview Schedule for {job_application.job_requisition.title}"
+#                                 email = EmailMessage(
+#                                     subject=email_subject,
+#                                     body=email_body,
+#                                     from_email=tenant.default_from_email or 'no-reply@proliance.com',
+#                                     to=[job_application.email],
+#                                     connection=email_connection,
+#                                 )
+#                                 email.content_subtype = 'html'
+#                                 email.send(fail_silently=False)
+#                                 logger.info(f"Email sent to {job_application.email} for schedule {schedule.id} in tenant {tenant.schema_name}")
+#                             # except Exception as email_error:
+#                             #     logger.exception(f"Failed to send email for schedule {schedule.id} to {job_application.email}: {str(email_error)}")
+#                             #     return Response({"detail": f"Failed to send email: {str(email_error)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                          
+#                             except Exception as email_error:
+#                                 logger.exception(f"Failed to send email for schedule {schedule.id} to {job_application.email}: {str(email_error)}")
+#                                 return Response({
+#                                     "detail": "Failed to send confirmation email due to invalid email configuration.",
+#                                     "error": str(email_error),
+#                                     "suggestion": "Please check the email settings in the tenant configuration. Ensure that only one of EMAIL_USE_TLS or EMAIL_USE_SSL is set to True."
+#                                 }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+#             return Response({
+#                 "detail": "Schedules created successfully.",
+#                 "schedule_ids": created_schedules
+#             }, status=status.HTTP_201_CREATED)
+
+#         except Exception as e:
+#             logger.exception(f"Error creating schedules for tenant {tenant.schema_name if tenant else 'unknown'}: {str(e)}")
+#             return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 
 

@@ -133,10 +133,10 @@ WSGI_APPLICATION = 'lumina_care.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django_tenants.postgresql_backend',
-        'NAME': 'crm_db_ydt8',
-        'USER': 'crm_db_ydt8_user',
-        'PASSWORD': 'N7aE6mmUOn7gHO9ZDeG4Dqnpq1uhPxS0',
-        'HOST': 'dpg-d1hk5jjuibrs73fbicqg-a.oregon-postgres.render.com',
+        'NAME': 'crm_database_l66m',
+        'USER': 'crm_database_l66m_user',
+        'PASSWORD': 'lSK570C0FzOFlKIDyECGG7rd2VU9YyTO',
+        'HOST': 'dpg-d208jbje5dus73d4h87g-a.oregon-postgres.render.com',
         'PORT': '5432',
     }
 }

@@ -397,6 +397,74 @@ class JobApplicationSerializer(serializers.ModelSerializer):
 
 
 
+# class ScheduleSerializer(serializers.ModelSerializer):
+#     job_application_id = serializers.CharField(source='job_application.id', read_only=True)
+#     tenant_schema = serializers.CharField(source='tenant.schema_name', read_only=True)
+#     candidate_name = serializers.CharField(source='job_application.full_name', read_only=True)
+#     job_requisition_title = serializers.CharField(source='job_application.job_requisition.title', read_only=True)
+#     branch = serializers.SlugRelatedField(slug_field='name', read_only=True, allow_null=True)
+
+#     class Meta:
+#         model = Schedule
+#         fields = [
+#             'id', 'tenant', 'tenant_schema', 'branch', 'job_application', 'job_application_id',
+#             'candidate_name', 'job_requisition_title', 'interview_date_time',
+#             'meeting_mode', 'meeting_link', 'interview_address', 'message', 'timezone',
+#             'status', 'cancellation_reason', 'is_deleted', 'created_at', 'updated_at'
+#         ]
+#         read_only_fields = [
+#             'id', 'tenant', 'tenant_schema', 'job_application_id', 'candidate_name',
+#             'job_requisition_title', 'is_deleted', 'created_at', 'updated_at', 'branch'
+#         ]
+
+#     def validate_timezone(self, value):
+#         if value not in pytz.all_timezones:
+#             raise serializers.ValidationError(f"Invalid timezone: {value}. Must be a valid timezone from pytz.all_timezones.")
+#         return value
+
+#     def validate(self, data):
+#         tenant = self.context['request'].tenant
+#         job_application = data.get('job_application', getattr(self.instance, 'job_application', None))
+#         if not job_application:
+#             logger.error("Job application is required but not provided or found on instance")
+#             raise serializers.ValidationError("Job application is required.")
+#         if job_application.status != 'shortlisted':
+#             raise serializers.ValidationError("Schedules can only be created for shortlisted applicants.")
+#         if data.get('meeting_mode') == 'Virtual' and not data.get('meeting_link'):
+#             raise serializers.ValidationError("Meeting link is required for virtual interviews.")
+#         if data.get('meeting_mode') == 'Virtual' and data.get('meeting_link'):
+#             validate_url = URLValidator()
+#             try:
+#                 validate_url(data['meeting_link'])
+#             except serializers.ValidationError:
+#                 logger.error(f"Invalid meeting link URL: {data['meeting_link']}")
+#                 raise serializers.ValidationError("Invalid meeting link URL.")
+#         if data.get('meeting_mode') == 'Physical' and not data.get('interview_address'):
+#             raise serializers.ValidationError("Interview address is required for physical interviews.")
+#         if data.get('status') == 'cancelled' and not data.get('cancellation_reason'):
+#             raise serializers.ValidationError("Cancellation reason is required for cancelled schedules.")
+#         if data.get('interview_date_time') and data['interview_date_time'] <= timezone.now():
+#             raise serializers.ValidationError("Interview date and time must be in the future.")
+#         return data
+
+#     def create(self, validated_data):
+#         tenant = self.context['request'].tenant
+#         user = self.context['request'].user
+#         validated_data['tenant'] = tenant
+#         if user.is_authenticated and user.role == 'recruiter' and user.branch:
+#             validated_data['branch'] = user.branch
+#         schedule = Schedule.objects.create(**validated_data)
+#         logger.info(f"Schedule created: {schedule.id} for {schedule.job_application.full_name}")
+#         return schedule
+
+#     def update(self, instance, validated_data):
+#         if validated_data.get('status') == 'cancelled' and instance.status != 'cancelled' and not validated_data.get('cancellation_reason'):
+#             raise serializers.ValidationError("Cancellation reason is required when cancelling a schedule.")
+#         if validated_data.get('status') != 'cancelled':
+#             validated_data['cancellation_reason'] = None
+#         return super().update(instance, validated_data)
+
+
 class ScheduleSerializer(serializers.ModelSerializer):
     job_application_id = serializers.CharField(source='job_application.id', read_only=True)
     tenant_schema = serializers.CharField(source='tenant.schema_name', read_only=True)
@@ -408,7 +476,7 @@ class ScheduleSerializer(serializers.ModelSerializer):
         model = Schedule
         fields = [
             'id', 'tenant', 'tenant_schema', 'branch', 'job_application', 'job_application_id',
-            'candidate_name', 'job_requisition_title', 'interview_date_time',
+            'candidate_name', 'job_requisition_title', 'interview_start_date_time', 'interview_end_date_time',
             'meeting_mode', 'meeting_link', 'interview_address', 'message', 'timezone',
             'status', 'cancellation_reason', 'is_deleted', 'created_at', 'updated_at'
         ]
@@ -443,8 +511,11 @@ class ScheduleSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Interview address is required for physical interviews.")
         if data.get('status') == 'cancelled' and not data.get('cancellation_reason'):
             raise serializers.ValidationError("Cancellation reason is required for cancelled schedules.")
-        if data.get('interview_date_time') and data['interview_date_time'] <= timezone.now():
-            raise serializers.ValidationError("Interview date and time must be in the future.")
+        if data.get('interview_start_date_time') and data['interview_start_date_time'] <= timezone.now():
+            raise serializers.ValidationError("Interview start date and time must be in the future.")
+        if data.get('interview_end_date_time') and data.get('interview_start_date_time'):
+            if data['interview_end_date_time'] <= data['interview_start_date_time']:
+                raise serializers.ValidationError("Interview end date and time must be after start date and time.")
         return data
 
     def create(self, validated_data):

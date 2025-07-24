@@ -99,3 +99,4 @@ class PasswordResetToken(models.Model):
 
     def __str__(self):
         return f"Password reset token for {self.user.email} in tenant {self.tenant.schema_name}"
+    

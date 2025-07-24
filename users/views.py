@@ -98,7 +98,9 @@ class PasswordResetRequestView(generics.GenericAPIView):
                         expires_at=expires_at
                     )
 
-
+                    # print("token")
+                    # print(token)
+                    # print("token")
                     # Get email template
                     try:
                         config = TenantConfig.objects.get(tenant=tenant)
@@ -124,8 +126,9 @@ class PasswordResetRequestView(generics.GenericAPIView):
                         is_auto_sent = True
 
                     # Prepare email content
-                    reset_link = f"{settings.WEB_PAGE_URL}{reverse('password_reset_confirm')}?token={token}"
+                    #reset_link = f"{settings.WEB_PAGE_URL}{reverse('password_reset_confirm')}?token={token}"
 
+                    reset_link = f"{settings.WEB_PAGE_URL}{reverse('password_reset_confirm')}?token={token}&email={email}"
 
                     placeholders = {
                         '[User Name]': user.get_full_name() or user.username,
@@ -162,8 +165,9 @@ class PasswordResetRequestView(generics.GenericAPIView):
                             email_subject = f"Password Reset Request for {email}"
                             # print(f"Password reset email sent to {user.email} for tenant {tenant.schema_name}")
                             # print(f"{token}")
-                            print(email_connection)
-                            print(email_body)
+                            # print(email_connection)
+                            # print(email_body)
+                            print(reset_link)
                             email = EmailMessage(
                                 subject=email_subject,
                                 body=email_body,

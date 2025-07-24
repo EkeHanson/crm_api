@@ -473,3 +473,8 @@ TimeoutError: [WinError 10060] A connection attempt failed because the connected
 2025-07-24 13:47:35,935 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
 2025-07-24 13:55:43,519 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.
 2025-07-24 13:55:46,693 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-24 13:57:26,700 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.
+2025-07-24 13:57:33,446 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-24 14:00:33,464 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.
+2025-07-24 14:00:40,493 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-24 14:01:25,281 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.

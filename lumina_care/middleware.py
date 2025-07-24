@@ -192,7 +192,9 @@ class CustomTenantMiddleware(TenantMainMiddleware):
                 # For password reset request, identify tenant from email
                 if request.path.startswith('/api/user/password/reset/') and request.method == 'POST':
                     try:
-                        email = request.POST.get('email') or (request.body and json.loads(request.body).get('email'))
+                        #email = request.POST.get('email') or (request.body and json.loads(request.body).get('email'))
+                        email = getattr(request, 'data', {}).get('email') or request.POST.get('email')
+
                         if email:
                             email_domain = email.split('@')[1]
                             domain = Domain.objects.filter(domain=email_domain).first()
@@ -212,7 +214,9 @@ class CustomTenantMiddleware(TenantMainMiddleware):
                 # For password reset confirmation, identify tenant from token
                 elif request.path.startswith('/api/user/password/reset/confirm/') and request.method == 'POST':
                     try:
-                        token = request.POST.get('token') or (request.body and json.loads(request.body).get('token'))
+                        #token = request.POST.get('token') or (request.body and json.loads(request.body).get('token'))
+                        token = getattr(request, 'data', {}).get('token') or request.POST.get('token')
+
                         if token:
                             reset_token = PasswordResetToken.objects.filter(token=token).first()
                             if reset_token:

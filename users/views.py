@@ -167,7 +167,7 @@ class PasswordResetRequestView(generics.GenericAPIView):
                             # print(f"{token}")
                             # print(email_connection)
                             # print(email_body)
-                            print(reset_link)
+                            # print(reset_link)
                             email = EmailMessage(
                                 subject=email_subject,
                                 body=email_body,

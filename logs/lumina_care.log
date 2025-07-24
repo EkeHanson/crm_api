@@ -244,3 +244,4 @@ TimeoutError: [WinError 10060] A connection attempt failed because the connected
 2025-07-24 12:37:55,771 [ERROR] django.request: Internal Server Error: /api/user/password/reset/
 2025-07-24 12:37:55,771 [ERROR] django.server: "POST /api/user/password/reset/ HTTP/1.1" 500 370
 2025-07-24 12:38:13,006 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.
+2025-07-24 12:38:20,543 [INFO] django.utils.autoreload: Watching for file changes with StatReloader

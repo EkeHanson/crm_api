@@ -117,29 +117,29 @@ WSGI_APPLICATION = 'lumina_care.wsgi.application'
 
 #FOR HOSTING ON NAMECHEAP
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django_tenants.postgresql_backend',
-        'NAME': config('DB_NAME', default='lumina_care_db'),
-        'USER': config('DB_USER', default='postgres'),
-        'PASSWORD': config('DB_PASSWORD', default='qwerty'),
-        'HOST': config('DB_HOST', default='localhost'),
-        'PORT': config('DB_PORT', default='5432'),
-        'CONN_MAX_AGE': 60,
-    }
-}
-
-
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django_tenants.postgresql_backend',
-#         'NAME': 'crm_database_l66m',
-#         'USER': 'crm_database_l66m_user',
-#         'PASSWORD': 'lSK570C0FzOFlKIDyECGG7rd2VU9YyTO',
-#         'HOST': 'dpg-d208jbje5dus73d4h87g-a.oregon-postgres.render.com',
-#         'PORT': '5432',
+#         'NAME': config('DB_NAME', default='lumina_care_db'),
+#         'USER': config('DB_USER', default='postgres'),
+#         'PASSWORD': config('DB_PASSWORD', default='qwerty'),
+#         'HOST': config('DB_HOST', default='localhost'),
+#         'PORT': config('DB_PORT', default='5432'),
+#         'CONN_MAX_AGE': 60,
 #     }
 # }
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django_tenants.postgresql_backend',
+        'NAME': 'crm_database_l66m',
+        'USER': 'crm_database_l66m_user',
+        'PASSWORD': 'lSK570C0FzOFlKIDyECGG7rd2VU9YyTO',
+        'HOST': 'dpg-d208jbje5dus73d4h87g-a.oregon-postgres.render.com',
+        'PORT': '5432',
+    }
+}
 
 
 DATABASE_ROUTERS = ['django_tenants.routers.TenantSyncRouter']

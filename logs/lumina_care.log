@@ -470,3 +470,4 @@ TimeoutError: [WinError 10060] A connection attempt failed because the connected
 2025-07-24 13:46:56,643 [ERROR] django.request: Internal Server Error: /api/user/password/reset/
 2025-07-24 13:46:56,644 [ERROR] django.server: "POST /api/user/password/reset/ HTTP/1.1" 500 370
 2025-07-24 13:47:32,062 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\users\views.py changed, reloading.
+2025-07-24 13:47:35,935 [INFO] django.utils.autoreload: Watching for file changes with StatReloader

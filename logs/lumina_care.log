@@ -341,3 +341,26 @@ TimeoutError: [WinError 10060] A connection attempt failed because the connected
 2025-07-24 13:08:20,139 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
 2025-07-24 13:08:46,322 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\middleware.py changed, reloading.
 2025-07-24 13:08:50,181 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-24 13:11:21,053 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-24 13:12:47,090 [INFO] django.server: "OPTIONS /api/token/ HTTP/1.1" 200 0
+2025-07-24 13:12:48,244 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 965
+2025-07-24 13:12:48,284 [INFO] django.server: "OPTIONS /api/token/validate/ HTTP/1.1" 200 0
+2025-07-24 13:12:48,290 [INFO] django.server: "OPTIONS /api/token/validate/ HTTP/1.1" 200 0
+2025-07-24 13:12:48,308 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 389
+2025-07-24 13:12:48,397 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 389
+2025-07-24 13:12:48,623 [INFO] django.server: "OPTIONS /api/user/tenant-users/ HTTP/1.1" 200 0
+2025-07-24 13:12:48,623 [INFO] django.server: "OPTIONS /api/user/tenant-users/ HTTP/1.1" 200 0
+2025-07-24 13:12:48,645 [INFO] users: Retrieved 3 users for tenant proliance
+2025-07-24 13:12:48,658 [INFO] django.server: "GET /api/user/tenant-users/ HTTP/1.1" 200 1022
+2025-07-24 13:12:48,668 [INFO] users: Retrieved 3 users for tenant proliance
+2025-07-24 13:12:48,681 [INFO] django.server: "GET /api/user/tenant-users/ HTTP/1.1" 200 1022
+2025-07-24 13:13:24,452 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.
+2025-07-24 13:13:28,434 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-24 13:14:01,997 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-24 13:14:05,997 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-24 13:18:03,573 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-24 13:18:07,874 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-24 13:19:23,021 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-24 13:19:27,848 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-24 13:23:27,508 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.
+2025-07-24 13:23:30,907 [INFO] django.utils.autoreload: Watching for file changes with StatReloader

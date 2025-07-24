@@ -175,7 +175,7 @@ class PasswordResetRequestView(generics.GenericAPIView):
                                 to=[user.email],
                                 connection=email_connection,
                             )
-                            email.content_subtype = 'html'
+                            # email.content_subtype = 'html'
                             email.send(fail_silently=False)
                             #logger.info(f"Password reset email sent to {user.email} for tenant {tenant.schema_name}")
                             # print(f"Password reset email sent to {user.email} for tenant {tenant.schema_name}")

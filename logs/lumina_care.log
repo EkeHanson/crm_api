@@ -366,3 +366,107 @@ TimeoutError: [WinError 10060] A connection attempt failed because the connected
 2025-07-24 13:23:30,907 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
 2025-07-24 13:30:08,523 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.
 2025-07-24 13:30:12,136 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-24 13:33:46,765 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.
+2025-07-24 13:33:50,303 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-24 13:34:32,426 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 965
+2025-07-24 13:34:32,467 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 389
+2025-07-24 13:34:32,550 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 389
+2025-07-24 13:34:32,567 [INFO] users: Retrieved 3 users for tenant proliance
+2025-07-24 13:34:32,581 [INFO] django.server: "GET /api/user/tenant-users/ HTTP/1.1" 200 1022
+2025-07-24 13:34:32,593 [INFO] users: Retrieved 3 users for tenant proliance
+2025-07-24 13:34:32,613 [INFO] django.server: "GET /api/user/tenant-users/ HTTP/1.1" 200 1022
+2025-07-24 13:34:36,023 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/ HTTP/1.1" 200 0
+2025-07-24 13:34:36,026 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/ HTTP/1.1" 200 0
+2025-07-24 13:34:36,147 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 6330
+2025-07-24 13:34:36,198 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 6330
+2025-07-24 13:34:39,308 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 6330
+2025-07-24 13:34:39,334 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 6330
+2025-07-24 13:34:42,966 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/applications/job-requisitions/PRO-0001/applications/ HTTP/1.1" 200 0
+2025-07-24 13:34:42,967 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/applications/job-requisitions/PRO-0001/applications/ HTTP/1.1" 200 0
+2025-07-24 13:34:48,978 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0001/applications/ HTTP/1.1" 200 5674185
+2025-07-24 13:34:55,126 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0001/applications/ HTTP/1.1" 200 5674185
+2025-07-24 13:41:19,780 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\users\views.py changed, reloading.
+2025-07-24 13:41:23,295 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-24 13:42:57,806 [WARNING] django.request: Bad Request: /api/user/password/reset/
+2025-07-24 13:42:57,806 [WARNING] django.server: "POST /api/user/password/reset/ HTTP/1.1" 400 30
+2025-07-24 13:43:18,058 [WARNING] django.request: Bad Request: /api/user/password/reset/
+2025-07-24 13:43:18,059 [WARNING] django.server: "POST /api/user/password/reset/ HTTP/1.1" 400 30
+2025-07-24 13:43:27,108 [WARNING] django.request: Bad Request: /api/user/password/reset/
+2025-07-24 13:43:27,109 [WARNING] django.server: "POST /api/user/password/reset/ HTTP/1.1" 400 30
+2025-07-24 13:44:08,196 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\middleware.py changed, reloading.
+2025-07-24 13:44:11,338 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-24 13:44:54,473 [ERROR] users: Failed to send password reset email to support@prolianceltd.com: [WinError 10060] A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond
+Traceback (most recent call last):
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\users\views.py", line 179, in post
+    email.send(fail_silently=False)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\core\mail\message.py", line 307, in send
+    return self.get_connection(fail_silently).send_messages([self])
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 128, in send_messages
+    new_conn_created = self.open()
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 86, in open
+    self.connection = self.connection_class(
+                      ~~~~~~~~~~~~~~~~~~~~~^
+        self.host, self.port, **connection_params
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\CPT-003\AppData\Local\Programs\Python\Python313\Lib\smtplib.py", line 255, in __init__
+    (code, msg) = self.connect(host, port)
+                  ~~~~~~~~~~~~^^^^^^^^^^^^
+  File "C:\Users\CPT-003\AppData\Local\Programs\Python\Python313\Lib\smtplib.py", line 341, in connect
+    self.sock = self._get_socket(host, port, self.timeout)
+                ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\AppData\Local\Programs\Python\Python313\Lib\smtplib.py", line 312, in _get_socket
+    return socket.create_connection((host, port), timeout,
+           ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+                                    self.source_address)
+                                    ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\AppData\Local\Programs\Python\Python313\Lib\socket.py", line 864, in create_connection
+    raise exceptions[0]
+  File "C:\Users\CPT-003\AppData\Local\Programs\Python\Python313\Lib\socket.py", line 849, in create_connection
+    sock.connect(sa)
+    ~~~~~~~~~~~~^^^^
+TimeoutError: [WinError 10060] A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond
+2025-07-24 13:44:54,484 [ERROR] django.request: Internal Server Error: /api/user/password/reset/
+2025-07-24 13:44:54,484 [ERROR] django.server: "POST /api/user/password/reset/ HTTP/1.1" 500 370
+2025-07-24 13:46:19,955 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\users\views.py changed, reloading.
+2025-07-24 13:46:23,291 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-24 13:46:56,631 [ERROR] users: Failed to send password reset email to support@prolianceltd.com: [WinError 10060] A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond
+Traceback (most recent call last):
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\users\views.py", line 179, in post
+    email.send(fail_silently=False)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\core\mail\message.py", line 307, in send
+    return self.get_connection(fail_silently).send_messages([self])
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 128, in send_messages
+    new_conn_created = self.open()
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 86, in open
+    self.connection = self.connection_class(
+                      ~~~~~~~~~~~~~~~~~~~~~^
+        self.host, self.port, **connection_params
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\CPT-003\AppData\Local\Programs\Python\Python313\Lib\smtplib.py", line 255, in __init__
+    (code, msg) = self.connect(host, port)
+                  ~~~~~~~~~~~~^^^^^^^^^^^^
+  File "C:\Users\CPT-003\AppData\Local\Programs\Python\Python313\Lib\smtplib.py", line 341, in connect
+    self.sock = self._get_socket(host, port, self.timeout)
+                ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\AppData\Local\Programs\Python\Python313\Lib\smtplib.py", line 312, in _get_socket
+    return socket.create_connection((host, port), timeout,
+           ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+                                    self.source_address)
+                                    ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\AppData\Local\Programs\Python\Python313\Lib\socket.py", line 864, in create_connection
+    raise exceptions[0]
+  File "C:\Users\CPT-003\AppData\Local\Programs\Python\Python313\Lib\socket.py", line 849, in create_connection
+    sock.connect(sa)
+    ~~~~~~~~~~~~^^^^
+TimeoutError: [WinError 10060] A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond
+2025-07-24 13:46:56,643 [ERROR] django.request: Internal Server Error: /api/user/password/reset/
+2025-07-24 13:46:56,644 [ERROR] django.server: "POST /api/user/password/reset/ HTTP/1.1" 500 370
+2025-07-24 13:47:32,062 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\users\views.py changed, reloading.

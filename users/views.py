@@ -38,6 +38,8 @@ def configure_email_backend(tenant):
     )
 
 
+
+
 class PasswordResetRequestView(generics.GenericAPIView):
     serializer_class = PasswordResetRequestSerializer
     permission_classes = [AllowAny]
@@ -104,6 +106,9 @@ class PasswordResetRequestView(generics.GenericAPIView):
                         template_content = email_template.get('content', '')
                         is_auto_sent = email_template.get('is_auto_sent', True)
 
+                        # print("template_content")
+                        # print(template_content)
+                        # print("template_content")
 
 
                     except TenantConfig.DoesNotExist:
@@ -126,16 +131,18 @@ class PasswordResetRequestView(generics.GenericAPIView):
                         '[User Name]': user.get_full_name() or user.username,
                         '[Company]': tenant.name,
                         '[Reset Link]': reset_link,
-                        '[Your Name]': 'Support Team',
-                        '[your.email@proliance.com]': tenant.default_from_email or 'no-reply@proliance.com',
+                        '[Your Name]': tenant.name,
+                        '[your.email@proliance.com]': tenant.default_from_email,
                     }
+
+                    # print(placeholders)
 
                     email_body = template_content
                     for placeholder, value in placeholders.items():
                         email_body = email_body.replace(placeholder, str(value))
 
                     # Send email
-                    if is_auto_sent:
+                    if is_auto_sent or not is_auto_sent:
                         try:
                             email_connection = configure_email_backend(tenant)
                             # print(tenant.email_host)
@@ -143,28 +150,31 @@ class PasswordResetRequestView(generics.GenericAPIView):
                             # print(tenant.email_use_ssl)
                             # print(tenant.email_host_user)
                             # print(tenant.email_host_password)
-                            logger.info(f"Email configuration for tenant {tenant.schema_name}: "
-                                        f"host={tenant.email_host}, "
-                                        f"port={tenant.email_port}, "
-                                        f"use_ssl={tenant.email_use_ssl}, "
-                                        f"host_user={tenant.email_host_user}, "
-                                        f"host_password={'*' * len(tenant.email_host_password) if tenant.email_host_password else None}, "
-                                        f"default_from_email={tenant.default_from_email}")
+                            # print(email_body)
+                            # logger.info(f"Email configuration for tenant {tenant.schema_name} user {email}: "
+                            #             f"host={tenant.email_host}, "
+                            #             f"port={tenant.email_port}, "
+                            #             f"use_ssl={tenant.email_use_ssl}, "
+                            #             f"host_user={tenant.email_host_user}, "
+                            #             f"host_password={'*' * len(tenant.email_host_password) if tenant.email_host_password else None}, "
+                            #             f"default_from_email={tenant.default_from_email}")
 
-                            email_subject = f"Password Reset Request for {tenant.name}"
-                            print(f"Password reset email sent to {user.email} for tenant {tenant.schema_name}")
-                            print(f"{token}")
+                            email_subject = f"Password Reset Request for {email}"
+                            # print(f"Password reset email sent to {user.email} for tenant {tenant.schema_name}")
+                            # print(f"{token}")
+                            print(email_connection)
+                            print(email_body)
                             email = EmailMessage(
                                 subject=email_subject,
                                 body=email_body,
-                                from_email=tenant.default_from_email or 'no-reply@proliance.com',
+                                from_email=tenant.default_from_email,
                                 to=[user.email],
                                 connection=email_connection,
                             )
                             email.content_subtype = 'html'
                             email.send(fail_silently=False)
-                            logger.info(f"Password reset email sent to {user.email} for tenant {tenant.schema_name}")
-                            print(f"Password reset email sent to {user.email} for tenant {tenant.schema_name}")
+                            #logger.info(f"Password reset email sent to {user.email} for tenant {tenant.schema_name}")
+                            # print(f"Password reset email sent to {user.email} for tenant {tenant.schema_name}")
                         except Exception as email_error:
                             logger.exception(f"Failed to send password reset email to {user.email}: {str(email_error)}")
                             return Response({
@@ -181,6 +191,10 @@ class PasswordResetRequestView(generics.GenericAPIView):
         except Exception as e:
             logger.exception(f"Error processing password reset for tenant {tenant.schema_name if tenant else 'unknown'}: {str(e)}")
             return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
 
 class PasswordResetConfirmView(generics.GenericAPIView):
     serializer_class = PasswordResetConfirmSerializer

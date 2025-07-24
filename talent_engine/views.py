@@ -73,8 +73,6 @@ class JobRequisitionBulkDeleteView(generics.GenericAPIView):
             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-
-
 class JobRequisitionListCreateView(generics.ListCreateAPIView):
     serializer_class = JobRequisitionSerializer
     permission_classes = [IsAuthenticated, BranchRestrictedPermission]
@@ -140,8 +138,6 @@ class JobRequisitionListCreateView(generics.ListCreateAPIView):
     #         branch=user.branch
     #     )
     #     logger.info(f"Job requisition created: {serializer.validated_data['title']} for tenant {tenant.schema_name} by user {user.email}")
-
-
 
 
 

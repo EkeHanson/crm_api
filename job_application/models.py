@@ -73,15 +73,35 @@ class JobApplication(models.Model):
             self.job_requisition.num_of_applications += 1
             self.job_requisition.save()
 
+    # def soft_delete(self):
+    #     self.is_deleted = True
+    #     self.save()
+    #     logger.info(f"JobApplication {self.id} soft-deleted for tenant {self.tenant.schema_name}")
     def soft_delete(self):
-        self.is_deleted = True
-        self.save()
-        logger.info(f"JobApplication {self.id} soft-deleted for tenant {self.tenant.schema_name}")
+        if not self.is_deleted:
+            self.is_deleted = True
+            self.save()
+            if self.job_requisition.num_of_applications > 0:
+                self.job_requisition.num_of_applications -= 1
+            # self.job_requisition.num_of_applications -= 1
+            self.job_requisition.save()
+            logger.info(f"JobApplication {self.id} soft-deleted for tenant {self.tenant.schema_name}")
 
+
+
+
+    # def restore(self):
+    #     self.is_deleted = False
+    #     self.save()
+    #     logger.info(f"JobApplication {self.id} restored for tenant {self.tenant.schema_name}")
     def restore(self):
-        self.is_deleted = False
-        self.save()
-        logger.info(f"JobApplication {self.id} restored for tenant {self.tenant.schema_name}")
+        if self.is_deleted:
+            self.is_deleted = False
+            self.save()
+            self.job_requisition.num_of_applications += 1
+            self.job_requisition.save()
+            logger.info(f"JobApplication {self.id} restored for tenant {self.tenant.schema_name}")
+
 
     def initialize_compliance_status(self, job_requisition):
         if not self.compliance_status:

@@ -1523,6 +1523,43 @@ class RecoverSoftDeletedJobApplicationsView(generics.GenericAPIView):
             logger.exception(f"Error during recovery of applications for tenant {tenant.schema_name if tenant else 'unknown'}: {str(e)}")
             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+# class PermanentDeleteJobApplicationsView(generics.GenericAPIView):
+#     permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized, BranchRestrictedPermission]
+
+#     def post(self, request, *args, **kwargs):
+#         logger.debug(f"Received POST request to permanently delete job applications: {request.data}")
+#         try:
+#             tenant = request.tenant
+#             if not tenant:
+#                 logger.error("No tenant associated with the request")
+#                 return Response({"detail": "Tenant not found."}, status=status.HTTP_400_BAD_REQUEST)
+
+#             ids = request.data.get('ids', [])
+#             if not ids:
+#                 logger.warning("No application IDs provided for permanent deletion")
+#                 return Response({"detail": "No application IDs provided."}, status=status.HTTP_400_BAD_REQUEST)
+
+#             connection.set_schema(tenant.schema_name)
+#             with tenant_context(tenant):
+#                 applications = JobApplication.objects.filter(id__in=ids, tenant=tenant, is_deleted=True)
+#                 if request.user.role == 'recruiter' and request.user.branch:
+#                     applications = applications.filter(branch=request.user.branch)
+#                 if not applications.exists():
+#                     logger.warning(f"No soft-deleted applications found for IDs {ids} in tenant {tenant.schema_name}")
+#                     return Response({"detail": "No soft-deleted applications found."}, status=status.HTTP_404_NOT_FOUND)
+
+#                 deleted_count = applications.delete()[0]
+#                 logger.info(f"Successfully permanently deleted {deleted_count} applications for tenant {tenant.schema_name}")
+#                 return Response({
+#                     "detail": f"Successfully permanently deleted {deleted_count} application(s)."
+#                 }, status=status.HTTP_200_OK)
+
+#         except Exception as e:
+#             logger.exception(f"Error during permanent deletion of applications for tenant {tenant.schema_name if tenant else 'unknown'}: {str(e)}")
+#             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+
 class PermanentDeleteJobApplicationsView(generics.GenericAPIView):
     permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized, BranchRestrictedPermission]
 
@@ -1540,15 +1577,28 @@ class PermanentDeleteJobApplicationsView(generics.GenericAPIView):
                 return Response({"detail": "No application IDs provided."}, status=status.HTTP_400_BAD_REQUEST)
 
             connection.set_schema(tenant.schema_name)
+
             with tenant_context(tenant):
-                applications = JobApplication.objects.filter(id__in=ids, tenant=tenant, is_deleted=True)
+                applications = JobApplication.objects.select_related('job_requisition').filter(
+                    id__in=ids, tenant=tenant, is_deleted=True
+                )
+
                 if request.user.role == 'recruiter' and request.user.branch:
                     applications = applications.filter(branch=request.user.branch)
+
                 if not applications.exists():
                     logger.warning(f"No soft-deleted applications found for IDs {ids} in tenant {tenant.schema_name}")
                     return Response({"detail": "No soft-deleted applications found."}, status=status.HTTP_404_NOT_FOUND)
 
-                deleted_count = applications.delete()[0]
+                with transaction.atomic():
+                    for app in applications:
+                        job_requisition = app.job_requisition
+                        if job_requisition and job_requisition.num_of_applications > 0:
+                            job_requisition.num_of_applications -= 1
+                            job_requisition.save()
+
+                    deleted_count = applications.delete()[0]
+
                 logger.info(f"Successfully permanently deleted {deleted_count} applications for tenant {tenant.schema_name}")
                 return Response({
                     "detail": f"Successfully permanently deleted {deleted_count} application(s)."
@@ -1557,8 +1607,6 @@ class PermanentDeleteJobApplicationsView(generics.GenericAPIView):
         except Exception as e:
             logger.exception(f"Error during permanent deletion of applications for tenant {tenant.schema_name if tenant else 'unknown'}: {str(e)}")
             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-
 
 
 

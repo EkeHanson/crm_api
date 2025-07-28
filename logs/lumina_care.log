@@ -559,3 +559,11 @@ TimeoutError: [WinError 10060] A connection attempt failed because the connected
 2025-07-28 11:56:21,942 [INFO] django.server: "GET /api/tenant/tenants/1/ HTTP/1.1" 200 1826
 2025-07-28 11:56:26,498 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 7736
 2025-07-28 11:56:40,251 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 7736
+2025-07-28 12:04:42,476 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 7736
+2025-07-28 12:04:55,934 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 7736
+2025-07-28 12:05:02,734 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 7736
+2025-07-28 12:05:02,758 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 7736
+2025-07-28 12:10:06,723 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 388
+2025-07-28 12:10:11,070 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 388
+2025-07-28 12:10:20,524 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 7736
+2025-07-28 12:10:34,825 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 7736

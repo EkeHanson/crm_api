@@ -516,3 +516,10 @@ TimeoutError: [WinError 10060] A connection attempt failed because the connected
 2025-07-28 11:07:36,399 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
 2025-07-28 11:07:43,349 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.
 2025-07-28 11:07:46,780 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 11:43:08,301 [ERROR] django.server: "OPTIONS /api/token/validate/ HTTP/1.1" 500 59
+2025-07-28 11:43:08,308 [ERROR] django.server: "OPTIONS /api/token/validate/ HTTP/1.1" 500 59
+2025-07-28 11:53:50,763 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.
+2025-07-28 11:53:54,449 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 11:54:15,363 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.
+2025-07-28 11:54:19,902 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 11:54:37,406 [INFO] django.utils.autoreload: Watching for file changes with StatReloader

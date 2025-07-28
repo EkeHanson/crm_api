@@ -134,6 +134,9 @@ DATABASES = {
 #     }
 # }
 
+ROOT_URLCONF = 'lumina_care.urls'
+WSGI_APPLICATION = 'lumina_care.wsgi.application'
+
 
 TEMPLATES = [
     {

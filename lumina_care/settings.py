@@ -196,8 +196,6 @@ CORS_ALLOWED_ORIGINS = [
     'https://crm-frontend-react.vercel.app', # add your production frontend later
 ]
 
-
-CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_METHODS = ['DELETE', 'GET', 'OPTIONS', 'PATCH', 'POST', 'PUT']
 CORS_ALLOW_HEADERS = [

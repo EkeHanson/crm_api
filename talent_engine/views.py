@@ -40,7 +40,6 @@ from rest_framework.permissions import IsAuthenticated
 from drf_spectacular.utils import extend_schema, OpenApiParameter
 
 
-
 logger = logging.getLogger('talent_engine')
 
 class JobRequisitionBulkDeleteView(generics.GenericAPIView):
@@ -138,7 +137,6 @@ class JobRequisitionListCreateView(generics.ListCreateAPIView):
     #         branch=user.branch
     #     )
     #     logger.info(f"Job requisition created: {serializer.validated_data['title']} for tenant {tenant.schema_name} by user {user.email}")
-
 
 
 class JobRequisitionDetailView(generics.RetrieveUpdateDestroyAPIView):

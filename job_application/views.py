@@ -19,7 +19,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from core.models import TenantConfig
+from core.models import TenantConfig, Tenant, Branch
 from core.utils.email_config import configure_email_backend
 
 from talent_engine.models import JobRequisition
@@ -38,11 +38,7 @@ from rest_framework import serializers, status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 
-
-
-
 logger = logging.getLogger('job_applications')
-
 
 
 class ResumeParseView(APIView):
@@ -88,9 +84,6 @@ class ResumeParseView(APIView):
         except Exception as e:
             logger.exception(f"Error parsing resume: {str(e)}")
             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-
-
 
 
 class ResendRejectionEmailsView(APIView):
@@ -176,10 +169,6 @@ class ResendRejectionEmailsView(APIView):
         except Exception as e:
             logger.exception(f"Error resending rejection emails for JobRequisition {job_requisition_id}: {str(e)}")
             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-#FOR TESTING
-
-#FOR TESTING
 
 
 class ResumeScreeningView(APIView):
@@ -271,16 +260,16 @@ class ResumeScreeningView(APIView):
                         id__in=application_ids,
                         resume_status=True
                     )
-                    logger.debug(f"Queried application IDs: {application_ids}")
-                    logger.debug(f"Found applications: {[app.id for app in applications]}")
+                    #logger.debug(f"Queried application IDs: {application_ids}")
+                    #logger.debug(f"Found applications: {[app.id for app in applications]}")
 
                 if request.user.role == 'recruiter' and request.user.branch:
                     applications = applications.filter(branch=request.user.branch)
-                    logger.debug(f"Filtered by branch {request.user.branch}: {[app.id for app in applications]}")
+                    #logger.debug(f"Filtered by branch {request.user.branch}: {[app.id for app in applications]}")
 
                 if not applications.exists():
-                    logger.warning(f"No applications with resumes found for JobRequisition {job_requisition_id}")
-                    logger.debug(f"Query filters: tenant={tenant.schema_name}, job_requisition={job_requisition_id}, resume_status=True")
+                    #logger.warning(f"No applications with resumes found for JobRequisition {job_requisition_id}")
+                    #logger.debug(f"Query filters: tenant={tenant.schema_name}, job_requisition={job_requisition_id}, resume_status=True")
                     return Response({"detail": "No applications with resumes found.", "documentType": document_type}, status=status.HTTP_400_BAD_REQUEST)
 
                 results = []
@@ -305,11 +294,11 @@ class ResumeScreeningView(APIView):
                                     "email": app.email,
                                     "error": f"No {document_type} document found"
                                 })
-                                logger.debug(f"No matching document for application {app.id} with document_type {document_type}")
+                                #logger.debug(f"No matching document for application {app.id} with document_type {document_type}")
                                 continue
                             file_url = cv_doc['file_url']
 
-                        logger.debug(f"Processing resume for application {app.id}, file_url: {file_url}")
+                       # logger.debug(f"Processing resume for application {app.id}, file_url: {file_url}")
 
                         try:
                             temp_file_path = None
@@ -460,7 +449,6 @@ class ResumeScreeningView(APIView):
             return response
 
 
-
 class JobApplicationWithSchedulesView(generics.RetrieveAPIView):
     serializer_class = JobApplicationSerializer
     permission_classes = [AllowAny]
@@ -534,6 +522,7 @@ class JobApplicationWithSchedulesView(generics.RetrieveAPIView):
         except Exception as e:
             logger.exception(f"Error retrieving job application with code {self.kwargs.get('code')} and email {self.kwargs.get('email')} for tenant {tenant.schema_name if tenant else 'unknown'}: {str(e)}")
             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 
 class JobApplicationsByRequisitionView(generics.ListAPIView):
     serializer_class = JobApplicationSerializer
@@ -667,8 +656,89 @@ class PublishedJobRequisitionsWithShortlistedApplicationsView(generics.ListAPIVi
         except Exception as e:
             logger.exception("Error processing job requisitions and shortlisted applications")
             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-        
 
+
+
+
+class PublishedPublicJobRequisitionsWithShortlistedApplicationsView(generics.ListAPIView):
+    serializer_class = JobRequisitionSerializer
+    permission_classes = [AllowAny]
+
+    def get_queryset(self):
+        try:
+            # Extract schema_name and branch_name from query parameters
+            schema_name = self.request.query_params.get("schema_name")
+            branch_name = self.request.query_params.get("branch_name")
+
+            if not schema_name:
+                logger.error("Missing schema_name in GET request")
+                raise serializers.ValidationError("Missing schema_name.")
+
+            # Validate and get tenant by schema_name
+            try:
+                tenant = Tenant.objects.get(schema_name=schema_name)
+            except Tenant.DoesNotExist:
+                logger.error(f"Invalid schema_name: {schema_name}")
+                raise serializers.ValidationError(f"Tenant with schema_name {schema_name} not found.")
+
+            # Set the schema for the resolved tenant
+            connection.set_schema(tenant.schema_name)
+            logger.debug(f"Schema set to: {connection.schema_name}")
+
+            # Fetch published job requisitions for the tenant
+            with tenant_context(tenant):
+                queryset = JobRequisition.objects.filter(
+                    tenant=tenant,
+                    publish_status=True
+                )
+
+                # Apply branch filter if branch_name is provided
+                if branch_name:
+                    try:
+                        branch = Branch.objects.get(tenant=tenant, name=branch_name)
+                        queryset = queryset.filter(branch=branch)
+                        logger.debug(f"Filtering by branch: {branch_name}")
+                    except Branch.DoesNotExist:
+                        logger.error(f"Branch {branch_name} not found for tenant {schema_name}")
+                        raise serializers.ValidationError(f"Branch {branch_name} not found.")
+
+                queryset = queryset.distinct()
+                logger.info(f"Retrieved {queryset.count()} published job requisitions for tenant {tenant.schema_name}")
+                return queryset.order_by('-created_at'), tenant  # Return tenant along with queryset
+
+        except Exception as e:
+            logger.exception("Error retrieving published job requisitions")
+            raise
+
+    def list(self, request, *args, **kwargs):
+        try:
+            # Fetch the queryset and tenant from get_queryset
+            queryset, tenant = self.get_queryset()
+            job_requisition_serializer = self.get_serializer(queryset, many=True)
+
+            response_data = []
+            with tenant_context(tenant):
+                for job_requisition in queryset:
+                    shortlisted_applications = JobApplication.active_objects.filter(
+                        tenant=tenant,
+                        job_requisition=job_requisition,
+                        status='shortlisted'
+                    ).select_related('job_requisition')
+
+                    application_serializer = JobApplicationSerializer(shortlisted_applications, many=True)
+
+                    response_data.append({
+                        'job_requisition': job_requisition_serializer.data,
+                        # 'shortlisted_applications': application_serializer.data,
+                        'shortlisted_count': shortlisted_applications.count(),
+                    })
+
+            logger.info(f"Retrieved {len(response_data)} job requisitions with shortlisted applications for tenant {tenant.schema_name}")
+            return Response(response_data, status=status.HTTP_200_OK)
+
+        except Exception as e:
+            logger.exception("Error processing job requisitions and shortlisted applications")
+            return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 class JobApplicationListCreateView(generics.GenericAPIView):
     parser_classes = (MultiPartParser, FormParser)
@@ -801,7 +871,6 @@ class JobApplicationListCreateView(generics.GenericAPIView):
         except Exception as e:
             logger.exception(f"Unexpected error during job application submission: {str(e)}")
             return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
-
 
 
 class JobApplicationDetailView(generics.RetrieveUpdateDestroyAPIView):

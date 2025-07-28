@@ -606,3 +606,640 @@ TimeoutError: [WinError 10060] A connection attempt failed because the connected
 2025-07-28 13:54:39,607 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.
 2025-07-28 13:54:44,541 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
 2025-07-28 14:04:48,337 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.
+2025-07-28 14:24:58,093 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 14:25:15,561 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 14:29:31,070 [INFO] django.server: "OPTIONS /api/token/validate/ HTTP/1.1" 200 0
+2025-07-28 14:29:31,073 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/applications/job-requisitions/PRO-0024/applications/ HTTP/1.1" 200 0
+2025-07-28 14:29:31,331 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 389
+2025-07-28 14:29:31,383 [ERROR] django.request: Internal Server Error: /api/talent-engine-job-applications/applications/job-requisitions/PRO-0024/applications/
+2025-07-28 14:29:31,385 [ERROR] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0024/applications/ HTTP/1.1" 500 217
+2025-07-28 14:29:41,278 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 389
+2025-07-28 14:29:41,310 [ERROR] django.request: Internal Server Error: /api/talent-engine-job-applications/applications/job-requisitions/PRO-0024/applications/
+2025-07-28 14:29:41,313 [ERROR] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0024/applications/ HTTP/1.1" 500 217
+2025-07-28 14:30:05,175 [INFO] django.server: "OPTIONS /api/token/ HTTP/1.1" 200 0
+2025-07-28 14:30:08,462 [WARNING] django.request: Unauthorized: /api/token/
+2025-07-28 14:30:08,464 [WARNING] django.server: "POST /api/token/ HTTP/1.1" 401 63
+2025-07-28 14:30:18,092 [WARNING] django.request: Unauthorized: /api/token/
+2025-07-28 14:30:18,095 [WARNING] django.server: "POST /api/token/ HTTP/1.1" 401 63
+2025-07-28 14:30:34,282 [WARNING] django.request: Unauthorized: /api/token/
+2025-07-28 14:30:34,283 [WARNING] django.server: "POST /api/token/ HTTP/1.1" 401 63
+2025-07-28 14:30:46,945 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 965
+2025-07-28 14:30:47,208 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 389
+2025-07-28 14:30:47,378 [INFO] django.server: "OPTIONS /api/user/tenant-users/ HTTP/1.1" 200 0
+2025-07-28 14:30:47,384 [INFO] django.server: "OPTIONS /api/user/tenant-users/ HTTP/1.1" 200 0
+2025-07-28 14:30:47,449 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 389
+2025-07-28 14:30:47,656 [INFO] users: Retrieved 3 users for tenant proliance
+2025-07-28 14:30:47,689 [INFO] django.server: "GET /api/user/tenant-users/ HTTP/1.1" 200 1022
+2025-07-28 14:30:47,944 [INFO] users: Retrieved 3 users for tenant proliance
+2025-07-28 14:30:47,988 [INFO] django.server: "GET /api/user/tenant-users/ HTTP/1.1" 200 1022
+2025-07-28 14:30:55,129 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/ HTTP/1.1" 200 0
+2025-07-28 14:30:55,130 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/ HTTP/1.1" 200 0
+2025-07-28 14:30:55,621 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 6330
+2025-07-28 14:30:55,885 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 6330
+2025-07-28 14:30:57,187 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 6330
+2025-07-28 14:30:57,462 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 6330
+2025-07-28 14:31:01,075 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/applications/job-requisitions/PRO-0003/applications/ HTTP/1.1" 200 0
+2025-07-28 14:31:01,078 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/applications/job-requisitions/PRO-0003/applications/ HTTP/1.1" 200 0
+2025-07-28 14:31:01,338 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0003/applications/ HTTP/1.1" 200 6987
+2025-07-28 14:31:01,559 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0003/applications/ HTTP/1.1" 200 6987
+2025-07-28 14:31:06,768 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/requisitions/PRO-0003/screen-resumes/ HTTP/1.1" 200 0
+2025-07-28 14:31:29,195 [INFO] django.server: "POST /api/talent-engine-job-applications/requisitions/PRO-0003/screen-resumes/ HTTP/1.1" 200 855
+2025-07-28 14:31:29,471 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0003/applications/ HTTP/1.1" 200 6987
+2025-07-28 14:31:36,464 [INFO] django.server: "POST /api/talent-engine-job-applications/requisitions/PRO-0003/screen-resumes/ HTTP/1.1" 200 855
+2025-07-28 14:31:36,706 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0003/applications/ HTTP/1.1" 200 6987
+2025-07-28 15:42:33,981 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 15:52:22,543 [WARNING] django.request: Unauthorized: /api/talent-engine/requisitions/
+2025-07-28 15:52:22,545 [WARNING] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 401 58
+2025-07-28 15:52:26,008 [WARNING] django.request: Unauthorized: /api/talent-engine/requisitions/
+2025-07-28 15:52:26,010 [INFO] django.server: - Broken pipe from ('127.0.0.1', 51158)
+2025-07-28 15:52:52,378 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 15:53:34,881 [WARNING] django.request: Unauthorized: /api/token/
+2025-07-28 15:53:34,882 [WARNING] django.server: "POST /api/token/ HTTP/1.1" 401 63
+2025-07-28 15:53:45,225 [WARNING] django.request: Unauthorized: /api/token/
+2025-07-28 15:53:45,227 [WARNING] django.server: "POST /api/token/ HTTP/1.1" 401 63
+2025-07-28 15:53:54,464 [WARNING] django.request: Unauthorized: /api/token/
+2025-07-28 15:53:54,465 [WARNING] django.server: "POST /api/token/ HTTP/1.1" 401 63
+2025-07-28 15:54:00,339 [WARNING] django.request: Unauthorized: /api/token/
+2025-07-28 15:54:00,341 [WARNING] django.server: "POST /api/token/ HTTP/1.1" 401 63
+2025-07-28 15:54:15,947 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 965
+2025-07-28 15:54:16,148 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 389
+2025-07-28 15:54:16,300 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 389
+2025-07-28 15:54:16,600 [INFO] users: Retrieved 3 users for tenant proliance
+2025-07-28 15:54:16,627 [INFO] django.server: "GET /api/user/tenant-users/ HTTP/1.1" 200 1022
+2025-07-28 15:54:16,788 [INFO] users: Retrieved 3 users for tenant proliance
+2025-07-28 15:54:16,821 [INFO] django.server: "GET /api/user/tenant-users/ HTTP/1.1" 200 1022
+2025-07-28 15:54:22,579 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 6330
+2025-07-28 15:54:22,799 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 6330
+2025-07-28 15:54:26,680 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 6330
+2025-07-28 15:54:26,991 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 6330
+2025-07-28 15:54:27,263 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 6330
+2025-07-28 15:54:27,517 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 6330
+2025-07-28 15:54:30,984 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 6330
+2025-07-28 15:54:31,228 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 6330
+2025-07-28 15:54:35,068 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 0
+2025-07-28 15:54:35,072 [INFO] django.server: "OPTIONS /api/tenant/config/?t=1753714475047 HTTP/1.1" 200 0
+2025-07-28 15:54:35,086 [INFO] django.server: "OPTIONS /api/tenant/config/?t=1753714475049 HTTP/1.1" 200 0
+2025-07-28 15:54:35,100 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 0
+2025-07-28 15:54:35,351 [INFO] core: Fetched TenantConfig for tenant proliance
+2025-07-28 15:54:35,358 [INFO] django.server: "GET /api/tenant/config/?t=1753714475049 HTTP/1.1" 200 2185
+2025-07-28 15:54:35,367 [INFO] core: Fetched TenantConfig for tenant proliance
+2025-07-28 15:54:35,372 [INFO] django.server: "GET /api/tenant/config/?t=1753714475047 HTTP/1.1" 200 2185
+2025-07-28 15:54:36,122 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 14595
+2025-07-28 15:54:37,211 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 14595
+2025-07-28 15:54:37,737 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 6330
+2025-07-28 15:54:37,945 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 6330
+2025-07-28 15:54:38,444 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 6330
+2025-07-28 15:54:38,634 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 6330
+2025-07-28 15:54:43,101 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0003/applications/ HTTP/1.1" 200 6987
+2025-07-28 15:54:43,366 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0003/applications/ HTTP/1.1" 200 6987
+2025-07-28 15:55:24,045 [INFO] django.server: "POST /api/talent-engine-job-applications/requisitions/PRO-0003/screen-resumes/ HTTP/1.1" 200 855
+2025-07-28 15:55:24,315 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0003/applications/ HTTP/1.1" 200 6987
+2025-07-28 15:55:59,380 [INFO] django.server: "POST /api/talent-engine-job-applications/requisitions/PRO-0003/screen-resumes/ HTTP/1.1" 200 855
+2025-07-28 15:55:59,679 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0003/applications/ HTTP/1.1" 200 6987
+2025-07-28 15:56:08,834 [INFO] django.server: "POST /api/talent-engine-job-applications/requisitions/PRO-0003/screen-resumes/ HTTP/1.1" 200 855
+2025-07-28 15:56:09,086 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0003/applications/ HTTP/1.1" 200 6987
+2025-07-28 15:56:22,058 [INFO] django.server: "POST /api/talent-engine-job-applications/requisitions/PRO-0003/screen-resumes/ HTTP/1.1" 200 855
+2025-07-28 15:56:22,347 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0003/applications/ HTTP/1.1" 200 6987
+2025-07-28 15:56:30,146 [INFO] django.server: "POST /api/talent-engine-job-applications/requisitions/PRO-0003/screen-resumes/ HTTP/1.1" 200 855
+2025-07-28 15:56:30,375 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0003/applications/ HTTP/1.1" 200 6987
+2025-07-28 15:56:44,199 [INFO] django.server: "POST /api/talent-engine-job-applications/requisitions/PRO-0003/screen-resumes/ HTTP/1.1" 200 855
+2025-07-28 15:56:44,426 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0003/applications/ HTTP/1.1" 200 6987
+2025-07-28 15:57:12,260 [INFO] django.server: "POST /api/talent-engine-job-applications/requisitions/PRO-0003/screen-resumes/ HTTP/1.1" 200 855
+2025-07-28 15:57:12,491 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0003/applications/ HTTP/1.1" 200 6987
+2025-07-28 15:57:30,898 [INFO] django.server: "POST /api/talent-engine-job-applications/requisitions/PRO-0003/screen-resumes/ HTTP/1.1" 200 855
+2025-07-28 15:57:31,115 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0003/applications/ HTTP/1.1" 200 6987
+2025-07-28 16:07:24,409 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-28 16:07:32,063 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 16:16:48,413 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 16:17:28,548 [ERROR] django.security.DisallowedHost: Invalid HTTP_HOST header: '0e279ae7ea4b.ngrok-free.app'. You may need to add '0e279ae7ea4b.ngrok-free.app' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\middleware.py", line 178, in process_request
+    logger.debug(f"Processing request: {request.path}, Host: {request.get_host()}")
+                                                              ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\http\request.py", line 191, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '0e279ae7ea4b.ngrok-free.app'. You may need to add '0e279ae7ea4b.ngrok-free.app' to ALLOWED_HOSTS.
+2025-07-28 16:17:29,268 [WARNING] django.request: Bad Request: /
+2025-07-28 16:17:29,270 [WARNING] django.server: "GET / HTTP/1.1" 400 87394
+2025-07-28 16:17:30,612 [ERROR] django.security.DisallowedHost: Invalid HTTP_HOST header: '0e279ae7ea4b.ngrok-free.app'. You may need to add '0e279ae7ea4b.ngrok-free.app' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\middleware.py", line 178, in process_request
+    logger.debug(f"Processing request: {request.path}, Host: {request.get_host()}")
+                                                              ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\http\request.py", line 191, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '0e279ae7ea4b.ngrok-free.app'. You may need to add '0e279ae7ea4b.ngrok-free.app' to ALLOWED_HOSTS.
+2025-07-28 16:17:30,690 [WARNING] django.request: Bad Request: /favicon.ico
+2025-07-28 16:17:30,692 [WARNING] django.server: "GET /favicon.ico HTTP/1.1" 400 87085
+2025-07-28 16:20:34,536 [ERROR] django.security.DisallowedHost: Invalid HTTP_HOST header: '0e279ae7ea4b.ngrok-free.app'. You may need to add '0e279ae7ea4b.ngrok-free.app' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\middleware.py", line 178, in process_request
+    logger.debug(f"Processing request: {request.path}, Host: {request.get_host()}")
+                                                              ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\http\request.py", line 191, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '0e279ae7ea4b.ngrok-free.app'. You may need to add '0e279ae7ea4b.ngrok-free.app' to ALLOWED_HOSTS.
+2025-07-28 16:20:34,652 [WARNING] django.request: Bad Request: /
+2025-07-28 16:20:34,654 [WARNING] django.server: "GET / HTTP/1.1" 400 87394
+2025-07-28 16:20:35,924 [ERROR] django.security.DisallowedHost: Invalid HTTP_HOST header: '0e279ae7ea4b.ngrok-free.app'. You may need to add '0e279ae7ea4b.ngrok-free.app' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\middleware.py", line 178, in process_request
+    logger.debug(f"Processing request: {request.path}, Host: {request.get_host()}")
+                                                              ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\http\request.py", line 191, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '0e279ae7ea4b.ngrok-free.app'. You may need to add '0e279ae7ea4b.ngrok-free.app' to ALLOWED_HOSTS.
+2025-07-28 16:20:36,046 [WARNING] django.request: Bad Request: /favicon.ico
+2025-07-28 16:20:36,048 [WARNING] django.server: "GET /favicon.ico HTTP/1.1" 400 87085
+2025-07-28 16:21:09,020 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 16:22:52,112 [WARNING] django.request: Not Found: /
+2025-07-28 16:22:52,115 [WARNING] django.server: "GET / HTTP/1.1" 404 1953
+2025-07-28 16:22:55,532 [WARNING] django.request: Not Found: /favicon.ico
+2025-07-28 16:22:55,535 [WARNING] django.server: "GET /favicon.ico HTTP/1.1" 404 1861
+2025-07-28 16:24:16,517 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\talent_engine\views.py changed, reloading.
+2025-07-28 16:24:24,148 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 16:59:52,001 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\talent_engine\views.py changed, reloading.
+2025-07-28 17:00:01,097 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 17:02:46,950 [INFO] django.server: "OPTIONS /api/token/validate/ HTTP/1.1" 200 0
+2025-07-28 17:02:46,954 [INFO] django.server: "OPTIONS /api/token/validate/ HTTP/1.1" 200 0
+2025-07-28 17:03:40,808 [ERROR] django.request: Internal Server Error: /api/token/validate/
+Traceback (most recent call last):
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\base\base.py", line 279, in ensure_connection
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\base\base.py", line 256, in connect
+    self.connection = self.get_new_connection(conn_params)
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 332, in get_new_connection
+    connection = self.Database.connect(**conn_params)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: connection to server at "dpg-d208jbje5dus73d4h87g-a.oregon-postgres.render.com" (192.168.50.48), port 5432 failed: Connection timed out (0x0000274C/10060)
+	Is the server running on that host and accepting TCP/IP connections?
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\middleware.py", line 188, in process_request
+    public_tenant = Tenant.objects.get(schema_name=get_public_schema_name())
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\models\query.py", line 629, in get
+    num = len(clone)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\models\query.py", line 366, in __len__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\models\query.py", line 1949, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\models\query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1621, in execute_sql
+    cursor = self.connection.cursor()
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\base\base.py", line 320, in cursor
+    return self._cursor()
+           ~~~~~~~~~~~~^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django_tenants\postgresql_backend\base.py", line 144, in _cursor
+    cursor = super()._cursor()
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\base\base.py", line 296, in _cursor
+    self.ensure_connection()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\base\base.py", line 278, in ensure_connection
+    with self.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\base\base.py", line 279, in ensure_connection
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\base\base.py", line 256, in connect
+    self.connection = self.get_new_connection(conn_params)
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 332, in get_new_connection
+    connection = self.Database.connect(**conn_params)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+django.db.utils.OperationalError: connection to server at "dpg-d208jbje5dus73d4h87g-a.oregon-postgres.render.com" (192.168.50.48), port 5432 failed: Connection timed out (0x0000274C/10060)
+	Is the server running on that host and accepting TCP/IP connections?
+
+2025-07-28 17:03:40,809 [ERROR] django.request: Internal Server Error: /api/token/validate/
+Traceback (most recent call last):
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\base\base.py", line 279, in ensure_connection
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\base\base.py", line 256, in connect
+    self.connection = self.get_new_connection(conn_params)
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 332, in get_new_connection
+    connection = self.Database.connect(**conn_params)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: connection to server at "dpg-d208jbje5dus73d4h87g-a.oregon-postgres.render.com" (192.168.50.48), port 5432 failed: Connection timed out (0x0000274C/10060)
+	Is the server running on that host and accepting TCP/IP connections?
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\middleware.py", line 188, in process_request
+    public_tenant = Tenant.objects.get(schema_name=get_public_schema_name())
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\models\query.py", line 629, in get
+    num = len(clone)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\models\query.py", line 366, in __len__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\models\query.py", line 1949, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\models\query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1621, in execute_sql
+    cursor = self.connection.cursor()
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\base\base.py", line 320, in cursor
+    return self._cursor()
+           ~~~~~~~~~~~~^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django_tenants\postgresql_backend\base.py", line 144, in _cursor
+    cursor = super()._cursor()
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\base\base.py", line 296, in _cursor
+    self.ensure_connection()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\base\base.py", line 278, in ensure_connection
+    with self.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\base\base.py", line 279, in ensure_connection
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\base\base.py", line 256, in connect
+    self.connection = self.get_new_connection(conn_params)
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 332, in get_new_connection
+    connection = self.Database.connect(**conn_params)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+django.db.utils.OperationalError: connection to server at "dpg-d208jbje5dus73d4h87g-a.oregon-postgres.render.com" (192.168.50.48), port 5432 failed: Connection timed out (0x0000274C/10060)
+	Is the server running on that host and accepting TCP/IP connections?
+
+2025-07-28 17:03:40,899 [ERROR] django.server: "GET /api/token/validate/ HTTP/1.1" 500 194111
+2025-07-28 17:03:40,916 [ERROR] django.server: "GET /api/token/validate/ HTTP/1.1" 500 194212
+2025-07-28 17:03:51,474 [INFO] django.server: "OPTIONS /api/token/ HTTP/1.1" 200 0
+2025-07-28 17:03:51,755 [ERROR] django.request: Internal Server Error: /api/token/
+Traceback (most recent call last):
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\base\base.py", line 279, in ensure_connection
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\base\base.py", line 256, in connect
+    self.connection = self.get_new_connection(conn_params)
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 332, in get_new_connection
+    connection = self.Database.connect(**conn_params)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: could not translate host name "dpg-d208jbje5dus73d4h87g-a.oregon-postgres.render.com" to address: Name or service not known
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\middleware.py", line 188, in process_request
+    public_tenant = Tenant.objects.get(schema_name=get_public_schema_name())
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\models\query.py", line 629, in get
+    num = len(clone)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\models\query.py", line 366, in __len__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\models\query.py", line 1949, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\models\query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1621, in execute_sql
+    cursor = self.connection.cursor()
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\base\base.py", line 320, in cursor
+    return self._cursor()
+           ~~~~~~~~~~~~^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django_tenants\postgresql_backend\base.py", line 144, in _cursor
+    cursor = super()._cursor()
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\base\base.py", line 296, in _cursor
+    self.ensure_connection()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\base\base.py", line 278, in ensure_connection
+    with self.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\base\base.py", line 279, in ensure_connection
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\base\base.py", line 256, in connect
+    self.connection = self.get_new_connection(conn_params)
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 332, in get_new_connection
+    connection = self.Database.connect(**conn_params)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+django.db.utils.OperationalError: could not translate host name "dpg-d208jbje5dus73d4h87g-a.oregon-postgres.render.com" to address: Name or service not known
+
+2025-07-28 17:03:51,868 [ERROR] django.server: "POST /api/token/ HTTP/1.1" 500 193081
+2025-07-28 17:04:01,359 [ERROR] django.request: Internal Server Error: /api/token/
+Traceback (most recent call last):
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\base\base.py", line 279, in ensure_connection
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\base\base.py", line 256, in connect
+    self.connection = self.get_new_connection(conn_params)
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 332, in get_new_connection
+    connection = self.Database.connect(**conn_params)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: could not translate host name "dpg-d208jbje5dus73d4h87g-a.oregon-postgres.render.com" to address: Name or service not known
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\middleware.py", line 188, in process_request
+    public_tenant = Tenant.objects.get(schema_name=get_public_schema_name())
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\models\query.py", line 629, in get
+    num = len(clone)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\models\query.py", line 366, in __len__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\models\query.py", line 1949, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\models\query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1621, in execute_sql
+    cursor = self.connection.cursor()
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\base\base.py", line 320, in cursor
+    return self._cursor()
+           ~~~~~~~~~~~~^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django_tenants\postgresql_backend\base.py", line 144, in _cursor
+    cursor = super()._cursor()
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\base\base.py", line 296, in _cursor
+    self.ensure_connection()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\base\base.py", line 278, in ensure_connection
+    with self.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\base\base.py", line 279, in ensure_connection
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\base\base.py", line 256, in connect
+    self.connection = self.get_new_connection(conn_params)
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 332, in get_new_connection
+    connection = self.Database.connect(**conn_params)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+django.db.utils.OperationalError: could not translate host name "dpg-d208jbje5dus73d4h87g-a.oregon-postgres.render.com" to address: Name or service not known
+
+2025-07-28 17:04:01,373 [ERROR] django.server: "POST /api/token/ HTTP/1.1" 500 193081
+2025-07-28 17:04:49,135 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 17:09:17,392 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 965
+2025-07-28 17:09:17,693 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 389
+2025-07-28 17:09:17,864 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 389
+2025-07-28 17:09:18,322 [INFO] django.server: "OPTIONS /api/user/tenant-users/ HTTP/1.1" 200 0
+2025-07-28 17:09:18,323 [INFO] django.server: "OPTIONS /api/user/tenant-users/ HTTP/1.1" 200 0
+2025-07-28 17:09:18,878 [INFO] users: Retrieved 3 users for tenant proliance
+2025-07-28 17:09:18,927 [INFO] django.server: "GET /api/user/tenant-users/ HTTP/1.1" 200 1022
+2025-07-28 17:09:19,137 [INFO] users: Retrieved 3 users for tenant proliance
+2025-07-28 17:09:19,176 [INFO] django.server: "GET /api/user/tenant-users/ HTTP/1.1" 200 1022
+2025-07-28 17:09:22,875 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/ HTTP/1.1" 200 0
+2025-07-28 17:09:22,876 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/ HTTP/1.1" 200 0
+2025-07-28 17:09:23,255 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 6330
+2025-07-28 17:09:23,543 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 6330
+2025-07-28 17:09:25,020 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 6330
+2025-07-28 17:09:25,332 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 6330
+2025-07-28 17:09:26,432 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/applications/job-requisitions/PRO-0003/applications/ HTTP/1.1" 200 0
+2025-07-28 17:09:26,433 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/applications/job-requisitions/PRO-0003/applications/ HTTP/1.1" 200 0
+2025-07-28 17:09:26,739 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0003/applications/ HTTP/1.1" 200 6987
+2025-07-28 17:09:26,977 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0003/applications/ HTTP/1.1" 200 6987
+2025-07-28 17:09:32,226 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/requisitions/PRO-0003/screen-resumes/ HTTP/1.1" 200 0
+2025-07-28 17:09:32,709 [WARNING] django.request: Bad Request: /api/talent-engine-job-applications/requisitions/PRO-0003/screen-resumes/
+2025-07-28 17:09:32,714 [WARNING] django.server: "POST /api/talent-engine-job-applications/requisitions/PRO-0003/screen-resumes/ HTTP/1.1" 400 2239
+2025-07-28 17:09:51,406 [WARNING] django.request: Bad Request: /api/talent-engine-job-applications/requisitions/PRO-0003/screen-resumes/
+2025-07-28 17:09:51,409 [WARNING] django.server: "POST /api/talent-engine-job-applications/requisitions/PRO-0003/screen-resumes/ HTTP/1.1" 400 2239
+2025-07-28 17:10:53,447 [WARNING] django.request: Bad Request: /api/talent-engine-job-applications/requisitions/PRO-0003/screen-resumes/
+2025-07-28 17:10:53,453 [WARNING] django.server: "POST /api/talent-engine-job-applications/requisitions/PRO-0003/screen-resumes/ HTTP/1.1" 400 2239
+2025-07-28 17:10:53,567 [WARNING] django.request: Bad Request: /api/talent-engine-job-applications/requisitions/PRO-0003/screen-resumes/
+2025-07-28 17:10:53,576 [WARNING] django.server: "POST /api/talent-engine-job-applications/requisitions/PRO-0003/screen-resumes/ HTTP/1.1" 400 2239
+2025-07-28 17:11:06,346 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 6330
+2025-07-28 17:11:06,568 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 6330
+2025-07-28 17:11:07,361 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 6330
+2025-07-28 17:11:07,558 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 6330
+2025-07-28 17:11:08,112 [INFO] django.server: "OPTIONS /api/tenant/config/?t=1753719068084 HTTP/1.1" 200 0
+2025-07-28 17:11:08,126 [INFO] django.server: "OPTIONS /api/tenant/config/?t=1753719068090 HTTP/1.1" 200 0
+2025-07-28 17:11:08,331 [INFO] core: Fetched TenantConfig for tenant proliance
+2025-07-28 17:11:08,334 [INFO] core: Fetched TenantConfig for tenant proliance
+2025-07-28 17:11:08,338 [INFO] django.server: "GET /api/tenant/config/?t=1753719068090 HTTP/1.1" 200 2185
+2025-07-28 17:11:08,338 [INFO] django.server: "GET /api/tenant/config/?t=1753719068084 HTTP/1.1" 200 2185
+2025-07-28 17:11:09,697 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 14575
+2025-07-28 17:11:11,551 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 14575
+2025-07-28 17:11:14,225 [INFO] django.server: "OPTIONS /api/tenant/config/?t=1753719074180 HTTP/1.1" 200 0
+2025-07-28 17:11:14,961 [INFO] core: Fetched TenantConfig for tenant proliance
+2025-07-28 17:11:14,965 [INFO] django.server: "GET /api/tenant/config/?t=1753719074180 HTTP/1.1" 200 2185
+2025-07-28 17:11:15,130 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 6330
+2025-07-28 17:11:15,612 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 6330
+2025-07-28 17:11:16,685 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 14575
+2025-07-28 17:11:17,909 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 6330
+2025-07-28 17:11:18,224 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 6330
+2025-07-28 17:11:54,997 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 6330
+2025-07-28 17:11:55,199 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 6330
+2025-07-28 17:11:58,099 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0003/applications/ HTTP/1.1" 200 6967
+2025-07-28 17:11:58,327 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0003/applications/ HTTP/1.1" 200 6967
+2025-07-28 17:12:06,326 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 14575
+2025-07-28 17:12:08,304 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 14575
+2025-07-28 17:12:10,374 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/ HTTP/1.1" 200 14575
+2025-07-28 17:12:16,403 [INFO] django.server: "OPTIONS /api/tenant/config/ HTTP/1.1" 200 0
+2025-07-28 17:12:16,404 [INFO] django.server: "OPTIONS /api/tenant/config/ HTTP/1.1" 200 0
+2025-07-28 17:12:16,598 [INFO] core: Fetched TenantConfig for tenant proliance
+2025-07-28 17:12:16,601 [INFO] django.server: "GET /api/tenant/config/ HTTP/1.1" 200 2185
+2025-07-28 17:12:16,749 [INFO] core: Fetched TenantConfig for tenant proliance
+2025-07-28 17:12:16,752 [INFO] django.server: "GET /api/tenant/config/ HTTP/1.1" 200 2185
+2025-07-28 17:12:26,710 [INFO] core: Tenant config updated for tenant proliance
+2025-07-28 17:12:26,712 [INFO] django.server: "PATCH /api/tenant/config/ HTTP/1.1" 200 2091
+2025-07-28 17:13:33,230 [INFO] django.server: "OPTIONS /api/tenant/tenants/2/ HTTP/1.1" 200 0
+2025-07-28 17:13:33,231 [INFO] django.server: "OPTIONS /api/tenant/tenants/2/ HTTP/1.1" 200 0
+2025-07-28 17:13:33,431 [INFO] core: Retrieving tenant: 2 for tenant proliance
+2025-07-28 17:13:33,449 [INFO] django.server: "GET /api/tenant/tenants/2/ HTTP/1.1" 200 2464
+2025-07-28 17:13:33,580 [INFO] core: Retrieving tenant: 2 for tenant proliance
+2025-07-28 17:13:33,597 [INFO] django.server: "GET /api/tenant/tenants/2/ HTTP/1.1" 200 2464
+2025-07-28 17:13:35,924 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/deleted/soft_deleted/ HTTP/1.1" 200 0
+2025-07-28 17:13:35,927 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/deleted/soft_deleted/ HTTP/1.1" 200 0
+2025-07-28 17:13:36,246 [INFO] talent_engine: Retrieved 455 soft-deleted job requisitions for tenant proliance
+2025-07-28 17:13:39,028 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 6330
+2025-07-28 17:13:39,361 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 6330
+2025-07-28 17:13:41,410 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0003/applications/ HTTP/1.1" 200 6967
+2025-07-28 17:13:41,787 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0003/applications/ HTTP/1.1" 200 6967
+2025-07-28 17:13:42,822 [INFO] django.server: "GET /api/talent-engine/requisitions/deleted/soft_deleted/ HTTP/1.1" 200 556529
+2025-07-28 17:13:43,085 [INFO] talent_engine: Retrieved 455 soft-deleted job requisitions for tenant proliance
+2025-07-28 17:13:48,527 [WARNING] django.request: Bad Request: /api/talent-engine-job-applications/requisitions/PRO-0003/screen-resumes/
+2025-07-28 17:13:48,530 [WARNING] django.server: "POST /api/talent-engine-job-applications/requisitions/PRO-0003/screen-resumes/ HTTP/1.1" 400 2239
+2025-07-28 17:13:50,416 [INFO] django.server: "GET /api/talent-engine/requisitions/deleted/soft_deleted/ HTTP/1.1" 200 556529
+2025-07-28 17:16:40,512 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-28 17:16:48,600 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 17:34:36,917 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 389
+2025-07-28 17:34:37,100 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 389
+2025-07-28 17:34:37,401 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0003/applications/ HTTP/1.1" 200 6967
+2025-07-28 17:34:37,719 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0003/applications/ HTTP/1.1" 200 6967
+2025-07-28 18:17:20,306 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 389
+2025-07-28 18:17:20,394 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0003/applications/ HTTP/1.1" 200 6967
+2025-07-28 18:22:59,785 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-28 18:23:05,791 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 18:24:33,212 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-28 18:24:36,859 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 18:25:56,629 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-28 18:26:03,373 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 18:26:24,911 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-28 18:26:30,102 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 18:27:02,538 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-28 18:27:08,466 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 18:27:50,878 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\urls.py changed, reloading.
+2025-07-28 18:27:55,334 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 18:28:19,958 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\urls.py changed, reloading.
+2025-07-28 18:28:25,317 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 18:29:32,458 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 18:30:29,891 [WARNING] django.request: Unauthorized: /api/talent-engine-job-applications/public-published-requisitions-with-shortlisted/
+2025-07-28 18:30:29,892 [WARNING] django.server: "GET /api/talent-engine-job-applications/public-published-requisitions-with-shortlisted/ HTTP/1.1" 401 183
+2025-07-28 18:30:34,078 [ERROR] django.request: Internal Server Error: /api/talent-engine-job-applications/public-published-requisitions-with-shortlisted/
+2025-07-28 18:30:34,078 [ERROR] django.server: "GET /api/talent-engine-job-applications/public-published-requisitions-with-shortlisted/ HTTP/1.1" 500 61
+2025-07-28 18:31:13,291 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-28 18:31:18,489 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 18:31:45,323 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-28 18:31:49,134 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 18:32:01,853 [ERROR] django.request: Internal Server Error: /api/talent-engine-job-applications/public-published-requisitions-with-shortlisted/
+2025-07-28 18:32:01,854 [ERROR] django.server: "GET /api/talent-engine-job-applications/public-published-requisitions-with-shortlisted/ HTTP/1.1" 500 61
+2025-07-28 18:35:53,839 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-28 18:35:57,140 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 18:36:08,359 [ERROR] django.request: Internal Server Error: /api/talent-engine-job-applications/public-published-requisitions-with-shortlisted/
+2025-07-28 18:36:08,360 [ERROR] django.server: "GET /api/talent-engine-job-applications/public-published-requisitions-with-shortlisted/ HTTP/1.1" 500 218
+2025-07-28 18:38:17,736 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-28 18:38:20,804 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 18:44:38,373 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-28 18:44:44,431 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 18:46:46,473 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-28 18:46:51,616 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 20:25:56,257 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 20:27:07,726 [ERROR] django.request: Internal Server Error: /api/talent-engine-job-applications/public-published-requisitions-with-shortlisted/
+2025-07-28 20:27:07,727 [ERROR] django.server: "GET /api/talent-engine-job-applications/public-published-requisitions-with-shortlisted/ HTTP/1.1" 500 71
+2025-07-28 20:32:17,231 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-28 20:32:21,062 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 20:38:05,457 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-28 20:38:10,023 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 20:39:07,155 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-28 20:39:17,174 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 20:40:20,073 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-28 20:40:26,061 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 20:42:20,065 [ERROR] django.request: Internal Server Error: /api/talent-engine-job-applications/public-published-requisitions-with-shortlisted/
+2025-07-28 20:42:20,066 [ERROR] django.server: "GET /api/talent-engine-job-applications/public-published-requisitions-with-shortlisted/?schema_name=proliance HTTP/1.1" 500 131
+2025-07-28 20:44:21,459 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-28 20:44:27,781 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 20:44:41,057 [INFO] django.server: "GET /api/talent-engine-job-applications/public-published-requisitions-with-shortlisted/?schema_name=proliance HTTP/1.1" 200 16462
+2025-07-28 20:45:07,645 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-28 20:45:11,928 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 20:45:37,633 [INFO] django.server: "GET /api/talent-engine-job-applications/public-published-requisitions-with-shortlisted/?schema_name=proliance HTTP/1.1" 200 9437

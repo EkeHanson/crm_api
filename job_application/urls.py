@@ -5,12 +5,12 @@ from rest_framework.routers import DefaultRouter
 
 
 from .views import (
-    JobApplicationListCreateView,    JobApplicationDetailView,    JobApplicationBulkDeleteView,    SoftDeletedJobApplicationsView,
-    RecoverSoftDeletedJobApplicationsView,    PermanentDeleteJobApplicationsView, ComplianceStatusUpdateView,
-    ScheduleListCreateView,    ScheduleDetailView,    ScheduleBulkDeleteView,    SoftDeletedSchedulesView,
-    RecoverSoftDeletedSchedulesView,    PermanentDeleteSchedulesView,JobApplicationWithSchedulesView,ComplianceStatusUpdateView,
-    ResumeParseView,    JobApplicationsByRequisitionView,    PublishedJobRequisitionsWithShortlistedApplicationsView,
-    ResumeScreeningView,TimezoneChoicesView,ApplicantComplianceUploadView
+    JobApplicationListCreateView,JobApplicationDetailView,JobApplicationBulkDeleteView,SoftDeletedJobApplicationsView,
+    RecoverSoftDeletedJobApplicationsView,PermanentDeleteJobApplicationsView,ComplianceStatusUpdateView,
+    ScheduleListCreateView, ScheduleDetailView, ScheduleBulkDeleteView, SoftDeletedSchedulesView,
+    RecoverSoftDeletedSchedulesView,PermanentDeleteSchedulesView,JobApplicationWithSchedulesView,ComplianceStatusUpdateView,
+    ResumeParseView, JobApplicationsByRequisitionView, PublishedJobRequisitionsWithShortlistedApplicationsView,
+    ResumeScreeningView,TimezoneChoicesView,ApplicantComplianceUploadView, PublishedPublicJobRequisitionsWithShortlistedApplicationsView
 )
 
 app_name = 'job_applications'
@@ -48,6 +48,7 @@ urlpatterns = [
     
     path('requisitions/<str:job_requisition_id>/screen-resumes/', ResumeScreeningView.as_view(), name='resume-screening'),
     path('published-requisitions-with-shortlisted/', PublishedJobRequisitionsWithShortlistedApplicationsView.as_view(), name='published-requisitions-with-shortlisted'),
+    path('public-published-requisitions-with-shortlisted/', PublishedPublicJobRequisitionsWithShortlistedApplicationsView.as_view(), name='published-requisitions-with-shortlisted'),
 
 
     # Schedule Endpoints

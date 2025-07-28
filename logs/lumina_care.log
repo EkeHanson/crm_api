@@ -523,3 +523,39 @@ TimeoutError: [WinError 10060] A connection attempt failed because the connected
 2025-07-28 11:54:15,363 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.
 2025-07-28 11:54:19,902 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
 2025-07-28 11:54:37,406 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 11:55:17,232 [INFO] django.server: "OPTIONS /api/token/ HTTP/1.1" 200 0
+2025-07-28 11:55:22,172 [WARNING] django.request: Unauthorized: /api/token/
+2025-07-28 11:55:22,173 [WARNING] django.server: "POST /api/token/ HTTP/1.1" 401 63
+2025-07-28 11:55:38,550 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 964
+2025-07-28 11:55:38,580 [INFO] django.server: "OPTIONS /api/token/validate/ HTTP/1.1" 200 0
+2025-07-28 11:55:38,591 [INFO] django.server: "OPTIONS /api/token/validate/ HTTP/1.1" 200 0
+2025-07-28 11:55:42,990 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 388
+2025-07-28 11:55:43,160 [INFO] django.server: "OPTIONS /api/user/tenant-users/ HTTP/1.1" 200 0
+2025-07-28 11:55:43,166 [INFO] django.server: "OPTIONS /api/user/tenant-users/ HTTP/1.1" 200 0
+2025-07-28 11:55:45,859 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/ HTTP/1.1" 200 0
+2025-07-28 11:55:45,865 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/ HTTP/1.1" 200 0
+2025-07-28 11:55:47,372 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 388
+2025-07-28 11:55:47,590 [INFO] users: Retrieved 6 users for tenant proliance
+2025-07-28 11:55:55,267 [INFO] django.server: "OPTIONS /api/tenant/tenants/1/ HTTP/1.1" 200 0
+2025-07-28 11:55:55,267 [INFO] django.server: "OPTIONS /api/tenant/tenants/1/ HTTP/1.1" 200 0
+2025-07-28 11:55:55,720 [INFO] django.server: "GET /api/user/tenant-users/ HTTP/1.1" 200 1986
+2025-07-28 11:55:58,542 [INFO] django.server: "OPTIONS /api/tenant/config/ HTTP/1.1" 200 0
+2025-07-28 11:55:58,546 [INFO] django.server: "OPTIONS /api/tenant/config/ HTTP/1.1" 200 0
+2025-07-28 11:55:59,452 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 7736
+2025-07-28 11:56:00,106 [INFO] users: Retrieved 6 users for tenant proliance
+2025-07-28 11:56:00,680 [INFO] core: Retrieving tenant: 1 for tenant proliance
+2025-07-28 11:56:01,792 [INFO] django.server: "GET /api/tenant/tenants/1/ HTTP/1.1" 200 1826
+2025-07-28 11:56:03,509 [INFO] core: Fetched TenantConfig for tenant proliance
+2025-07-28 11:56:03,511 [INFO] django.server: "GET /api/tenant/config/ HTTP/1.1" 200 1453
+2025-07-28 11:56:07,409 [INFO] core: Retrieving tenant: 1 for tenant proliance
+2025-07-28 11:56:08,058 [INFO] django.server: "GET /api/user/tenant-users/ HTTP/1.1" 200 1986
+2025-07-28 11:56:08,523 [INFO] django.server: "GET /api/tenant/tenants/1/ HTTP/1.1" 200 1826
+2025-07-28 11:56:08,688 [INFO] core: Fetched TenantConfig for tenant proliance
+2025-07-28 11:56:08,689 [INFO] django.server: "GET /api/tenant/config/ HTTP/1.1" 200 1453
+2025-07-28 11:56:13,023 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 7736
+2025-07-28 11:56:14,053 [INFO] core: Retrieving tenant: 1 for tenant proliance
+2025-07-28 11:56:15,198 [INFO] django.server: "GET /api/tenant/tenants/1/ HTTP/1.1" 200 1826
+2025-07-28 11:56:20,821 [INFO] core: Retrieving tenant: 1 for tenant proliance
+2025-07-28 11:56:21,942 [INFO] django.server: "GET /api/tenant/tenants/1/ HTTP/1.1" 200 1826
+2025-07-28 11:56:26,498 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 7736
+2025-07-28 11:56:40,251 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 7736

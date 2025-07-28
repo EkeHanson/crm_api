@@ -567,3 +567,8 @@ TimeoutError: [WinError 10060] A connection attempt failed because the connected
 2025-07-28 12:10:11,070 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 388
 2025-07-28 12:10:20,524 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 7736
 2025-07-28 12:10:34,825 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 7736
+2025-07-28 12:19:18,866 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 12:35:02,448 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 388
+2025-07-28 12:35:07,049 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 388
+2025-07-28 12:39:19,597 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 388
+2025-07-28 12:39:24,019 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 388

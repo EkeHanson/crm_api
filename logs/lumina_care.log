@@ -506,3 +506,4 @@ TimeoutError: [WinError 10060] A connection attempt failed because the connected
 2025-07-28 10:22:44,645 [WARNING] django.request: Unauthorized: /api/token/
 2025-07-28 10:22:44,648 [WARNING] django.server: "POST /api/token/ HTTP/1.1" 401 63
 2025-07-28 10:35:59,220 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.
+2025-07-28 10:36:05,540 [INFO] django.utils.autoreload: Watching for file changes with StatReloader

@@ -549,6 +549,9 @@ class TenantUsersListView(APIView):
                     status=status.HTTP_500_INTERNAL_SERVER_ERROR
                 )
 
+
+
+
 # New view for listing all users in a branch
 class BranchUsersListView(APIView):
     permission_classes = [IsAuthenticated]

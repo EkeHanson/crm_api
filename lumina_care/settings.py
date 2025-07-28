@@ -1,19 +1,36 @@
 
+# lumina_care/settings.py
+# -----------------------------------------------------------
+# Django settings for Lumina Care CRM (multi-tenant, JWT)
+# -----------------------------------------------------------
+
 from pathlib import Path
+from datetime import timedelta
 import os
 import sys
-import logging
+import environ
 from logging.handlers import RotatingFileHandler
-from datetime import timedelta
-from decouple import config
 
+# -----------------------------------------------------------
+# BASE PATHS & ENV
+# -----------------------------------------------------------
 BASE_DIR = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(BASE_DIR / 'talent_engine'))
 
-SECRET_KEY = config('SECRET_KEY', default='django-insecure-!v)6(7@u983fg+8gdo1o)dr^59vvp3^ol*apr%c+$0n$#swz-1')
-DEBUG = config('DEBUG', default=False, cast=bool)
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='127.0.0.1,localhost,cmvp-api-v1.onrender.com,temp.artstraining.co.uk').split(',')
+env = environ.Env(DEBUG=(bool, False))
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))  # load .env
 
+# -----------------------------------------------------------
+# CORE SECURITY
+# -----------------------------------------------------------
+SECRET_KEY = env('DJANGO_SECRET_KEY', default='your-default-secret-key')
+DEBUG = env('DEBUG', default=False)
+ALLOWED_HOSTS = env.list('DJANGO_ALLOWED_HOSTS', default=[])
+FRONTEND_URL = env('FRONTEND_URL', default='http://localhost:5173')
+
+# -----------------------------------------------------------
+# APPLICATIONS
+# -----------------------------------------------------------
 INSTALLED_APPS = [
     'corsheaders',
     'django_tenants',
@@ -24,12 +41,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    # 'allauth',
-    # 'allauth.account',
-    # 'allauth.socialaccount',
-    # 'allauth.socialaccount.providers.google',
-    # 'allauth.socialaccount.providers.apple',
-    # 'allauth.socialaccount.providers.microsoft',
     'django_crontab',
     'django_filters',
     'rest_framework',
@@ -37,6 +48,8 @@ INSTALLED_APPS = [
     'drf_spectacular',
     'viewflow.fsm',
     'auditlog',
+
+    # Local apps
     'core',
     'users',
     'talent_engine',
@@ -50,6 +63,9 @@ INSTALLED_APPS = [
     'subscriptions',
 ]
 
+# -----------------------------------------------------------
+# MIDDLEWARE
+# -----------------------------------------------------------
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'lumina_care.middleware.CustomTenantMiddleware',
@@ -60,23 +76,18 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'allauth.account.middleware.AccountMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
+AUTH_USER_MODEL = 'users.CustomUser'
+
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
-    # 'allauth.account.auth_backends.AuthenticationBackend',
 )
 
-
-ACCOUNT_LOGIN_METHODS = {'email': True}
-ACCOUNT_SIGNUP_FIELDS = ['email*', 'password1*', 'password2*']
-ACCOUNT_EMAIL_VERIFICATION = 'optional'
-SOCIALACCOUNT_AUTO_SIGNUP = True
-SOCIALACCOUNT_EMAIL_AUTHENTICATION = True
-SOCIALACCOUNT_EMAIL_AUTHENTICATION_AUTO_CONNECT = True
-
+# -----------------------------------------------------------
+# SOCIAL PROVIDERS
+# -----------------------------------------------------------
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         'SCOPE': ['profile', 'email'],
@@ -84,39 +95,32 @@ SOCIALACCOUNT_PROVIDERS = {
     },
     'apple': {
         'APP': {
-            'client_id': config('APPLE_CLIENT_ID', default='your.apple.client.id'),
-            'secret': config('APPLE_KEY_ID', default='your.apple.key.id'),
-            'key': config('APPLE_TEAM_ID', default='your.apple.team.id'),
-            'certificate_key': config('APPLE_CERTIFICATE_KEY', default=''),
+            'client_id': env('APPLE_CLIENT_ID', default=''),
+            'secret': env('APPLE_KEY_ID', default=''),
+            'key': env('APPLE_TEAM_ID', default=''),
+            'certificate_key': env('APPLE_CERTIFICATE_KEY', default=''),
         }
     },
     'microsoft': {
         'APP': {
-            'client_id': config('MICROSOFT_CLIENT_ID', default='your.microsoft.client.id'),
-            'secret': config('MICROSOFT_CLIENT_SECRET', default='your.microsoft.client.secret'),
+            'client_id': env('MICROSOFT_CLIENT_ID', default=''),
+            'secret': env('MICROSOFT_CLIENT_SECRET', default=''),
             'tenant': 'common',
         },
         'SCOPE': ['User.Read', 'email'],
     }
 }
 
-# CORS_ALLOWED_ORIGINS = [
-#     'https://crm-frontend-react.vercel.app',
-#     "https://cmvp-api-v1.onrender.com",
-#     'http://localhost:5173',
-# ]
+# -----------------------------------------------------------
+# DATABASE & TENANCY
+# -----------------------------------------------------------
+DATABASES = {
+    'default': {
+        **env.db('DATABASE_URL'),
+        'ENGINE': 'django_tenants.postgresql_backend',
+    }
+}
 
-CORS_ALLOW_ALL_ORIGINS = True
-
-
-CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOW_METHODS = ['DELETE', 'GET', 'OPTIONS', 'PATCH', 'POST', 'PUT']
-CORS_ALLOW_HEADERS = ['accept', 'authorization', 'content-type', 'origin', 'x-csrftoken', 'x-requested-with']
-
-ROOT_URLCONF = 'lumina_care.urls'
-WSGI_APPLICATION = 'lumina_care.wsgi.application'
-
-#FOR HOSTING ON NAMECHEAP
 
 # DATABASES = {
 #     'default': {
@@ -131,21 +135,28 @@ WSGI_APPLICATION = 'lumina_care.wsgi.application'
 # }
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django_tenants.postgresql_backend',
-        'NAME': 'crm_database_l66m',
-        'USER': 'crm_database_l66m_user',
-        'PASSWORD': 'lSK570C0FzOFlKIDyECGG7rd2VU9YyTO',
-        'HOST': 'dpg-d208jbje5dus73d4h87g-a.oregon-postgres.render.com',
-        'PORT': '5432',
-    }
-}
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [BASE_DIR / 'templates'],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+
 
 
 DATABASE_ROUTERS = ['django_tenants.routers.TenantSyncRouter']
 TENANT_MODEL = "core.Tenant"
 TENANT_DOMAIN_MODEL = "core.Domain"
+
 SHARED_APPS = [
     'django_tenants',
     'django.contrib.auth',
@@ -174,41 +185,27 @@ TENANT_APPS = [
     'analytics',
     'integrations',
 ]
-AUTH_USER_MODEL = 'users.CustomUser'
 
-
-AUTH_PASSWORD_VALIDATORS = [
-    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
+# -----------------------------------------------------------
+# CORS
+# -----------------------------------------------------------
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_METHODS = ['DELETE', 'GET', 'OPTIONS', 'PATCH', 'POST', 'PUT']
+CORS_ALLOW_HEADERS = [
+    'accept', 'authorization', 'content-type', 'origin', 'x-csrftoken', 'x-requested-with'
 ]
 
-LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'UTC'
-USE_I18N = True
-USE_TZ = True
-
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# Static files (CSS, JavaScript, Images)
-STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Add this line
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
-
+# -----------------------------------------------------------
+# REST FRAMEWORK
+# -----------------------------------------------------------
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-        # 'allauth.account.auth_backends.AuthenticationBackend',
     ),
-    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticated',),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     'DEFAULT_PARSER_CLASSES': [
         'rest_framework.parsers.MultiPartParser',
@@ -217,7 +214,9 @@ REST_FRAMEWORK = {
     ],
 }
 
-SOCIALACCOUNT_ADAPTER = 'users.adapters.CustomSocialAccountAdapter'
+# -----------------------------------------------------------
+# SIMPLE JWT
+# -----------------------------------------------------------
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=120),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
@@ -226,22 +225,38 @@ SIMPLE_JWT = {
     'BLACKLIST_AFTER_ROTATION': True,
 }
 
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
-        },
-    },
-]
+# -----------------------------------------------------------
+# EMAIL
+# -----------------------------------------------------------
+EMAIL_BACKEND = env('EMAIL_BACKEND', default='django.core.mail.backends.smtp.EmailBackend')
+EMAIL_HOST = env('EMAIL_HOST', default='smtp.gmail.com')
+EMAIL_PORT = env('EMAIL_PORT', default=587, cast=int)
+EMAIL_USE_TLS = env('EMAIL_USE_TLS', default=True, cast=bool)
+EMAIL_HOST_USER = env('EMAIL_HOST_USER', default='')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD', default='')
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+EMAIL_DEBUG = env('EMAIL_DEBUG', default=False, cast=bool)
 
+# -----------------------------------------------------------
+# SUPABASE
+# -----------------------------------------------------------
+SUPABASE_URL = env('SUPABASE_URL', default='')
+SUPABASE_KEY = env('SUPABASE_KEY', default='')
+SUPABASE_BUCKET = env('SUPABASE_BUCKET', default='')
+
+# -----------------------------------------------------------
+# STATIC & MEDIA
+# -----------------------------------------------------------
+STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+# -----------------------------------------------------------
+# LOGGING
+# -----------------------------------------------------------
 LOG_DIR = '/tmp/logs' if os.getenv('RENDER') else os.path.join(BASE_DIR, 'logs')
 os.makedirs(LOG_DIR, exist_ok=True)
 
@@ -257,7 +272,7 @@ LOGGING = {
             'level': 'INFO',
             'class': 'logging.handlers.RotatingFileHandler',
             'filename': os.path.join(LOG_DIR, 'lumina_care.log'),
-            'maxBytes': 1024 * 1024 * 5,
+            'maxBytes': 5 * 1024 * 1024,
             'backupCount': 5,
             'formatter': 'verbose',
         },
@@ -265,7 +280,6 @@ LOGGING = {
     },
     'loggers': {
         'django': {'handlers': ['file', 'console'], 'level': 'INFO', 'propagate': True},
-        'django.db.backends': {'handlers': ['file'], 'level': 'ERROR'},
         'core': {'handlers': ['file'], 'level': 'INFO', 'propagate': False},
         'users': {'handlers': ['file'], 'level': 'INFO', 'propagate': False},
         'talent_engine': {'handlers': ['file'], 'level': 'INFO', 'propagate': False},
@@ -274,28 +288,23 @@ LOGGING = {
     }
 }
 
+# -----------------------------------------------------------
+# CRON JOBS
+# -----------------------------------------------------------
 CRONTAB_COMMAND_PREFIX = ''
 CRONTAB_DJANGO_PROJECT_NAME = 'lumina_care'
 CRONJOBS = [
-    ('0 11 * * *', 'talent_engine.cron.close_expired_requisitions', f'>> {os.path.join(LOG_DIR, "lumina_care.log")} 2>&1'),
+    ('0 11 * * *', 'talent_engine.cron.close_expired_requisitions',
+     f'>> {os.path.join(LOG_DIR, "lumina_care.log")} 2>&1'),
 ]
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = config('EMAIL_HOST', default='smtp.gmail.com')
-EMAIL_PORT = config('EMAIL_PORT', default=587, cast=int)
-EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=True, cast=bool)
-EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='ekenehanson@gmail.com')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='pduw cpmw dgoq adrp')
-DEFAULT_FROM_EMAIL = config('EMAIL_HOST_USER', default='ekenehanson@gmail.com')
-EMAIL_DEBUG = True
-
-FILE_UPLOAD_MAX_MEMORY_SIZE = 3145728  # 3MB
-DATA_UPLOAD_MAX_MEMORY_SIZE = 3145728  # 3MB
-
-WEB_PAGE_URL = 'https://crm-frontend-react.vercel.app'
-#WEB_PAGE_URL = 'http://localhost:5173'
+# -----------------------------------------------------------
+# INTERNATIONALIZATION
+# -----------------------------------------------------------
+LANGUAGE_CODE = 'en-us'
+TIME_ZONE = 'UTC'
+USE_I18N = True
+USE_TZ = True
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-SUPABASE_URL="https://gkvgqvosnetifsonhxuo.supabase.co"
-SUPABASE_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdrdmdxdm9zbmV0aWZzb25oeHVvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI2NTU0OTcsImV4cCI6MjA2ODIzMTQ5N30.foh7w4Ko-wGwMc9GW7ZX2YswK8d4J51wel532mjPTfw"
-SUPABASE_BUCKET="luminacaremedia"

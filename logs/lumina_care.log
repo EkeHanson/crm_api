@@ -507,3 +507,12 @@ TimeoutError: [WinError 10060] A connection attempt failed because the connected
 2025-07-28 10:22:44,648 [WARNING] django.server: "POST /api/token/ HTTP/1.1" 401 63
 2025-07-28 10:35:59,220 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.
 2025-07-28 10:36:05,540 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 10:51:12,008 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.
+2025-07-28 10:51:15,295 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 11:05:01,231 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.
+2025-07-28 11:06:17,083 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 11:07:21,543 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.
+2025-07-28 11:07:25,708 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 11:07:36,399 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 11:07:43,349 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.
+2025-07-28 11:07:46,780 [INFO] django.utils.autoreload: Watching for file changes with StatReloader

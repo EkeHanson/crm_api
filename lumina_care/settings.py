@@ -1,4 +1,3 @@
-
 # lumina_care/settings.py
 # -----------------------------------------------------------
 # Django settings for Lumina Care CRM (multi-tenant, JWT)
@@ -155,7 +154,6 @@ TEMPLATES = [
 ]
 
 
-
 DATABASE_ROUTERS = ['django_tenants.routers.TenantSyncRouter']
 TENANT_MODEL = "core.Tenant"
 TENANT_DOMAIN_MODEL = "core.Domain"
@@ -192,6 +190,13 @@ TENANT_APPS = [
 # -----------------------------------------------------------
 # CORS
 # -----------------------------------------------------------
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+    'https://crm-frontend-react.vercel.app', # add your production frontend later
+]
+
+
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_METHODS = ['DELETE', 'GET', 'OPTIONS', 'PATCH', 'POST', 'PUT']

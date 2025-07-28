@@ -5,25 +5,26 @@
 
 #python manage.py shell
 from core.models import Tenant, Domain
-if not Tenant.objects.filter(schema_name='public').exists():
+if not Tenant.objects.filter(schema_name='render').exists():
     tenant = Tenant.objects.create(
-        name='public',
-        schema_name='public'
+        name='render',
+        schema_name='render',
     )
     tenant.auto_create_schema = False
     tenant.save()
-    Domain.objects.create(tenant=tenant, domain='127.0.0.1', is_primary=True)
+    Domain.objects.create(tenant=tenant, domain='crm-api-6cdj.onrender.com', is_primary=True)
     Domain.objects.create(tenant=tenant, domain='localhost', is_primary=False)
     
+
 # python manage.py shell
 from core.models import Tenant
 from users.models import CustomUser
 from django_tenants.utils import tenant_context
-tenant = Tenant.objects.get(schema_name='proliance')
+tenant = Tenant.objects.get(schema_name='render')
 with tenant_context(tenant):
     CustomUser.objects.create_superuser(
         username='manny',
-        email='manny@prolianceltd.com',
+        email='manny@crm-api-6cdj.onrender.com.com',
         password='qwerty',
         role='admin',
         first_name='Gabriel',

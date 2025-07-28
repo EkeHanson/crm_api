@@ -572,3 +572,37 @@ TimeoutError: [WinError 10060] A connection attempt failed because the connected
 2025-07-28 12:35:07,049 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 388
 2025-07-28 12:39:19,597 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 388
 2025-07-28 12:39:24,019 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 388
+2025-07-28 12:40:42,465 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 12:41:21,960 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 388
+2025-07-28 12:41:26,463 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 388
+2025-07-28 12:41:48,646 [INFO] django.server: "GET / HTTP/1.1" 200 188
+2025-07-28 12:41:52,680 [WARNING] django.request: Not Found: /favicon.ico
+2025-07-28 12:41:52,681 [WARNING] django.server: "GET /favicon.ico HTTP/1.1" 404 4265
+2025-07-28 12:42:01,862 [INFO] django.server: "GET /api/docs/ HTTP/1.1" 200 4640
+2025-07-28 12:42:06,380 [WARNING] talent_engine: Invalid unique_link format: 
+2025-07-28 12:42:06,421 [WARNING] core: No valid Bearer token provided
+2025-07-28 12:42:06,422 [ERROR] core: Error extracting tenant: Invalid token format
+2025-07-28 12:42:06,426 [WARNING] core: No valid Bearer token provided
+2025-07-28 12:42:06,427 [ERROR] core: Error extracting tenant: Invalid token format
+2025-07-28 12:42:06,430 [WARNING] core: No valid Bearer token provided
+2025-07-28 12:42:06,430 [ERROR] core: Error extracting tenant: Invalid token format
+2025-07-28 12:42:06,432 [WARNING] core: No valid Bearer token provided
+2025-07-28 12:42:06,433 [ERROR] core: Error extracting tenant: Invalid token format
+2025-07-28 12:42:06,435 [WARNING] core: No valid Bearer token provided
+2025-07-28 12:42:06,435 [ERROR] core: Error extracting tenant: Invalid token format
+2025-07-28 12:42:06,439 [WARNING] core: No valid Bearer token provided
+2025-07-28 12:42:06,440 [ERROR] core: Error extracting tenant: Invalid token format
+2025-07-28 12:42:06,604 [INFO] django.server: "GET /api/schema/ HTTP/1.1" 200 188983
+2025-07-28 12:43:38,293 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 388
+2025-07-28 12:43:43,151 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 388
+2025-07-28 13:14:19,955 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 13:25:49,727 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 13:37:48,808 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-28 13:37:55,391 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 13:41:20,619 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.
+2025-07-28 13:41:25,336 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 13:54:17,874 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.
+2025-07-28 13:54:22,987 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 13:54:39,607 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.
+2025-07-28 13:54:44,541 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 14:04:48,337 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.

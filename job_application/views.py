@@ -181,6 +181,7 @@ class ResendRejectionEmailsView(APIView):
 
 #FOR TESTING
 
+
 class ResumeScreeningView(APIView):
     permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized, BranchRestrictedPermission]
     parser_classes = [JSONParser, MultiPartParser, FormParser]

@@ -2,9 +2,7 @@ from django.db import models
 from django.utils import timezone
 from core.models import Tenant, Branch
 from talent_engine.models import JobRequisition
-from users.models import CustomUser
 import logging
-import uuid
 
 logger = logging.getLogger('job_applications')
 

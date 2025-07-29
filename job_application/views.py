@@ -740,6 +740,8 @@ class PublishedPublicJobRequisitionsWithShortlistedApplicationsView(generics.Lis
             logger.exception("Error processing job requisitions and shortlisted applications")
             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+
+
 class JobApplicationListCreateView(generics.GenericAPIView):
     parser_classes = (MultiPartParser, FormParser)
     serializer_class = JobApplicationSerializer

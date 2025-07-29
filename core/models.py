@@ -6,14 +6,17 @@ logger = logging.getLogger('core')
 
 class Tenant(TenantMixin):
     name = models.CharField(max_length=100)
+    title = models.CharField(max_length=150, null=True, blank=True)  # Added title field
     schema_name = models.CharField(max_length=63, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    logo = models.URLField(null=True, blank=True)  # Store Supabase public URL
     email_host = models.CharField(max_length=255, null=True, blank=True)
     email_port = models.IntegerField(null=True, blank=True)
     email_use_ssl = models.BooleanField(default=True)
     email_host_user = models.EmailField(null=True, blank=True)
     email_host_password = models.CharField(max_length=255, null=True, blank=True)
     default_from_email = models.EmailField(null=True, blank=True)
+    about_us = models.TextField(null=True, blank=True)  # Description of the tenant
     auto_create_schema = True
 
     def save(self, *args, **kwargs):
@@ -74,6 +77,6 @@ class AIDecisionLog(models.Model):
 
 class TenantConfig(models.Model):
     tenant = models.OneToOneField('Tenant', on_delete=models.CASCADE)
-    logo = models.ImageField(upload_to='tenant_logos/', null=True, blank=True)
+    logo = models.URLField(null=True, blank=True)  # Store Supabase public URL
     custom_fields = models.JSONField(default=dict)
     email_templates = models.JSONField(default=dict)

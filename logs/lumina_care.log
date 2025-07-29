@@ -1243,3 +1243,716 @@ django.db.utils.OperationalError: could not translate host name "dpg-d208jbje5du
 2025-07-28 20:45:07,645 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
 2025-07-28 20:45:11,928 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
 2025-07-28 20:45:37,633 [INFO] django.server: "GET /api/talent-engine-job-applications/public-published-requisitions-with-shortlisted/?schema_name=proliance HTTP/1.1" 200 9437
+2025-07-28 20:58:44,266 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-28 20:58:48,922 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 21:01:33,353 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\core\models.py changed, reloading.
+2025-07-28 21:01:39,241 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 21:03:39,988 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\core\serializers.py changed, reloading.
+2025-07-28 21:03:45,122 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 21:04:25,872 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\core\serializers.py changed, reloading.
+2025-07-28 21:04:31,059 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 21:05:19,758 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\core\serializers.py changed, reloading.
+2025-07-28 21:05:24,363 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 21:06:20,904 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\core\serializers.py changed, reloading.
+2025-07-28 21:06:25,913 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 21:07:06,719 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\core\serializers.py changed, reloading.
+2025-07-28 21:07:11,291 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 21:07:21,462 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\core\serializers.py changed, reloading.
+2025-07-28 21:07:25,749 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 21:08:01,725 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\models.py changed, reloading.
+2025-07-28 21:08:07,526 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 21:08:25,746 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\core\serializers.py changed, reloading.
+2025-07-28 21:08:30,613 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 21:13:02,064 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\core\serializers.py changed, reloading.
+2025-07-28 21:13:06,825 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 21:13:37,254 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\core\serializers.py changed, reloading.
+2025-07-28 21:13:41,107 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 21:15:07,993 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\core\serializers.py changed, reloading.
+2025-07-28 21:15:12,038 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 21:15:44,125 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\core\models.py changed, reloading.
+2025-07-28 21:15:47,768 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 21:16:05,017 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\core\serializers.py changed, reloading.
+2025-07-28 21:16:09,908 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 21:16:34,591 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\core\models.py changed, reloading.
+2025-07-28 21:16:38,932 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 21:18:25,311 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 21:30:25,986 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 21:31:00,336 [INFO] django.server: "OPTIONS /api/token/ HTTP/1.1" 200 0
+2025-07-28 21:31:05,204 [WARNING] django.request: Unauthorized: /api/token/
+2025-07-28 21:31:05,206 [WARNING] django.server: "POST /api/token/ HTTP/1.1" 401 63
+2025-07-28 21:31:13,760 [WARNING] django.request: Unauthorized: /api/token/
+2025-07-28 21:31:13,761 [WARNING] django.server: "POST /api/token/ HTTP/1.1" 401 63
+2025-07-28 21:31:20,776 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 964
+2025-07-28 21:31:20,816 [INFO] django.server: "OPTIONS /api/token/validate/ HTTP/1.1" 200 0
+2025-07-28 21:31:20,822 [INFO] django.server: "OPTIONS /api/token/validate/ HTTP/1.1" 200 0
+2025-07-28 21:31:25,182 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 388
+2025-07-28 21:31:25,288 [INFO] django.server: "OPTIONS /api/user/tenant-users/ HTTP/1.1" 200 0
+2025-07-28 21:31:25,290 [INFO] django.server: "OPTIONS /api/user/tenant-users/ HTTP/1.1" 200 0
+2025-07-28 21:31:29,649 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 388
+2025-07-28 21:31:29,843 [INFO] users: Retrieved 6 users for tenant proliance
+2025-07-28 21:31:38,351 [INFO] django.server: "GET /api/user/tenant-users/ HTTP/1.1" 200 1986
+2025-07-28 21:31:42,890 [INFO] users: Retrieved 6 users for tenant proliance
+2025-07-28 21:31:43,607 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/ HTTP/1.1" 200 0
+2025-07-28 21:31:43,607 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/ HTTP/1.1" 200 0
+2025-07-28 21:31:51,216 [INFO] django.server: "GET /api/user/tenant-users/ HTTP/1.1" 200 1986
+2025-07-28 21:31:57,577 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 7733
+2025-07-28 21:32:12,617 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 7733
+2025-07-28 21:32:26,071 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 7733
+2025-07-28 21:32:39,633 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 7733
+2025-07-28 21:33:16,871 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 7733
+2025-07-28 21:34:32,555 [INFO] core: Saving tenant with schema_name: test
+2025-07-28 21:36:30,355 [INFO] core: Saving tenant with schema_name: test
+2025-07-28 21:45:08,670 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 21:47:11,464 [WARNING] django.request: Not Found: /api/talent/tenants/
+2025-07-28 21:47:11,465 [WARNING] django.server: "GET /api/talent/tenants/ HTTP/1.1" 404 4289
+2025-07-28 21:47:15,052 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 7733
+2025-07-28 21:47:41,848 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 7733
+2025-07-28 21:49:24,838 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 7733
+2025-07-28 21:51:36,011 [ERROR] django.request: Internal Server Error: /api/talent-engine/requisitions/
+Traceback (most recent call last):
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\base\base.py", line 279, in ensure_connection
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\base\base.py", line 256, in connect
+    self.connection = self.get_new_connection(conn_params)
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 332, in get_new_connection
+    connection = self.Database.connect(**conn_params)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: could not translate host name "dpg-d208jbje5dus73d4h87g-a.oregon-postgres.render.com" to address: Name or service not known
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\middleware.py", line 266, in process_request
+    domain = Domain.objects.filter(domain=hostname).first()
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\models\query.py", line 1104, in first
+    for obj in queryset[:1]:
+               ~~~~~~~~^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\models\query.py", line 384, in __iter__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\models\query.py", line 1949, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\models\query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1621, in execute_sql
+    cursor = self.connection.cursor()
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\base\base.py", line 320, in cursor
+    return self._cursor()
+           ~~~~~~~~~~~~^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django_tenants\postgresql_backend\base.py", line 144, in _cursor
+    cursor = super()._cursor()
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\base\base.py", line 296, in _cursor
+    self.ensure_connection()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\base\base.py", line 278, in ensure_connection
+    with self.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\base\base.py", line 279, in ensure_connection
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\base\base.py", line 256, in connect
+    self.connection = self.get_new_connection(conn_params)
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 332, in get_new_connection
+    connection = self.Database.connect(**conn_params)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+django.db.utils.OperationalError: could not translate host name "dpg-d208jbje5dus73d4h87g-a.oregon-postgres.render.com" to address: Name or service not known
+
+2025-07-28 21:51:36,021 [ERROR] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 500 188388
+2025-07-28 21:51:36,188 [ERROR] django.request: Internal Server Error: /api/talent/tenants/
+Traceback (most recent call last):
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\base\base.py", line 279, in ensure_connection
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\base\base.py", line 256, in connect
+    self.connection = self.get_new_connection(conn_params)
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 332, in get_new_connection
+    connection = self.Database.connect(**conn_params)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: could not translate host name "dpg-d208jbje5dus73d4h87g-a.oregon-postgres.render.com" to address: Name or service not known
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\middleware.py", line 266, in process_request
+    domain = Domain.objects.filter(domain=hostname).first()
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\models\query.py", line 1104, in first
+    for obj in queryset[:1]:
+               ~~~~~~~~^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\models\query.py", line 384, in __iter__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\models\query.py", line 1949, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\models\query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1621, in execute_sql
+    cursor = self.connection.cursor()
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\base\base.py", line 320, in cursor
+    return self._cursor()
+           ~~~~~~~~~~~~^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django_tenants\postgresql_backend\base.py", line 144, in _cursor
+    cursor = super()._cursor()
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\base\base.py", line 296, in _cursor
+    self.ensure_connection()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\base\base.py", line 278, in ensure_connection
+    with self.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\base\base.py", line 279, in ensure_connection
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\base\base.py", line 256, in connect
+    self.connection = self.get_new_connection(conn_params)
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 332, in get_new_connection
+    connection = self.Database.connect(**conn_params)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+django.db.utils.OperationalError: could not translate host name "dpg-d208jbje5dus73d4h87g-a.oregon-postgres.render.com" to address: Name or service not known
+
+2025-07-28 21:51:36,206 [ERROR] django.request: Internal Server Error: /api/talent-engine/requisitions/
+Traceback (most recent call last):
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\base\base.py", line 279, in ensure_connection
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\base\base.py", line 256, in connect
+    self.connection = self.get_new_connection(conn_params)
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 332, in get_new_connection
+    connection = self.Database.connect(**conn_params)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: could not translate host name "dpg-d208jbje5dus73d4h87g-a.oregon-postgres.render.com" to address: Name or service not known
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\middleware.py", line 266, in process_request
+    domain = Domain.objects.filter(domain=hostname).first()
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\models\query.py", line 1104, in first
+    for obj in queryset[:1]:
+               ~~~~~~~~^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\models\query.py", line 384, in __iter__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\models\query.py", line 1949, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\models\query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1621, in execute_sql
+    cursor = self.connection.cursor()
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\base\base.py", line 320, in cursor
+    return self._cursor()
+           ~~~~~~~~~~~~^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django_tenants\postgresql_backend\base.py", line 144, in _cursor
+    cursor = super()._cursor()
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\base\base.py", line 296, in _cursor
+    self.ensure_connection()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\base\base.py", line 278, in ensure_connection
+    with self.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\base\base.py", line 279, in ensure_connection
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\base\base.py", line 256, in connect
+    self.connection = self.get_new_connection(conn_params)
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 332, in get_new_connection
+    connection = self.Database.connect(**conn_params)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+django.db.utils.OperationalError: could not translate host name "dpg-d208jbje5dus73d4h87g-a.oregon-postgres.render.com" to address: Name or service not known
+
+2025-07-28 21:51:36,212 [ERROR] django.server: "GET /api/talent/tenants/ HTTP/1.1" 500 186651
+2025-07-28 21:51:36,217 [ERROR] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 500 188388
+2025-07-28 21:52:00,129 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 7733
+2025-07-28 21:52:47,892 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 7733
+2025-07-28 21:53:31,866 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 7733
+2025-07-28 21:54:30,196 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 7733
+2025-07-28 21:54:31,101 [WARNING] django.request: Not Found: /api/talent/tenants/
+2025-07-28 21:54:31,104 [WARNING] django.server: "GET /api/talent/tenants/ HTTP/1.1" 404 4289
+2025-07-28 21:55:51,179 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 7733
+2025-07-28 21:56:00,255 [WARNING] django.request: Not Found: /api/talent/tenants/
+2025-07-28 21:56:00,256 [WARNING] django.server: "GET /api/talent/tenants/ HTTP/1.1" 404 4289
+2025-07-28 21:56:47,085 [WARNING] django.request: Not Found: /api/talent/tenants/
+2025-07-28 21:56:47,091 [WARNING] django.server: "GET /api/talent/tenants/ HTTP/1.1" 404 4289
+2025-07-28 21:57:11,763 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\core\serializers.py changed, reloading.
+2025-07-28 21:57:19,481 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 21:58:11,732 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 21:59:16,320 [ERROR] django.request: Internal Server Error: /api/talent-engine/requisitions/
+Traceback (most recent call last):
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+psycopg2.errors.UndefinedTable: relation "talent_engine_job_requisition" does not exist
+LINE 1: ..."talent_engine_job_requisition"."updated_at" FROM "talent_en...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\generics.py", line 243, in get
+    return self.list(request, *args, **kwargs)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\mixins.py", line 46, in list
+    return Response(serializer.data)
+                    ^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\serializers.py", line 797, in data
+    ret = super().data
+          ^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\serializers.py", line 251, in data
+    self._data = self.to_representation(self.instance)
+                 ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\serializers.py", line 716, in to_representation
+    self.child.to_representation(item) for item in iterable
+                                                   ^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\models\query.py", line 384, in __iter__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\models\query.py", line 1949, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\models\query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+django.db.utils.ProgrammingError: relation "talent_engine_job_requisition" does not exist
+LINE 1: ..."talent_engine_job_requisition"."updated_at" FROM "talent_en...
+                                                             ^
+
+2025-07-28 21:59:16,338 [ERROR] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 500 203875
+2025-07-28 22:00:04,435 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\core\serializers.py changed, reloading.
+2025-07-28 22:00:12,313 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-28 22:00:48,865 [WARNING] django.request: Not Found: /api/talent/tenants/
+2025-07-28 22:00:48,866 [WARNING] django.server: "GET /api/talent/tenants/ HTTP/1.1" 404 4289
+2025-07-28 22:01:01,432 [WARNING] django.request: Not Found: /api/tanent/tenants/
+2025-07-28 22:01:01,433 [WARNING] django.server: "GET /api/tanent/tenants/ HTTP/1.1" 404 4289
+2025-07-28 22:01:16,253 [ERROR] django.request: Internal Server Error: /api/talent-engine/requisitions/
+Traceback (most recent call last):
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+psycopg2.errors.UndefinedTable: relation "talent_engine_job_requisition" does not exist
+LINE 1: ..."talent_engine_job_requisition"."updated_at" FROM "talent_en...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\generics.py", line 243, in get
+    return self.list(request, *args, **kwargs)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\mixins.py", line 46, in list
+    return Response(serializer.data)
+                    ^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\serializers.py", line 797, in data
+    ret = super().data
+          ^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\serializers.py", line 251, in data
+    self._data = self.to_representation(self.instance)
+                 ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\serializers.py", line 716, in to_representation
+    self.child.to_representation(item) for item in iterable
+                                                   ^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\models\query.py", line 384, in __iter__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\models\query.py", line 1949, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\models\query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+django.db.utils.ProgrammingError: relation "talent_engine_job_requisition" does not exist
+LINE 1: ..."talent_engine_job_requisition"."updated_at" FROM "talent_en...
+                                                             ^
+
+2025-07-28 22:01:16,270 [ERROR] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 500 203875
+2025-07-28 22:01:23,191 [WARNING] django.request: Not Found: /api/tanent/tenants/
+2025-07-28 22:01:23,192 [WARNING] django.server: "GET /api/tanent/tenants/ HTTP/1.1" 404 4289
+2025-07-28 22:02:01,066 [WARNING] django.request: Not Found: /api/tanent/tenants/
+2025-07-28 22:02:01,066 [WARNING] django.server: "GET /api/tanent/tenants/ HTTP/1.1" 404 4289
+2025-07-28 22:02:16,328 [ERROR] django.request: Internal Server Error: /api/talent-engine/requisitions/
+Traceback (most recent call last):
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+psycopg2.errors.UndefinedTable: relation "talent_engine_job_requisition" does not exist
+LINE 1: ..."talent_engine_job_requisition"."updated_at" FROM "talent_en...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\generics.py", line 243, in get
+    return self.list(request, *args, **kwargs)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\mixins.py", line 46, in list
+    return Response(serializer.data)
+                    ^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\serializers.py", line 797, in data
+    ret = super().data
+          ^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\serializers.py", line 251, in data
+    self._data = self.to_representation(self.instance)
+                 ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\serializers.py", line 716, in to_representation
+    self.child.to_representation(item) for item in iterable
+                                                   ^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\models\query.py", line 384, in __iter__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\models\query.py", line 1949, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\models\query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+django.db.utils.ProgrammingError: relation "talent_engine_job_requisition" does not exist
+LINE 1: ..."talent_engine_job_requisition"."updated_at" FROM "talent_en...
+                                                             ^
+
+2025-07-28 22:02:16,341 [ERROR] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 500 203875
+2025-07-28 22:03:16,494 [ERROR] django.request: Internal Server Error: /api/talent-engine/requisitions/
+Traceback (most recent call last):
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+psycopg2.errors.UndefinedTable: relation "talent_engine_job_requisition" does not exist
+LINE 1: ..."talent_engine_job_requisition"."updated_at" FROM "talent_en...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\generics.py", line 243, in get
+    return self.list(request, *args, **kwargs)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\mixins.py", line 46, in list
+    return Response(serializer.data)
+                    ^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\serializers.py", line 797, in data
+    ret = super().data
+          ^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\serializers.py", line 251, in data
+    self._data = self.to_representation(self.instance)
+                 ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\serializers.py", line 716, in to_representation
+    self.child.to_representation(item) for item in iterable
+                                                   ^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\models\query.py", line 384, in __iter__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\models\query.py", line 1949, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\models\query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+django.db.utils.ProgrammingError: relation "talent_engine_job_requisition" does not exist
+LINE 1: ..."talent_engine_job_requisition"."updated_at" FROM "talent_en...
+                                                             ^
+
+2025-07-28 22:03:16,530 [ERROR] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 500 203875
+2025-07-29 09:32:52,805 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-29 09:39:05,679 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-29 09:40:02,282 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 965
+2025-07-29 09:40:30,449 [INFO] core: Listing tenants: [2] for tenant proliance
+2025-07-29 09:40:30,450 [INFO] django.server: "GET /api/tenant/tenants/ HTTP/1.1" 200 2482
+2025-07-29 09:46:34,933 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\core\models.py changed, reloading.
+2025-07-29 09:46:39,186 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-29 09:47:21,930 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\core\serializers.py changed, reloading.
+2025-07-29 09:47:26,739 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-29 09:53:42,141 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-29 09:53:58,317 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 965
+2025-07-29 09:54:19,568 [INFO] core: Listing tenants: [2] for tenant proliance
+2025-07-29 09:54:19,569 [INFO] django.server: "GET /api/tenant/tenants/ HTTP/1.1" 200 2505
+2025-07-29 09:54:47,110 [WARNING] django.request: Not Found: /api/tenant/tenants/1/
+2025-07-29 09:54:47,111 [WARNING] django.server: "GET /api/tenant/tenants/1/ HTTP/1.1" 404 47
+2025-07-29 09:56:20,796 [INFO] core: Listing tenants: [2] for tenant proliance
+2025-07-29 09:56:20,797 [INFO] django.server: "GET /api/tenant/tenants/ HTTP/1.1" 200 2505
+2025-07-29 09:56:31,031 [INFO] core: Retrieving tenant: 2 for tenant proliance
+2025-07-29 09:56:31,040 [INFO] django.server: "GET /api/tenant/tenants/2/ HTTP/1.1" 200 2503
+2025-07-29 09:57:10,468 [INFO] core: Saving tenant with schema_name: proliance
+2025-07-29 09:57:10,478 [INFO] core: Tenant updated: proliance for tenant proliance
+2025-07-29 09:57:10,485 [INFO] django.server: "PATCH /api/tenant/tenants/2/ HTTP/1.1" 200 2536
+2025-07-29 09:57:33,222 [INFO] django.server: "OPTIONS /api/token/validate/ HTTP/1.1" 200 0
+2025-07-29 09:57:33,224 [INFO] django.server: "OPTIONS /api/token/validate/ HTTP/1.1" 200 0
+2025-07-29 09:57:33,289 [WARNING] django.request: Unauthorized: /api/token/validate/
+2025-07-29 09:57:33,290 [WARNING] django.server: "GET /api/token/validate/ HTTP/1.1" 401 183
+2025-07-29 09:57:33,364 [WARNING] django.request: Unauthorized: /api/token/validate/
+2025-07-29 09:57:33,365 [WARNING] django.server: "GET /api/token/validate/ HTTP/1.1" 401 183
+2025-07-29 09:57:43,721 [WARNING] django.request: Unauthorized: /api/token/
+2025-07-29 09:57:43,722 [WARNING] django.server: "POST /api/token/ HTTP/1.1" 401 63
+2025-07-29 09:57:49,484 [WARNING] django.request: Unauthorized: /api/token/
+2025-07-29 09:57:49,484 [WARNING] django.server: "POST /api/token/ HTTP/1.1" 401 63
+2025-07-29 09:57:59,310 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 965
+2025-07-29 09:57:59,407 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 389
+2025-07-29 09:57:59,475 [INFO] django.server: "GET /api/token/validate/ HTTP/1.1" 200 389
+2025-07-29 09:57:59,568 [INFO] django.server: "OPTIONS /api/user/tenant-users/ HTTP/1.1" 200 0
+2025-07-29 09:57:59,568 [INFO] django.server: "OPTIONS /api/user/tenant-users/ HTTP/1.1" 200 0
+2025-07-29 09:57:59,647 [INFO] users: Retrieved 3 users for tenant proliance
+2025-07-29 09:57:59,661 [INFO] django.server: "GET /api/user/tenant-users/ HTTP/1.1" 200 1022
+2025-07-29 09:57:59,721 [INFO] users: Retrieved 3 users for tenant proliance
+2025-07-29 09:57:59,732 [INFO] django.server: "GET /api/user/tenant-users/ HTTP/1.1" 200 1022
+2025-07-29 09:58:04,555 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/ HTTP/1.1" 200 0
+2025-07-29 09:58:04,557 [INFO] django.server: "OPTIONS /api/talent-engine/requisitions/ HTTP/1.1" 200 0
+2025-07-29 09:58:04,701 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 6330
+2025-07-29 09:58:04,804 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 6330
+2025-07-29 09:58:07,626 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 6330
+2025-07-29 09:58:07,716 [INFO] django.server: "GET /api/talent-engine/requisitions/ HTTP/1.1" 200 6330
+2025-07-29 09:58:09,585 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/applications/job-requisitions/PRO-0003/applications/ HTTP/1.1" 200 0
+2025-07-29 09:58:09,585 [INFO] django.server: "OPTIONS /api/talent-engine-job-applications/applications/job-requisitions/PRO-0003/applications/ HTTP/1.1" 200 0
+2025-07-29 09:58:09,765 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0003/applications/ HTTP/1.1" 200 6967
+2025-07-29 09:58:09,914 [INFO] django.server: "GET /api/talent-engine-job-applications/applications/job-requisitions/PRO-0003/applications/ HTTP/1.1" 200 6967
+2025-07-29 09:58:39,003 [INFO] core: Saving tenant with schema_name: proliance
+2025-07-29 09:58:39,008 [INFO] core: Tenant updated: proliance for tenant proliance
+2025-07-29 09:58:39,014 [INFO] django.server: "PATCH /api/tenant/tenants/2/ HTTP/1.1" 200 2690
+2025-07-29 09:59:48,923 [INFO] core: Saving tenant with schema_name: proliance
+2025-07-29 09:59:48,927 [INFO] core: Tenant updated: proliance for tenant proliance
+2025-07-29 09:59:48,935 [INFO] django.server: "PATCH /api/tenant/tenants/2/ HTTP/1.1" 200 2838

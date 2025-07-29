@@ -5,10 +5,10 @@
 
 #python manage.py shell
 from core.models import Tenant, Domain
-if not Tenant.objects.filter(schema_name='public').exists():
+if not Tenant.objects.filter(schema_name='test').exists():
     tenant = Tenant.objects.create(
-        name='public',
-        schema_name='public',
+        name='test',
+        schema_name='test',
     )
     tenant.auto_create_schema = False
     tenant.save()

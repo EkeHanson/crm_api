@@ -2118,3 +2118,18 @@ TypeError: Field.__init__() got an unexpected keyword argument 'files'
 2025-07-30 09:49:12,768 [INFO] django.server: "GET /api/tenant/tenants/ HTTP/1.1" 200 674
 2025-07-30 09:50:04,508 [INFO] django.server: "GET /api/talent-engine-job-applications/public-published-requisitions-with-shortlisted/?schema_name=proliance HTTP/1.1" 200 15769
 2025-07-30 09:50:12,808 [INFO] django.server: "GET /api/talent-engine-job-applications/public-published-requisitions-with-shortlisted/?schema_name=proliance HTTP/1.1" 200 5541
+2025-07-30 15:34:29,731 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-30 15:36:43,279 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-30 15:36:47,244 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-30 15:37:38,914 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-30 15:37:43,630 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-30 15:39:30,058 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-30 15:39:33,830 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-30 15:39:51,636 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-30 15:39:54,733 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-30 15:40:47,515 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 965
+2025-07-30 15:41:06,284 [INFO] core: Listing tenants: [2] for tenant proliance
+2025-07-30 15:41:06,285 [INFO] django.server: "GET /api/tenant/tenants/ HTTP/1.1" 200 674
+2025-07-30 15:41:22,578 [WARNING] django.request: Unauthorized: /api/talent-engine-job-applications/public-published-requisitions-with-shortlisted/
+2025-07-30 15:41:22,578 [WARNING] django.server: "GET /api/talent-engine-job-applications/public-published-requisitions-with-shortlisted/?schema_name=proliance HTTP/1.1" 401 183
+2025-07-30 15:41:28,995 [INFO] django.server: "GET /api/talent-engine-job-applications/public-published-requisitions-with-shortlisted/?schema_name=proliance HTTP/1.1" 200 5541

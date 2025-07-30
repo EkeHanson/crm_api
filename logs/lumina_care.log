@@ -2022,3 +2022,99 @@ TypeError: Field.__init__() got an unexpected keyword argument 'files'
 2025-07-30 08:19:22,671 [INFO] django.server: "GET /api/tenant/tenants/1/ HTTP/1.1" 200 506
 2025-07-30 08:27:16,280 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.
 2025-07-30 08:27:21,501 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-30 08:36:48,046 [INFO] django.server: "GET /api/talent-engine-job-applications/public-published-requisitions-with-shortlisted/?schema_name=proliance HTTP/1.1" 200 16252
+2025-07-30 08:39:52,550 [INFO] django.server: "GET /api/talent-engine-job-applications/public-published-requisitions-with-shortlisted/?schema_name=proliance HTTP/1.1" 200 38891
+2025-07-30 08:39:53,325 [INFO] django.server: "GET /static/rest_framework/css/default.css HTTP/1.1" 200 1152
+2025-07-30 08:39:53,329 [INFO] django.server: "GET /static/rest_framework/css/prettify.css HTTP/1.1" 200 817
+2025-07-30 08:39:53,366 [INFO] django.server: "GET /static/rest_framework/js/csrf.js HTTP/1.1" 200 1793
+2025-07-30 08:39:53,387 [INFO] django.server: "GET /static/rest_framework/css/bootstrap.min.css HTTP/1.1" 200 121457
+2025-07-30 08:39:53,398 [INFO] django.server: "GET /static/rest_framework/css/bootstrap-tweaks.css HTTP/1.1" 200 3426
+2025-07-30 08:39:53,409 [INFO] django.server: "GET /static/rest_framework/js/bootstrap.min.js HTTP/1.1" 200 39680
+2025-07-30 08:39:53,418 [INFO] django.server: "GET /static/rest_framework/js/load-ajax-form.js HTTP/1.1" 200 59
+2025-07-30 08:39:53,423 [INFO] django.server: "GET /static/rest_framework/js/ajax-form.js HTTP/1.1" 200 3796
+2025-07-30 08:39:53,428 [INFO] django.server: "GET /static/rest_framework/js/prettify-min.js HTTP/1.1" 200 13632
+2025-07-30 08:39:53,434 [INFO] django.server: "GET /static/rest_framework/js/default.js HTTP/1.1" 200 1268
+2025-07-30 08:39:53,450 [INFO] django.server: "GET /static/rest_framework/img/grid.png HTTP/1.1" 200 1458
+2025-07-30 08:39:53,476 [INFO] django.server: "GET /static/rest_framework/js/jquery-3.7.1.min.js HTTP/1.1" 200 87533
+2025-07-30 08:39:57,145 [WARNING] django.request: Not Found: /favicon.ico
+2025-07-30 08:39:57,145 [WARNING] django.server: "GET /favicon.ico HTTP/1.1" 404 4265
+2025-07-30 08:44:33,555 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-30 08:44:39,643 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-30 08:45:34,567 [INFO] django.server: "GET /api/talent-engine-job-applications/public-published-requisitions-with-shortlisted/?schema_name=proliance HTTP/1.1" 200 16252
+2025-07-30 08:45:56,379 [INFO] django.server: "GET /api/talent-engine-job-applications/public-published-requisitions-with-shortlisted/?schema_name=proliance HTTP/1.1" 200 38891
+2025-07-30 08:50:01,573 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-30 08:50:07,792 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-30 08:50:50,229 [INFO] django.server: "GET /api/talent-engine-job-applications/public-published-requisitions-with-shortlisted/?schema_name=proliance HTTP/1.1" 200 38891
+2025-07-30 08:53:03,622 [INFO] django.server: "GET /api/talent-engine-job-applications/public-published-requisitions-with-shortlisted/?schema_name=proliance HTTP/1.1" 200 38891
+2025-07-30 08:53:07,904 [INFO] django.server: "GET /api/talent-engine-job-applications/public-published-requisitions-with-shortlisted/?schema_name=proliance HTTP/1.1" 200 16252
+2025-07-30 08:53:34,195 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-30 08:53:42,501 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-30 08:54:24,837 [INFO] django.server: "GET /api/talent-engine-job-applications/public-published-requisitions-with-shortlisted/?schema_name=proliance HTTP/1.1" 200 16252
+2025-07-30 08:56:49,191 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-30 08:56:55,733 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-30 08:57:38,453 [INFO] django.server: "GET /api/talent-engine-job-applications/public-published-requisitions-with-shortlisted/?schema_name=proliance HTTP/1.1" 200 5926
+2025-07-30 08:58:04,092 [INFO] django.server: "GET /api/talent-engine-job-applications/public-published-requisitions-with-shortlisted/?schema_name=proliance HTTP/1.1" 200 17372
+2025-07-30 08:59:21,483 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-30 08:59:25,853 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-30 09:00:06,606 [INFO] django.server: "GET /api/talent-engine-job-applications/public-published-requisitions-with-shortlisted/?schema_name=proliance HTTP/1.1" 200 5926
+2025-07-30 09:05:30,587 [INFO] django.server: "GET /api/talent-engine-job-applications/public-published-requisitions-with-shortlisted/?schema_name=proliance HTTP/1.1" 200 17372
+2025-07-30 09:07:53,989 [INFO] core: Retrieving tenant: 1 for tenant proliance
+2025-07-30 09:07:54,413 [INFO] django.server: "GET /api/tenant/tenants/1/ HTTP/1.1" 200 506
+2025-07-30 09:09:57,830 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\core\serializers.py changed, reloading.
+2025-07-30 09:10:01,971 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-30 09:11:50,044 [INFO] core: Retrieving tenant: 1 for tenant proliance
+2025-07-30 09:11:50,603 [INFO] django.server: "GET /api/tenant/tenants/1/ HTTP/1.1" 200 511
+2025-07-30 09:13:21,354 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-30 09:13:25,718 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-30 09:16:18,668 [INFO] django.server: "GET /api/talent-engine-job-applications/public-published-requisitions-with-shortlisted/?schema_name=proliance HTTP/1.1" 200 17387
+2025-07-30 09:17:48,215 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-30 09:17:56,447 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-30 09:18:27,049 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-30 09:18:30,609 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-30 09:21:19,294 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-30 09:21:26,339 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-30 09:25:14,285 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-30 09:25:21,417 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-30 09:30:27,966 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-30 09:30:32,099 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-30 09:31:15,525 [INFO] django.server: "GET /api/talent-engine-job-applications/public-published-requisitions-with-shortlisted/?schema_name=proliance HTTP/1.1" 200 17387
+2025-07-30 09:37:37,444 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\views.py changed, reloading.
+2025-07-30 09:37:42,614 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-30 09:38:45,600 [WARNING] django.request: Not Found: /api/talent-engie-job-applications/public-published-requisitions-with-shortlisted/
+2025-07-30 09:38:45,601 [WARNING] django.server: "GET /api/talent-engie-job-applications/public-published-requisitions-with-shortlisted/?schema_name=proliance HTTP/1.1" 404 4497
+2025-07-30 09:39:30,926 [INFO] django.server: "GET /api/talent-engine-job-applications/public-published-requisitions-with-shortlisted/?schema_name=proliance HTTP/1.1" 200 5941
+2025-07-30 09:39:39,067 [INFO] django.server: "GET /api/talent-engine-job-applications/public-published-requisitions-with-shortlisted/?schema_name=proliance HTTP/1.1" 200 17387
+2025-07-30 09:40:27,760 [WARNING] django.request: Not Found: /api/tenant/teanats/
+2025-07-30 09:40:27,761 [WARNING] django.server: "GET /api/tenant/teanats/ HTTP/1.1" 404 7546
+2025-07-30 09:40:42,877 [WARNING] django.request: Unauthorized: /api/tenant/tenants/1/
+2025-07-30 09:40:42,878 [WARNING] django.server: "GET /api/tenant/tenants/1/ HTTP/1.1" 401 183
+2025-07-30 09:41:25,216 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-30 09:41:54,411 [WARNING] django.request: Method Not Allowed: /api/token/
+2025-07-30 09:41:54,412 [WARNING] django.server: "GET /api/token/ HTTP/1.1" 405 40
+2025-07-30 09:42:03,672 [WARNING] django.request: Unauthorized: /api/token/
+2025-07-30 09:42:03,673 [WARNING] django.server: "POST /api/token/ HTTP/1.1" 401 63
+2025-07-30 09:42:20,353 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 965
+2025-07-30 09:42:36,379 [WARNING] django.request: Not Found: /api/tenant/tenants/1/
+2025-07-30 09:42:36,380 [WARNING] django.server: "GET /api/tenant/tenants/1/ HTTP/1.1" 404 47
+2025-07-30 09:42:53,210 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 965
+2025-07-30 09:43:03,515 [WARNING] django.request: Not Found: /api/tenant/tenants/1/
+2025-07-30 09:43:03,515 [WARNING] django.server: "GET /api/tenant/tenants/1/ HTTP/1.1" 404 47
+2025-07-30 09:43:14,788 [WARNING] django.request: Not Found: /api/tenant/tenants/1/
+2025-07-30 09:43:14,789 [WARNING] django.server: "GET /api/tenant/tenants/1/ HTTP/1.1" 404 47
+2025-07-30 09:43:31,098 [WARNING] django.request: Not Found: /api/tenant/tenants/1/
+2025-07-30 09:43:31,099 [WARNING] django.server: "GET /api/tenant/tenants/1/ HTTP/1.1" 404 47
+2025-07-30 09:43:51,577 [INFO] core: Listing tenants: [2] for tenant proliance
+2025-07-30 09:43:51,577 [INFO] django.server: "GET /api/tenant/tenants/ HTTP/1.1" 200 674
+2025-07-30 09:44:12,306 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-30 09:44:27,247 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 965
+2025-07-30 09:44:48,278 [INFO] core: Listing tenants: [2] for tenant proliance
+2025-07-30 09:44:48,279 [INFO] django.server: "GET /api/tenant/tenants/ HTTP/1.1" 200 674
+2025-07-30 09:45:06,740 [WARNING] django.request: Unauthorized: /api/token/
+2025-07-30 09:45:06,740 [WARNING] django.server: "POST /api/token/ HTTP/1.1" 401 63
+2025-07-30 09:45:15,281 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 965
+2025-07-30 09:49:09,207 [WARNING] django.request: Not Found: /api/tenant/tenants/1/
+2025-07-30 09:49:09,207 [WARNING] django.server: "GET /api/tenant/tenants/1/ HTTP/1.1" 404 47
+2025-07-30 09:49:12,768 [INFO] core: Listing tenants: [2] for tenant proliance
+2025-07-30 09:49:12,768 [INFO] django.server: "GET /api/tenant/tenants/ HTTP/1.1" 200 674
+2025-07-30 09:50:04,508 [INFO] django.server: "GET /api/talent-engine-job-applications/public-published-requisitions-with-shortlisted/?schema_name=proliance HTTP/1.1" 200 15769
+2025-07-30 09:50:12,808 [INFO] django.server: "GET /api/talent-engine-job-applications/public-published-requisitions-with-shortlisted/?schema_name=proliance HTTP/1.1" 200 5541

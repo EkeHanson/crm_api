@@ -14,6 +14,7 @@ from django_tenants.utils import tenant_context
 from services.supabase_storage import SupabaseStorageService
 from lumina_care.supabase_client import supabase
 
+
 class BranchSerializer(serializers.ModelSerializer):
     class Meta:
         model = Branch

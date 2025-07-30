@@ -30,6 +30,7 @@ from .serializers import JobApplicationSerializer, ScheduleSerializer
 from .permissions import IsSubscribedAndAuthorized, BranchRestrictedPermission
 from .tenant_utils import resolve_tenant_from_unique_link
 from .utils import parse_resume, screen_resume, extract_resume_fields
+from lumina_care.supabase_client import supabase  # Adjust import if needed
 
 from django.conf import settings
 import uuid
@@ -39,7 +40,6 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 
 logger = logging.getLogger('job_applications')
-
 
 class ResumeParseView(APIView):
     parser_classes = [MultiPartParser, FormParser]
@@ -84,7 +84,6 @@ class ResumeParseView(APIView):
         except Exception as e:
             logger.exception(f"Error parsing resume: {str(e)}")
             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
 
 class ResendRejectionEmailsView(APIView):
     permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized, BranchRestrictedPermission]
@@ -169,7 +168,6 @@ class ResendRejectionEmailsView(APIView):
         except Exception as e:
             logger.exception(f"Error resending rejection emails for JobRequisition {job_requisition_id}: {str(e)}")
             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
 
 class ResumeScreeningView(APIView):
     permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized, BranchRestrictedPermission]
@@ -448,7 +446,6 @@ class ResumeScreeningView(APIView):
             logger.debug(f"Set CORS headers for error response: {response.headers}")
             return response
 
-
 class JobApplicationWithSchedulesView(generics.RetrieveAPIView):
     serializer_class = JobApplicationSerializer
     permission_classes = [AllowAny]
@@ -523,7 +520,6 @@ class JobApplicationWithSchedulesView(generics.RetrieveAPIView):
             logger.exception(f"Error retrieving job application with code {self.kwargs.get('code')} and email {self.kwargs.get('email')} for tenant {tenant.schema_name if tenant else 'unknown'}: {str(e)}")
             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-
 class JobApplicationsByRequisitionView(generics.ListAPIView):
     serializer_class = JobApplicationSerializer
     permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized, BranchRestrictedPermission]
@@ -568,6 +564,7 @@ class JobApplicationsByRequisitionView(generics.ListAPIView):
             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
+
 class PublishedJobRequisitionsWithShortlistedApplicationsView(generics.ListAPIView):
     serializer_class = JobRequisitionSerializer
     permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized, BranchRestrictedPermission]
@@ -599,62 +596,44 @@ class PublishedJobRequisitionsWithShortlistedApplicationsView(generics.ListAPIVi
         try:
             tenant = request.tenant
             queryset = self.get_queryset()
-            job_requisition_serializer = self.get_serializer(queryset, many=True)
-
-            job_requisition_dict = {item['id']: item for item in job_requisition_serializer.data}
-
             response_data = []
             with tenant_context(tenant):
                 for job_requisition in queryset:
-                    shortlisted_applications = JobApplication.active_objects.filter(
+                    job_requisition_data = self.get_serializer(job_requisition).data
+
+                    # Ensure logo_url is always the Supabase public URL
+                    logo_path = tenant.logo
+                    if logo_path:
+                        if logo_path.startswith('http'):
+                            logo_url = logo_path
+                        else:
+                            logo_url = supabase.storage.from_(settings.SUPABASE_BUCKET).get_public_url(logo_path)
+                    else:
+                        logo_url = ""
+
+                    tenant_data = {
+                        "logo_url": logo_url,
+                        "about_us": tenant.about_us,
+                        "title": tenant.title,
+                    }
+
+                    shortlisted_count = JobApplication.active_objects.filter(
                         tenant=tenant,
                         job_requisition=job_requisition,
                         status='shortlisted'
-                    ).select_related('job_requisition')
-                    if request.user.role == 'recruiter' and request.user.branch:
-                        shortlisted_applications = shortlisted_applications.filter(branch=request.user.branch)
-                    
-                    application_serializer = JobApplicationSerializer(shortlisted_applications, many=True)
-                    
-                    # Process each application to include schedule information
-                    enhanced_applications = []
-                    for app_data in application_serializer.data:
-                        application_id = app_data['id']
-                        schedules = Schedule.active_objects.filter(
-                            tenant=tenant,
-                            job_application_id=application_id
-                        ).select_related('job_application')
-                        if request.user.role == 'recruiter' and request.user.branch:
-                            schedules = schedules.filter(branch=request.user.branch)
-                        
-                        schedule_serializer = ScheduleSerializer(schedules, many=True)
-                        app_data['scheduled'] = schedules.exists()
-                        app_data['schedules'] = schedule_serializer.data
-                        enhanced_applications.append(app_data)
-                    
-                    total_applications = JobApplication.active_objects.filter(
-                        tenant=tenant,
-                        job_requisition=job_requisition
-                    )
-                    if request.user.role == 'recruiter' and request.user.branch:
-                        total_applications = total_applications.filter(branch=request.user.branch)
-                    total_applications = total_applications.count()
-                    
+                    ).count()
+
                     response_data.append({
-                        'job_requisition': job_requisition_dict.get(job_requisition.id),
-                        'shortlisted_applications': enhanced_applications,
-                        'shortlisted_count': shortlisted_applications.count(),
-                        'total_applications': total_applications
+                        'job_requisition': job_requisition_data,
+                        'tenant': tenant_data,
+                        'shortlisted_count': shortlisted_count,
                     })
 
-            # Sort response_data by job_requisition's created_at to maintain LIFO
-            response_data.sort(key=lambda x: job_requisition_dict[x['job_requisition']['id']]['created_at'], reverse=True)        
-
-            logger.info(f"Retrieved {len(response_data)} job requisitions with shortlisted applications for tenant {tenant.schema_name}")
+            logger.info(f"Retrieved {len(response_data)} job requisitions with tenant details for tenant {tenant.schema_name}")
             return Response(response_data, status=status.HTTP_200_OK)
 
         except Exception as e:
-            logger.exception("Error processing job requisitions and shortlisted applications")
+            logger.exception("Error processing job requisitions and tenant details")
             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
@@ -719,26 +698,37 @@ class PublishedPublicJobRequisitionsWithShortlistedApplicationsView(generics.Lis
             response_data = []
             with tenant_context(tenant):
                 for job_requisition in queryset:
-                    shortlisted_applications = JobApplication.active_objects.filter(
+                    job_requisition_data = self.get_serializer(job_requisition).data
+
+                    tenant_data = {
+                        "logo_url": tenant.logo,
+                        "about_us": tenant.about_us,
+                        "title": tenant.title,
+                    }
+
+                    shortlisted_count = JobApplication.active_objects.filter(
                         tenant=tenant,
                         job_requisition=job_requisition,
                         status='shortlisted'
-                    ).select_related('job_requisition')
-
-                    application_serializer = JobApplicationSerializer(shortlisted_applications, many=True)
+                    ).count()
 
                     response_data.append({
-                        'job_requisition': job_requisition_serializer.data,
-                        # 'shortlisted_applications': application_serializer.data,
-                        'shortlisted_count': shortlisted_applications.count(),
+                        'job_requisition': job_requisition_data,
+                        'tenant': tenant_data,
+                        'shortlisted_count': shortlisted_count,
                     })
 
-            logger.info(f"Retrieved {len(response_data)} job requisitions with shortlisted applications for tenant {tenant.schema_name}")
+            logger.info(f"Retrieved {len(response_data)} job requisitions with tenant details for tenant {tenant.schema_name}")
             return Response(response_data, status=status.HTTP_200_OK)
 
         except Exception as e:
-            logger.exception("Error processing job requisitions and shortlisted applications")
+            logger.exception("Error processing job requisitions and tenant details")
             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+
+
+
 
 
 
@@ -873,6 +863,7 @@ class JobApplicationListCreateView(generics.GenericAPIView):
         except Exception as e:
             logger.exception(f"Unexpected error during job application submission: {str(e)}")
             return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        
 
 
 class JobApplicationDetailView(generics.RetrieveUpdateDestroyAPIView):
@@ -1223,190 +1214,6 @@ class ScheduleListCreateView(generics.GenericAPIView):
 
 
 
-# class ScheduleListCreateView(generics.GenericAPIView):
-#     serializer_class = ScheduleSerializer
-#     permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized, BranchRestrictedPermission]
-
-#     def get_queryset(self):
-#         tenant = self.request.tenant
-#         if not tenant:
-#             logger.error("No tenant associated with the request")
-#             raise serializers.ValidationError("Tenant not found.")
-#         connection.set_schema(tenant.schema_name)
-#         with connection.cursor() as cursor:
-#             cursor.execute("SHOW search_path;")
-#             search_path = cursor.fetchone()[0]
-#             logger.debug(f"Database search_path: {search_path}")
-#         queryset = Schedule.active_objects.filter(tenant=tenant).select_related('job_application')
-#         if self.request.user.branch:
-#             queryset = queryset.filter(branch=self.request.user.branch)
-#         status_param = self.request.query_params.get('status', None)
-#         if status_param:
-#             queryset = queryset.filter(status=status_param)
-#         # return queryset
-#         return queryset.order_by('-created_at')
-
-#     def get(self, request, *args, **kwargs):
-#         try:
-#             queryset = self.get_queryset()
-#             serializer = self.get_serializer(queryset.order_by('-created_at'), many=True)
-#             logger.info(f"Retrieved {queryset.count()} schedules for tenant {request.tenant.schema_name}")
-#             return Response(serializer.data, status=status.HTTP_200_OK)
-#         except Exception as e:
-#             logger.exception(f"Error retrieving schedules for tenant {request.tenant.schema_name}: {str(e)}")
-#             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-#     def post(self, request, *args, **kwargs):
-#         print("Request Data")
-#         print(request.data)
-#         print("Request Data")
-#         print("Request Data")
-#         try:
-#             tenant = self.request.tenant
-#             if not tenant:
-#                 logger.error("No tenant associated with the request")
-#                 return Response({"detail": "Tenant not found."}, status=status.HTTP_400_BAD_REQUEST)
-
-#             logger.debug(f"User: {request.user}, Tenant: {tenant.schema_name}")
-#             connection.set_schema(tenant.schema_name)
-#             with connection.cursor() as cursor:
-#                 cursor.execute("SHOW search_path;")
-#                 search_path = cursor.fetchone()[0]
-#                 logger.debug(f"Database search_path: {search_path}")
-
-#             # Validate email configuration from Tenant model
-#             required_email_fields = ['email_host', 'email_port', 'email_host_user', 'email_host_password', 'default_from_email']
-#             missing_fields = [field for field in required_email_fields if not getattr(tenant, field)]
-#             if missing_fields:
-#                 logger.error(f"Missing email configuration fields for tenant {tenant.schema_name}: {missing_fields}")
-#                 return Response(
-#                     {"detail": f"Missing email configuration: {', '.join(missing_fields)}"},
-#                     status=status.HTTP_400_BAD_REQUEST
-#                 )
-
-#             data = request.data.copy()
-#             job_application_ids = data.get('job_application', [])
-#             if not isinstance(job_application_ids, list):
-#                 job_application_ids = [job_application_ids]
-
-#             if not job_application_ids:
-#                 logger.error("No job application IDs provided")
-#                 return Response({"detail": "At least one job application ID is required."}, status=status.HTTP_400_BAD_REQUEST)
-
-#             created_schedules = []
-#             with tenant_context(tenant):
-#                 try:
-#                     config = TenantConfig.objects.get(tenant=tenant)
-#                     email_template = config.email_templates.get('interviewScheduling', {})
-#                     template_content = email_template.get('content', '')
-#                     is_auto_sent = email_template.get('is_auto_sent', False)
-#                 except TenantConfig.DoesNotExist:
-#                     logger.warning(f"TenantConfig not found for tenant {tenant.schema_name}")
-#                     template_content = ''
-#                     is_auto_sent = False
-
-#                 for job_application_id in job_application_ids:
-#                     serializer = self.get_serializer(data={**data, 'job_application': job_application_id}, context={'request': request})
-#                     if not serializer.is_valid():
-#                         logger.error(f"Validation failed for job application {job_application_id}: {serializer.errors}")
-#                         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-#                     try:
-#                         job_application = JobApplication.active_objects.get(id=job_application_id, tenant=tenant)
-#                     except JobApplication.DoesNotExist:
-#                         logger.error(f"JobApplication {job_application_id} not found for tenant {tenant.schema_name}")
-#                         return Response({"detail": f"Job application {job_application_id} not found."}, status=status.HTTP_404_NOT_FOUND)
-
-#                     with transaction.atomic():
-#                         timezone_str = serializer.validated_data.get('timezone', 'UTC')
-#                         interview_date_time = serializer.validated_data['interview_date_time']
-#                         interview_date = interview_date_time.strftime("%d %b %Y")
-#                         interview_time = interview_date_time.astimezone(pytz.timezone(timezone_str)).strftime("%I:%M %p")
-#                         location = serializer.validated_data.get('meeting_link') if serializer.validated_data['meeting_mode'] == 'Virtual' else serializer.validated_data.get('interview_address', '')
-#                         placeholders = {
-#                             '[Candidate Name]': job_application.full_name,
-#                             '[Position]': job_application.job_requisition.title,
-#                             '[Company]': tenant.name,
-#                             '[Insert Date]': interview_date,
-#                             '[Insert Time]': interview_time,
-#                             '[Meeting Mode]': 'Zoom' if serializer.validated_data['meeting_mode'] == 'Virtual' else 'On-site',
-#                             '[Zoom / Google Meet / On-site – Insert Address or Link]': location,
-#                             '[Name(s) & Position(s)]': request.user.get_full_name() or 'Hiring Team',
-#                             '[Your Name]': request.user.get_full_name() or 'Hiring Team',
-#                             '[your.email@proliance.com]': tenant.default_from_email or 'no-reply@proliance.com',
-#                             '[Dashboard Link]': f"{settings.WEB_PAGE_URL}/application-dashboard/{job_application.job_requisition.job_application_code}/{job_application.email}/{job_application.job_requisition.unique_link}",
-#                             '[Timezone]': timezone_str,
-#                         }
-
-#                         email_body = data.get('message', template_content)
-#                         if not data.get('message') and template_content:
-#                             for placeholder, value in placeholders.items():
-#                                 email_body = email_body.replace(placeholder, str(value))
-
-#                         schedule = serializer.save(
-#                             tenant=tenant,
-#                             job_application=job_application,
-#                             branch=request.user.branch if request.user.is_authenticated and request.user.branch else job_application.branch,
-#                             #branch=request.user.branch if request.user.is_authenticated and request.user.role == 'recruiter' and request.user.branch else job_application.branch,
-#                             message=email_body if is_auto_sent else ''
-#                         )
-#                         created_schedules.append(schedule.id)
-
-#                         if is_auto_sent:
-#                             try:
-#                                 email_connection = configure_email_backend(tenant)
-#                                 # Log email configuration settings
-#                                 print(f"Email configuration for tenant {tenant.schema_name}: "
-#                                             f"host={tenant.email_host}, "
-#                                             f"port={tenant.email_port}, "
-#                                             f"use_ssl={tenant.email_use_ssl}, "
-#                                             f"host_user={tenant.email_host_user}, "
-#                                             f"host_password={'*' * len(tenant.email_host_password) if tenant.email_host_password else None}, "
-#                                             f"default_from_email={tenant.default_from_email}")
-                                
-#                                 logger.info(f"Email configuration for tenant {tenant.schema_name}: "
-#                                             f"host={tenant.email_host}, "
-#                                             f"port={tenant.email_port}, "
-#                                             f"use_ssl={tenant.email_use_ssl}, "
-#                                             f"host_user={tenant.email_host_user}, "
-#                                             f"host_password={'*' * len(tenant.email_host_password) if tenant.email_host_password else None}, "
-#                                             f"default_from_email={tenant.default_from_email}")
-                                
-#                                 email_subject = f"Interview Schedule for {job_application.job_requisition.title}"
-#                                 email = EmailMessage(
-#                                     subject=email_subject,
-#                                     body=email_body,
-#                                     from_email=tenant.default_from_email or 'no-reply@proliance.com',
-#                                     to=[job_application.email],
-#                                     connection=email_connection,
-#                                 )
-#                                 email.content_subtype = 'html'
-#                                 email.send(fail_silently=False)
-#                                 logger.info(f"Email sent to {job_application.email} for schedule {schedule.id} in tenant {tenant.schema_name}")
-#                             # except Exception as email_error:
-#                             #     logger.exception(f"Failed to send email for schedule {schedule.id} to {job_application.email}: {str(email_error)}")
-#                             #     return Response({"detail": f"Failed to send email: {str(email_error)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-                          
-#                             except Exception as email_error:
-#                                 logger.exception(f"Failed to send email for schedule {schedule.id} to {job_application.email}: {str(email_error)}")
-#                                 return Response({
-#                                     "detail": "Failed to send confirmation email due to invalid email configuration.",
-#                                     "error": str(email_error),
-#                                     "suggestion": "Please check the email settings in the tenant configuration. Ensure that only one of EMAIL_USE_TLS or EMAIL_USE_SSL is set to True."
-#                                 }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-
-#             return Response({
-#                 "detail": "Schedules created successfully.",
-#                 "schedule_ids": created_schedules
-#             }, status=status.HTTP_201_CREATED)
-
-#         except Exception as e:
-#             logger.exception(f"Error creating schedules for tenant {tenant.schema_name if tenant else 'unknown'}: {str(e)}")
-#             return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
-
-
-
 
 class TimezoneChoicesView(APIView):
     permission_classes = [IsAuthenticated, IsSubscribedAndAuthorized]
@@ -1673,7 +1480,15 @@ class PermanentDeleteSchedulesView(generics.GenericAPIView):
                     logger.warning(f"No soft-deleted schedules found for IDs {ids} in tenant {tenant.schema_name}")
                     return Response({"detail": "No soft-deleted schedules found."}, status=status.HTTP_404_NOT_FOUND)
 
-                deleted_count = schedules.delete()[0]
+                with transaction.atomic():
+                    for schedule in schedules:
+                        job_application = schedule.job_application
+                        if job_application and job_application.num_of_schedules > 0:
+                            job_application.num_of_schedules -= 1
+                            job_application.save()
+
+                    deleted_count = schedules.delete()[0]
+
                 logger.info(f"Successfully permanently deleted {deleted_count} schedules for tenant {tenant.schema_name}")
                 return Response({
                     "detail": f"Successfully permanently deleted {deleted_count} schedule(s)."
@@ -1855,6 +1670,6 @@ class ApplicantComplianceUploadView(APIView):
             logger.exception(f"Error uploading compliance documents for application {job_application_id}: {str(e)}")
             #print(f"Error uploading compliance documents for application {job_application_id}: {str(e)}")
             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-        
+
 
 

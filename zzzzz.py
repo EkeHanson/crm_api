@@ -5,14 +5,14 @@
 
 #python manage.py shell
 from core.models import Tenant, Domain
-if not Tenant.objects.filter(schema_name='test').exists():
+if not Tenant.objects.filter(schema_name='namecheap').exists():
     tenant = Tenant.objects.create(
-        name='test',
-        schema_name='test',
+        name='namecheap',
+        schema_name='namecheap',
     )
     tenant.auto_create_schema = False
     tenant.save()
-    Domain.objects.create(tenant=tenant, domain='crm-api-6cdj.onrender.com', is_primary=True)
+    Domain.objects.create(tenant=tenant, domain='162.254.32.158', is_primary=True)
     Domain.objects.create(tenant=tenant, domain='localhost', is_primary=False)
     
 
@@ -72,4 +72,9 @@ from core.models import Tenant
 from subscriptions.models import Subscription
 tenant = Tenant.objects.get(schema_name='proliance')
 Subscription.objects.create(tenant=tenant, module='talent_engine', is_active=True)
+
+
+
+
+
 

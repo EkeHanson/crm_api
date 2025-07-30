@@ -2134,3 +2134,4 @@ TypeError: Field.__init__() got an unexpected keyword argument 'files'
 2025-07-30 15:41:22,578 [WARNING] django.server: "GET /api/talent-engine-job-applications/public-published-requisitions-with-shortlisted/?schema_name=proliance HTTP/1.1" 401 183
 2025-07-30 15:41:28,995 [INFO] django.server: "GET /api/talent-engine-job-applications/public-published-requisitions-with-shortlisted/?schema_name=proliance HTTP/1.1" 200 5541
 2025-07-30 15:42:24,400 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/?schema_name=proliance HTTP/1.1" 200 14575
+2025-07-30 16:12:19,729 [INFO] django.server: "GET /api/talent-engine-job-applications/published-requisitions-with-shortlisted/?schema_name=proliance HTTP/1.1" 200 14575

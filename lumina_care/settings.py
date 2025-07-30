@@ -120,7 +120,7 @@ DATABASES = {
     }
 }
 
-
+# # VPS HOSTING
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django_tenants.postgresql_backend',
@@ -132,6 +132,18 @@ DATABASES = {
 #         'CONN_MAX_AGE': 60,
 #     }
 # }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_backend',
+#         'NAME': 'lumina_care_db',
+#         'USER': 'lumina_care_db_user',
+#         'PASSWORD': 'pzU2xz56HOYwWc0I18',
+#         'HOST': '127.0.0.1',
+#         'PORT': '5432',
+#     }
+# }
+
 
 ROOT_URLCONF = 'lumina_care.urls'
 WSGI_APPLICATION = 'lumina_care.wsgi.application'

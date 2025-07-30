@@ -2018,3 +2018,7 @@ TypeError: Field.__init__() got an unexpected keyword argument 'files'
 2025-07-30 08:17:18,164 [INFO] core: Saving tenant with schema_name: proliance
 2025-07-30 08:17:19,346 [INFO] core: Tenant updated: proliance for tenant proliance
 2025-07-30 08:17:19,348 [INFO] django.server: "PATCH /api/tenant/tenants/1/ HTTP/1.1" 200 506
+2025-07-30 08:19:22,670 [INFO] core: Retrieving tenant: 1 for tenant proliance
+2025-07-30 08:19:22,671 [INFO] django.server: "GET /api/tenant/tenants/1/ HTTP/1.1" 200 506
+2025-07-30 08:27:16,280 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\lumina_care\settings.py changed, reloading.
+2025-07-30 08:27:21,501 [INFO] django.utils.autoreload: Watching for file changes with StatReloader

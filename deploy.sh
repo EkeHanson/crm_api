@@ -78,8 +78,6 @@
 set -e
 
 # Ensure there is swap space
-
-
 if ! swapon --show | grep -q '/swapfile'; then
     echo "No swap detected. Creating 2GB swap file..."
     sudo fallocate -l 2G /swapfile

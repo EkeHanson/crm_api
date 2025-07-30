@@ -1,13 +1,18 @@
 # apps/core/serializers.py
 from rest_framework import serializers
 from .models import Tenant, Domain, Module, TenantConfig, Branch
+from django.utils import timezone
 import re
 import logging
 from django.db import transaction
+import uuid
+import os
+import mimetypes
+from django.conf import settings
 logger = logging.getLogger('core')
 from django_tenants.utils import tenant_context
 from services.supabase_storage import SupabaseStorageService
-
+from lumina_care.supabase_client import supabase
 
 class BranchSerializer(serializers.ModelSerializer):
     class Meta:
@@ -109,15 +114,16 @@ class TenantConfigSerializer(serializers.ModelSerializer):
 
 
 class TenantSerializer(serializers.ModelSerializer):
-    logo_file = serializers.ImageField(write_only=True, required=False)  # Moved here
-    domain = serializers.CharField(write_only=True, required=True)
-    domains = DomainSerializer(many=True, read_only=True, source='domain_set')
-    config = TenantConfigSerializer(source='tenantconfig', required=False)
+    logo_file = serializers.FileField(write_only=True, required=False)
 
     class Meta:
         model = Tenant
-        fields = "__all__"
-        read_only_fields = ['id', 'schema_name', 'created_at', 'domains', 'config']
+        fields = [
+            'id', 'name', 'title', 'schema_name', 'created_at', 'logo', 'logo_file',
+            'email_host', 'email_port', 'email_use_ssl', 'email_host_user',
+            'email_host_password', 'default_from_email', 'about_us'
+        ]
+        read_only_fields = ['id', 'created_at', 'schema_name', 'logo']
 
     def validate_name(self, value):
         if not re.match(r'^[a-zA-Z0-9\s\'-]+$', value):
@@ -138,12 +144,28 @@ class TenantSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(f"Domain '{value}' already exists.")
         return value
 
+    def validate_logo_file(self, value):
+        allowed_types = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif']
+        if value.content_type not in allowed_types:
+            raise serializers.ValidationError("Only image files are allowed for logo.")
+        max_size = 5 * 1024 * 1024  # 5 MB
+        if value.size > max_size:
+            raise serializers.ValidationError("Logo file size exceeds 5 MB limit.")
+        return value
+
     def create(self, validated_data):
         logo_file = validated_data.pop('logo_file', None)
         if logo_file:
-            supabase_service = SupabaseStorageService()
-            logo_url = supabase_service.upload_file(logo_file, folder="tenant_logos")
-            validated_data['logo'] = logo_url
+            file_ext = os.path.splitext(logo_file.name)[1]
+            filename = f"{uuid.uuid4()}{file_ext}"
+            folder_path = f"tenant_logos/{timezone.now().strftime('%Y/%m/%d')}"
+            path = f"{folder_path}/{filename}"
+            content_type = mimetypes.guess_type(logo_file.name)[0]
+            supabase.storage.from_(settings.SUPABASE_BUCKET).upload(
+                path, logo_file.read(), {"content-type": content_type or 'application/octet-stream'}
+            )
+            file_url = supabase.storage.from_(settings.SUPABASE_BUCKET).get_public_url(path)
+            validated_data['logo'] = file_url
         domain_name = validated_data.pop('domain')
         schema_name = validated_data.get('schema_name') or validated_data['name'].lower().replace(' ', '_').replace('-', '_')
         validated_data['schema_name'] = schema_name
@@ -242,5 +264,34 @@ class TenantSerializer(serializers.ModelSerializer):
         except Exception as e:
             logger.error(f"Failed to create tenant or domain: {str(e)}")
             raise
+
+    def update(self, instance, validated_data):
+        logo_file = validated_data.pop('logo_file', None)
+        if logo_file:
+            file_ext = os.path.splitext(logo_file.name)[1]
+            filename = f"{uuid.uuid4()}{file_ext}"
+            folder_path = f"tenant_logos/{timezone.now().strftime('%Y/%m/%d')}"
+            path = f"{folder_path}/{filename}"
+            content_type = mimetypes.guess_type(logo_file.name)[0]
+            supabase.storage.from_(settings.SUPABASE_BUCKET).upload(
+                path, logo_file.read(), {"content-type": content_type or 'application/octet-stream'}
+            )
+            file_url = supabase.storage.from_(settings.SUPABASE_BUCKET).get_public_url(path)
+            validated_data['logo'] = file_url
+        return super().update(instance, validated_data)
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        logo_path = instance.logo
+        if logo_path:
+            # If logo_path is already a URL, use it. Otherwise, generate Supabase public URL.
+            if logo_path.startswith('http'):
+                data['logo'] = logo_path
+            else:
+                # Generate Supabase public URL from path
+                data['logo'] = supabase.storage.from_(settings.SUPABASE_BUCKET).get_public_url(logo_path)
+        else:
+            data['logo'] = ""
+        return data
 
 

@@ -208,51 +208,6 @@ class JobApplicationSerializer(serializers.ModelSerializer):
         logger.debug(f"Creating application for tenant: {tenant.schema_name}, job_requisition: {validated_data['job_requisition'].title}")
 
         documents = []
-        # for doc_data in documents_data:
-        #     file = doc_data['file']
-        #     folder_path = os.path.join('application_documents', timezone.now().strftime('%Y/%m/%d'))
-        #     full_folder_path = os.path.join(settings.MEDIA_ROOT, folder_path)
-        #     os.makedirs(full_folder_path, exist_ok=True)
-        #     file_extension = os.path.splitext(file.name)[1]
-        #     filename = f"{uuid.uuid4()}{file_extension}"
-        #     upload_path = os.path.join(folder_path, filename).replace('\\', '/')
-        #     full_upload_path = os.path.join(settings.MEDIA_ROOT, upload_path)
-        #     logger.debug(f"Saving file to full_upload_path: {full_upload_path}")
-
-        #     try:
-                
-        #         with open(full_upload_path, 'wb+') as destination:
-        #             for chunk in file.chunks():
-        #                 destination.write(chunk)
-        #         logger.debug(f"File saved successfully: {full_upload_path}")
-        #     except Exception as e:
-        #         logger.error(f"Failed to save file {full_upload_path}: {str(e)}")
-        #         raise serializers.ValidationError(f"Failed to save file: {str(e)}")
-
-        #     file_url = f"/media/{upload_path.lstrip('/')}"
-        #     logger.debug(f"Constructed file_url: {file_url}")
-
-        #     if doc_data['document_type'].lower() in ['resume', 'cv']:
-        #         resume_text = parse_resume(upload_path)
-        #         if resume_text:
-        #             resume_data = extract_resume_fields(resume_text)
-        #             validated_data['full_name'] = resume_data.get('full_name', validated_data.get('full_name', ''))
-        #             validated_data['email'] = resume_data.get('email', validated_data.get('email', ''))
-        #             validated_data['phone'] = resume_data.get('phone', validated_data.get('phone', ''))
-        #             validated_data['qualification'] = resume_data.get('qualification', validated_data.get('qualification', ''))
-        #             validated_data['experience'] = "; ".join(resume_data.get('experience', [])) or validated_data.get('experience', '')
-        #             validated_data['knowledge_skill'] = resume_data.get('knowledge_skill', validated_data.get('knowledge_skill', ''))
-
-        #     documents.append({
-        #         'document_type': doc_data['document_type'],
-        #         'file_path': upload_path,
-        #         'file_url': file_url,
-        #         'uploaded_at': timezone.now().isoformat()
-        #     })
-        #     if doc_data['document_type'].lower() in ['resume', 'cv']:
-        #         validated_data['resume_status'] = True
-
-
         #FOR SUPERBASE FILE HANDLING
         for doc_data in documents_data:
             file = doc_data['file']

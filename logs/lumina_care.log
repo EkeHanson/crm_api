@@ -1956,3 +1956,65 @@ LINE 1: ..."talent_engine_job_requisition"."updated_at" FROM "talent_en...
 2025-07-29 09:59:48,923 [INFO] core: Saving tenant with schema_name: proliance
 2025-07-29 09:59:48,927 [INFO] core: Tenant updated: proliance for tenant proliance
 2025-07-29 09:59:48,935 [INFO] django.server: "PATCH /api/tenant/tenants/2/ HTTP/1.1" 200 2838
+2025-07-30 07:54:06,198 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-30 08:06:29,066 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\job_application\serializers.py changed, reloading.
+2025-07-30 08:06:36,827 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-30 08:07:49,315 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\core\serializers.py changed, reloading.
+2025-07-30 08:07:54,161 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-30 08:08:51,472 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\core\serializers.py changed, reloading.
+2025-07-30 08:08:57,716 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-30 08:09:54,500 [INFO] django.server: "POST /api/token/ HTTP/1.1" 200 964
+2025-07-30 08:10:45,000 [INFO] core: Saving tenant with schema_name: proliance
+2025-07-30 08:10:46,133 [INFO] core: Tenant updated: proliance for tenant proliance
+2025-07-30 08:10:47,605 [INFO] django.server: "PATCH /api/tenant/tenants/1/ HTTP/1.1" 200 1955
+2025-07-30 08:11:26,025 [INFO] core: Retrieving tenant: 1 for tenant proliance
+2025-07-30 08:11:27,156 [INFO] django.server: "GET /api/tenant/tenants/1/ HTTP/1.1" 200 1955
+2025-07-30 08:13:05,579 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\core\serializers.py changed, reloading.
+2025-07-30 08:13:09,966 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-30 08:13:35,240 [INFO] core: Retrieving tenant: 1 for tenant proliance
+2025-07-30 08:13:35,720 [INFO] django.server: "GET /api/tenant/tenants/1/ HTTP/1.1" 200 506
+2025-07-30 08:14:08,178 [ERROR] django.request: Internal Server Error: /api/tenant/tenants/1/
+Traceback (most recent call last):
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\viewsets.py", line 125, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\mixins.py", line 82, in partial_update
+    return self.update(request, *args, **kwargs)
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\core\views.py", line 418, in update
+    serializer = self.get_serializer(instance, data=request.data, files=request.FILES, partial=partial)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\generics.py", line 114, in get_serializer
+    return serializer_class(*args, **kwargs)
+  File "C:\Users\CPT-003\Desktop\CRM\crm_api\venv\Lib\site-packages\rest_framework\serializers.py", line 121, in __init__
+    super().__init__(**kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^
+TypeError: Field.__init__() got an unexpected keyword argument 'files'
+2025-07-30 08:14:08,184 [ERROR] django.server: "PATCH /api/tenant/tenants/1/ HTTP/1.1" 500 125481
+2025-07-30 08:14:59,199 [INFO] django.utils.autoreload: C:\Users\CPT-003\Desktop\CRM\crm_api\core\views.py changed, reloading.
+2025-07-30 08:15:03,479 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2025-07-30 08:15:35,657 [INFO] core: Retrieving tenant: 1 for tenant proliance
+2025-07-30 08:15:36,205 [INFO] django.server: "GET /api/tenant/tenants/1/ HTTP/1.1" 200 506
+2025-07-30 08:16:10,127 [INFO] core: Saving tenant with schema_name: proliance
+2025-07-30 08:16:11,228 [INFO] core: Tenant updated: proliance for tenant proliance
+2025-07-30 08:16:11,231 [INFO] django.server: "PATCH /api/tenant/tenants/1/ HTTP/1.1" 200 506
+2025-07-30 08:16:45,461 [INFO] core: Saving tenant with schema_name: proliance
+2025-07-30 08:16:46,542 [INFO] core: Tenant updated: proliance for tenant proliance
+2025-07-30 08:16:46,545 [INFO] django.server: "PATCH /api/tenant/tenants/1/ HTTP/1.1" 200 506
+2025-07-30 08:17:18,164 [INFO] core: Saving tenant with schema_name: proliance
+2025-07-30 08:17:19,346 [INFO] core: Tenant updated: proliance for tenant proliance
+2025-07-30 08:17:19,348 [INFO] django.server: "PATCH /api/tenant/tenants/1/ HTTP/1.1" 200 506

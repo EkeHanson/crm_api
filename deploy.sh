@@ -35,8 +35,6 @@
 
 # echo "Starting gunicorn..."
 # exec gunicorn --bind 0.0.0.0:8000 lumina_care.wsgi:application
-
-
 #!/bin/bash
 set -e
 
@@ -56,16 +54,16 @@ echo "Installing dependencies..."
 pip install -r requirements.txt --no-cache-dir
 
 echo "Collecting static files..."
-python manage.py collectstatic --noinput
+python3 manage.py collectstatic --noinput
 
 echo "Running migrations..."
-python manage.py migrate --noinput
+python3 manage.py migrate --noinput
 
 echo "Creating log directory..."
 mkdir -p /tmp/logs
 
 echo "Adding cron jobs..."
-python manage.py crontab add
+python3 manage.py crontab add
 
 echo "Starting gunicorn..."
 exec gunicorn --bind 0.0.0.0:8000 lumina_care.wsgi:application

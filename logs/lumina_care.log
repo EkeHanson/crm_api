@@ -340,3 +340,4 @@ KeyError: 'request'
 2025-07-31 15:09:30,246 [WARNING] django.request: Bad Request: /api/talent-engine/video-sessions/
 2025-07-31 15:09:30,246 [WARNING] django.server: "POST /api/talent-engine/video-sessions/ HTTP/1.1" 400 50
 2025-07-31 15:09:35,038 [INFO] django.server: "GET /api/talent-engine/video-sessions/ HTTP/1.1" 200 661
+2025-07-31 15:33:55,308 [INFO] django.utils.autoreload: Watching for file changes with StatReloader

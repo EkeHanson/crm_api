@@ -1,20 +1,27 @@
-from django.urls import path, include
+from django.urls import path, include, re_path
 from rest_framework.routers import DefaultRouter
 from .views import (
-    JobRequisitionListCreateView,JobRequisitionDetailView,
-    JobRequisitionBulkDeleteView, SoftDeletedJobRequisitionsView,
-    RecoverSoftDeletedJobRequisitionsView,PermanentDeleteJobRequisitionsView,
-    JobRequisitionByLinkView, ComplianceItemView, VideoSessionViewSet
+    JobRequisitionListCreateView,
+    JobRequisitionDetailView,
+    JobRequisitionBulkDeleteView,
+    SoftDeletedJobRequisitionsView,
+    RecoverSoftDeletedJobRequisitionsView,
+    PermanentDeleteJobRequisitionsView,
+    JobRequisitionByLinkView,
+    ComplianceItemView,
+    VideoSessionViewSet,
 )
-
-router = DefaultRouter()
-router.register(r'video-sessions', VideoSessionViewSet, basename='video-session')
-
+from . import websocket
 
 app_name = 'talent_engine'
 
+# Define DRF router for REST API endpoints
+router = DefaultRouter()
+router.register(r'video-sessions', VideoSessionViewSet, basename='video-session')
+
+# REST API URL patterns
 urlpatterns = [
-    path('', include(router.urls)),
+    path('', include(router.urls)),  # Include DRF router URLs for video-sessions
     path('requisitions/', JobRequisitionListCreateView.as_view(), name='requisition-list-create'),
     path('requisitions/<str:id>/', JobRequisitionDetailView.as_view(), name='requisition-detail'),
     path('requisitions/bulk/bulk-delete/', JobRequisitionBulkDeleteView.as_view(), name='requisition-bulk-delete'),
@@ -24,4 +31,9 @@ urlpatterns = [
     path('requisitions/by-link/<str:unique_link>/', JobRequisitionByLinkView.as_view(), name='requisition-by-link'),
     path('requisitions/<str:job_requisition_id>/compliance-items/', ComplianceItemView.as_view(), name='compliance-item-create'),
     path('requisitions/<str:job_requisition_id>/compliance-items/<str:item_id>/', ComplianceItemView.as_view(), name='compliance-item-detail'),
+]
+
+# WebSocket URL patterns (to be included in project-level urls.py or handled separately)
+websocket_urlpatterns = [
+    re_path(r'ws/signaling/(?P<session_id>[^/]+)/$', websocket.SignalingConsumer.as_asgi()),
 ]

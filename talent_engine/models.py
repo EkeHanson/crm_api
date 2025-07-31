@@ -194,8 +194,6 @@ class JobRequisition(models.Model):
 
 
 
-
-# Models
 class VideoSession(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     job_application = models.ForeignKey(
@@ -203,10 +201,15 @@ class VideoSession(models.Model):
         on_delete=models.CASCADE,
         related_name='video_sessions'
     )
+    tenant = models.ForeignKey(Tenant, on_delete=models.CASCADE, related_name='video_sessions')
     created_at = models.DateTimeField(auto_now_add=True)
     ended_at = models.DateTimeField(null=True, blank=True)
     is_active = models.BooleanField(default=True)
     recording_url = models.URLField(null=True, blank=True)
+    meeting_id = models.CharField(max_length=50, unique=True, default=uuid.uuid4)  # Unique meeting ID for WebRTC
+    scores = models.JSONField(default=dict, blank=True)  # Store scores {technical: 0, communication: 0, problemSolving: 0}
+    notes = models.TextField(blank=True, null=True)  # Store interviewer notes
+    tags = models.JSONField(default=list, blank=True)  # Store tags like ["Frontend", "Leadership"]
 
     class Meta:
         db_table = 'video_session'
@@ -214,6 +217,12 @@ class VideoSession(models.Model):
 
     def __str__(self):
         return f"Video Session {self.id} for {self.job_application}"
+
+    def end_session(self):
+        self.is_active = False
+        self.ended_at = timezone.now()
+        self.save()
+        logger.info(f"Video session {self.id} ended for tenant {self.tenant.schema_name}")
 
 class Participant(models.Model):
     session = models.ForeignKey(
@@ -224,8 +233,10 @@ class Participant(models.Model):
     user = models.ForeignKey(
         CustomUser,
         on_delete=models.CASCADE,
-        related_name='video_participations'
+        related_name='video_participations',
+        null=True, blank=True  # Allow blank for candidate-only participants
     )
+    candidate_email = models.EmailField(max_length=255, null=True, blank=True)  # <-- Add this line
     is_muted = models.BooleanField(default=False)
     is_camera_on = models.BooleanField(default=True)
     joined_at = models.DateTimeField(auto_now_add=True)
@@ -236,4 +247,8 @@ class Participant(models.Model):
         app_label = 'talent_engine'
 
     def __str__(self):
-        return f"{self.user} in {self.session}"
+        if self.user:
+            return f"{self.user.email} in {self.session}"
+        elif self.candidate_email:
+            return f"{self.candidate_email} in {self.session}"
+        return f"Participant in {self.session}"

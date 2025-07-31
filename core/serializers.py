@@ -266,20 +266,28 @@ class TenantSerializer(serializers.ModelSerializer):
             logger.error(f"Failed to create tenant or domain: {str(e)}")
             raise
 
+
     def update(self, instance, validated_data):
-        logo_file = validated_data.pop('logo_file', None)
+        logo_file = self.context['request'].FILES.get('logo') or validated_data.pop('logo', None)
         if logo_file:
             file_ext = os.path.splitext(logo_file.name)[1]
             filename = f"{uuid.uuid4()}{file_ext}"
             folder_path = f"tenant_logos/{timezone.now().strftime('%Y/%m/%d')}"
             path = f"{folder_path}/{filename}"
             content_type = mimetypes.guess_type(logo_file.name)[0]
+
             supabase.storage.from_(settings.SUPABASE_BUCKET).upload(
                 path, logo_file.read(), {"content-type": content_type or 'application/octet-stream'}
             )
             file_url = supabase.storage.from_(settings.SUPABASE_BUCKET).get_public_url(path)
-            validated_data['logo'] = file_url
-        return super().update(instance, validated_data)
+            instance.logo = file_url  # Directly update the instance
+
+        # Update other fields
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+        instance.save()
+        return instance
+
 
     def to_representation(self, instance):
         data = super().to_representation(instance)

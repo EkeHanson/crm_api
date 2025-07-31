@@ -9,8 +9,16 @@ import logging
 import json
 import asyncio
 import websockets
+from drf_spectacular.utils import extend_schema_field
+from job_application.models import JobApplication
 
 logger = logging.getLogger('talent_engine')
+
+
+
+
+
+
 
 class ComplianceItemSerializer(serializers.Serializer):
     id = serializers.UUIDField(required=False, default=uuid.uuid4)
@@ -55,6 +63,7 @@ class JobRequisitionSerializer(serializers.ModelSerializer):
             'id', 'tenant', 'tenant_domain', 'unique_link', 'requested_date', 'is_deleted', 'created_at', 'updated_at', 'branch'
         ]
 
+    @extend_schema_field(str)
     def get_requested_by(self, obj):
         if obj.requested_by:
             return {
@@ -65,10 +74,12 @@ class JobRequisitionSerializer(serializers.ModelSerializer):
             }
         return None
 
+    @extend_schema_field(str)
     def get_tenant_domain(self, obj):
         primary_domain = obj.tenant.domain_set.filter(is_primary=True).first()
         return primary_domain.domain if primary_domain else None
 
+    @extend_schema_field(list)
     def get_compliance_checklist(self, obj):
         serialized_items = []
         for item in obj.compliance_checklist:
@@ -111,43 +122,64 @@ class JobRequisitionSerializer(serializers.ModelSerializer):
         return instance
     
 # Serializers
+
+
+
+
+
+from rest_framework import serializers
+from .models import VideoSession, Participant
+from users.models import CustomUser
+import uuid
+import logging
+
+logger = logging.getLogger('talent_engine')
+
 class ParticipantSerializer(serializers.ModelSerializer):
     user_id = serializers.PrimaryKeyRelatedField(source='user', read_only=True)
     username = serializers.CharField(source='user.email', read_only=True)
+    first_name = serializers.CharField(source='user.first_name', read_only=True)
+    last_name = serializers.CharField(source='user.last_name', read_only=True)
+    candidate_email = serializers.EmailField(read_only=True)  # <-- Add this line
 
     class Meta:
         model = Participant
-        fields = ['id', 'user_id', 'username', 'is_muted', 'is_camera_on', 'joined_at', 'left_at']
+        fields = [
+            'id', 'user_id', 'username', 'first_name', 'last_name',
+            'candidate_email', 'is_muted', 'is_camera_on', 'joined_at', 'left_at'
+        ]
 
 class VideoSessionSerializer(serializers.ModelSerializer):
+    job_application_id = serializers.PrimaryKeyRelatedField(
+        source='job_application',
+        queryset=JobApplication.objects.all()  # Fix: use actual queryset, not string
+    )
     participants = ParticipantSerializer(many=True, read_only=True)
 
     class Meta:
         model = VideoSession
-        fields = ['id', 'job_application', 'created_at', 'ended_at', 'is_active', 'recording_url', 'participants']
+        fields = [
+            'id', 'job_application_id', 'tenant', 'created_at', 'ended_at',
+            'is_active', 'recording_url', 'meeting_id', 'scores', 'notes', 'tags', 'participants'
+        ]
+        read_only_fields = ['id', 'created_at', 'ended_at', 'is_active', 'recording_url', 'meeting_id', 'participants']
 
-# WebRTC Signaling Server
-connected_clients = {}
+    def validate_scores(self, value):
+        if not isinstance(value, dict):
+            raise serializers.ValidationError("Scores must be a dictionary.")
+        required_keys = ['technical', 'communication', 'problemSolving']
+        for key in required_keys:
+            if key not in value or not isinstance(value[key], int) or not (0 <= value[key] <= 5):
+                raise serializers.ValidationError(f"Scores must include {key} with a value between 0 and 5.")
+        return value
 
-async def signaling_server(websocket, path):
-    client_id = str(uuid.uuid4())
-    connected_clients[client_id] = websocket
-    try:
-        async for message in websocket:
-            data = json.loads(message)
-            session_id = data.get('session_id')
-            recipient_id = data.get('recipient_id')
-            if recipient_id in connected_clients:
-                await connected_clients[recipient_id].send(json.dumps(data))
-            logger.info(f"Signaling message for session {session_id} from {client_id}")
-    except Exception as e:
-        logger.error(f"Signaling error: {e}")
-    finally:
-        del connected_clients[client_id]
+    def validate_tags(self, value):
+        if not isinstance(value, list):
+            raise serializers.ValidationError("Tags must be a list of strings.")
+        return value
 
-def start_signaling_server():
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-    server = websockets.serve(signaling_server, "0.0.0.0", 8765)
-    loop.run_until_complete(server)
-    loop.run_forever()
+    def validate(self, data):
+        tenant = self.context['request'].tenant
+        if data.get('tenant') != tenant:
+            raise serializers.ValidationError("Tenant mismatch.")
+        return data

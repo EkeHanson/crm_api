@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'drf_spectacular',
     'viewflow.fsm',
     'auditlog',
+    'channels',
 
     # Local apps
     'core',
@@ -84,6 +85,8 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
+
+ASGI_APPLICATION = 'lumina_care.asgi.application'
 # -----------------------------------------------------------
 # SOCIAL PROVIDERS
 # -----------------------------------------------------------
@@ -327,3 +330,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 WEB_PAGE_URL="https://crm-frontend-react.vercel.app"
+
+
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
